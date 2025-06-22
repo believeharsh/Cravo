@@ -4,7 +4,6 @@ import { apiResponse } from "../services/apiResponse.js"
 import { generateUsername } from "../services/generateUserName.js";
 import { apiError } from "../services/ApiError.js";
 
-
 const registerUser = asyncHandler(async (req, res) => {
     console.log("register user controller")
     const { name, email, password } = req.body;
@@ -104,7 +103,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
-
 const logoutUser = asyncHandler(async (req, res) => {
     // console.log(req);
     const options = {
@@ -125,7 +123,6 @@ const logoutUser = asyncHandler(async (req, res) => {
 const changePassword = () => {
 
 }
-
 
 export {
     loginUser,

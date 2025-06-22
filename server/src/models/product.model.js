@@ -5,10 +5,15 @@ const ProductSchema = new Schema({
     description: { type: String, required: true },
     images: [{ type: String }], // URLs to high-quality images
     price: { type: Number, required: true, min: 0 },
+
+    restaurant: {
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurant', // This should match the name of your Restaurant model
+        required: true     // A product must belong to a restaurant
+    },
     
     // Categorization
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-    subCategory: { type: Schema.Types.ObjectId, ref: 'Category' }, // Optional, if you have nested categories
 
     ingredients: [{ type: String }],
     calorieInformation: { type: Number }, // In Kcal

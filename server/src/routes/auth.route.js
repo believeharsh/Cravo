@@ -14,7 +14,7 @@ const authRoute = Router();
 
 authRoute.post("/signin", loginUser)
 authRoute.post("/signup", registerUser)
-authRoute.get('/logout', verifyUserJwtToken, logoutUser)
+authRoute.get("/logout", verifyUserJwtToken, logoutUser)
 // authRoute.get("/profile", verifyUserJwtToken,  getCurrentUser)
 // authRoute.get("/checkAuth", verifyUserJwtToken, checkAuth )
 // authRoute.post("/refresh-token", refreshAccessToken)
