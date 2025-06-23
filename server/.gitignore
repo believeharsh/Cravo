@@ -119,6 +119,8 @@ dist
 
 # srever assests like images and videos etc ; 
 categories/
-scripts/
+products/
+restaurants/
+# scripts/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node
