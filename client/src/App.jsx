@@ -1,5 +1,8 @@
 import './App.css'
+import CategorySearch from './pages/CategoryResultPage'
 import LandingPage from './pages/LandingPage'
+import ProfilePage from './pages/ProfilePage'
+import RestaurantPage from './pages/RestaurantsPage'
 
 
 function App() {
@@ -8,8 +11,12 @@ function App() {
        {/* <div className="">Home of the Craving Cart</div>
         */}
 
-        <LandingPage/>
+        {/* <LandingPage/> */}
+        {/* <ProfilePage/> */}
+        {/* <CategorySearch/> */}
+        <RestaurantPage/>
     </>
+
   )
 }
 
