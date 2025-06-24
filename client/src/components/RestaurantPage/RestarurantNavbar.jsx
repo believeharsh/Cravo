@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 const RestaurantNavbar = ({ 
-    isVisible = false,
+    isVisible = true,
     onFilterChange,
     onSortChange,
     onSearchChange 
