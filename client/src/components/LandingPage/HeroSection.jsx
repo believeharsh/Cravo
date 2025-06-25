@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MapPin, Search, ChevronDown } from "lucide-react";
-
+import { NavLink } from "react-router-dom"
 const Hero = () => {
     const [locationFocused, setLocationFocused] = useState(false);
     const [foodFocused, setFoodFocused] = useState(false);
@@ -60,10 +60,12 @@ const Hero = () => {
                                         />
                                     </div>
                                 </div>
+                                <NavLink to={"/categories"}>
+                                    <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base">
+                                        Find Delicious Food
+                                    </button>
+                                </NavLink>
 
-                                <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base">
-                                    Find Delicious Food
-                                </button>
                             </div>
                         </div>
                     </div>
