@@ -13,6 +13,11 @@ dist-ssr
 *.local
 
 sampleUI/
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+
 
 # Editor directories and files
 .vscode/*

@@ -1,12 +1,6 @@
 // Footer.jsx
-import React from 'react';
-import {
-  Facebook,
-  Instagram,
-  Twitter,
-  Linkedin,
-  Youtube,
-} from 'lucide-react';
+import React from "react";
+import { Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
 
 /* quick helper for links */
 const LinkItem = ({ href, children }) => (
@@ -23,15 +17,16 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
       {/* top grid */}
       <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-
         {/* logo & tagline */}
         <div className="col-span-2">
           {/* swap the SVG/emoji with your real logo */}
           <div className="flex items-center space-x-2">
-            <div className="text-3xl">🍽️</div>
-            <span className="text-2xl font-extrabold tracking-tight">
-              Cravo
-            </span>
+            <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl flex items-center justify-center">
+              <img src={`/assets/Cravo_logo.png`} alt="" />
+            </div>
+            <div className="w-10 sm:w-32 ">
+              <img src={`/assets/Cravo_white_text_logo.png`} alt="" />
+            </div>
           </div>
           <p className="mt-4 text-sm text-gray-400 leading-relaxed">
             Bringing your favourite dishes from the best restaurants straight to
@@ -66,7 +61,6 @@ const Footer = () => (
 
       {/* divider */}
       <div className="border-t border-gray-800 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between">
-
         {/* social icons */}
         <div className="flex space-x-4 mb-6 sm:mb-0">
           <a

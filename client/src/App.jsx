@@ -21,6 +21,7 @@ import Dashboard from "./pages/profile/Dashboard"
 import ProfileLayout from './components/ProfileLayout'
 import NotFound from './components/NotFound'
 import CorporatePage from './pages/CorporatePage'
+import CheckApi from './components/checkApi'
 
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="signup" element={<SignupPage/>} />
         <Route path="cart" element={<CartPage/>} />
         <Route path="corporate" element={<CorporatePage/>} />
+        <Route path="checkapi" element={<CheckApi/>} />
 
         <Route path="profile" element={<ProfileLayout />}>
           {/* Default child route for /profile: redirects to dashboard */}
