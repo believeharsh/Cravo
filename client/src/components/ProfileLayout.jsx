@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom"; // Import NavLink and Outlet
+import { NavLink, Outlet } from "react-router-dom"; 
+
 import {
   ShoppingBag,
   Crown,
@@ -20,14 +21,12 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import Navbar from "../components/Navbar"; // Keep Navbar here as per your current code
+import Navbar from "../components/Navbar"; 
 
 const ProfileLayout = () => {
-  // Renamed the component from ProfilePage to ProfileLayout
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Add a 'path' property to each sidebar option that matches your desired URL path
   const sidebarOptions = [
     {
       id: "profile",
@@ -83,14 +82,14 @@ const ProfileLayout = () => {
       title: "Help & Support",
       icon: HelpCircle,
       color: "text-blue-500",
-    }, // 'help-support' to match route
+    },
     {
       id: "logout",
       title: "Logout",
       icon: LogOut,
       color: "text-red-500",
       action: () => console.log("Logout clicked"),
-    }, // Logout can be an action, not a route
+    }, 
   ];
 
   // Function to get current section title for mobile header using location
@@ -104,7 +103,7 @@ const ProfileLayout = () => {
 
   return (
     <>
-      <Navbar /> {/* This Navbar stays here as it was in your original code */}
+      <Navbar /> 
       <div className="min-h-screen flex bg-gray-50">
         {/* Mobile Overlay */}
         {isSidebarOpen && (
@@ -183,8 +182,7 @@ const ProfileLayout = () => {
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-1 lg:ml-72 flex flex-col">
-          {/* Mobile Header (kept as is, but dynamic title now uses location) */}
+        <main className="flex-1  flex flex-col">
           <header className="lg:hidden sticky top-0 bg-white p-4 flex items-center justify-between border-b border-gray-200 z-20">
             <button onClick={() => setIsSidebarOpen(true)}>
               <Menu size={24} />
@@ -197,9 +195,9 @@ const ProfileLayout = () => {
             </div>
           </header>
 
-          {/* The content will be rendered by React Router's Outlet */}
+          {/* rendering different profile pages using Router's Outlet */}
           <div className="flex-1 p-6 overflow-y-auto">
-            <Outlet /> {/* THIS IS THE KEY CHANGE */}
+            <Outlet /> 
           </div>
         </main>
       </div>
