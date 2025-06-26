@@ -1,5 +1,6 @@
 import dotenv from "dotenv"
 import express from "express"
+import cors from "cors"
 import authRoute from "./routes/auth.route.js" ; 
 import categoryRoute from "./routes/category.route.js";
 import path from "path"
@@ -10,11 +11,11 @@ dotenv.config()
 const app = express()
 
 
-// app.use(cors({
-//     origin: process.env.FRONTEND_URL,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     credentials: true
-// }))
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
+}))
 
 
 app.use(express.json({ limit: "50mb" }));
