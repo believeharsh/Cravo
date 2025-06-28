@@ -5,6 +5,8 @@ import authRoute from "./routes/auth.route.js" ;
 import categoryRoute from "./routes/category.route.js";
 import path from "path"
 import cookieParser from "cookie-parser"
+import productRoute from "./routes/product.route.js";
+import restaurantRoute from "./routes/restaurant.route.js";
 
 dotenv.config()
 
@@ -28,6 +30,8 @@ app.use(express.static(path.resolve("./public")))
 
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/categories", categoryRoute)
+app.use("/api/v1/products", productRoute)
+app.use("/api/v1/restaurants", restaurantRoute)
 
 
 
