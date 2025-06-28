@@ -16,12 +16,34 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // Checking if user already exists or not
-  const isUserExists = await User.findOne({ email });
-  if (isUserExists) {
-    throw new apiError(
-      409,
-      "User already exists with this email. Please login or reset password."
-    );
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    if (existingUser.isVerified) {
+      // Case 1: User exists and is already verified
+      throw new apiError(
+        409,
+        "User already exists with this email. Please login." 
+      );
+    } else {
+      // Case 2: User exists but is NOT verified
+
+      if (
+        existingUser.verificationTokenExpires &&
+        existingUser.verificationTokenExpires < Date.now()
+      ) {
+        console.log(
+          `Detected expired unverified account for ${email}. Deleting old record.`
+        );
+        await User.deleteOne({ _id: existingUser._id });
+
+      } else {
+        throw new apiError(
+          409,
+          "An account with this email already exists but is not verified. Please check your email for the verification link or try again after the link expires."
+        );
+      }
+    }
   }
 
   // Generating username
