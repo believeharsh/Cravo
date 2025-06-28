@@ -8,7 +8,6 @@ import { sendVerificationEmail } from "../services/emailService.js";
 import crypto from "crypto";
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log("register user controller");
   const { name, email, password } = req.body;
 
   if ([name, email, password].some((field) => field?.trim() === "")) {
@@ -23,7 +22,7 @@ const registerUser = asyncHandler(async (req, res) => {
       // Case 1: User exists and is already verified
       throw new apiError(
         409,
-        "User already exists with this email. Please login." 
+        "User already exists with this email. Please login."
       );
     } else {
       // Case 2: User exists but is NOT verified
@@ -36,7 +35,6 @@ const registerUser = asyncHandler(async (req, res) => {
           `Detected expired unverified account for ${email}. Deleting old record.`
         );
         await User.deleteOne({ _id: existingUser._id });
-
       } else {
         throw new apiError(
           409,
