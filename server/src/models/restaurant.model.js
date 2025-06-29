@@ -26,7 +26,7 @@ const RestaurantSchema = new Schema({
             coordinates: {
                 type: [Number], // Array of [longitude, latitude]
                 required: true,
-                index: '2dsphere' // Create a geospatial index
+                // index: '2dsphere' // Create a geospatial index
             }
         }
     },
@@ -93,6 +93,7 @@ const RestaurantSchema = new Schema({
 }, { timestamps: true }); // Mongoose adds createdAt and updatedAt fields automatically
 
 // Create text index for searchability by name, description, and cuisine type
+RestaurantSchema.index({ 'address.location': '2dsphere' });
 RestaurantSchema.index({
     name: 'text',
     description: 'text',
