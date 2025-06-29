@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser"
 import productRoute from "./routes/product.route.js";
 import restaurantRoute from "./routes/restaurant.route.js";
 import landingRoute from "./routes/landing.route.js";
+import cityRoute from "./routes/city.route.js"
 
 dotenv.config()
 
@@ -34,6 +35,7 @@ app.use("/api/v1/categories", categoryRoute)
 app.use("/api/v1/products", productRoute)
 app.use("/api/v1/restaurants", restaurantRoute)
 app.use("/api/v1/landingResources", landingRoute)
+app.use("/api/v1/cities", cityRoute)
 
 
 

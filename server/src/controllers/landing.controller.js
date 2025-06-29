@@ -7,7 +7,7 @@ const getLandingPageData = asyncHandler(async (req, res) => {
   console.log("getLandingPageData func is being fired now")
     const { longitude, latitude, maxDistanceKm } = req.query;
   try {
-    // Define the URLs for your existing APIs
+    
     const categoriesUrl = `${process.env.API_BASE_URL}/categories`;
     const restaurantsUrl = `${process.env.API_BASE_URL}/restaurants/location?longitude=${longitude}&latitude=${latitude}&maxDistanceKm=${maxDistanceKm}`; // Assuming this gives all or featured
     // const citiesUrl = `${API_BASE_URL}/cities`;
