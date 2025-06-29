@@ -3,7 +3,6 @@ import { asyncHandler } from "../services/asyncHandler.js";
 import { apiResponse } from "../services/apiResponse.js";
 
 const getAllCategories = asyncHandler(async (req, res) => {
-  console.log("fetaching all categories ...... ");
 
   const categories = await Category.find({ isVisible: true })
     .sort({ displayOrder: 1 })

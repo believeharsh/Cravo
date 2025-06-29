@@ -84,17 +84,15 @@ const getRestaurantById = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, restaurant, "Restaurant fetched successfully."));
 });
 
-const getRestaurantsByLocation = async (req, res) => {
-  console.log("get restaurant by location is getting fired now : ...........!");
-  // 1. Get longitude and latitude from query parameters
+const getRestaurantsByLocation = asyncHandler(async (req, res) => {
+
   const { longitude, latitude, maxDistanceKm } = req.query;
 
-  // --- Input Validation ---
   if (!longitude || !latitude) {
-    return res.status(400).json({
-      message:
-        "Missing location parameters. Please provide 'longitude' and 'latitude'.",
-    });
+    throw new apiError(
+      400,
+      "Missing location parameters. Please provide 'longitude' and 'latitude'."
+    );
   }
 
   const lon = parseFloat(longitude);
@@ -108,73 +106,68 @@ const getRestaurantsByLocation = async (req, res) => {
     lat < -90 ||
     lat > 90
   ) {
-    return res.status(400).json({
-      message:
-        "Invalid longitude or latitude. Must be valid numerical coordinates.",
-    });
+    throw new apiError(
+      400,
+      "Invalid longitude or latitude. Must be valid numerical coordinates."
+    );
   }
 
-  // Optional: Max distance in kilometers. Default to a reasonable value if not provided.
   // MongoDB's $nearSphere expects distance in meters.
   const maxDistMeters = maxDistanceKm
     ? parseFloat(maxDistanceKm) * 1000
     : 50000; // Default 50km
 
   if (isNaN(maxDistMeters) || maxDistMeters < 0) {
-    return res.status(400).json({
-      message: "Invalid maxDistanceKm. Must be a non-negative number.",
-    });
+    throw new apiError(
+      400,
+      "Invalid maxDistanceKm. Must be a non-negative number."
+    );
   }
 
-  try {
-    // 2. Use Mongoose's geospatial query operators
-    // $nearSphere finds documents within a sphere on a curved surface (earth)
-    // $geometry specifies the point [longitude, latitude]
-    // $maxDistance specifies the maximum distance in meters
-    const restaurants = await Restaurant.find({
-      "address.location": {
-        $nearSphere: {
-          $geometry: {
-            type: "Point",
-            coordinates: [lon, lat], // [longitude, latitude]
-          },
-          $maxDistance: maxDistMeters, // Distance in meters
+  // Using the Mongoose's geospatial query operators
+  // $nearSphere finds documents within a sphere on a curved surface (earth)
+  // $geometry specifies the point [longitude, latitude]
+  // $maxDistance specifies the maximum distance in meters
+  const restaurants = await Restaurant.find({
+    "address.location": {
+      $nearSphere: {
+        $geometry: {
+          type: "Point",
+          coordinates: [lon, lat], // [longitude, latitude]
         },
+        $maxDistance: maxDistMeters, // Distance in meters
       },
-      is_active: true, // Only fetch active restaurants
-    }).lean(); // .lean() to get plain JavaScript objects for better performance
+    },
+    is_active: true, // Only fetching active restaurants
+  }).lean();
 
-    if (restaurants.length === 0) {
-      // Optional: Implement the "nearest city" fallback logic here or
-      // in a separate service/utility function that this controller calls.
-      // For now, we'll just return an empty array if none are found.
-      return res.status(200).json({
-        message: "No restaurants found near the specified location.",
-        restaurants: [],
-      });
-    }
-
-    res.status(200).json({
-      message: "Restaurants fetched successfully by location.",
-      count: restaurants.length,
-      restaurants: restaurants,
-    });
-  } catch (error) {
-    console.error("Error fetching restaurants by location:", error);
-    // MongoDB's 2dsphere index can sometimes throw specific errors if misconfigured
-    if (error.code === 16755) {
-      // Error code for 'invalid geo object' or similar
-      return res.status(400).json({
-        message:
-          "Geospatial query error. Please ensure valid coordinates and index setup.",
-        error: error.message,
-      });
-    }
-    res.status(500).json({
-      message: "An error occurred while fetching restaurants by location.",
-      error: error.message,
-    });
+  if (restaurants.length === 0) {
+    return res
+      .status(200)
+      .json(
+        new apiResponse(
+          200,
+          [],
+          "No restaurants found near the specified location"
+        )
+      );
   }
-};
 
-export { getAllRestaurantsByCategory, getRestaurantById, getRestaurantsByLocation };
+  res.status(200).json(
+    new apiResponse(
+      200,
+      {
+        count: restaurants.length,
+        restaurants: restaurants,
+      },
+      "Restaurants fetched successfully by location."
+    )
+  );
+});
+
+
+export {
+  getAllRestaurantsByCategory,
+  getRestaurantById,
+  getRestaurantsByLocation,
+};
