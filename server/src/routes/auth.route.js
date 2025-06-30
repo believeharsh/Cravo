@@ -2,7 +2,8 @@ import { Router } from "express"
 import {
     loginUser, 
     registerUser,
-    logoutUser, 
+    logoutUser,
+    getAuthStatus, 
     changePassword,
     verifyUser
 } from "../controllers/auth.controller.js"
@@ -12,6 +13,7 @@ const authRoute = Router();
 
 authRoute.post("/signin", loginUser)
 authRoute.post("/signup", registerUser)
+authRoute.get("/verify-auth", verifyUserJwtToken, getAuthStatus) ; 
 authRoute.get("/logout", verifyUserJwtToken,  logoutUser)
 authRoute.get("/verify-account", verifyUser)
 

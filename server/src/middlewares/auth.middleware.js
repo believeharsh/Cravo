@@ -2,6 +2,7 @@ import { validateToken } from "../services/userTokens.js";
 import { asyncHandler } from "../services/asyncHandler.js";
 import User from "../models/user.model.js";
 import { apiError } from "../services/ApiError.js";
+import jwt from "jsonwebtoken"
 
 const verifyUserJwtToken = asyncHandler(async (req, res, next) => {
   try {

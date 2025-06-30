@@ -185,6 +185,19 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, {}, "User is logged out now"));
 });
 
+const getAuthStatus = (req, res) => {
+  // here this controller depends on the middleware, Hence I've directly moved to the res part
+    res.status(200).json({
+        status: 'authenticated',
+        user: {
+            id: req.user._id, // Assuming your User model uses _id
+            email: req.user.email,
+            role: req.user.role,
+            name: req.user.name,
+        }
+    });
+};
+
 const changePassword = () => {};
 
 const verifyUser = asyncHandler(async (req, res) => {
@@ -228,4 +241,4 @@ const verifyUser = asyncHandler(async (req, res) => {
   );
 });
 
-export { loginUser, registerUser, logoutUser, changePassword, verifyUser };
+export { loginUser, registerUser, logoutUser, getAuthStatus,  changePassword, verifyUser };
