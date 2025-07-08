@@ -72,7 +72,6 @@ function App() {
       <Route path="unauthorized" element={<UnauthorizedPage />} /> 
 
       {/* Protected Routes (require authentication) */}
-      {/* Use PrivateRoute to wrap routes that require a user to be logged in */}
       <Route element={<PrivateRoute />}>
         {/* All routes nested here will only be accessible if isAuthenticated is true */}
         <Route path="profile" element={<ProfileLayout />}>
