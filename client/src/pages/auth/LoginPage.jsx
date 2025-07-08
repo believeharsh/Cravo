@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../../api/axiosInstance";   // ← your pre-configured Axios
+// Make sure this path is correct relative to this file
+import axiosInstance from "../../api/axiosInstance"; 
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser, clearAuthError } from '../../features/auth/authSlice';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Select relevant state from the Redux store
+  const authState = useSelector((state) => state.auth);
+  const currentUser = useSelector((state) => state.auth.user);
+  console.log(currentUser)
+  const { isLoading, error, isAuthenticated, role } = authState; // Destructure directly from authState
 
   // form data
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   // ui state
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState("");
 
   // helpers
   const handleInputChange = (e) =>
@@ -21,35 +29,44 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    dispatch(clearAuthError()); // Clear any previous Redux error
 
     if (!formData.email.trim() || !formData.password.trim()) {
-      return setError("Email and password are required.");
+      alert("Email and password are required.");
+      return;
     }
 
-    setIsLoading(true);
-    try {
-      const res = await axiosInstance.post("/api/v1/auth/signin", formData, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true, 
-      });
+    const resultAction = await dispatch(loginUser(formData));
+    console.log(resultAction)
 
-      // Optionally persist role / tokens if “Remember me” is checked
-      if (rememberMe) {
-        localStorage.setItem("role", res.data?.role ?? "");
+    if (loginUser.fulfilled.match(resultAction)) {
+      if (rememberMe && resultAction.payload?.role) {
+        localStorage.setItem("role", resultAction.payload.role);
+        // If your API sends an accessToken that needs to be persisted here, do it:
+        // localStorage.setItem("accessToken", resultAction.payload.token);
       }
-
-      navigate("/restaurants");
-    } catch (err) {
-      if (err.response?.status === 400) {
-        setError(err.response.data?.message ?? "Invalid credentials.");
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
-    } finally {
-      setIsLoading(false);
+      navigate("/restaurants"); // Navigate on successful login
     }
   };
+
+  // --- Move this useEffect block INSIDE the component ---
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/restaurants');
+    }
+  }, [isAuthenticated, navigate]);
+
+  // --- This is the useEffect for logging state ---
+  useEffect(() => {
+    console.log("Current Redux Auth State:", authState);
+    console.log("Current Logged-in User:", currentUser);
+
+    if (isAuthenticated && currentUser) {
+      console.log("User logged in successfully:", currentUser);
+      console.log("User Role:", role);
+    }
+  }, [authState, currentUser, isAuthenticated, role]); // Depend on the state variables you're logging
+  // ----------------------------------------------------
 
   return (
     <div className="min-h-screen flex">
@@ -246,4 +263,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-// Import your slice reducers here as you create them
 import authReducer from '../features/auth/authSlice';
+import landingPageReducer from "../features/landing/landingSlice"
 // import userReducer from '../features/user/userSlice';
 // import postsReducer from '../features/posts/postsSlice';
 
 const store = configureStore({
     reducer: {
         auth: authReducer, // Add your auth slice here
+        landingPage: landingPageReducer, 
         // auth: authReducer,
         // user: userReducer,
         // posts: postsReducer,

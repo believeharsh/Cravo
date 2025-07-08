@@ -30,6 +30,8 @@ export const checkAuthStatus = createAsyncThunk(
         withCredentials: true,
       });
       // Assuming your backend returns { status: 'authenticated', user: { ... } }
+      console.log(res.data) ; 
+
       return res.data.user; // Return the user object if authenticated
     } catch (err) {
       if (err.response) {
