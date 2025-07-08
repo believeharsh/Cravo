@@ -1,36 +1,77 @@
 import React, { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, MapPin, Clock } from "lucide-react";
 import { useSelector } from "react-redux";
 
-const CityCard = ({ city, width }) => (
+const RestaurantCard = ({ restaurant, width }) => (
   <div
     className="flex-shrink-0 px-2 sm:px-3"
     style={{ width }} /* % width from parent */
   >
     <div
-      className="bg-white rounded-xl border border-gray-200 flex flex-col items-center
-                 justify-center py-5 hover:-translate-y-1 hover:shadow-md
-                 transition-transform duration-200 ease-out"
+      className="bg-white rounded-xl border border-gray-200 overflow-hidden
+                 hover:-translate-y-1 hover:shadow-md
+                 transition-transform duration-200 ease-out cursor-pointer"
     >
-      {/* <div className="text-4xl mb-2">🏙️</div> */}
-      <span className="font-medium text-gray-700 text-sm text-center">{city.name}</span>
-      {/* {city.is_serviceable && (
-        <span className="inline-block mt-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">
-          Serviceable
-        </span>
-      )} */}
+      {/* Restaurant Image */}
+      <div className="relative h-32 sm:h-36 overflow-hidden">
+        <img 
+          src={restaurant.images[0]} 
+          alt={restaurant.name}
+          className="w-full h-full object-cover"
+        />
+        {restaurant.is_active && (
+          <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+            Open
+          </div>
+        )}
+        <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+          <Star size={10} fill="currentColor" />
+          {restaurant.rating}
+        </div>
+      </div>
+
+      {/* Restaurant Details */}
+      <div className="p-4">
+        <h3 className="font-semibold text-gray-800 text-sm mb-1 truncate">
+          {restaurant.name}
+        </h3>
+        
+        <div className="flex items-center gap-1 mb-2">
+          <span className="text-xs text-gray-500">
+            {restaurant.cuisine_type.join(", ")}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between text-xs text-gray-500">
+          <div className="flex items-center gap-1">
+            <MapPin size={10} />
+            <span>{restaurant.address.city}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Clock size={10} />
+            <span>{restaurant.delivery_radius_km}km</span>
+          </div>
+        </div>
+
+        <div className="mt-2 pt-2 border-t border-gray-100">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-600">Min Order: ₹{restaurant.min_order_value}</span>
+            <span className="text-gray-500">({restaurant.numberOfReviews} reviews)</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
 
-const CitiesSection = () => {
-  const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
+const RestaurantsSection = () => {
+  const itemsPerView = { mobile: 1, tablet: 2, desktop: 3 };
   const { data, isLoading, error } = useSelector((state) => state.landingPage);
-  const [cities, setCities] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    if (data?.data?.citiesWeServe?.data) {
-      setCities(data.data.citiesWeServe.data);
+    if (data?.data?.featuredRestaurants?.data?.restaurants) {
+      setRestaurants(data.data.featuredRestaurants.data.restaurants);
     }
   }, [data]);
 
@@ -54,7 +95,7 @@ const CitiesSection = () => {
   }, []);
 
   /* keep index in range when viewport shrinks */
-  const maxIndex = Math.max(0, cities.length - itemsToShow);
+  const maxIndex = Math.max(0, restaurants.length - itemsToShow);
   useEffect(
     () => setIndex((i) => Math.min(i, maxIndex)),
     [itemsToShow, maxIndex]
@@ -70,10 +111,10 @@ const CitiesSection = () => {
         <div className="flex items-center justify-between mb-6 mt-15">
           <div>
             <h2 className="text-xl font-bold text-gray-800">
-              Cities We Serve
+              Popular Restaurants
             </h2>
             <p className="text-gray-600 text-sm mt-1">
-              Bringing delicious food to your doorstep across India
+              Discover top-rated restaurants near you
             </p>
           </div>
           <div className="flex gap-2">
@@ -108,8 +149,8 @@ const CitiesSection = () => {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(${translatePct}%)` }}
           >
-            {cities.map((city) => (
-              <CityCard key={city._id} city={city} width={`${cardWidthPct}%`} />
+            {restaurants.map((restaurant) => (
+              <RestaurantCard key={restaurant._id} restaurant={restaurant} width={`${cardWidthPct}%`} />
             ))}
           </div>
         </div>
@@ -118,4 +159,4 @@ const CitiesSection = () => {
   );
 };
 
-export default CitiesSection;
+export default RestaurantsSection;
