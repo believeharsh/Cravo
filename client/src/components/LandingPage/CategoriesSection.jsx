@@ -29,13 +29,16 @@ const CategoryCard = ({ c, width }) => (
 
 const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
+  console.log("CategoriesSlider Mounted/Rendered on path:", window.location.pathname);
   const [foodCategories, setFoodCategories] = useState([]);
+  console.log(foodCategories)
   const { data, isLoading, error } = useSelector((state) => state.landingPage);
 
   // Set categories from Redux store
   useEffect(() => {
     if (data?.data?.categories?.data?.categories) {
       setFoodCategories(data.data.categories.data.categories);
+      console.log(foodCategories)
     }
   }, [data]);
 
