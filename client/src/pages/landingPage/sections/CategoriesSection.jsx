@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSelector } from "react-redux";
+import Icon from "../../../components/ui/Icon";
 
 const CategoryCard = ({ c, width }) => (
   <div
@@ -128,7 +128,7 @@ const CategoriesSlider = () => {
                     : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
                 }`}
               >
-                <ChevronLeft size={18} />
+                <Icon name={"chevron-left"} size={18} />
               </button>
               <button
                 onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
@@ -139,7 +139,7 @@ const CategoriesSlider = () => {
                     : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
                 }`}
               >
-                <ChevronRight size={18} />
+                <Icon name={"chevron-right"}size={18} />
               </button>
             </div>
           )}

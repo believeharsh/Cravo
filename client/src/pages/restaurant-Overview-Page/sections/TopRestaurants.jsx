@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import Icon from '../../../components/ui/Icon';
 
 /* ------------------------------------------------------------------ */
 /*  Restaurant card                                                   */
@@ -28,7 +28,7 @@ const RestaurantCard = ({ data, width }) => (
 
         <div className="flex items-center space-x-2 my-2">
           <span className="flex items-center space-x-1 bg-green-100 px-2 py-0.5 rounded-lg">
-            <Star size={12} className="text-green-600 fill-current" />
+            <Icon name={"star"} size={12} className="text-green-600 fill-current" />
             <span className="text-green-700 font-semibold text-xs">{data.rating}</span>
           </span>
           <span className="text-gray-500 text-xs">(500+)</span>
@@ -137,7 +137,7 @@ const TopRestaurants = () => {
                   : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600 hover:bg-yellow-50'
               }`}
             >
-              <ChevronLeft size={18} />
+              <Icon name={"chevron-left"} size={18} />
             </button>
 
             <button
@@ -149,7 +149,7 @@ const TopRestaurants = () => {
                   : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600 hover:bg-yellow-50'
               }`}
             >
-              <ChevronRight size={18} />
+              <Icon name={"chevron-right"} size={18} />
             </button>
           </div>
         </div>

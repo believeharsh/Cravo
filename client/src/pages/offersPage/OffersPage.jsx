@@ -1,22 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../../components/Footer";
-import {
-  Percent,
-  Clock,
-  Star,
-  MapPin,
-  Search,
-  Tag,
-  Gift,
-  Truck,
-  //   Fire,
-  Users,
-  Crown,
-  TrendingUp,
-  ShoppingCart,
-  Clipboard,
-  Check,
-} from "lucide-react";
+import Icon from "../../components/ui/Icon"; // Adjust path as needed
 
 const OffersPage = () => {
   /* ────────────────────────── state ────────────────────────── */
@@ -27,12 +11,12 @@ const OffersPage = () => {
 
   /* ────────────────────────── data ─────────────────────────── */
   const categories = [
-    { key: "all", label: "All Offers", icon: Tag },
-    { key: "pizza", label: "Pizza", icon: Gift },
-    { key: "burgers", label: "Burgers", icon: Gift },
-    { key: "asian", label: "Asian", icon: Gift },
-    { key: "desserts", label: "Desserts", icon: Gift },
-    { key: "healthy", label: "Healthy", icon: Gift },
+    { key: "all", label: "All Offers", icon: "tag" },
+    { key: "pizza", label: "Pizza", icon: "pizza" },
+    { key: "burgers", label: "Burgers", icon: "sandwich" },
+    { key: "asian", label: "Asian", icon: "egg-fried" },
+    { key: "desserts", label: "Desserts", icon: "cake" },
+    { key: "healthy", label: "Healthy", icon: "leaf" },
   ];
 
   const offerTypes = [
@@ -44,10 +28,156 @@ const OffersPage = () => {
   ];
 
   const featuredOffers = [
-    /* … unchanged … */
+    {
+      id: "f1",
+      title: "Get 50% Off on Your First Order!",
+      description: "Applies to all menu items for new customers. Limited time offer!",
+      image: "https://via.placeholder.com/400x250/FFD700/FFFFFF?text=PizzaOffer",
+      discount: "50% OFF",
+      code: "WELCOME50",
+      type: "percentage",
+      category: "pizza",
+      isNew: true,
+      isTrending: true,
+      minOrder: 20,
+      maxDiscount: 15,
+      validUntil: "2025-12-31",
+      restaurant: {
+        name: "Pizza Hub",
+        image: "https://via.placeholder.com/100x100/FF5733/FFFFFF?text=PH",
+        rating: 4.5,
+        deliveryTime: "30-45 min",
+      },
+    },
+    {
+      id: "f2",
+      title: "Buy One Get One Free on All Burgers!",
+      description: "Double the deliciousness with this amazing BOGO deal. Grab it now!",
+      image: "https://via.placeholder.com/400x250/FFA500/FFFFFF?text=BurgerOffer",
+      discount: "BOGO",
+      code: "BURGERBOGO",
+      type: "bogo",
+      category: "burgers",
+      isNew: false,
+      isTrending: true,
+      minOrder: 15,
+      maxDiscount: null,
+      validUntil: "2025-11-15",
+      restaurant: {
+        name: "Burger Bonanza",
+        image: "https://via.placeholder.com/100x100/FFC300/FFFFFF?text=BB",
+        rating: 4.2,
+        deliveryTime: "25-40 min",
+      },
+    },
+    {
+      id: "f3",
+      title: "Free Delivery on Orders Over $25",
+      description: "Enjoy your favorite meals delivered to your door, on us!",
+      image: "https://via.placeholder.com/400x250/87CEEB/FFFFFF?text=DeliveryOffer",
+      discount: "FREE",
+      code: "FREEDELIVERY",
+      type: "free_delivery",
+      category: "all",
+      isNew: true,
+      isTrending: false,
+      minOrder: 25,
+      maxDiscount: null,
+      validUntil: "2025-10-31",
+      restaurant: {
+        name: "Tasty Bites",
+        image: "https://via.placeholder.com0x100/581845/FFFFFF?text=TB",
+        rating: 4.7,
+        deliveryTime: "20-35 min",
+      },
+    },
   ];
+
   const regularOffers = [
-    /* … unchanged … */
+    {
+      id: "r1",
+      title: "$5 Off Your Next Sushi Order",
+      description: "Craving sushi? Use this code for a discount on your next delicious meal.",
+      image: "https://via.placeholder.com/400x250/9370DB/FFFFFF?text=SushiOffer",
+      discount: "$5 OFF",
+      code: "SUSHI5",
+      type: "fixed",
+      category: "asian",
+      isNew: false,
+      isTrending: false,
+      minOrder: 30,
+      maxDiscount: 5,
+      validUntil: "2025-09-30",
+      restaurant: {
+        name: "Sakura Sushi",
+        image: "https://via.placeholder.com/100x100/4682B4/FFFFFF?text=SS",
+        rating: 4.6,
+        deliveryTime: "40-55 min",
+      },
+    },
+    {
+      id: "r2",
+      title: "10% Off All Healthy Salads",
+      description: "Eat well and save! Get a discount on our fresh and healthy salad range.",
+      image: "https://via.placeholder.com/400x250/8FBC8F/FFFFFF?text=SaladOffer",
+      discount: "10% OFF",
+      code: "HEALTHY10",
+      type: "percentage",
+      category: "healthy",
+      isNew: false,
+      isTrending: false,
+      minOrder: 10,
+      maxDiscount: 7,
+      validUntil: "2025-08-31",
+      restaurant: {
+        name: "Green Eats",
+        image: "https://via.placeholder.com/100x100/3CB371/FFFFFF?text=GE",
+        rating: 4.3,
+        deliveryTime: "20-30 min",
+      },
+    },
+    {
+      id: "r3",
+      title: "Dessert Duo Deal: 2 Desserts for $10",
+      description: "Treat yourself and a friend with our sweet dessert offer.",
+      image: "https://via.placeholder.com/400x250/FF69B4/FFFFFF?text=DessertOffer",
+      discount: "$10 DEAL",
+      code: "DUODEAL",
+      type: "fixed",
+      category: "desserts",
+      isNew: false,
+      isTrending: false,
+      minOrder: 10,
+      maxDiscount: null,
+      validUntil: "2025-07-20",
+      restaurant: {
+        name: "Sweet Tooth",
+        image: "https://via.placeholder.com/100x100/FF1493/FFFFFF?text=ST",
+        rating: 4.8,
+        deliveryTime: "15-25 min",
+      },
+    },
+    {
+      id: "r4",
+      title: "Weekend Special: 20% Off All Orders",
+      description: "Enjoy a delightful weekend with great savings on all your favorite meals.",
+      image: "https://via.placeholder.com/400x250/FF6347/FFFFFF?text=WeekendOffer",
+      discount: "20% OFF",
+      code: "WEEKEND20",
+      type: "percentage",
+      category: "all",
+      isNew: true,
+      isTrending: false,
+      minOrder: 25,
+      maxDiscount: 10,
+      validUntil: "2025-07-21",
+      restaurant: {
+        name: "Global Cuisine",
+        image: "https://via.placeholder.com/100x100/DC143C/FFFFFF?text=GC",
+        rating: 4.4,
+        deliveryTime: "35-50 min",
+      },
+    },
   ];
   const allOffers = [...featuredOffers, ...regularOffers];
 
@@ -66,15 +196,24 @@ const OffersPage = () => {
     });
 
   const OfferIcon = ({ type }) => {
-    const Icon =
-      type === "percentage"
-        ? Percent
-        : type === "fixed"
-        ? Tag
-        : type === "bogo"
-        ? Gift
-        : Truck;
-    return <Icon className="w-5 h-5 text-yellow-600" />;
+    let iconName;
+    switch (type) {
+      case "percentage":
+        iconName = "percent";
+        break;
+      case "fixed":
+        iconName = "tag";
+        break;
+      case "bogo":
+        iconName = "gift";
+        break;
+      case "free_delivery":
+        iconName = "truck";
+        break;
+      default:
+        iconName = "tag"; // Default icon
+    }
+    return <Icon name={iconName} className="w-5 h-5 text-yellow-600" />;
   };
 
   const filterFn = (o) => {
@@ -106,7 +245,7 @@ const OffersPage = () => {
           )}
           {offer.isTrending && (
             <span className="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded-full flex items-center gap-1">
-              <TrendingUp className="w-3 h-3" />
+              <Icon name="trending-up" className="w-3 h-3" />
               Trending
             </span>
           )}
@@ -144,9 +283,9 @@ const OffersPage = () => {
               {offer.restaurant.name}
             </p>
             <div className="flex items-center gap-1 text-xs text-medium-gray">
-              <Star className="w-4 h-4" />
+              <Icon name="star" className="w-4 h-4" />
               <span>{offer.restaurant.rating}</span>
-              <Clock className="w-4 h-4 ml-2" />
+              <Icon name="clock" className="w-4 h-4 ml-2" />
               <span>{offer.restaurant.deliveryTime}</span>
             </div>
           </div>
@@ -165,11 +304,11 @@ const OffersPage = () => {
           >
             {copiedId === offer.id ? (
               <>
-                <Check className="w-4 h-4" /> Copied
+                <Icon name="check" className="w-4 h-4" /> Copied
               </>
             ) : (
               <>
-                <Clipboard className="w-4 h-4" /> {offer.code}
+                <Icon name="clipboard" className="w-4 h-4" /> {offer.code}
               </>
             )}
           </button>
@@ -201,10 +340,10 @@ const OffersPage = () => {
               </p>
               <div className="flex gap-6 text-yellow-100 text-sm font-semibold">
                 <div className="flex items-center gap-2">
-                  {/* <Fire className="w-5 h-5" /> {allOffers.length}+ Active Offers */}
+                  <Icon name="fire" className="w-5 h-5" /> {allOffers.length}+ Active Offers
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5" /> 10K+ Happy Customers
+                  <Icon name="users" className="w-5 h-5" /> 10K+ Happy Customers
                 </div>
               </div>
             </div>
@@ -217,7 +356,7 @@ const OffersPage = () => {
             {/* Search */}
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+                <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
                 <input
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -238,7 +377,7 @@ const OffersPage = () => {
                         : "bg-white text-medium-gray border-cream hover:bg-gray-100"
                     }`}
                   >
-                    <c.icon className="w-4 h-4" /> {c.label}
+                    <Icon name={c.icon} className="w-4 h-4" /> {c.label}
                   </button>
                 ))}
               </div>
@@ -262,13 +401,13 @@ const OffersPage = () => {
           <section className="mb-12 space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center">
-                <Crown className="w-5 h-5 text-white" />
+                <Icon name="crown" className="w-5 h-5 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-charcoal">
                 Featured Offers
               </h2>
               <div className="flex items-center gap-1 px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-semibold">
-                {/* <Fire className="w-3 h-3" /> Hot Deals */}
+                <Icon name="fire" className="w-3 h-3" /> Hot Deals
               </div>
             </div>
 
@@ -288,7 +427,7 @@ const OffersPage = () => {
           <section className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center">
-                <Tag className="w-5 h-5 text-white" />
+                <Icon name="tag" className="w-5 h-5 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-charcoal">More Offers</h2>
             </div>

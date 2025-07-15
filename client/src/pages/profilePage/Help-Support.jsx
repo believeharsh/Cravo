@@ -1,31 +1,5 @@
 import React, { useState } from 'react';
-import {
-  HelpCircle,
-  MessageCircle,
-  Phone,
-  Mail,
-  Search,
-  ChevronDown,
-  ChevronUp,
-  AlertCircle,
-  Send,
-  Paperclip,
-  Star,
-  ThumbsUp,
-  ThumbsDown,
-  Book,
-  Headphones,
-  FileText,
-  Video,
-  ExternalLink,
-  User,
-  Package,
-  CreditCard,
-  Truck,
-  Settings,
-  Calendar,
-  Shield
-} from 'lucide-react';
+import Icon from '../../components/ui/Icon'; 
 
 const HelpSupport = () => {
   /* --------------------------- local state --------------------------- */
@@ -44,16 +18,16 @@ const HelpSupport = () => {
 
   /* ------------------------------- data ------------------------------ */
   const faqCategories = [
-    { key: 'all', label: 'All Topics', icon: Book },
-    { key: 'orders', label: 'Orders & Delivery', icon: Package },
-    { key: 'payments', label: 'Payments & Billing', icon: CreditCard },
-    { key: 'account', label: 'Account & Profile', icon: User },
-    { key: 'technical', label: 'Technical Issues', icon: Settings },
-    { key: 'restaurants', label: 'Restaurants', icon: Truck },
+    { key: 'all', label: 'All Topics', icon: 'book' },
+    { key: 'orders', label: 'Orders & Delivery', icon: 'package' },
+    { key: 'payments', label: 'Payments & Billing', icon: 'credit-card' },
+    { key: 'account', label: 'Account & Profile', icon: 'user' },
+    { key: 'technical', label: 'Technical Issues', icon: 'settings' },
+    { key: 'restaurants', label: 'Restaurants', icon: 'truck' },
   ];
 
   const faqs = [
-  {
+    {
       id: 1,
       category: 'orders',
       question: 'How can I track my order?',
@@ -136,7 +110,7 @@ const HelpSupport = () => {
   ];
 
   const supportTickets = [
- {
+    {
       id: 'TKT-2024-001',
       subject: 'Order never arrived',
       category: 'orders',
@@ -169,10 +143,10 @@ const HelpSupport = () => {
   ];
 
   const quickActions = [
-    { title: 'Track Order', description: 'Check current order status', icon: Package },
-    { title: 'Report Issue', description: 'Report a problem with your order', icon: AlertCircle },
-    { title: 'Account Help', description: 'Manage account settings', icon: User },
-    { title: 'Payment Issues', description: 'Fix billing problems', icon: CreditCard },
+    { title: 'Track Order', description: 'Check current order status', icon: 'package' },
+    { title: 'Report Issue', description: 'Report a problem with your order', icon: 'alert-circle' },
+    { title: 'Account Help', description: 'Manage account settings', icon: 'user' },
+    { title: 'Payment Issues', description: 'Fix billing problems', icon: 'credit-card' },
   ];
 
   const contactMethods = [
@@ -181,7 +155,7 @@ const HelpSupport = () => {
       description: 'Chat with our support team',
       availability: 'Available 24/7',
       responseTime: 'Typically replies in 2-3 min',
-      icon: MessageCircle,
+      icon: 'message-circle',
       color: 'bg-mint-green',
       action: () => console.log('Open live chat'),
     },
@@ -190,7 +164,7 @@ const HelpSupport = () => {
       description: 'Call us directly',
       availability: 'Mon-Sun • 8 AM-10 PM',
       responseTime: '+1 (555) 123-FOOD',
-      icon: Phone,
+      icon: 'phone',
       color: 'bg-blue-500',
       action: () => window.open('tel:+15551234663'),
     },
@@ -199,7 +173,7 @@ const HelpSupport = () => {
       description: 'Send us an email',
       availability: 'We reply within 4-6 h',
       responseTime: 'support@example.com',
-      icon: Mail,
+      icon: 'mail',
       color: 'bg-purple-500',
       action: () => setShowContactForm(true),
     },
@@ -265,7 +239,7 @@ const HelpSupport = () => {
             className="p-4 bg-white rounded-xl border border-cream hover:border-yellow-400 hover:shadow-lg transition-all text-left group"
           >
             <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-yellow-200 transition-colors">
-              <a.icon className="w-6 h-6 text-yellow-600" />
+              <Icon name={a.icon} className="w-6 h-6 text-yellow-600" />
             </div>
             <h3 className="font-semibold text-charcoal mb-1">{a.title}</h3>
             <p className="text-sm text-medium-gray">{a.description}</p>
@@ -277,7 +251,7 @@ const HelpSupport = () => {
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+            <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
             <input
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -296,7 +270,7 @@ const HelpSupport = () => {
                     : 'bg-white text-medium-gray border-cream hover:bg-gray-100'
                 }`}
               >
-                <c.icon className="w-4 h-4" />
+                <Icon name={c.icon} className="w-4 h-4" />
                 {c.label}
               </button>
             ))}
@@ -308,7 +282,7 @@ const HelpSupport = () => {
       <div className="space-y-4">
         {filteredFaqs.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-            <HelpCircle className="w-16 h-16 text-medium-gray mx-auto mb-4" />
+            <Icon name="help-circle" className="w-16 h-16 text-medium-gray mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-charcoal mb-2">No FAQs found</h3>
             <p className="text-medium-gray">Try different keywords or another category.</p>
           </div>
@@ -324,9 +298,9 @@ const HelpSupport = () => {
               >
                 <h3 className="font-medium text-charcoal">{f.question}</h3>
                 {expandedFaq === f.id ? (
-                  <ChevronUp className="w-5 h-5 text-medium-gray" />
+                  <Icon name="chevron-up" className="w-5 h-5 text-medium-gray" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-medium-gray" />
+                  <Icon name="chevron-down" className="w-5 h-5 text-medium-gray" />
                 )}
               </button>
               {expandedFaq === f.id && (
@@ -338,13 +312,13 @@ const HelpSupport = () => {
                       onClick={() => handleFeedback(f.id, true)}
                       className="flex items-center gap-1 px-3 py-1 bg-mint-green/20 text-mint-green rounded-lg hover:bg-mint-green/30 transition-colors"
                     >
-                      <ThumbsUp className="w-4 h-4" /> {f.helpful}
+                      <Icon name="thumbs-up" className="w-4 h-4" /> {f.helpful}
                     </button>
                     <button
                       onClick={() => handleFeedback(f.id, false)}
                       className="flex items-center gap-1 px-3 py-1 bg-red-500/20 text-red-500 rounded-lg hover:bg-red-500/30 transition-colors"
                     >
-                      <ThumbsDown className="w-4 h-4" /> {f.notHelpful}
+                      <Icon name="thumbs-down" className="w-4 h-4" /> {f.notHelpful}
                     </button>
                   </div>
                 </div>
@@ -369,7 +343,7 @@ const HelpSupport = () => {
             <div
               className={`w-12 h-12 ${m.color} rounded-lg flex items-center justify-center mb-3`}
             >
-              <m.icon className="w-6 h-6 text-white" />
+              <Icon name={m.icon} className="w-6 h-6 text-white" />
             </div>
             <h3 className="font-semibold text-charcoal mb-1">{m.type}</h3>
             <p className="text-sm text-medium-gray">{m.description}</p>
@@ -436,7 +410,7 @@ const HelpSupport = () => {
             </div>
             <div className="md:col-span-2 flex flex-wrap gap-2 items-center">
               <label className="inline-flex items-center gap-2 cursor-pointer text-sm text-coffee">
-                <Paperclip className="w-4 h-4" />
+                <Icon name="paperclip" className="w-4 h-4" />
                 <span>Attach files</span>
                 <input
                   type="file"
@@ -458,7 +432,7 @@ const HelpSupport = () => {
               onClick={handleSubmitTicket}
               className="flex items-center gap-2 px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors"
             >
-              <Send className="w-4 h-4" />
+              <Icon name="send" className="w-4 h-4" />
               Submit
             </button>
             <button
@@ -522,32 +496,32 @@ const HelpSupport = () => {
           {
             title: 'Getting Started',
             desc: 'A quick overview of the app features',
-            icon: FileText,
+            icon: 'file-text',
           },
           {
             title: 'How to Order',
             desc: 'Step-by-step guide to place orders',
-            icon: Video,
+            icon: 'video',
           },
           {
             title: 'Manage Payments',
             desc: 'Add, edit, or remove payment methods',
-            icon: CreditCard,
+            icon: 'credit-card',
           },
           {
             title: 'Account Security',
             desc: 'Keep your account safe',
-            icon: Shield,
+            icon: 'shield',
           },
           {
             title: 'App Settings',
             desc: 'Customize your experience',
-            icon: Settings,
+            icon: 'settings',
           },
           {
             title: 'FAQ Video Playlist',
             desc: 'Watch quick tutorial videos',
-            icon: Video,
+            icon: 'video',
           },
         ].map((g) => (
           <a
@@ -556,11 +530,11 @@ const HelpSupport = () => {
             className="p-6 bg-white rounded-xl border border-cream hover:border-yellow-400 hover:shadow-lg transition-all block group"
           >
             <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-3">
-              <g.icon className="w-6 h-6 text-yellow-600" />
+              <Icon name={g.icon} className="w-6 h-6 text-yellow-600" />
             </div>
             <h3 className="font-semibold text-charcoal mb-1">{g.title}</h3>
             <p className="text-sm text-medium-gray">{g.desc}</p>
-            <ExternalLink className="w-4 h-4 text-medium-gray mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Icon name="external-link" className="w-4 h-4 text-medium-gray mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
           </a>
         ))}
       </div>

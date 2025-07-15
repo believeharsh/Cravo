@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, Star, MapPin, Clock } from "lucide-react";
 import { useSelector } from "react-redux";
+import Icon from "../../../components/ui/Icon";
 
 const RestaurantCard = ({ restaurant, width }) => (
   <div
@@ -25,7 +25,7 @@ const RestaurantCard = ({ restaurant, width }) => (
           </div>
         )}
         <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-          <Star size={10} fill="currentColor" />
+          <Icon name={"star"} size={10} fill="currentColor" />
           {restaurant.rating}
         </div>
       </div>
@@ -44,11 +44,11 @@ const RestaurantCard = ({ restaurant, width }) => (
 
         <div className="flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center gap-1">
-            <MapPin size={10} />
+            <Icon name={"map-pin"} size={10} />
             <span>{restaurant.address.city}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Clock size={10} />
+            <Icon name={"clock"} size={10} />
             <span>{restaurant.delivery_radius_km}km</span>
           </div>
         </div>
@@ -127,7 +127,7 @@ const RestaurantsSection = () => {
                   : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
               }`}
             >
-              <ChevronLeft size={18} />
+              <Icon name={"chevron-left"} size={18} />
             </button>
             <button
               onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
@@ -138,7 +138,7 @@ const RestaurantsSection = () => {
                   : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
               }`}
             >
-              <ChevronRight size={18} />
+              <Icon name={"chevron-right"} size={18} />
             </button>
           </div>
         </div>

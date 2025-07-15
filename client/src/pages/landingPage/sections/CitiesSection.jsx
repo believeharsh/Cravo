@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSelector } from "react-redux";
+import Icon from "../../../components/ui/Icon";
 
 const CityCard = ({ city, width }) => (
   <div
@@ -12,13 +12,7 @@ const CityCard = ({ city, width }) => (
                  justify-center py-5 hover:-translate-y-1 hover:shadow-md
                  transition-transform duration-200 ease-out"
     >
-      {/* <div className="text-4xl mb-2">🏙️</div> */}
       <span className="font-medium text-gray-700 text-sm text-center">{city.name}</span>
-      {/* {city.is_serviceable && (
-        <span className="inline-block mt-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">
-          Serviceable
-        </span>
-      )} */}
     </div>
   </div>
 );
@@ -86,7 +80,7 @@ const CitiesSection = () => {
                   : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
               }`}
             >
-              <ChevronLeft size={18} />
+              <Icon name={"chevron-left"} size={18} />
             </button>
             <button
               onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
@@ -97,7 +91,7 @@ const CitiesSection = () => {
                   : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
               }`}
             >
-              <ChevronRight size={18} />
+              <Icon name={"chevron-right"} size={18} />
             </button>
           </div>
         </div>

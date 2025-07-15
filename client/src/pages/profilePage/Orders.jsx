@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Package,
-  Clock,
+
   CheckCircle,
   XCircle,
-  Truck,
   Calendar,
   Search,
   ChevronDown,
@@ -12,10 +10,8 @@ import {
   Phone,
   Navigation,
   Receipt,
-  Download,
-  Heart,
-  ShoppingCart,
 } from 'lucide-react';
+import Icon from '../../components/ui/Icon';
 
 const Orders = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -34,31 +30,31 @@ const Orders = () => {
         return {
           label: 'Preparing',
           color: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-          icon: Clock,
+          icon: "clock",
         };
       case 'on_the_way':
         return {
           label: 'On the way',
           color: 'text-blue-600 bg-blue-50 border-blue-200',
-          icon: Truck,
+          icon: "truck",
         };
       case 'delivered':
         return {
           label: 'Delivered',
           color: 'text-mint-green bg-green-50 border-green-200',
-          icon: CheckCircle,
+          icon: "check-circle",
         };
       case 'cancelled':
         return {
           label: 'Cancelled',
           color: 'text-red-600 bg-red-50 border-red-200',
-          icon: XCircle,
+          icon: "x-circle",
         };
       default:
         return {
           label: 'Unknown',
           color: 'text-medium-gray bg-gray-50 border-gray-200',
-          icon: Package,
+          icon: "package",
         };
     }
   };
@@ -180,7 +176,7 @@ const Orders = () => {
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+            <Icon name={"search"} className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
             <input
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -190,7 +186,7 @@ const Orders = () => {
           </div>
 
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+            <Icon name={"calendar"} className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
             <select
               value={filterDateRange}
               onChange={(e) => setFilterDateRange(e.target.value)}
@@ -255,9 +251,9 @@ const Orders = () => {
                   <p className="text-sm text-medium-gray">{o.items.length} items</p>
                   <div className="mt-3">
                     {isOpen ? (
-                      <ChevronUp className="w-5 h-5 text-medium-gray" />
+                      <Icon name={"chevron-up"} className="w-5 h-5 text-medium-gray" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-medium-gray" />
+                      <Icon name={"chevron-down"} className="w-5 h-5 text-medium-gray" />
                     )}
                   </div>
                 </div>
@@ -318,7 +314,7 @@ const Orders = () => {
                           onClick={() => handleReorder(o)}
                           className="flex items-center gap-1 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors"
                         >
-                          <ShoppingCart className="w-4 h-4" />
+                          <Icon name={"shopping-cart"} className="w-4 h-4" />
                           Reorder
                         </button>
                       )}
@@ -327,7 +323,7 @@ const Orders = () => {
                           onClick={() => handleCancelOrder(o.id)}
                           className="flex items-center gap-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                         >
-                          <XCircle className="w-4 h-4" />
+                          <Icon name={"x-circle"} className="w-4 h-4" />
                           Cancel Order
                         </button>
                       )}
@@ -336,7 +332,7 @@ const Orders = () => {
                           onClick={() => handleTrackOrder(o)}
                           className="flex items-center gap-1 px-4 py-2 border border-yellow-400 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors"
                         >
-                          <Navigation className="w-4 h-4" />
+                          <Icon name={"navigation"} className="w-4 h-4" />
                           Track
                         </button>
                       )}
@@ -344,7 +340,7 @@ const Orders = () => {
                         className="flex items-center gap-1 px-4 py-2 border border-cream hover:bg-gray-50 rounded-lg transition-colors"
                         onClick={() => console.log('Invoice for', o.id)}
                       >
-                        <Receipt className="w-4 h-4" />
+                        <Icon name={"recipt"} className="w-4 h-4" />
                         Invoice
                       </button>
                     </div>
@@ -353,18 +349,18 @@ const Orders = () => {
                   {/* Delivery info */}
                   <div className="pt-6 border-t border-cream space-y-3 text-sm">
                     <p className="flex items-center gap-2 text-medium-gray">
-                      <MapPin className="w-4 h-4" />
+                      <Icon name={"map-pin"} className="w-4 h-4" />
                       {o.deliveryAddress}
                     </p>
                     {o.deliveryInstructions && (
                       <p className="flex items-center gap-2 text-medium-gray">
-                        <Clock className="w-4 h-4" />
+                        <Icon name={"clock"} className="w-4 h-4" />
                         {o.deliveryInstructions}
                       </p>
                     )}
                     {o.driver && (
                       <p className="flex items-center gap-2 text-medium-gray">
-                        <Phone className="w-4 h-4" />
+                        <Icon name={"phone"} className="w-4 h-4" />
                         {o.driver.name} &middot; {o.driver.phone}
                       </p>
                     )}
@@ -378,7 +374,7 @@ const Orders = () => {
         {/* Empty-state */}
         {filteredOrders.length === 0 && (
           <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-            <Package className="w-10 h-10 mx-auto text-yellow-400" />
+            <Icon name={"package"} className="w-10 h-10 mx-auto text-yellow-400" />
             <h3 className="mt-4 text-xl font-semibold text-charcoal">
               No orders match your filters
             </h3>

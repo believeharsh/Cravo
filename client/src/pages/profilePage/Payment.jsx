@@ -1,24 +1,12 @@
 import React, { useState } from 'react';
 import {
   CreditCard,
-  Plus,
-  Edit3,
-  Trash2,
-  Check,
-  X,
-  Save,
-  Eye,
-  EyeOff,
-  Calendar,
   DollarSign,
   Receipt,
-  Clock,
-  Filter,
   Download,
-  Star,
-  Shield,
   Wallet,
 } from 'lucide-react';
+import Icon from '../../components/ui/Icon';
 
 const Payments = () => {
   const [activeTab, setActiveTab] = useState('methods'); // 'methods', 'history', 'billing'
@@ -208,7 +196,7 @@ const Payments = () => {
           onClick={handleAddCard}
           className="flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
         >
-          <Plus className="w-5 h-5" />
+          <Icon name={"plus"}className="w-5 h-5" />
           Add New Card
         </button>
       </div>
@@ -225,7 +213,7 @@ const Payments = () => {
                 onClick={handleSaveCard}
                 className="flex items-center gap-2 px-4 py-2 bg-mint-green hover:bg-green-500 text-white rounded-lg transition-colors"
               >
-                <Save className="w-4 h-4" />
+                <Icon name={"save"} className="w-4 h-4" />
                 Save
               </button>
               <button
@@ -235,7 +223,7 @@ const Payments = () => {
                 }}
                 className="flex items-center gap-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
               >
-                <X className="w-4 h-4" />
+                <Icon name={"x"} className="w-4 h-4" />
                 Cancel
               </button>
             </div>
@@ -268,9 +256,9 @@ const Payments = () => {
                   }`}
                 >
                   {m.type === 'credit' ? (
-                    <CreditCard className="w-6 h-6 text-white" />
+                    <Icon name={"credit-card"} className="w-6 h-6 text-white" />
                   ) : (
-                    <Wallet className="w-6 h-6 text-white" />
+                    <Icon name={"wallet"} className="w-6 h-6 text-white" />
                   )}
                 </div>
 
@@ -279,7 +267,7 @@ const Payments = () => {
                     {m.nickname}
                     {m.isDefault && (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-yellow-400 text-white text-xs rounded-full">
-                        <Star className="w-3 h-3" /> Default
+                        <Icon name={"star"} className="w-3 h-3" /> Default
                       </span>
                     )}
                   </h4>
@@ -305,9 +293,9 @@ const Payments = () => {
                     className="p-2 text-medium-gray hover:bg-gray-100 rounded-lg transition-colors"
                   >
                     {showCardNumber[m.id] ? (
-                      <EyeOff className="w-5 h-5" />
+                      <Icon name={"eye-off"} className="w-5 h-5" />
                     ) : (
-                      <Eye className="w-5 h-5" />
+                      <Icon name={"eye"} className="w-5 h-5" />
                     )}
                   </button>
                 )}
@@ -325,14 +313,14 @@ const Payments = () => {
                   onClick={() => handleEditCard(m)}
                   className="p-2 text-mint-green hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                 >
-                  <Edit3 className="w-5 h-5" />
+                  <Icon name={"lucide-edit-3"} className="w-5 h-5" />
                 </button>
 
                 <button
                   onClick={() => handleDeleteCard(m.id)}
                   className="p-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                 >
-                  <Trash2 className="w-5 h-5" />
+                  <Icon name={"lucide-trash-2"} className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -349,7 +337,7 @@ const Payments = () => {
         <h2 className="text-2xl font-bold text-charcoal">Transaction History</h2>
 
         <div className="relative">
-          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5" />
+          <Icon name={"filter"} className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5" />
           <select
             value={filterPeriod}
             onChange={(e) => setFilterPeriod(e.target.value)}
@@ -392,7 +380,7 @@ const Payments = () => {
                 <p className="text-xl font-bold text-mint-green">${t.amount.toFixed(2)}</p>
                 <p className="text-sm text-medium-gray">{t.orderId}</p>
                 <button className="mt-2 flex items-center gap-1 text-sm text-yellow-600 hover:text-yellow-700 hover:bg-yellow-50 px-3 py-1 rounded-lg transition-colors">
-                  <Download className="w-4 h-4" />
+                  <Icon name={"receipt"} className="w-4 h-4" />
                   Receipt
                 </button>
               </div>
@@ -414,7 +402,7 @@ const Payments = () => {
 
         {filteredTransactions.length === 0 && (
           <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-            <Receipt className="w-10 h-10 mx-auto text-yellow-400" />
+            <Icon name={"receipt"} className="w-10 h-10 mx-auto text-yellow-400" />
             <h3 className="mt-4 text-xl font-semibold text-charcoal">
               No transactions found
             </h3>
@@ -432,7 +420,7 @@ const Payments = () => {
       <h2 className="text-2xl font-bold text-charcoal">Billing &amp; Security</h2>
 
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6 flex items-start gap-6">
-        <Shield className="w-10 h-10 text-yellow-400 flex-shrink-0" />
+        <Icon name={"shield"} className="w-10 h-10 text-yellow-400 flex-shrink-0" />
 
         <div className="flex-1">
           <h3 className="font-semibold text-charcoal mb-1">Secure Payments</h3>
@@ -446,15 +434,15 @@ const Payments = () => {
         <h3 className="font-semibold text-charcoal mb-4">Next Payment</h3>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-medium-gray">
-            <Calendar className="w-5 h-5" />
+            <Icon name={"calendar"} className="w-5 h-5" />
             <span>15 July 2025</span>
           </div>
           <div className="flex items-center gap-3 text-medium-gray">
-            <DollarSign className="w-5 h-5" />
+            <Icon name={"dollar-sign"}  className="w-5 h-5" />
             <span>$24.99</span>
           </div>
           <button className="flex items-center gap-1 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors">
-            <Download className="w-4 h-4" />
+            <Icon name={"download"} className="w-4 h-4" />
             Invoice
           </button>
         </div>

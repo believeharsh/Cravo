@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Building2, LogIn } from "lucide-react";
+import Icon from "../../../components/ui/Icon";
 
 const Navbar = () => {
   return (
@@ -30,7 +30,7 @@ const Navbar = () => {
                 }`
               }
             >
-              <Building2 size={18} />
+              <Icon name={"building-2"} size={18} />
               <span>Corporate</span>
             </NavLink>
 
@@ -60,7 +60,7 @@ const Navbar = () => {
 
           <NavLink to="/login">
             <button className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200">
-              <LogIn size={16} className="text-blue-600" />
+              <Icon name={"login"} size={16} className="text-blue-600" />
               <span className="font-medium text-gray-800 text-sm">Sign in</span>
             </button>
           </NavLink>

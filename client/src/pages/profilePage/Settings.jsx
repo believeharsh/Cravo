@@ -1,27 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Bell,
-  Mail,
-  Smartphone,
-  Shield,
-  Eye,
-  Globe,
-  Moon,
-  Sun,
-  Volume2,
-  MapPin,
-  Clock,
-  CreditCard,
-  Star,
-  Trash2,
   AlertTriangle,
-  Save,
   RefreshCw,
-  DollarSign,
-  Receipt,
   Database,
-  Users
 } from 'lucide-react';
+import Icon from '../../components/ui/Icon';
 
 const Settings = () => {
   const [settings, setSettings] = useState({
@@ -121,7 +104,7 @@ const Settings = () => {
   );
 
   const SettingItem = ({
-    icon: Icon,
+    icon,
     title,
     description,
     children,
@@ -138,7 +121,7 @@ const Settings = () => {
             warning ? 'bg-red-100' : 'bg-yellow-100'
           }`}
         >
-          <Icon className={`w-5 h-5 ${warning ? 'text-red-600' : 'text-yellow-600'}`} />
+          <Icon name={icon} className={`w-5 h-5 ${warning ? 'text-red-600' : 'text-yellow-600'}`} />
         </div>
         <div className="flex-1">
           <h3 className={`font-semibold ${warning ? 'text-red-800' : 'text-charcoal'}`}>
@@ -175,14 +158,14 @@ const Settings = () => {
             onClick={handleResetSettings}
             className="flex items-center gap-2 px-4 py-2 text-medium-gray hover:text-charcoal border border-cream hover:border-gray-300 rounded-lg transition-colors"
           >
-            <RefreshCw className="w-4 h-4" />
+            <Icon name={"refresh-cw"} className="w-4 h-4" />
             Reset
           </button>
           <button
             onClick={handleSaveSettings}
             className="flex items-center gap-2 px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
           >
-            <Save className="w-4 h-4" />
+            <Icon name={"save"} className="w-4 h-4" />
             Save Changes
           </button>
         </div>
@@ -200,12 +183,12 @@ const Settings = () => {
       {/* 4. Data & Marketing */}
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
         <h2 className="text-xl font-bold text-charcoal mb-6 flex items-center gap-3">
-          <Database className="w-6 h-6 text-yellow-600" />
+          <Icon name={"database"} className="w-6 h-6 text-yellow-600" />
           Data &amp; Marketing
         </h2>
         <div className="space-y-4">
           <SettingItem
-            icon={Star}
+            icon={"star"}
             title="Personalized Ads"
             description="Show ads based on your preferences and order history"
           >
@@ -216,7 +199,7 @@ const Settings = () => {
           </SettingItem>
 
           <SettingItem
-            icon={Database}
+            icon={"database"}
             title="Data Collection"
             description="Allow collection of anonymized usage data to improve our service"
           >
@@ -227,7 +210,7 @@ const Settings = () => {
           </SettingItem>
 
           <SettingItem
-            icon={Users}
+            icon={"users"}
             title="Third-Party Sharing"
             description="Permit sharing of limited data with trusted partners"
           >
@@ -238,7 +221,7 @@ const Settings = () => {
           </SettingItem>
 
           <SettingItem
-            icon={Mail}
+            icon={"mail"}
             title="Marketing Communications"
             description="Receive product updates and newsletters"
           >
@@ -253,12 +236,12 @@ const Settings = () => {
       {/* 5. Danger Zone */}
       <div className="bg-white rounded-2xl shadow-lg border border-red-200 p-6">
         <h2 className="text-xl font-bold text-red-700 mb-6 flex items-center gap-3">
-          <AlertTriangle className="w-6 h-6 text-red-600" />
+          <Icon name={"alert-triangle"} className="w-6 h-6 text-red-600" />
           Danger Zone
         </h2>
         <div className="space-y-4">
           <SettingItem
-            icon={Trash2}
+            icon={"lucide-trash-2"}
             title="Delete Account"
             description="Permanently delete your account and all associated data"
             warning

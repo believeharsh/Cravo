@@ -1,31 +1,5 @@
 import React, { useState } from "react";
-import {
-  ShoppingCart,
-  MapPin,
-  CreditCard,
-  Truck,
-  Plus,
-  Minus,
-  Trash2,
-  Edit3,
-  Clock,
-  Star,
-  Tag,
-  Gift,
-  Info,
-  ChevronRight,
-  Home,
-  Building,
-  User,
-  Phone,
-  CheckCircle,
-  AlertCircle,
-  Percent,
-  Receipt,
-  ArrowRight,
-  Heart,
-  RotateCcw,
-} from "lucide-react";
+import Icon from "../../components/ui/Icon"; 
 import CartNavigation from "./sections/CartNavigation";
 
 const CartPage = () => {
@@ -71,17 +45,11 @@ const CartPage = () => {
     },
   ]);
 
-  const [selectedAddress, setSelectedAddress] = useState(0);
-  const [selectedPayment, setSelectedPayment] = useState(0);
-  const [promoCode, setPromoCode] = useState("");
-  const [appliedPromo, setAppliedPromo] = useState(null);
-  const [deliveryInstructions, setDeliveryInstructions] = useState("");
-
   const addresses = [
     {
       id: 1,
       type: "Home",
-      icon: Home,
+      icon: "home", 
       address: "123 Main Street, Apt 4B",
       city: "New York, NY 10001",
       landmark: "Near Central Park",
@@ -90,7 +58,7 @@ const CartPage = () => {
     {
       id: 2,
       type: "Work",
-      icon: Building,
+      icon: "building",
       address: "456 Business Ave, Floor 12",
       city: "New York, NY 10005",
       landmark: "Manhattan Financial District",
@@ -98,19 +66,25 @@ const CartPage = () => {
     },
   ];
 
+  const [selectedAddress, setSelectedAddress] = useState(0);
+  const [selectedPayment, setSelectedPayment] = useState(0);
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState(null);
+  const [deliveryInstructions, setDeliveryInstructions] = useState("");
+
   const paymentMethods = [
     {
       id: 1,
       type: "Credit Card",
       details: "Visa ending in 4242",
-      icon: CreditCard,
+      icon: "credit-card",
       isDefault: true,
     },
     {
       id: 2,
       type: "PayPal",
       details: "john.doe@email.com",
-      icon: CreditCard,
+      icon: "credit-card", 
       isDefault: false,
     },
   ];
@@ -132,7 +106,6 @@ const CartPage = () => {
     },
   ];
 
-  // Calculate totals
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -144,7 +117,7 @@ const CartPage = () => {
   const itemDiscount = originalTotal - subtotal;
   const deliveryFee = subtotal >= 35 ? 0 : 3.99;
   const serviceFee = 2.5;
-  const gst = subtotal * 0.08; // 8% GST
+  const gst = subtotal * 0.08;
 
   let promoDiscount = 0;
   if (appliedPromo) {
@@ -189,7 +162,6 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     console.log("Proceeding to checkout...");
-    // Checkout logic here
   };
 
   if (cartItems.length === 0) {
@@ -198,7 +170,7 @@ const CartPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-md mx-auto text-center">
             <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <ShoppingCart className="w-16 h-16 text-medium-gray" />
+              <Icon name="shopping-cart" className="w-16 h-16 text-medium-gray" />
             </div>
             <h2 className="text-2xl font-bold text-charcoal mb-4">
               Your cart is empty
@@ -220,7 +192,6 @@ const CartPage = () => {
     <CartNavigation/>
       <div className="min-h-screen bg-cream">
         <div className="container mx-auto px-4 py-8">
-          {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-charcoal mb-2">Your Cart</h1>
             <p className="text-medium-gray">
@@ -229,13 +200,11 @@ const CartPage = () => {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* ───────── LEFT COLUMN ───────── */}
             <div className="lg:col-span-1 space-y-6">
-              {/* Delivery Address */}
               <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-yellow-600" />
+                    <Icon name="map-pin" className="w-5 h-5 text-yellow-600" />
                   </div>
                   <h3 className="text-lg font-semibold text-charcoal">
                     Delivery Address
@@ -261,7 +230,8 @@ const CartPage = () => {
                               : "bg-gray-100"
                           }`}
                         >
-                          <a.icon
+                          <Icon
+                            name={a.icon}
                             className={`w-4 h-4 ${
                               selectedAddress === i
                                 ? "text-white"
@@ -293,17 +263,16 @@ const CartPage = () => {
                   ))}
 
                   <button className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-medium-gray hover:border-yellow-400 hover:text-yellow-600 transition-colors flex items-center justify-center gap-2">
-                    <Plus className="w-4 h-4" />
+                    <Icon name="plus" className="w-4 h-4" />
                     Add New Address
                   </button>
                 </div>
               </div>
 
-              {/* Payment Method */}
               <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
-                    <CreditCard className="w-5 h-5 text-yellow-600" />
+                    <Icon name="credit-card" className="w-5 h-5 text-yellow-600" />
                   </div>
                   <h3 className="text-lg font-semibold text-charcoal">
                     Payment Method
@@ -329,7 +298,8 @@ const CartPage = () => {
                               : "bg-gray-100"
                           }`}
                         >
-                          <m.icon
+                          <Icon
+                            name={m.icon}
                             className={`w-4 h-4 ${
                               selectedPayment === i
                                 ? "text-white"
@@ -357,17 +327,16 @@ const CartPage = () => {
                   ))}
 
                   <button className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-medium-gray hover:border-yellow-400 hover:text-yellow-600 transition-colors flex items-center justify-center gap-2">
-                    <Plus className="w-4 h-4" />
+                    <Icon name="plus" className="w-4 h-4" />
                     Add Payment Method
                   </button>
                 </div>
               </div>
 
-              {/* Delivery Instructions */}
               <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
-                    <Truck className="w-5 h-5 text-yellow-600" />
+                    <Icon name="truck" className="w-5 h-5 text-yellow-600" />
                   </div>
                   <h3 className="text-lg font-semibold text-charcoal">
                     Delivery Instructions
@@ -383,15 +352,13 @@ const CartPage = () => {
                 />
 
                 <div className="mt-3 flex items-center gap-2 text-sm text-medium-gray">
-                  <Info className="w-4 h-4" />
+                  <Icon name="info" className="w-4 h-4" />
                   e.g., "Leave at door", "Ring bell", "Call when arrived"
                 </div>
               </div>
             </div>
 
-            {/* ───────── RIGHT COLUMN ───────── */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Cart Items */}
               <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-semibold text-charcoal">
@@ -408,14 +375,12 @@ const CartPage = () => {
                       key={item.id}
                       className="flex gap-4 p-4 border border-cream rounded-xl hover:border-gray-300 transition-colors"
                     >
-                      {/* Image */}
                       <img
                         src={item.image}
                         alt={item.name}
                         className="w-20 h-20 rounded-lg object-cover bg-gray-200 flex-shrink-0"
                       />
 
-                      {/* Details */}
                       <div className="flex-1">
                         <div className="flex items-start justify-between">
                           <div>
@@ -432,16 +397,14 @@ const CartPage = () => {
                             )}
                           </div>
 
-                          {/* Remove */}
                           <button
                             onClick={() => removeItem(item.id)}
                             className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                           >
-                            <Trash2 className="w-5 h-5" />
+                            <Icon name="trash-2" className="w-5 h-5" />
                           </button>
                         </div>
 
-                        {/* Price & Quantity */}
                         <div className="flex items-end justify-between mt-4">
                           <div className="flex items-baseline gap-2">
                             <span className="text-lg font-bold text-charcoal">
@@ -457,7 +420,6 @@ const CartPage = () => {
                             )}
                           </div>
 
-                          {/* Quantity controls */}
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() =>
@@ -465,7 +427,7 @@ const CartPage = () => {
                               }
                               className="p-2 bg-gray-100 hover:bg-gray-200 text-medium-gray rounded-lg"
                             >
-                              <Minus className="w-4 h-4" />
+                              <Icon name="minus" className="w-4 h-4" />
                             </button>
                             <span className="font-medium text-charcoal w-8 text-center">
                               {item.quantity}
@@ -476,7 +438,7 @@ const CartPage = () => {
                               }
                               className="p-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg"
                             >
-                              <Plus className="w-4 h-4" />
+                              <Icon name="plus" className="w-4 h-4" />
                             </button>
                           </div>
                         </div>
@@ -486,12 +448,10 @@ const CartPage = () => {
                 </div>
               </div>
 
-              {/* Promo + Summary */}
               <div className="bg-white rounded-2xl shadow-lg border border-cream p-6 space-y-6">
-                {/* Promo Code */}
                 <div>
                   <h3 className="text-lg font-semibold text-charcoal mb-3 flex items-center gap-2">
-                    <Tag className="w-5 h-5 text-yellow-600" /> Promo Code
+                    <Icon name="tag" className="w-5 h-5 text-yellow-600" /> Promo Code
                   </h3>
                   {appliedPromo ? (
                     <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
@@ -507,7 +467,7 @@ const CartPage = () => {
                         onClick={removePromoCode}
                         className="text-red-500 hover:text-red-600 flex items-center gap-1"
                       >
-                        <RotateCcw className="w-4 h-4" /> Remove
+                        <Icon name="rotate-ccw" className="w-4 h-4" /> Remove
                       </button>
                     </div>
                   ) : (
@@ -528,7 +488,6 @@ const CartPage = () => {
                   )}
                 </div>
 
-                {/* Price Breakdown */}
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
@@ -568,19 +527,17 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                {/* Checkout */}
                 <button
                   onClick={handleCheckout}
                   className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all text-lg"
                 >
-                  Checkout <ArrowRight className="w-5 h-5" />
+                  Checkout <Icon name="arrow-right" className="w-5 h-5" />
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      );
     </>
   );
 };

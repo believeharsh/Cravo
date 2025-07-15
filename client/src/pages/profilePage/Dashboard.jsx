@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Edit3, Save, X, Eye, EyeOff, User, Mail, Lock, Camera, Check,
-} from 'lucide-react';
+import Icon from "../../components/ui/Icon"
 
 const ProfilePage = () => {
   const [edit, setEdit] = useState({ profile: false, email: false, password: false });
@@ -57,7 +55,7 @@ const ProfilePage = () => {
             onClick={() => setShow((s) => ({ ...s, [name]: !s[name] }))}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
           >
-            {show[name] ? <EyeOff size={16} /> : <Eye size={16} />}
+            {show[name] ? <Icon name={"eye-off"} size={16} /> : <Eye size={16} />}
           </button>
         )}
       </div>
@@ -70,15 +68,15 @@ const ProfilePage = () => {
         <h2 className="text-lg font-semibold text-charcoal">{title}</h2>
         {!edit[type] ? (
           <button onClick={() => setEdit((e) => ({ ...e, [type]: true }))} className="text-sm flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg">
-            <Edit3 size={14} /> Edit
+            <Icon name={"lucide-edit-3"}size={14} /> Edit
           </button>
         ) : (
           <div className="flex gap-2">
             <button onClick={() => handleSave(type)} className="text-sm flex items-center gap-1 bg-mint-green hover:bg-green-500 text-white px-3 py-1 rounded-lg">
-              <Save size={14} /> Save
+              <Icon name={"save"} size={14} /> Save
             </button>
             <button onClick={() => handleCancel(type)} className="text-sm flex items-center gap-1 bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-lg">
-              <X size={14} /> Cancel
+              <Icon name={"x"} size={14} /> Cancel
             </button>
           </div>
         )}
@@ -93,10 +91,10 @@ const ProfilePage = () => {
       <div className="bg-gradient-to-r from-yellow-400 to-mint-green rounded-2xl p-6 text-white flex items-center gap-4">
         <div className="relative">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-            <User className="w-8 h-8 text-coffee" />
+            <Icon name={"users"} className="w-8 h-8 text-coffee" />
           </div>
           <button className="absolute -bottom-1 -right-1 bg-yellow-500 p-1 rounded-full">
-            <Camera size={12} className="text-white" />
+            <Icon name={"camera"} size={12} className="text-white" />
           </button>
         </div>
         <div>
@@ -126,10 +124,10 @@ const ProfilePage = () => {
           <Input label="Email Address" name="email" type="email" />
         ) : (
           <div className="flex items-center gap-3 bg-gray-50 px-3 py-2 rounded-lg">
-            <Mail size={16} className="text-medium-gray" />
+            <Icon name={"mail"} size={16} className="text-medium-gray" />
             <span>{profileData.email}</span>
             <span className="ml-auto bg-mint-green text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
-              <Check size={12} /> Verified
+              <Icon name={"check"} size={12} /> Verified
             </span>
           </div>
         )}

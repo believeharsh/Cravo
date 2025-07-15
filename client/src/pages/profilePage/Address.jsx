@@ -3,14 +3,8 @@ import {
   Plus,
   Edit3,
   Trash2,
-  MapPin,
-  Home,
-  Building,
-  Save,
-  X,
-  Check,
-  Star,
 } from 'lucide-react';
+import Icon from '../../components/ui/Icon';
 
 const Addresses = () => {
   const [addresses, setAddresses] = useState([
@@ -34,9 +28,9 @@ const Addresses = () => {
   });
 
   const addressTypes = [
-    { value: 'home', label: 'Home', icon: Home },
-    { value: 'work', label: 'Work', icon: Building },
-    { value: 'other', label: 'Other', icon: MapPin },
+    { value: 'home', label: 'Home', icon: "home" },
+    { value: 'work', label: 'Work', icon: "building" },
+    { value: 'other', label: 'Other', icon: "map-pin" },
   ];
 
   /* ───────────────────────────────
@@ -131,7 +125,7 @@ const Addresses = () => {
           onClick={handleAddNew}
           className="flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
         >
-          <Plus className="w-5 h-5" />
+          <Icon name={"plus"} className="w-5 h-5" />
           Add New Address
         </button>
       </div>
@@ -177,7 +171,7 @@ const Addresses = () => {
                       </h3>
                       {address.isDefault && (
                         <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-400 text-white text-xs font-medium rounded-full">
-                          <Star className="w-3 h-3" />
+                          <Icon name={"star"} className="w-3 h-3" />
                           Default
                         </span>
                       )}
@@ -213,14 +207,14 @@ const Addresses = () => {
                     onClick={() => handleEdit(address)}
                     className="p-2 text-mint-green hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   >
-                    <Edit3 className="w-5 h-5" />
+                    <Icon name={"lucide-edit-3"} className="w-5 h-5" />
                   </button>
 
                   <button
                     onClick={() => handleDelete(address.id)}
                     className="p-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
-                    <Trash2 className="w-5 h-5" />
+                    <Icon name={"lucide-trash-2"} className="w-5 h-5" />
                   </button>
                 </div>
               </div>

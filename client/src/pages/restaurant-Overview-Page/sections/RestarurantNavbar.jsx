@@ -1,19 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Filter,
-  ChevronDown,
-  Zap,
-  Sparkles,
-  Star,
-  Leaf,
-  Tag,
-  Search,
-  Check,
-  X,
-} from "lucide-react";
-
-
-
+import Icon from "../../../components/ui/Icon"
 
 const RestaurantNavbar = ({
   isVisible = true,
@@ -67,49 +53,49 @@ const RestaurantNavbar = ({
     {
       id: "fastDelivery",
       label: "Fast Delivery",
-      icon: Zap,
+      icon: "zap",
       color: "text-green-500",
       activeColor: "bg-green-100 text-green-700 border-green-300",
     },
     {
       id: "newProducts",
       label: "New",
-      icon: Sparkles,
+      icon: "sparkles",
       color: "text-purple-500",
       activeColor: "bg-purple-100 text-purple-700 border-purple-300",
     },
     {
       id: "rating4Plus",
       label: "Rating 4.0+",
-      icon: Star,
+      icon: "star",
       color: "text-yellow-500",
       activeColor: "bg-yellow-100 text-yellow-700 border-yellow-300",
     },
     {
       id: "pureVeg",
       label: "Pure Veg",
-      icon: Leaf,
+      icon: "leaf",
       color: "text-green-600",
       activeColor: "bg-green-100 text-green-700 border-green-300",
     },
     {
       id: "offers",
       label: "Offers",
-      icon: Tag,
+      icon: "tag",
       color: "text-red-500",
       activeColor: "bg-red-100 text-red-700 border-red-300",
     },
     {
       id: "price300to600",
       label: "₹300-600",
-      icon: null,
+      icon: null, // Using null for icons that aren't available
       color: "text-blue-500",
       activeColor: "bg-blue-100 text-blue-700 border-blue-300",
     },
     {
       id: "priceLess300",
       label: "Less than ₹300",
-      icon: null,
+      icon: null, // Using null for icons that aren't available
       color: "text-indigo-500",
       activeColor: "bg-indigo-100 text-indigo-700 border-indigo-300",
     },
@@ -175,7 +161,6 @@ const RestaurantNavbar = ({
             {/* Left Side - Quick Filters */}
             <div className="flex items-center space-x-2 flex-1 overflow-x-auto scrollbar-hide">
               {quickFilters.slice(0, 5).map((filter) => {
-                const IconComponent = filter.icon;
                 const isActive = activeFilters[filter.id];
 
                 return (
@@ -188,7 +173,7 @@ const RestaurantNavbar = ({
                         : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200"
                     }`}
                   >
-                    {IconComponent && <IconComponent size={16} />}
+                    {filter.icon && <Icon name={filter.icon} size={16} />}
                     <span className="text-sm">{filter.label}</span>
                   </button>
                 );
@@ -199,7 +184,8 @@ const RestaurantNavbar = ({
             <div className="flex items-center space-x-3 ml-4">
               {/* Search Bar */}
               <form onSubmit={handleSearchSubmit} className="relative">
-                <Search
+                <Icon
+                  name="search"
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                   size={16}
                 />
@@ -219,7 +205,8 @@ const RestaurantNavbar = ({
                   className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200"
                 >
                   <span className="text-sm">Sort By</span>
-                  <ChevronDown
+                  <Icon
+                    name="chevron-down"
                     size={16}
                     className={`transform transition-transform ${
                       isSortByOpen ? "rotate-180" : ""
@@ -248,7 +235,7 @@ const RestaurantNavbar = ({
                             </p>
                           </div>
                           {selectedSortBy === option.id && (
-                            <Check size={16} className="text-yellow-400" />
+                            <Icon name="check" size={16} className="text-yellow-400" />
                           )}
                         </button>
                       ))}
@@ -263,7 +250,7 @@ const RestaurantNavbar = ({
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
                   className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200"
                 >
-                  <Filter size={16} />
+                  <Icon name="filter" size={16} />
                   <span className="text-sm">Filter</span>
                   {getActiveFiltersCount() > 0 && (
                     <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-1 rounded-full">
@@ -292,7 +279,6 @@ const RestaurantNavbar = ({
                           </h4>
                           <div className="grid grid-cols-2 gap-2">
                             {quickFilters.map((filter) => {
-                              const IconComponent = filter.icon;
                               const isActive = activeFilters[filter.id];
 
                               return (
@@ -307,7 +293,7 @@ const RestaurantNavbar = ({
                                       : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200"
                                   }`}
                                 >
-                                  {IconComponent && <IconComponent size={14} />}
+                                  {filter.icon && <Icon name={filter.icon} size={14} />}
                                   <span>{filter.label}</span>
                                 </button>
                               );
@@ -349,7 +335,7 @@ const RestaurantNavbar = ({
                         onClick={() => handleQuickFilterToggle(key)}
                         className="hover:bg-yellow-200 rounded-full p-0.5"
                       >
-                        <X size={12} />
+                        <Icon name="x" size={12} />
                       </button>
                     </span>
                   );

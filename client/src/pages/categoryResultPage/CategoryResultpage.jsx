@@ -1,18 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Filter,
-  ChevronDown,
-  Clock,
-  Star,
-  MapPin,
-  Heart,
-  Check,
-  X,
-  Zap,
-  TrendingUp,
-  Award,
-  Users,
-} from "lucide-react";
+import Icon from "../../components/ui/Icon";
 import Navbar from "../../components/Navbar";
 
 const CategoryResultPage = ({
@@ -85,7 +72,6 @@ const CategoryResultPage = ({
     ],
   };
 
-  // Sample restaurant data
   const restaurants = [
     {
       id: 1,
@@ -186,7 +172,6 @@ const CategoryResultPage = ({
       <Navbar showSearch={true} currentPage="search" cartCount={2} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        {/* Category Header */}
         <div className="mb-8">
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
             {categoryName}
@@ -199,10 +184,8 @@ const CategoryResultPage = ({
           </div>
         </div>
 
-        {/* Filter and Sort Bar */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 mb-6">
           <div className="flex flex-wrap items-center gap-3">
-            {/* Quick Filters */}
             <button
               onClick={() => handleQuickFilter("tenMinDelivery")}
               className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
@@ -211,7 +194,7 @@ const CategoryResultPage = ({
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              <Zap size={16} />
+              <Icon name="zap" size={16} />
               <span>10 Min Delivery</span>
             </button>
 
@@ -223,7 +206,7 @@ const CategoryResultPage = ({
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              <Award size={16} />
+              <Icon name="award" size={16} />
               <span>Top Rated</span>
             </button>
 
@@ -235,20 +218,20 @@ const CategoryResultPage = ({
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              <TrendingUp size={16} />
+              <Icon name="trending-up" size={16} />
               <span>Offers</span>
             </button>
 
             <div className="flex-1"></div>
 
-            {/* Sort By Dropdown */}
             <div className="relative" ref={sortByRef}>
               <button
                 onClick={() => setIsSortByOpen(!isSortByOpen)}
                 className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-700 transition-colors duration-200"
               >
                 <span>Sort By</span>
-                <ChevronDown
+                <Icon
+                  name="chevron-down"
                   size={16}
                   className={`transform transition-transform ${
                     isSortByOpen ? "rotate-180" : ""
@@ -280,7 +263,7 @@ const CategoryResultPage = ({
                           </p>
                         </div>
                         {selectedSortBy === option.id && (
-                          <Check size={16} className="text-yellow-400" />
+                          <Icon name="check" size={16} className="text-yellow-400" />
                         )}
                       </button>
                     ))}
@@ -289,13 +272,12 @@ const CategoryResultPage = ({
               )}
             </div>
 
-            {/* Filter Button */}
             <div className="relative" ref={filterRef}>
               <button
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-700 transition-colors duration-200"
               >
-                <Filter size={16} />
+                <Icon name="filter" size={16} />
                 <span>Filter</span>
                 {getActiveFiltersCount() > 0 && (
                   <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-1 rounded-full">
@@ -374,7 +356,6 @@ const CategoryResultPage = ({
           </div>
         </div>
 
-        {/* Restaurant Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {restaurants.map((restaurant) => (
             <div
@@ -394,15 +375,15 @@ const CategoryResultPage = ({
               </div>
               <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
                 <div className="flex items-center space-x-1">
-                  <Star className="text-yellow-400" size={16} />
+                  <Icon name="star" className="text-yellow-400" size={16} />
                   <span>{restaurant.rating}</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Clock size={16} />
+                  <Icon name="clock" size={16} />
                   <span>{restaurant.deliveryTime}</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <MapPin size={16} />
+                  <Icon name="map-pin" size={16} />
                   <span>{restaurant.distance}</span>
                 </div>
               </div>
@@ -432,7 +413,6 @@ const CategoryResultPage = ({
             </div>
           ))}
         </div>
-        {/* Explore More */}
         <div className="mt-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Explore More Categories

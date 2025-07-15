@@ -1,23 +1,96 @@
 import React, { useState } from 'react';
-import {
-  Heart,
-  Star,
-  Clock,
-  ShoppingCart,
-  Filter,
-  Search,
-  Grid3X3,
-  List,
-  Trash2,
-} from 'lucide-react';
+import Icon from '../../components/ui/Icon';
 
 const Favorites = () => {
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [viewMode, setViewMode] = useState('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
 
   const [favorites, setFavorites] = useState([
-    // … (seed data unchanged) …
+    {
+      id: '1',
+      name: 'Margherita Pizza',
+      description: 'Classic pizza with tomato, mozzarella, and fresh basil.',
+      restaurant: 'Pizza Palace',
+      category: 'Pizza',
+      price: 12.99,
+      rating: 4.8,
+      reviews: 256,
+      cookTime: '25-30 min',
+      image: 'https://via.placeholder.com/400x250/FFD700/FFFFFF?text=MargheritaPizza',
+      isAvailable: true,
+      addedDate: '2024-01-15',
+    },
+    {
+      id: '2',
+      name: 'Butter Chicken',
+      description: 'Creamy tomato-based curry with tender chicken pieces.',
+      restaurant: 'Spice Route',
+      category: 'Indian',
+      price: 15.50,
+      rating: 4.6,
+      reviews: 180,
+      cookTime: '35-45 min',
+      image: 'https://via.placeholder.com/400x250/FFA500/FFFFFF?text=ButterChicken',
+      isAvailable: true,
+      addedDate: '2023-11-20',
+    },
+    {
+      id: '3',
+      name: 'Caesar Salad',
+      description: 'Crisp romaine lettuce, croutons, parmesan, and Caesar dressing.',
+      restaurant: 'Green Garden',
+      category: 'Salads',
+      price: 9.75,
+      rating: 4.4,
+      reviews: 95,
+      cookTime: '15-20 min',
+      image: 'https://via.placeholder.com/400x250/90EE90/FFFFFF?text=CaesarSalad',
+      isAvailable: false,
+      addedDate: '2024-02-01',
+    },
+    {
+      id: '4',
+      name: 'Classic Cheeseburger',
+      description: 'Juicy beef patty with cheese, lettuce, tomato, and onion.',
+      restaurant: 'Burger Barn',
+      category: 'Burgers',
+      price: 11.25,
+      rating: 4.7,
+      reviews: 310,
+      cookTime: '20-25 min',
+      image: 'https://via.placeholder.com/400x250/ADD8E6/FFFFFF?text=Cheeseburger',
+      isAvailable: true,
+      addedDate: '2023-10-05',
+    },
+    {
+      id: '5',
+      name: 'Chocolate Lava Cake',
+      description: 'Warm chocolate cake with a molten chocolate center.',
+      restaurant: 'Sweet Surrender',
+      category: 'Desserts',
+      price: 7.00,
+      rating: 4.9,
+      reviews: 120,
+      cookTime: '10-15 min',
+      image: 'https://via.placeholder.com/400x250/DDA0DD/FFFFFF?text=LavaCake',
+      isAvailable: true,
+      addedDate: '2024-03-10',
+    },
+    {
+      id: '6',
+      name: 'Pad Thai',
+      description: 'Stir-fried rice noodles with shrimp, tofu, peanuts, and bean sprouts.',
+      restaurant: 'Thai Temptations',
+      category: 'Thai',
+      price: 14.00,
+      rating: 4.5,
+      reviews: 150,
+      cookTime: '30-40 min',
+      image: 'https://via.placeholder.com/400x250/F0E68C/FFFFFF?text=PadThai',
+      isAvailable: true,
+      addedDate: '2024-01-28',
+    },
   ]);
 
   const categories = ['all', 'Pizza', 'Indian', 'Salads', 'Burgers', 'Desserts', 'Thai'];
@@ -57,7 +130,7 @@ const Favorites = () => {
               onClick={() => handleRemoveFromFavorites(item.id)}
               className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 transition-colors"
             >
-              <Heart className="w-5 h-5 text-red-500 fill-current" />
+              <Icon name="heart" className="w-5 h-5 text-red-500 fill-current" />
             </button>
             {!item.isAvailable && (
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -79,12 +152,12 @@ const Favorites = () => {
 
             <div className="flex items-center gap-4 mb-3 text-sm text-medium-gray">
               <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                <Icon name="star" className="w-4 h-4 text-yellow-400 fill-current" />
                 <span>{item.rating}</span>
                 <span>({item.reviews})</span>
               </div>
               <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
+                <Icon name="clock" className="w-4 h-4" />
                 <span>{item.cookTime}</span>
               </div>
             </div>
@@ -100,7 +173,7 @@ const Favorites = () => {
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              <ShoppingCart className="w-5 h-5" />
+              <Icon name="shopping-cart" className="w-5 h-5" />
               {item.isAvailable ? 'Add to Cart' : 'Unavailable'}
             </button>
           </div>
@@ -142,13 +215,13 @@ const Favorites = () => {
 
               <div className="flex items-center gap-6 text-sm text-medium-gray mb-4">
                 <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Icon name="star" className="w-4 h-4 text-yellow-400 fill-current" />
                   <span>
                     {item.rating} ({item.reviews} reviews)
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
+                  <Icon name="clock" className="w-4 h-4" />
                   <span>{item.cookTime}</span>
                 </div>
                 <span className="px-2 py-1 bg-cream text-coffee rounded-full text-xs">
@@ -165,7 +238,7 @@ const Favorites = () => {
                     onClick={() => handleRemoveFromFavorites(item.id)}
                     className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                   >
-                    <Trash2 className="w-5 h-5" />
+                    <Icon name="lucide-trash-2" className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleAddToCart(item)}
@@ -176,7 +249,7 @@ const Favorites = () => {
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     }`}
                   >
-                    <ShoppingCart className="w-4 h-4" />
+                    <Icon name="shopping-cart" className="w-4 h-4" />
                     {item.isAvailable ? 'Add to Cart' : 'Unavailable'}
                   </button>
                 </div>
@@ -210,7 +283,7 @@ const Favorites = () => {
                 : 'text-medium-gray hover:bg-gray-100'
             }`}
           >
-            <Grid3X3 className="w-5 h-5" />
+            <Icon name="grid-3x3" className="w-5 h-5" />
           </button>
           <button
             onClick={() => setViewMode('list')}
@@ -220,7 +293,7 @@ const Favorites = () => {
                 : 'text-medium-gray hover:bg-gray-100'
             }`}
           >
-            <List className="w-5 h-5" />
+            <Icon name="list" className="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -230,7 +303,7 @@ const Favorites = () => {
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5" />
+            <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5" />
             <input
               type="text"
               placeholder="Search favorites..."
@@ -242,7 +315,7 @@ const Favorites = () => {
 
           {/* Category Filter */}
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5" />
+            <Icon name="filter" className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5" />
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
@@ -262,7 +335,7 @@ const Favorites = () => {
       {filteredFavorites.length === 0 ? (
         <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
           <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto">
-            <Heart className="w-10 h-10 text-yellow-400 fill-current" />
+            <Icon name="heart" className="w-10 h-10 text-yellow-400 fill-current" />
           </div>
           <h3 className="mt-6 text-xl font-semibold text-charcoal">No favorites found</h3>
           <p className="text-medium-gray">

@@ -1,43 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-// Make sure this path is correct relative to this file
-import axiosInstance from "../../api/axiosInstance"; 
+
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, clearAuthError } from '../../features/auth/authSlice';
+
+import Icon from "../../components/ui/Icon"; 
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Select relevant state from the Redux store
   const authState = useSelector((state) => state.auth);
   const currentUser = useSelector((state) => state.auth.user);
-  console.log(currentUser)
-  const { isLoading, error, isAuthenticated, role } = authState; // Destructure directly from authState
+  console.log(currentUser);
+  const { isLoading, error, isAuthenticated, role } = authState;
 
-  // form data
   const [formData, setFormData] = useState({ email: "", password: "" });
-
-  // ui state
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  // helpers
   const handleInputChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(clearAuthError()); // Clear any previous Redux error
+    dispatch(clearAuthError());
 
+    // IMPORTANT: Replace alert() with a custom message box UI for better UX
+    // Alerts are blocking and not user-friendly in React apps.
     if (!formData.email.trim() || !formData.password.trim()) {
-      alert("Email and password are required.");
+      // You could set an error state in Redux or local component state here
+      // For example: setLocalError("Email and password are required.");
+      console.error("Email and password are required."); // Log for now
       return;
     }
 
     const resultAction = await dispatch(loginUser(formData));
-    console.log(resultAction)
+    console.log(resultAction);
 
     if (loginUser.fulfilled.match(resultAction)) {
       if (rememberMe && resultAction.payload?.role) {
@@ -49,14 +48,14 @@ const LoginPage = () => {
     }
   };
 
-  // --- Move this useEffect block INSIDE the component ---
+  // Redirect authenticated users
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/restaurants');
     }
   }, [isAuthenticated, navigate]);
 
-  // --- This is the useEffect for logging state ---
+  // For logging state (can be removed in production)
   useEffect(() => {
     console.log("Current Redux Auth State:", authState);
     console.log("Current Logged-in User:", currentUser);
@@ -65,8 +64,7 @@ const LoginPage = () => {
       console.log("User logged in successfully:", currentUser);
       console.log("User Role:", role);
     }
-  }, [authState, currentUser, isAuthenticated, role]); // Depend on the state variables you're logging
-  // ----------------------------------------------------
+  }, [authState, currentUser, isAuthenticated, role]);
 
   return (
     <div className="min-h-screen flex">
@@ -136,7 +134,7 @@ const LoginPage = () => {
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" />
+                  <Icon name="mail" className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" size={20} />
                   <input
                     id="email"
                     name="email"
@@ -159,7 +157,7 @@ const LoginPage = () => {
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" />
+                  <Icon name="lock" className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" size={20} />
                   <input
                     id="password"
                     name="password"
@@ -176,9 +174,11 @@ const LoginPage = () => {
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" />
+
+                      <Icon name="eye-off" className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" size={20} />
                     ) : (
-                      <Eye className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" />
+
+                      <Icon name="eye" className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" size={20} />
                     )}
                   </button>
                 </div>
@@ -218,7 +218,8 @@ const LoginPage = () => {
                 ) : (
                   <>
                     Sign In
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+
+                    <Icon name="arrow-right" className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" size={16} /> 
                   </>
                 )}
               </button>
