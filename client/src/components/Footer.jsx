@@ -1,15 +1,14 @@
-// Footer.jsx
 import React from "react";
-import { Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
+import Icon from "./ui/Icon";
 
-/* quick helper for links */
-const LinkItem = ({ href, children }) => (
-  <a
-    href={href}
+const InternalLinkItem = ({ to, children }) => (
+  <Link
+    to={to}
     className="block text-sm text-gray-500 hover:text-gray-800 transition"
   >
     {children}
-  </a>
+  </Link>
 );
 
 const Footer = () => (
@@ -22,10 +21,10 @@ const Footer = () => (
           {/* swap the SVG/emoji with your real logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl flex items-center justify-center">
-              <img src={`/assets/Cravo_logo.png`} alt="" />
+              <img src={`/assets/Cravo_logo.png`} alt="Cravo Logo" /> {/* Added alt text */}
             </div>
             <div className="w-10 sm:w-32 ">
-              <img src={`/assets/Cravo_white_text_logo.png`} alt="" />
+              <img src={`/assets/Cravo_white_text_logo.png`} alt="Cravo Text Logo" /> {/* Added alt text */}
             </div>
           </div>
           <p className="mt-4 text-sm text-gray-400 leading-relaxed">
@@ -37,25 +36,39 @@ const Footer = () => (
         {/* link columns */}
         <div>
           <h4 className="font-semibold mb-3">Company</h4>
-          <LinkItem href="#">About Us</LinkItem>
-          <LinkItem href="#">Careers</LinkItem>
-          <LinkItem href="#">Blog</LinkItem>
-          <LinkItem href="#">Press</LinkItem>
+          <InternalLinkItem to="/about-us">About Us</InternalLinkItem>
+          <InternalLinkItem to="/careers">Careers</InternalLinkItem>
+          <InternalLinkItem to="/blog">Blog</InternalLinkItem>
+          <InternalLinkItem to="/press">Press</InternalLinkItem>
         </div>
 
         <div>
           <h4 className="font-semibold mb-3">Legal</h4>
-          <LinkItem href="#">Terms&nbsp;of&nbsp;Service</LinkItem>
-          <LinkItem href="#">Privacy&nbsp;Policy</LinkItem>
-          <LinkItem href="#">Cookie&nbsp;Policy</LinkItem>
-          <LinkItem href="#">Refund&nbsp;Policy</LinkItem>
+          <InternalLinkItem to="/terms-of-service">Terms&nbsp;of&nbsp;Service</InternalLinkItem>
+          <InternalLinkItem to="/privacy-policy">Privacy&nbsp;Policy</InternalLinkItem>
+          <InternalLinkItem to="/cookie-policy">Cookie&nbsp;Policy</InternalLinkItem>
+          <InternalLinkItem to="/refund-policy">Refund&nbsp;Policy</InternalLinkItem>
         </div>
 
         <div>
           <h4 className="font-semibold mb-3">Available</h4>
-          <LinkItem href="#">iOS&nbsp;App</LinkItem>
-          <LinkItem href="#">Android&nbsp;App</LinkItem>
-          <LinkItem href="#">Web&nbsp;Ordering</LinkItem>
+          <a
+            href="https://apps.apple.com/us/app/cravo-ios" // Replace with actual app store links
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-sm text-gray-500 hover:text-gray-800 transition"
+          >
+            iOS&nbsp;App
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.cravo.android"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-sm text-gray-500 hover:text-gray-800 transition"
+          >
+            Android&nbsp;App
+          </a>
+          <InternalLinkItem to="/">Web&nbsp;Ordering</InternalLinkItem> 
         </div>
       </div>
 
@@ -64,39 +77,49 @@ const Footer = () => (
         {/* social icons */}
         <div className="flex space-x-4 mb-6 sm:mb-0">
           <a
-            href="#"
+            href="https://www.facebook.com/yourcravoapp"
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Facebook"
           >
-            <Facebook size={18} />
+            <Icon name={"facebook"} size={18} />
           </a>
           <a
-            href="#"
+            href="https://www.instagram.com/yourcravoapp"
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Instagram"
           >
-            <Instagram size={18} />
+            <Icon name={"instagram"} size={18} />
           </a>
           <a
-            href="#"
+            href="https://twitter.com/yourcravoapp" 
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Twitter"
           >
-            <Twitter size={18} />
+            <Icon name={"twitter"} size={18} />
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/company/yourcravoapp"
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="LinkedIn"
           >
-            <Linkedin size={18} />
+            <Icon name={"linkedin"} size={18} />
           </a>
           <a
-            href="#"
+            href="https://www.youtube.com/yourcravoapp" 
+            target="_blank"
+            rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="YouTube"
           >
-            <Youtube size={18} />
+            <Icon name={"youtube"} size={18} />
           </a>
         </div>
 

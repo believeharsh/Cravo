@@ -1,6 +1,6 @@
 import React from "react";
-import { Home, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import Icon from "./ui/Icon";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const NotFoundPage = () => {
             to="/"
             className="inline-flex items-center px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
           >
-            <Home className="w-5 h-5 mr-2" />
+            <Icon name={"home"} className="w-5 h-5 mr-2" />
             Back to Cravo
           </Link>
 
@@ -51,7 +51,7 @@ const NotFoundPage = () => {
             onClick={handleGoBack}
             className="inline-flex items-center px-8 py-4 bg-mint-green bg-green-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <Icon name={"arrow-left"} className="w-5 h-5 mr-2" />
             Go Back
           </button>
         </div>

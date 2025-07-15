@@ -1,6 +1,8 @@
 import React from "react";
 import {
   // Importing all the lucide icons that are being used thorugh out the app
+  ArrowLeft,
+  Menu,
   ChevronLeft,
   ChevronRight,
   MapPin,
@@ -8,18 +10,26 @@ import {
   Heart, 
   Bell, 
   Home,
-  Menu, 
   CheckCircle, 
   AlertCircle, 
   Clock, 
   ShoppingCart,
   User,
-  HelpCircle,
   Tag,
   Search,
   Building2,
   X,
   ChevronDown,
+  Facebook, 
+  Instagram, 
+  Twitter, 
+  Linkedin, 
+  Youtube,
+  ShoppingBag,
+  CreditCard,
+  Settings,
+  HelpCircle,
+  LogOut,
 } from "lucide-react";
 
 // A map from a friendly string name to the actual Lucide React component
@@ -43,7 +53,20 @@ const iconMap = {
   "tag" : Tag, 
   "building2" : Building2 , 
   "menu" : Menu , 
-  "chevrondown" : ChevronDown 
+  "chevrondown" : ChevronDown ,
+  "facebook" : Facebook, 
+  "instagram" : Instagram , 
+  "twitter" : Twitter , 
+  "linkedin" : Linkedin , 
+  "youtube"  : Youtube ,  
+  "arrow-left" : ArrowLeft, 
+  "shopping-cart" : ShoppingBag,
+  "heart" : Heart,
+  "credit-card" : CreditCard,
+  "settings" : Settings,
+  "help-circle" : HelpCircle,
+  "logout" : LogOut,
+  "shopping-bag" : ShoppingBag
 
 };
 

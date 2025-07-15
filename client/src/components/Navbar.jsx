@@ -1,23 +1,9 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom"; // Ensure Link and NavLink are imported
-import {
-  ShoppingCart,
-  User,
-  HelpCircle,
-  Tag,
-  Search,
-  Building2,
-  Menu,
-  X,
-  ChevronDown,
-} from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
 import Icon from "./ui/Icon";
 
-// No longer need most of the onClick props if we're using React Router directly.
-// The component should manage its own navigation paths.
 const Navbar = ({
   showSearch = true,
-  // currentPage prop can be removed, NavLink handles active state
   cartCount = 0,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -66,10 +52,10 @@ const Navbar = ({
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // In a real app, you'd likely use navigate('/search-results?query=' + searchQuery)
+    // In a real app, we'd likely use navigate('/search-results?query=' + searchQuery)
     // For now, let's just log or keep the previous behavior if onSearchClick is still a prop.
     console.log("Searching for:", searchQuery);
-    // If you had a dedicated search results page, you would navigate here:
+    // If we had a dedicated search results page, you would navigate here:
     // navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
@@ -82,11 +68,10 @@ const Navbar = ({
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-3">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo Section - Use Link for simple navigation without active state */}
+            {/* Logo Section  */}
             <Link
-              to="/" // <--- Link to home page
+              to="/"
               className="flex items-center space-x-3 cursor-pointer"
-            // onClick={onLogoClick} is no longer needed as Link handles navigation
             >
 
               <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl border-2 border-white flex items-center justify-center">
@@ -101,15 +86,11 @@ const Navbar = ({
               </div>
             </Link>
 
-            {/* Search Bar - Desktop Only */}
+            {/* Search Bar  */}
             {showSearch && (
               <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
                 <form onSubmit={handleSearch} className="w-full relative">
                   <div className="relative">
-                    {/* <Search
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
-                      size={20}
-                    /> */}
                     <Icon
                       name="search"
                       className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
@@ -139,16 +120,13 @@ const Navbar = ({
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2">
               {navItems.map((item) => {
-                // Ensure item.path exists for NavLink
                 if (!item.path) return null;
-
                 return (
-                  <NavLink // <--- Use NavLink here
+                  <NavLink
                     key={item.id}
-                    to={item.path} // <--- Use the path for navigation
-                    // isActive is automatically provided by NavLink's className prop
+                    to={item.path} 
                     className={({ isActive }) =>
-                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${isActive // Use isActive directly
+                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${isActive 
                         ? "bg-yellow-50 text-yellow-600"
                         : "text-gray-700 hover:text-gray-900"
                       }`
@@ -183,7 +161,7 @@ const Navbar = ({
               {isMobileMenuOpen ? (
                 <X size={24} className="text-gray-600" />
               ) : (
-                <Menu size={24} className="text-gray-600" />
+                <Icon name={"menu"} size={24} className="text-gray-600" />
               )}
             </button>
           </div>
@@ -192,7 +170,8 @@ const Navbar = ({
           {showSearch && (
             <div className="lg:hidden pb-4">
               <form onSubmit={handleSearch} className="relative">
-                <Search
+                <Icon 
+                  name={"search"}
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                   size={18}
                 />
@@ -240,12 +219,11 @@ const Navbar = ({
               {navItems
                 .filter((item) => item.showOnMobile)
                 .map((item) => {
-                  // const IconComponent = item.icon;
                   return (
-                    <NavLink // <--- Use NavLink for mobile menu items too
+                    <NavLink
                       key={item.id}
-                      to={item.path} // <--- Use the path
-                      onClick={toggleMobileMenu} // Close menu on click
+                      to={item.path}
+                      onClick={toggleMobileMenu} 
                       className={({ isActive }) =>
                         `w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 ${isActive
                           ? "bg-yellow-50 text-yellow-600 border border-yellow-200"
