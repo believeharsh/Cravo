@@ -13,9 +13,9 @@ import {
   Award,
   Users,
 } from "lucide-react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
-const CategorySearch = ({
+const CategoryResultPage = ({
   categoryName = "Pizza",
   categoryDescription = "Delicious pizzas from the best restaurants in your area",
 }) => {
@@ -460,4 +460,4 @@ const CategorySearch = ({
   );
 };
 
-export default CategorySearch;
+export default CategoryResultPage;

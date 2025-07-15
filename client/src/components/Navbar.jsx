@@ -11,6 +11,7 @@ import {
   X,
   ChevronDown,
 } from "lucide-react";
+import Icon from "./ui/Icon";
 
 // No longer need most of the onClick props if we're using React Router directly.
 // The component should manage its own navigation paths.
@@ -24,33 +25,32 @@ const Navbar = ({
   const [searchQuery, setSearchQuery] = useState("");
 
   const navItems = [
-    // Search is handled by the input directly, not a separate nav item link for desktop
     {
       id: "offers",
       label: "Offers",
-      icon: Tag,
-      path: "/offers", // <--- Add path for navigation
+      Iconname: "tag",
+      path: "/offers", 
       badge: "New",
       showOnMobile: true,
     },
     {
       id: "corporate",
       label: "Corporate",
-      icon: Building2,
-      path: "/corporate", // <--- Add path for navigation
+      Iconname: "building2",
+      path: "/corporate", 
       showOnMobile: true,
     },
     {
       id: "help",
       label: "Help",
-      icon: HelpCircle,
-      path: "/help", // <--- Add path for navigation (or a specific help page)
+      Iconname: "help-circle",
+      path: "/help", 
       showOnMobile: true,
     },
     {
       id: "cart",
       label: "Cart",
-      icon: ShoppingCart,
+      Iconname: "shopping-cart",
       path: "/cart", // <--- Add path for navigation
       count: cartCount,
       showOnMobile: true,
@@ -58,7 +58,7 @@ const Navbar = ({
     {
       id: "profile",
       label: "Profile",
-      icon: User,
+      Iconname: "user",
       path: "/profile", // <--- Add path for navigation (or /profile/dashboard for default)
       showOnMobile: true,
     },
@@ -106,7 +106,12 @@ const Navbar = ({
               <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
                 <form onSubmit={handleSearch} className="w-full relative">
                   <div className="relative">
-                    <Search
+                    {/* <Search
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+                      size={20}
+                    /> */}
+                    <Icon
+                      name="search"
                       className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
                       size={20}
                     />
@@ -137,7 +142,6 @@ const Navbar = ({
                 // Ensure item.path exists for NavLink
                 if (!item.path) return null;
 
-                const IconComponent = item.icon;
                 return (
                   <NavLink // <--- Use NavLink here
                     key={item.id}
@@ -149,9 +153,8 @@ const Navbar = ({
                         : "text-gray-700 hover:text-gray-900"
                       }`
                     }
-                  // onClick is generally not needed for NavLink if it's just for navigation
                   >
-                    <IconComponent size={20} />
+                     <Icon name={item.Iconname} size={18} /> 
                     <span className="hidden xl:block">{item.label}</span>
 
                     {/* Badge */}
@@ -237,7 +240,7 @@ const Navbar = ({
               {navItems
                 .filter((item) => item.showOnMobile)
                 .map((item) => {
-                  const IconComponent = item.icon;
+                  // const IconComponent = item.icon;
                   return (
                     <NavLink // <--- Use NavLink for mobile menu items too
                       key={item.id}
@@ -251,7 +254,7 @@ const Navbar = ({
                       }
                     >
                       <div className="flex items-center space-x-3">
-                        <IconComponent size={20} />
+                        <Icon name={item.name} size={20} />
                         <span>{item.label}</span>
                       </div>
 
@@ -270,7 +273,7 @@ const Navbar = ({
                           </span>
                         )}
 
-                        <ChevronDown size={16} className="text-gray-400" />
+                        <Icon name={item.name} size={16} className="text-gray-400" />
                       </div>
                     </NavLink>
                   );

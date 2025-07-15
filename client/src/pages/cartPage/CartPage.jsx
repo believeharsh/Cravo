@@ -26,7 +26,7 @@ import {
   Heart,
   RotateCcw,
 } from "lucide-react";
-import CartNavigation from "../components/CartPage/CartNavigation";
+import CartNavigation from "./sections/CartNavigation";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([

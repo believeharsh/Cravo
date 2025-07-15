@@ -36,8 +36,8 @@ import {
   Building,
   Factory,
 } from "lucide-react";
-import Footer from "../components/Footer";
-import CorporateNavigation from "../components/CorporatePage/CorporateNavigation";
+import Footer from "../../components/Footer";
+import CorporateNavigation from "./sections/CorporateNavigation";
 
 const CorporatePage = () => {
   const [activeTab, setActiveTab] = useState("overview");

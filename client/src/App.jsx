@@ -1,32 +1,34 @@
 import "./App.css";
-import CategorySearch from "./pages/CategoryResultPage";
-import OffersPage from "./pages/OffersPage";
-import AdminPage from "./pages/AdminPage";
-import LandingPage from "./pages/LandingPage"; // Your primary guest landing page
 import {
-  BrowserRouter as Router, // You're importing BrowserRouter as Router, ensure you wrap App in it somewhere higher up if not here
+  BrowserRouter as Router,
   Routes,
   Route,
-  Navigate, // Import Navigate
+  Navigate, 
 } from "react-router-dom";
+
+import CategoryResultPage from "./pages/categoryResultPage/CategoryResultpage";
+import OffersPage from "./pages/offersPage/OffersPage";
+import AdminPage from "./pages/adminPage/AdminPage";
+import LandingPage from "./pages/landingPage/LandingPage"; 
+
 
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 
-import RestaurantPage from "./pages/RestaurantsPage"; // Make sure this path is correct
-import CartPage from "./pages/CartPage";
-import Settings from "./pages/profile/Settings";
-import Favorites from "./pages/profile/Favorites";
-import HelpSupport from "./pages/profile/Help-Support";
-import Orders from "./pages/profile/Orders";
-import Payments from "./pages/profile/Payment";
-import Addresses from "./pages/profile/Address";
-import Dashboard from "./pages/profile/Dashboard";
+import RestaurantsOverviewPage from "./pages/restaurant-Overview-Page/RestaurantsOverviewPage"; 
+import CartPage from "./pages/cartPage/CartPage";
+import Settings from "./pages/profilePage/Settings";
+import Favorites from "./pages/profilePage/Favorites";
+import HelpSupport from "./pages/profilePage/Help-Support";
+import Orders from "./pages/profilePage/Orders";
+import Payments from "./pages/profilePage/Payment";
+import Addresses from "./pages/profilePage/Address";
+import Dashboard from "./pages/profilePage/Dashboard";
 
 import ProfileLayout from "./components/ProfileLayout";
 import NotFound from "./components/NotFound";
-import CorporatePage from "./pages/CorporatePage";
-import PrivateRoute from './components/PrivateRoute'; // Assuming PrivateRoute works as expected
+import CorporatePage from "./pages/corporatePage/CorporatePage";
+import PrivateRoute from './components/PrivateRoute';
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,7 +38,7 @@ import { fetchLandingPageData } from "./features/landing/landingSlice";
 
 function App() {
   const dispatch = useDispatch();
-  // Destructure `isAuthenticated` along with `isInitialized`
+
   const { isAuthChecking, isAuthenticated, isInitialized } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -104,8 +106,8 @@ function App() {
       {/* Public Routes (accessible to both guests and authenticated users) */}
       {/* Note: The '/restaurants' route is directly accessible here for both,
          but authenticated users are redirected to it from '/' automatically. */}
-      <Route path="restaurants" element={<RestaurantPage />} />
-      <Route path="categories" element={<CategorySearch />} />
+      <Route path="restaurants" element={<RestaurantsOverviewPage />} />
+      <Route path="categories" element={<CategoryResultPage />} />
       <Route path="offers" element={<OffersPage />} />
       <Route path="cart" element={<CartPage />} />
       <Route path="corporate" element={<CorporatePage />} />
