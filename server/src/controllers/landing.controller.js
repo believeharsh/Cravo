@@ -31,7 +31,7 @@ const getLandingPageData = asyncHandler(async (req, res) => {
   console.log(userLatitude)
 
   // Default maxDistanceKm if not provided by frontend or for fallback
-  const defaultMaxDistanceKm = 500 ; 
+  const defaultMaxDistanceKm = 600 ; 
   let maxDistanceKm = parseFloat(req.query.maxDistanceKm) || defaultMaxDistanceKm;
 
   // Validate coordinates

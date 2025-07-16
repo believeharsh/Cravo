@@ -30,82 +30,48 @@ import NotFound from "./components/NotFound";
 import CorporatePage from "./pages/corporatePage/CorporatePage";
 import PrivateRoute from './components/PrivateRoute';
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAuthStatus } from "./features/auth/authSlice";
 import UnauthorizedPage from "./components/UnAuthorizedPage";
-import { fetchLandingPageData } from "./features/landing/landingSlice";
+import { initializeApplication } from "./features/landing/landingSlice";
+import DeliveryLoader from "./components/DeliveryLoader";
 
 function App() {
   const dispatch = useDispatch();
-
-  const { isAuthChecking, isAuthenticated, isInitialized } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    dispatch(checkAuthStatus());
-  }, [dispatch]);
+   const hasAppInitializedRef = useRef(false);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAppFullyInitialized, appInitError } = useSelector((state) => state.landingPage); 
 
   useEffect(() => {
-    // Get user's geolocation and then dispatch the data fetch
-    const getUserLocationAndFetchData = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          // Success callback
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            dispatch(
-              fetchLandingPageData({ longitude, latitude, maxDistanceKm: 500 })
-            );
-          },
-          // Error callback - fallback to default data
-          (geoError) => {
-            console.warn("Geolocation error:", geoError.message);
-            dispatch(fetchLandingPageData({}));
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0,
-          }
-        );
-      } else {
-        console.warn(
-          "Geolocation is not supported by this browser. Fetching default content."
-        );
-        dispatch(fetchLandingPageData({}));
-      }
-    };
+    // The `hasAppInitializedRef.current` ensures it runs once even with StrictMode.
+    if (!hasAppInitializedRef.current) {
+      console.log("App.jsx: Dispatching initializeApplication on initial mount (first time, controlled by ref).");
+      dispatch(initializeApplication());
+      hasAppInitializedRef.current = true;
+    } else {
+      console.log("App.jsx: initializeApplication has already been dispatched or is in progress (due to StrictMode re-run).");
+    }
+  }, [dispatch]); // Dependency array: run once on mount
 
-    getUserLocationAndFetchData();
-  }, [dispatch]);
+  // Show a loading screen while the entire application initialization is pending
+  if (!isAppFullyInitialized) {
+    // console.log("App: Showing DeliveryLoader - App not fully initialized.");
+    return <DeliveryLoader />;
+  }
 
-  // Show a loading screen while the initial authentication status is being determined
-  // This is crucial to avoid flickering or incorrect redirects before auth status is known.
-  if (!isInitialized) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="text-xl font-semibold text-gray-700">
-          Loading application...
-        </div>
-      </div>
-    );
+  if (appInitError) {
+      console.error("App Initialization Error:", appInitError);
   }
 
   // Once authentication status is initialized, render the appropriate routes
   return (
     <Routes>
-      {/* Handle the root path '/' based on authentication status:
-        If authenticated, redirect to /restaurants.
-        Otherwise, show the LandingPage.
-      */}
       <Route
         index
         element={isAuthenticated ? <Navigate to="/restaurants" replace /> : <LandingPage />}
       />
 
       {/* Public Routes (accessible to both guests and authenticated users) */}
-      {/* Note: The '/restaurants' route is directly accessible here for both,
-         but authenticated users are redirected to it from '/' automatically. */}
       <Route path="restaurants" element={<RestaurantsOverviewPage />} />
       <Route path="categories" element={<CategoryResultPage />} />
       <Route path="offers" element={<OffersPage />} />
