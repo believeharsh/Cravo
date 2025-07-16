@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Icon from "../../../components/ui/Icon";
 
-const CityCard = ({ city, width }) => (
-  <div
-    className="flex-shrink-0 px-2 sm:px-3"
-    style={{ width }} /* % width from parent */
-  >
+const CityCard = ({ city }) => (
+  <div className="px-2 sm:px-3 mb-4">
     <div
       className="bg-white rounded-xl border border-gray-200 flex flex-col items-center
                  justify-center py-5 hover:-translate-y-1 hover:shadow-md
@@ -18,50 +14,36 @@ const CityCard = ({ city, width }) => (
 );
 
 const CitiesSection = () => {
-  const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
   const { data, isLoading, error } = useSelector((state) => state.landingPage);
   const [cities, setCities] = useState([]);
+  const [showAll, setShowAll] = useState(false);
+  
+  // Number of cities to show initially
+  const INITIAL_CITIES_COUNT = 8;
 
   useEffect(() => {
     if (data?.data?.citiesWeServe?.data) {
       setCities(data.data.citiesWeServe.data);
-      console.log("usestate cities in cities Sections", cities) ; 
+      console.log("usestate cities in cities Sections", data.data.citiesWeServe.data);
     }
   }, [data]);
 
-  /* SSR-safe "items per view" */
-  const getItemsPerView = () => {
-    if (typeof window === "undefined") return itemsPerView.mobile;
-    if (window.innerWidth >= 1024) return itemsPerView.desktop;
-    if (window.innerWidth >= 640) return itemsPerView.tablet;
-    return itemsPerView.mobile;
+  // Get cities to display based on showAll state
+  const citiesToDisplay = showAll ? cities : cities.slice(0, INITIAL_CITIES_COUNT);
+  const hasMoreCities = cities.length > INITIAL_CITIES_COUNT;
+
+  const handleShowMore = () => {
+    setShowAll(true);
   };
 
-  const [itemsToShow, setItemsToShow] = useState(getItemsPerView());
-  const [index, setIndex] = useState(0);
-
-  /* update on resize */
-  useEffect(() => {
-    const update = () => setItemsToShow(getItemsPerView());
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  /* keep index in range when viewport shrinks */
-  const maxIndex = Math.max(0, cities.length - itemsToShow);
-  useEffect(
-    () => setIndex((i) => Math.min(i, maxIndex)),
-    [itemsToShow, maxIndex]
-  );
-
-  const cardWidthPct = 100 / itemsToShow;
-  const translatePct = -index * cardWidthPct;
+  const handleShowLess = () => {
+    setShowAll(false);
+  };
 
   return (
     <section className="py-5 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* header + arrows */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-6 mt-15">
           <div>
             <h2 className="text-xl font-bold text-gray-800">
@@ -71,43 +53,56 @@ const CitiesSection = () => {
               Bringing delicious food to your doorstep across India
             </p>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setIndex((i) => Math.max(0, i - 1))}
-              disabled={index === 0}
-              className={`p-2 rounded-full border transition ${
-                index === 0
-                  ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                  : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
-              }`}
-            >
-              <Icon name={"chevron-left"} size={18} />
-            </button>
-            <button
-              onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
-              disabled={index === maxIndex}
-              className={`p-2 rounded-full border transition ${
-                index === maxIndex
-                  ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                  : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
-              }`}
-            >
-              <Icon name={"chevron-right"} size={18} />
-            </button>
-          </div>
         </div>
 
-        {/* slider track */}
-        <div className="relative overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(${translatePct}%)` }}
-          >
-            {cities.map((city) => (
-              <CityCard key={city._id} city={city} width={`${cardWidthPct}%`} />
-            ))}
-          </div>
+        {/* Cities Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {citiesToDisplay.map((city) => (
+            <CityCard key={city._id} city={city} />
+          ))}
         </div>
+
+        {/* Show More/Less Button */}
+        {hasMoreCities && (
+          <div className="flex justify-center mt-6">
+            {!showAll ? (
+              <button
+                onClick={handleShowMore}
+                className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 
+                         transition-colors duration-200 font-medium text-sm"
+              >
+                Show More Cities ({cities.length - INITIAL_CITIES_COUNT})
+              </button>
+            ) : (
+              <button
+                onClick={handleShowLess}
+                className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 
+                         transition-colors duration-200 font-medium text-sm"
+              >
+                Show Less
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Loading and Error States */}
+        {isLoading && (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-gray-500">Loading cities...</div>
+          </div>
+        )}
+
+        {error && (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-red-500">Error loading cities</div>
+          </div>
+        )}
+
+        {!isLoading && !error && cities.length === 0 && (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-gray-500">No cities available</div>
+          </div>
+        )}
       </div>
     </section>
   );

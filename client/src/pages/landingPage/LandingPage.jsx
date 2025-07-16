@@ -18,8 +18,8 @@ const LandingPage = () => {
 
         {/* Content Sections */}
         <CategoriesSlider />
-        <CitiesSection />
         <RestaurantsSection />
+        <CitiesSection />
         <Footer />
       </div>
     </div>
