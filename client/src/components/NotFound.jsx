@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "./ui/Icon";
+import Button from "./ui/Button";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -47,13 +48,13 @@ const NotFoundPage = () => {
             Back to Cravo
           </Link>
 
-          <button
+          <Button 
             onClick={handleGoBack}
             className="inline-flex items-center px-8 py-4 bg-mint-green bg-green-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
           >
             <Icon name={"arrow-left"} className="w-5 h-5 mr-2" />
             Go Back
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ const LandingPage = () => {
     <div className="">
       <div className="min-h-screen bg-white font-helvetica">
         {/* Hero Section */}
-        <section className="bg-yellow-400 min-h-screen">
+        <section className="bg-primary min-h-screen">
           <Navbar />
           <Hero />
         </section>

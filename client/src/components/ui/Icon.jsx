@@ -14,7 +14,6 @@ import {
   CheckCircle, 
   AlertCircle, 
   Clock, 
-  ShoppingCart,
   User,
   Tag,
   Search,
@@ -98,6 +97,7 @@ import {
   RefreshCw,
   Database,
   Sparkles,
+  ShoppingCart,
 } from "lucide-react";
 
 // A map from a friendly string name to the actual Lucide React component
@@ -119,7 +119,6 @@ const iconMap = {
   "clock": Clock,
   "tag" : Tag, 
   "building2" : Building2 , 
-  "menu" : Menu , 
   "chevron-down" : ChevronDown ,
   "facebook" : Facebook, 
   "instagram" : Instagram , 
@@ -127,8 +126,6 @@ const iconMap = {
   "linkedin" : Linkedin , 
   "youtube"  : Youtube ,  
   "arrow-left" : ArrowLeft, 
-  "shopping-cart" : ShoppingBag,
-  "heart" : Heart,
   "credit-card" : CreditCard,
   "settings" : Settings,
   "help-circle" : HelpCircle,

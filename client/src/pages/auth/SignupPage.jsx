@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -75,14 +77,14 @@ const SignupPage = () => {
               <label htmlFor="name" className="block text-sm font-medium text-yellow-800 mb-2">
                 Full Name
               </label>
-              <input
+              <Input
                 id="name"
                 name="name"
                 type="text"
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                className="block w-full px-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
+                // className="block w-full px-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
                 placeholder="John Doe"
               />
             </div>
@@ -94,14 +96,14 @@ const SignupPage = () => {
               </label>
               <div className="relative">
                 <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-500 pointer-events-none" />
-                <input
+                <Input
                   id="email"
                   name="email"
                   type="email"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="block w-full pl-10 pr-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
+                  // className="block w-full pl-10 pr-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
                   placeholder="john@example.com"
                 />
               </div>
@@ -114,17 +116,17 @@ const SignupPage = () => {
               </label>
               <div className="relative">
                 <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-500 pointer-events-none" />
-                <input
+                <Input
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="block w-full pl-10 pr-10 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
-                  placeholder="Create a strong password"
+                  // className="block w-full pl-10 pr-10 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
+                  // placeholder="Create a strong password"
                 />
-                <button
+                <Button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
@@ -134,15 +136,15 @@ const SignupPage = () => {
                   ) : (
                     <Eye className="h-5 w-5 text-gray-500 hover:text-gray-800" />
                   )}
-                </button>
+                </Button>
               </div>
             </div>
 
             {/* submit */}
-            <button
+            <Button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-green-400 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
               {isLoading ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -152,7 +154,7 @@ const SignupPage = () => {
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </>
               )}
-            </button>
+            </Button>
           </form>
 
           {/* sign in */}

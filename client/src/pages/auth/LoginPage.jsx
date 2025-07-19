@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, clearAuthError } from '../../features/auth/authSlice';
 
 import Icon from "../../components/ui/Icon"; 
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const LoginPage = () => {
   const handleInputChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     dispatch(clearAuthError());
 
@@ -124,7 +126,7 @@ const LoginPage = () => {
               </p>
             )}
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" onSubmit={handleLogin} >
               {/* Email */}
               <div>
                 <label
@@ -135,14 +137,14 @@ const LoginPage = () => {
                 </label>
                 <div className="relative">
                   <Icon name="mail" className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" size={20} />
-                  <input
+                  <Input
                     id="email"
                     name="email"
                     type="email"
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
+                    // className="block w-full pl-10 pr-3 py-3 border border-cream rounded-lg focus:outline-none  focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -158,19 +160,19 @@ const LoginPage = () => {
                 </label>
                 <div className="relative">
                   <Icon name="lock" className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" size={20} />
-                  <input
+                  <Input
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="block w-full pl-10 pr-10 py-3 border border-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
+                    // className="block w-full pl-10 pr-10 py-3 border border-cream rounded-lg focus:outline-none  focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
                     placeholder="Enter your password"
                   />
-                  <button
+                  <Button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -180,20 +182,20 @@ const LoginPage = () => {
 
                       <Icon name="eye" className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" size={20} />
                     )}
-                  </button>
+                  </Button>
                 </div>
               </div>
 
               {/* Remember me & forgot */}
               <div className="flex items-center justify-between">
                 <label className="flex items-center">
-                  <input
+                  <Input
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 text-yellow-400 focus:ring-yellow-400 border-cream rounded"
+                    className="h-4 w-4 text-yellow-400 border-cream rounded-2xl"
                   />
                   <span className="ml-2 text-sm text-medium-gray">
                     Remember me
@@ -208,10 +210,10 @@ const LoginPage = () => {
               </div>
 
               {/* Submit */}
-              <button
+              <Button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none  focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 {isLoading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
@@ -222,7 +224,7 @@ const LoginPage = () => {
                     <Icon name="arrow-right" className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" size={16} /> 
                   </>
                 )}
-              </button>
+              </Button>
             </form>
 
             {/* Divider */}
@@ -243,7 +245,7 @@ const LoginPage = () => {
             <div className="mt-6 text-center">
               <Link
                 to="/signup"
-                className="inline-flex justify-center py-3 px-4 border border-yellow-400 text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-200"
+                className="inline-flex justify-center py-3 px-4 border border-yellow-400 text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none  focus:ring-offset-2 transition-all duration-200"
               >
                 Create New Account
               </Link>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Icon from "../components/ui/Icon";
+import Button from "./ui/Button";
 
 const ProfileLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -105,12 +106,12 @@ const ProfileLayout = () => {
         >
           {/* Close button for mobile sidebar */}
           <div className="lg:hidden absolute top-4 right-4 z-40">
-            <button
+            <Button
               onClick={() => setIsSidebarOpen(false)}
               className="text-gray-600 hover:text-gray-900"
             >
               <Icon name={"x"} size={24} />
-            </button>
+            </Button>
           </div>
 
           <nav className="p-4 space-y-2 overflow-y-auto">
@@ -145,7 +146,7 @@ const ProfileLayout = () => {
                   </NavLink>
                 ) : (
                   // For 'Logout' or actions without a route
-                  <button
+                  <Button
                     key={id}
                     onClick={() => {
                       action && action();
@@ -157,7 +158,7 @@ const ProfileLayout = () => {
                       <Icon name={icon} className={`${color}`} size={20} />
                       <span>{title}</span>
                     </div>
-                  </button>
+                  </Button>
                 )
             )}
           </nav>
@@ -166,9 +167,9 @@ const ProfileLayout = () => {
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col">
           <header className="lg:hidden sticky top-0 bg-white p-4 flex items-center justify-between border-b border-gray-200 z-20">
-            <button onClick={() => setIsSidebarOpen(true)}>
+            <Button onClick={() => setIsSidebarOpen(true)} >
               <Icon name={"menu"} size={24} />
-            </button>
+            </Button>
             <h1 className="text-lg font-semibold text-gray-800">
               {getMobileSectionTitle()}
             </h1>
