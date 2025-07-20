@@ -38,13 +38,9 @@ app.use("/api/v1/landingResources", landingRoute)
 app.use("/api/v1/cities", cityRoute)
 
 
-
 app.get("/", (req, res) => {
     res.json("Hello, from server")
 });
-
-
-
 
 
 export { app }

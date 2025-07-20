@@ -2,7 +2,8 @@ import dotenv from "dotenv";
 import fetch from "node-fetch";
 import { asyncHandler } from "../services/asyncHandler.js";
 import { apiResponse } from "../services/apiResponse.js";
-import {apiError} from "../services/apiError.js" ; 
+import { apiError } from "../services/ApiError.js";
+
 
 dotenv.config();
 
@@ -37,7 +38,7 @@ const getLandingPageData = asyncHandler(async (req, res) => {
   }
 
   try {
-    const categoriesUrl = `${process.env.API_BASE_URL}/categories`;
+    const categoriesUrl = `${process.env.API_BASE_URL}/categories/get-All-Categories`;
     const citiesUrl = `${process.env.API_BASE_URL}/cities`;
 
     // Fetch categories and cities concurrently
