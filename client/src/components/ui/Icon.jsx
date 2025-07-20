@@ -57,7 +57,6 @@ import {
   Users2,
   Briefcase,
   Newspaper,
-  LogIn,
   Percent,
   Crown,
   PizzaIcon,
@@ -98,6 +97,7 @@ import {
   Database,
   Sparkles,
   ShoppingCart,
+  LogIn
 } from "lucide-react";
 
 // A map from a friendly string name to the actual Lucide React component

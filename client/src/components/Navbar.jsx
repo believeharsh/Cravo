@@ -1,51 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react"; 
 import { Link, NavLink } from "react-router-dom";
 import Icon from "./ui/Icon";
 import Button from "../components/ui/Button"
+import { useSelector } from "react-redux";
+
 const Navbar = ({ showSearch = true, cartCount = 0 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const navItems = [
-    {
-      id: "offers",
-      label: "Offers",
-      Iconname: "tag",
-      path: "/offers",
-      badge: "New",
-      showOnMobile: true,
-    },
-    {
-      id: "corporate",
-      label: "Corporate",
-      Iconname: "building2",
-      path: "/corporate",
-      showOnMobile: true,
-    },
-    {
-      id: "help",
-      label: "Help",
-      Iconname: "help-circle",
-      path: "/help",
-      showOnMobile: true,
-    },
-    {
-      id: "cart",
-      label: "Cart",
-      Iconname: "shopping-cart",
-      path: "/cart",
-      count: cartCount,
-      showOnMobile: true,
-    },
-    {
-      id: "profile",
-      label: "Profile",
-      Iconname: "user",
-      path: "/profile",
-      showOnMobile: true,
-    },
-  ];
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  // Use useMemo to create the navItems array,
+  // so it only recomputes when isAuthenticated or cartCount changes.
+  const navItems = useMemo(() => {
+    const baseNavItems = [
+      {
+        id: "offers",
+        label: "Offers",
+        Iconname: "tag",
+        path: "/offers",
+        badge: "New",
+        showOnMobile: true,
+      },
+      {
+        id: "corporate",
+        label: "Corporate",
+        Iconname: "building2",
+        path: "/corporate",
+        showOnMobile: true,
+      },
+      {
+        id: "help",
+        label: "Help",
+        Iconname: "help-circle",
+        path: "/help",
+        showOnMobile: true,
+      },
+      {
+        id: "cart",
+        label: "Cart",
+        Iconname: "shopping-cart",
+        path: "/cart",
+        count: cartCount,
+        showOnMobile: true,
+      },
+    ];
+
+    if (isAuthenticated) {
+      baseNavItems.push({
+        id: "profile",
+        label: "Profile",
+        Iconname: "user",
+        path: "/profile",
+        showOnMobile: true,
+      });
+    } else {
+      // If not authenticated, add a "Sign In" button item
+      baseNavItems.push({
+        id: "signin",
+        label: "Sign In",
+        Iconname: "login", 
+        path: "/auth/signin",
+        // isButton: true, 
+        showOnMobile: true,
+      });
+    }
+
+    return baseNavItems;
+  }, [isAuthenticated, cartCount]); // Depend on these values
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -93,7 +116,7 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onFocus={() => setIsSearchFocused(true)}
                       onBlur={() => setIsSearchFocused(false)}
-                      className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium transition-colors duration-200"
+                      className="w-full pl-12 pr-4 py-3 border-2  border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium transition-colors duration-200"
                     />
                     {isSearchFocused && (
                       <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg p-4 z-10">
@@ -110,7 +133,30 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2">
               {navItems.map((item) => {
-                if (!item.path) return null;
+                if (!item.path) return null; // Should not happen with the current setup
+                
+                // Conditional rendering for authenticated user
+                if (!isAuthenticated) {
+                  return (
+                    <NavLink
+                    key={item.id}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
+                        isActive
+                          ? "bg-yellow-50 text-yellow-600"
+                          : "text-gray-700 hover:text-gray-900"
+                      }`
+                    }
+                  >
+                    <Icon name={item.Iconname} size={18} />
+                    <span className="hidden xl:block">{item.label}</span>
+
+                    </NavLink>
+                    
+                  );
+                }
+
                 return (
                   <NavLink
                     key={item.id}
@@ -145,18 +191,7 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
             </div>
 
             {/* Mobile Menu Button */}
-            {/* <button
-              onClick={toggleMobileMenu}
-              className="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors"
-              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-            >
-              {isMobileMenuOpen ? (
-                <Icon name={"x"} size={24} className="text-gray-600" />
-              ) : (
-                <Icon name={"menu"} size={24} className="text-gray-600" />
-              )}
-            </button> */}
-            <Button 
+            <Button
               onClick={toggleMobileMenu}
               className="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors"
               aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
@@ -199,6 +234,21 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
               {navItems
                 .filter((item) => item.showOnMobile)
                 .map((item) => {
+                  // Conditional rendering for button vs. NavLink in mobile menu
+                  if (item.isButton) {
+                    return (
+                      <Link key={item.id} to={item.path} onClick={toggleMobileMenu}>
+                        <Button
+                          variant="primary"
+                          className="w-full justify-center py-3" // Make button full width and center text for mobile
+                        >
+                          <Icon name={item.Iconname} size={20} className="mr-3" />
+                          <span>{item.label}</span>
+                        </Button>
+                      </Link>
+                    );
+                  }
+
                   return (
                     <NavLink
                       key={item.id}

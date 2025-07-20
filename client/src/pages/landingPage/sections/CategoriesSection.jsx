@@ -9,7 +9,7 @@ const CategoryCard = ({ c, width }) => (
   >
     <div
       className="flex flex-col items-center
-                 justify-center  hover:-translate-y-1 hover:shadow-md
+                 justify-center  hover:-translate-y-1 
                  transition-transform duration-200 ease-out cursor-pointer"
     >
       <img 
@@ -20,7 +20,7 @@ const CategoryCard = ({ c, width }) => (
           e.target.src = '/placeholder-category.png'; 
         }}
       />
-      <span className="mt-3 font-medium text-gray-700 text-sm text-center">
+      <span className="mt-3 font-semibold text-gray-700 text-md text-center">
         {c.name}
       </span>
     </div>
@@ -133,7 +133,7 @@ const CategoriesSlider = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* header + arrows */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-800">
+          <h2 className="text-3xl font-semibold text-gray-800">
             What's on your mind
           </h2>
           {categoriesPerRow > itemsToShow && (

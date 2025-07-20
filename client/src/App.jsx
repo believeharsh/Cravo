@@ -38,7 +38,7 @@ import DeliveryLoader from "./components/DeliveryLoader";
 
 function App() {
   const dispatch = useDispatch();
-   const hasAppInitializedRef = useRef(false);
+  const hasAppInitializedRef = useRef(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { isAppFullyInitialized, appInitError } = useSelector((state) => state.landingPage); 
 
