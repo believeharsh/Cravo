@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { asyncHandler } from "../services/asyncHandler.js";
 import { apiResponse } from "../services/apiResponse.js";
 import {apiError} from "../services/apiError.js" ; 
+
 dotenv.config();
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -26,23 +27,13 @@ const getLandingPageData = asyncHandler(async (req, res) => {
   const userLongitude = parseFloat(req.query.longitude);
   const userLatitude = parseFloat(req.query.latitude);
 
-  // console statement 
-  console.log(userLongitude)
-  console.log(userLatitude)
-
   // Default maxDistanceKm if not provided by frontend or for fallback
   const defaultMaxDistanceKm = 600 ; 
   let maxDistanceKm = parseFloat(req.query.maxDistanceKm) || defaultMaxDistanceKm;
 
   // Validate coordinates
   if (isNaN(userLongitude) || isNaN(userLatitude)) {
-    // If coordinates are missing or invalid, proceed without location-specific restaurants
-    // or return an error if location is mandatory for your app.
     console.warn("User location (longitude/latitude) not provided or invalid. Fetching default restaurants.");
-    // For this scenario, we'll fetch restaurants without location, or you can set default coords.
-    // Let's set default coordinates for restaurant search if user's are missing.
-    // You might want to pick a default city's coordinates here.
-    // For now, we'll use a placeholder or handle it in the restaurants API call if it supports it.
   }
 
   try {
@@ -72,7 +63,7 @@ const getLandingPageData = asyncHandler(async (req, res) => {
     if (!isNaN(userLongitude) && !isNaN(userLatitude) && citiesData && citiesData.length > 0) {
       let minDistance = Infinity;
       
-      // Assuming citiesData is an array of city objects with { name, latitude, longitude, defaultRadiusKm }
+      // citiesData is an array of city objects with { name, latitude, longitude, defaultRadiusKm }
       citiesData.forEach(city => {
         if (city.latitude && city.longitude) {
           const dist = calculateDistance(userLatitude, userLongitude, city.latitude, city.longitude);
@@ -84,10 +75,10 @@ const getLandingPageData = asyncHandler(async (req, res) => {
       });
 
       // If a nearby city is found within a reasonable threshold (e.g., 100km)
-      // You might set a threshold here, or always use the nearest one.
-      // For simplicity, we'll always use the nearest found city's coordinates if one is found.
+      // we might set a threshold here, or always use the nearest one.
+      // For simplicity, we'll always use the nearest found city's coordinates if one is found
+
       if (selectedCity) {
-        // Use the selected city's coordinates for restaurant search
         restaurantFetchLongitude = selectedCity.longitude;
         restaurantFetchLatitude = selectedCity.latitude;
         // Optionally, use the city's default radius if available, otherwise fallback
@@ -98,14 +89,9 @@ const getLandingPageData = asyncHandler(async (req, res) => {
       }
     } else {
         console.log("No valid user coordinates or cities data. Falling back to default restaurant search parameters.");
-        // If no user location or cities, you might fetch restaurants for a default location
-        // or a general "featured" list if your API supports it without location.
-        // For now, we'll construct the URL with the potentially invalid user coords,
-        // assuming the restaurant API handles it gracefully (e.g., returns empty or global list).
     }
 
-    // Construct the restaurants URL using the determined coordinates and maxDistanceKm
-    // Ensure your restaurants API can handle missing/invalid coordinates gracefully
+    // Constructing the restaurants URL using the determined coordinates and maxDistanceKm
     restaurantsUrl = `${process.env.API_BASE_URL}/restaurants/location?longitude=${restaurantFetchLongitude}&latitude=${restaurantFetchLatitude}&maxDistanceKm=${maxDistanceKm}`;
     
     const restaurantsRes = await fetch(restaurantsUrl);
@@ -119,7 +105,7 @@ const getLandingPageData = asyncHandler(async (req, res) => {
       categories: categoriesData,
       featuredRestaurants: restaurantsData,
       citiesWeServe: citiesData,
-      selectedCity: selectedCity ? { name: selectedCity.name, id: selectedCity.id } : null, // Send back selected city info
+      selectedCity: selectedCity ? { name: selectedCity.name, id: selectedCity.id } : null, 
       message: "Aggregated landing page data fetched successfully!",
     };
 
@@ -134,7 +120,6 @@ const getLandingPageData = asyncHandler(async (req, res) => {
       );
   } catch (error) {
     console.error("Error fetching or aggregating landing page data:", error);
-    // Use apiError for consistent error handling
     if (error instanceof apiError) {
       return res.status(error.statusCode).json(error);
     }
