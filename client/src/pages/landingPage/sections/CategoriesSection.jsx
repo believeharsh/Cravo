@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Icon from "../../../components/ui/Icon";
+import { useNavigate } from "react-router-dom";
 
-const CategoryCard = ({ c, width }) => (
+
+const CategoryCard = ({ c, width, onClick }) => (
   <div
-    className="flex-shrink-0  sm:px-1"
+    className="flex-shrink-0 sm:px-1"
     style={{ width }}
+    onClick={() => onClick(c.slug || c.name)}
   >
     <div
       className="flex flex-col items-center
-                 justify-center  hover:-translate-y-1 
-                 transition-transform duration-200 ease-out cursor-pointer"
+                   justify-center hover:-translate-y-1
+                   transition-transform duration-200 ease-out cursor-pointer"
     >
-      <img 
-        src={c.image} 
+      <img
+        src={c.image}
         alt={c.name}
         className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg"
         onError={(e) => {
-          e.target.src = '/placeholder-category.png'; 
+          e.target.src = "/placeholder-category.png";
         }}
       />
       <span className="mt-3 font-semibold text-gray-700 text-md text-center">
@@ -32,16 +35,16 @@ const CategoriesSlider = () => {
   const [foodCategories, setFoodCategories] = useState([]);
   const { data, isLoading, error } = useSelector((state) => state.landingPage);
 
-  // Set categories from Redux store and ensure we have enough for two rows
+  const navigate = useNavigate(); 
+
   useEffect(() => {
     let categories = [];
-    
+
     if (data?.data?.categories?.data?.categories) {
       categories = [...data.data.categories.data.categories];
     }
-    
+
     setFoodCategories(categories);
-    console.log("Categories in categories Section:", categories);
   }, [data]);
 
   /* SSR-safe "items per view" */
@@ -79,13 +82,19 @@ const CategoriesSlider = () => {
   const cardWidthPct = 100 / itemsToShow;
   const translatePct = -index * cardWidthPct;
 
+  const handleNavigateToCategoryResultPage = (categorySlug) => {
+    navigate(`categories/${categorySlug}`);
+  };
+
   // Show loading state
   if (isLoading) {
     return (
       <section className="py-5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-800">What's on your mind</h2>
+            <h2 className="text-xl font-bold text-gray-800">
+              What's on your mind
+            </h2>
           </div>
           <div className="space-y-4">
             {/* First row skeleton */}
@@ -173,7 +182,12 @@ const CategoriesSlider = () => {
               style={{ transform: `translateX(${translatePct}%)` }}
             >
               {firstRowCategories.map((c) => (
-                <CategoryCard key={`row1-${c._id}`} c={c} width={`${cardWidthPct}%`} />
+                <CategoryCard
+                  key={`row1-${c._id}`}
+                  c={c}
+                  width={`${cardWidthPct}%`}
+                  onClick={handleNavigateToCategoryResultPage}
+                />
               ))}
             </div>
           </div>
@@ -185,7 +199,12 @@ const CategoriesSlider = () => {
               style={{ transform: `translateX(${translatePct}%)` }}
             >
               {secondRowCategories.map((c) => (
-                <CategoryCard key={`row2-${c._id}`} c={c} width={`${cardWidthPct}%`} />
+                <CategoryCard
+                  key={`row2-${c._id}`}
+                  c={c}
+                  width={`${cardWidthPct}%`}
+                  onClick={handleNavigateToCategoryResultPage} 
+                />
               ))}
             </div>
           </div>
@@ -196,7 +215,3 @@ const CategoriesSlider = () => {
 };
 
 export default CategoriesSlider;
-
-
-
-
