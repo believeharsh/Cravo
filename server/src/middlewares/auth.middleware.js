@@ -66,4 +66,4 @@ const authorizeRoles = (...roles) => {
   };
 };
 
-export { verifyUserJwtToken, authorizeRoles, checkAuth, isLoggedIn };
+export { authorizeRoles, checkAuth, isLoggedIn };
