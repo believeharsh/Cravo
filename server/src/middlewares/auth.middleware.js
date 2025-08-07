@@ -4,59 +4,46 @@ import User from "../models/user.model.js";
 import { apiError } from "../services/ApiError.js";
 import jwt from "jsonwebtoken"
 
-const verifyUserJwtToken = asyncHandler(async (req, res, next) => {
+const checkAuth = asyncHandler(async (req, res, next) => {
   try {
-   
-    const userToken =
-      req.cookies?.accessToken ||
-      req.header("Authorization")?.replace("Bearer ", "");
+    const userToken = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
     if (!userToken) {
-      throw new apiError(401, "Unauthorized request: Access token missing.");
+      // No token found, so the user is a guest. We don't throw an error; we just proceed.
+      return next();
     }
 
     let decodedToken;
     try {
-
       decodedToken = validateToken(userToken);
     } catch (jwtError) {
-     
-      if (jwtError instanceof jwt.TokenExpiredError) {
-        console.log("Access token expired. User needs to refresh.");
-        throw new apiError(401, "Access token expired, please refresh.");
-      } else if (jwtError instanceof jwt.JsonWebTokenError) {
-        console.log("Invalid access token:", jwtError.message);
-        throw new apiError(401, "Invalid access token.");
-      } else {
-        console.error("Unexpected JWT error:", jwtError);
-        throw new apiError(
-          500,
-          "Authentication failed due to token processing error."
-        );
-      }
+      // Invalid token, but we still treat them as a guest.
+      console.log("Invalid access token:", jwtError.message);
+      return next();
     }
 
-    // Token is valid, so finding the user in db 
-    const user = await User.findById(decodedToken?._id).select(
-      "-password -refreshToken"
-    );
+    // Token is valid, so find the user in the database.
+    const user = await User.findById(decodedToken?._id).select("-password -refreshToken");
 
-    if (!user) {
-      // User from token not found in DB 
-      throw new apiError(
-        401,
-        "Invalid access token: User not found in database."
-      );
+    if (user) {
+      // User found, attaching the user object to the request.
+      req.user = user;
     }
-
-    req.user = user;
-
-    next(); 
+    
+    // User not found in DB or other issue, so treating as a guest and proceed.
+    next();
   } catch (error) {
-    console.error("Error in verifyUserJwtToken middleware:", error.message);
-    throw error; 
+    console.error("Error in checkAuth middleware:", error.message);
+    next();
   }
 });
+
+const isLoggedIn = (req, res, next) => {
+  if (!req.user) {
+    throw new apiError(401, "Unauthorized request: You must be logged in.");
+  }
+  next();
+};
 
 const authorizeRoles = (...roles) => {
   return (req, res, next) => {
@@ -79,4 +66,4 @@ const authorizeRoles = (...roles) => {
   };
 };
 
-export { verifyUserJwtToken, authorizeRoles };
+export { verifyUserJwtToken, authorizeRoles, checkAuth, isLoggedIn };

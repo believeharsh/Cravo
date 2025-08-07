@@ -32,7 +32,7 @@ transporter.verify(function (error, success) {
     if (error) {
         console.error('Email transporter connection error:', error);
     } else {
-        console.log('Email transporter ready to send messages');
+        // console.log('Email transporter ready to send messages');
     }
 });
 

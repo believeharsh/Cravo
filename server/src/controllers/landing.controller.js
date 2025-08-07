@@ -23,8 +23,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 const getLandingPageData = asyncHandler(async (req, res) => {
-  console.log("getLandingPageData func is being fired now");
-  // Extract user's current location from query parameters
+
   const userLongitude = parseFloat(req.query.longitude);
   const userLatitude = parseFloat(req.query.latitude);
 

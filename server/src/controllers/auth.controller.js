@@ -185,18 +185,26 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, {}, "User is logged out now"));
 });
 
-const getAuthStatus = (req, res) => {
-  // here this controller depends on the middleware, Hence I've directly moved to the res part
+const getAuthStatus = asyncHandler(async (req, res) => {
+  // Check if req.user exists. If it does, the user is authenticated.
+  if (req.user) {
     res.status(200).json({
-        status: 'authenticated',
-        user: {
-            id: req.user._id, // Assuming your User model uses _id
-            email: req.user.email,
-            role: req.user.role,
-            name: req.user.name,
-        }
+      status: 'authenticated',
+      user: {
+        id: req.user._id, 
+        email: req.user.email,
+        role: req.user.role,
+        name: req.user.name,
+      }
     });
-};
+  } else {
+    // If req.user doesn't exist, the user is not authenticated (guest access).
+    res.status(200).json({
+      status: 'unauthenticated',
+      user: null
+    });
+  }
+});
 
 const changePassword = () => {};
 
