@@ -42,6 +42,8 @@ function App() {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { isAppFullyInitialized, appInitError } = useSelector((state) => state.landingPage); 
 
+  console.log(isAuthenticated) ; 
+
   useEffect(() => {
     // The `hasAppInitializedRef.current` ensures it runs once even with StrictMode.
     if (!hasAppInitializedRef.current) {
