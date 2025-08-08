@@ -34,6 +34,7 @@ const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
   const [foodCategories, setFoodCategories] = useState([]);
   const { data, isLoading, error } = useSelector((state) => state.landingPage);
+  const { latitude, longitude } = useSelector((state) => state.location);
 
   const navigate = useNavigate(); 
 
@@ -82,9 +83,17 @@ const CategoriesSlider = () => {
   const cardWidthPct = 100 / itemsToShow;
   const translatePct = -index * cardWidthPct;
 
+
   const handleNavigateToCategoryResultPage = (categorySlug) => {
-    navigate(`categories/${categorySlug}`);
+    // Check if location data exists before navigating
+    if (latitude && longitude) {
+      navigate(`/categories/${categorySlug}?lat=${latitude}&lng=${longitude}`);
+    } else {
+      // Fallback: navigate without location if it's not available
+      navigate(`/categories/${categorySlug}`);
+    }
   };
+
 
   // Show loading state
   if (isLoading) {

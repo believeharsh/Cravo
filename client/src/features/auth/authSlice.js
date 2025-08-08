@@ -62,14 +62,14 @@ export const checkAuthStatus = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null, // Stores user info after successful login/auth check
-    role: null, // Stores user role
-    token: null, // If your API returns a token (less common with HTTP-only cookies for session)
-    isLoading: false, // For login/logout operations
-    isAuthChecking: true, // NEW: True when the initial auth status check is in progress
-    error: null, // Stores any authentication-related error messages
-    isAuthenticated: false, // True if the user is currently authenticated
-    isInitialized: false, // NEW: True once the initial auth status check has completed
+    user: null, 
+    role: null,
+    token: null, 
+    isLoading: false,
+    isAuthChecking: true, 
+    error: null,
+    isAuthenticated: false, 
+    isInitialized: false,
   },
   reducers: {
     // Synchronous reducers for simple state changes
@@ -77,8 +77,8 @@ const authSlice = createSlice({
       state.user = null;
       state.role = null;
       state.token = null;
-      state.isLoading = false; // Reset loading on logout
-      state.error = null; // Clear any errors on logout
+      state.isLoading = false; 
+      state.error = null; 
       state.isAuthenticated = false;
       // With HTTP-only cookies, you typically don't clear localStorage for auth data.
       // If you stored 'role' for display, you might clear it here.
@@ -91,12 +91,11 @@ const authSlice = createSlice({
     // This reducer is for manually setting auth state, e.g., if you re-hydrate from a secure source
     // It expects a direct payload of { user, role, token }
     setAuthState: (state, action) => {
-      const { user, role, token } = action.payload; // Direct destructuring
+      const { user, role, token } = action.payload; 
       state.user = user || null;
       state.role = role || null;
       state.token = token || null;
-      state.isAuthenticated = !!user; // Set true if user object exists
-      // isInitialized is typically handled by checkAuthStatus, but can be set here if needed
+      state.isAuthenticated = !!user; 
     },
     // Reducer to explicitly mark initialization (used if checkAuthStatus isn't the only init path)
     setAuthInitialized: (state) => {
@@ -109,18 +108,17 @@ const authSlice = createSlice({
       // --- Handlers for loginUser thunk ---
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
-        state.error = null; // Clear any previous errors
+        state.error = null; 
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.user = action.payload.user; // Assuming your API returns a `user` object
-        state.role = action.payload.role; // Assuming your API returns a `role`
-        state.token = action.payload.token; // Assuming your API returns a `token`
+        state.user = action.payload.user;
+        state.role = action.payload.role; 
+        state.token = action.payload.token; 
         state.isAuthenticated = true;
-        // After successful login, the initial check is effectively done
-        state.isAuthChecking = false; // Ensure this is false
-        state.isInitialized = true; // Mark as initialized
+        state.isAuthChecking = false; 
+        state.isInitialized = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -128,10 +126,9 @@ const authSlice = createSlice({
         state.role = null;
         state.token = null;
         state.isAuthenticated = false;
-        state.error = action.payload; // `action.payload` here will be the value passed to `rejectWithValue`
-        // After failed login, the initial check is effectively done
-        state.isAuthChecking = false; // Ensure this is false
-        state.isInitialized = true; // Mark as initialized
+        state.error = action.payload; 
+        state.isAuthChecking = false; 
+        state.isInitialized = true; 
       })
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
         state.isAuthChecking = false;
@@ -152,12 +149,12 @@ const authSlice = createSlice({
         }
       })
       .addCase(checkAuthStatus.rejected, (state, action) => {
-        state.isAuthChecking = false; // Auth check completed
-        state.isInitialized = true; // Auth check completed (as unauthenticated)
-        state.isAuthenticated = false; // User is not authenticated
-        state.user = null; // Clear user data
-        state.role = null; // Clear role
-        state.token = null; // Clear token
+        state.isAuthChecking = false; 
+        state.isInitialized = true; 
+        state.isAuthenticated = false; 
+        state.user = null; 
+        state.role = null; 
+        state.token = null; 
         // `action.payload` here would be null for 401/404, or a message for other errors
         state.error = action.payload;
       });
