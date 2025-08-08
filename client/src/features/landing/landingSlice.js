@@ -59,39 +59,6 @@ export const initializeApplication = createAsyncThunk(
 
       // 2. Get user's geolocation and then dispatch the data fetch
       console.log("initializeApplication: Attempting to get geolocation...");
-      // return new Promise((resolve) => {
-      //   if (navigator.geolocation) {
-      //     navigator.geolocation.getCurrentPosition(
-      //       (position) => {
-      //         const { latitude, longitude } = position.coords;
-      //         console.log("initializeApplication: Geolocation obtained.", { latitude, longitude });
-      //         console.log("initializeApplication: Dispatching fetchLandingPageData with geolocation...");
-      //         dispatch(
-      //           fetchLandingPageData({ longitude, latitude, maxDistanceKm: 600 })
-      //         );
-      //         resolve();
-      //       },
-      //       (geoError) => {
-      //         console.warn("initializeApplication: Geolocation error:", geoError.message);
-      //         console.log("initializeApplication: Dispatching fetchLandingPageData without geolocation (fallback)...");
-      //         dispatch(fetchLandingPageData({}));
-      //         resolve();
-      //       },
-      //       {
-      //         enableHighAccuracy: true,
-      //         timeout: 10000,
-      //         maximumAge: 0,
-      //       }
-      //     );
-      //   } else {
-      //     console.warn(
-      //       "initializeApplication: Geolocation not supported. Fetching default content."
-      //     );
-      //     console.log("initializeApplication: Dispatching fetchLandingPageData without geolocation (no support)...");
-      //     dispatch(fetchLandingPageData({}));
-      //     resolve();
-      //   }
-      // });
 
       try {
         // Dispatch fetchUserLocation and wait for it to complete.
