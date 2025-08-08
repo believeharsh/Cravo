@@ -8,7 +8,7 @@ const CategoryCard = ({ c, width, onClick }) => (
   <div
     className="flex-shrink-0 sm:px-1"
     style={{ width }}
-    onClick={() => onClick(c.slug || c.name)}
+    onClick={() => onClick( c.name || c.slug )}
   >
     <div
       className="flex flex-col items-center
@@ -195,7 +195,7 @@ const CategoriesSlider = () => {
                   key={`row1-${c._id}`}
                   c={c}
                   width={`${cardWidthPct}%`}
-                  onClick={handleNavigateToCategoryResultPage}
+                  onClick={() => handleNavigateToCategoryResultPage(c.name)}
                 />
               ))}
             </div>
@@ -212,7 +212,7 @@ const CategoriesSlider = () => {
                   key={`row2-${c._id}`}
                   c={c}
                   width={`${cardWidthPct}%`}
-                  onClick={handleNavigateToCategoryResultPage} 
+                  onClick={() => handleNavigateToCategoryResultPage(c.name)}
                 />
               ))}
             </div>
