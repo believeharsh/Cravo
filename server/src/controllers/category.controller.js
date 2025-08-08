@@ -20,20 +20,24 @@ const getAllCategories = asyncHandler(async (req, res) => {
 });
 
 const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
-  const CategoryName = req.query.CategoryName;
+  console.log("category result contooooo is firing")
+  const categorySlug = req.query.categorySlug;
   const userLongitude = parseFloat(req.query.longitude);
   const userLatitude = parseFloat(req.query.latitude);
+
+  console.log("user lag" , userLatitude)
+  console.log("user long" , userLongitude)
 
   const limit = parseInt(req.query.limit) || 10;
   const page = parseInt(req.query.page) || 1;
 
   const MAX_DISTANCE_METERS = 10000;
 
-  // Basic validation for CategoryName
-  if (!CategoryName) {
+  // Basic validation for categorySlug
+  if (!categorySlug) {
     res.status(400);
     throw new Error(
-      "Category name is required as a query parameter (e.g., /categories?CategoryName=Pizza)."
+      `Category name is required as a query parameter (e.g., /categories?categorySlug=${categorySlug}).`
     );
   }
 
@@ -62,7 +66,7 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
           spherical: true,
           maxDistance: MAX_DISTANCE_METERS,
           query: {
-            cuisine_type: CategoryName,
+            cuisine_type: categorySlug,
           },
           key: "address.location",
         },
@@ -88,7 +92,7 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
           spherical: true,
           maxDistance: MAX_DISTANCE_METERS,
           query: {
-            cuisine_type: CategoryName,
+            cuisine_type: categorySlug,
           },
           key: "address.location",
         },
@@ -110,8 +114,8 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
 
     // If no restaurants are found, the aggregation will return an empty array.
     if (totalCount === 0) {
-      return res.status(404).json({
-        message: `No restaurants found for category "${CategoryName}" in your location.`,
+      return res.status(200).json({
+        message: `No restaurants found for category "${categorySlug}" in your location.`,
         data: [],
         totalResults: 0,
         currentPage: page,
@@ -119,10 +123,10 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
       });
     }
 
-    console.log(`Found a total of ${totalCount} restaurants for category "${CategoryName}".`);
+    console.log(`Found a total of ${totalCount} restaurants for category "${categorySlug}".`);
 
     res.status(200).json({
-      message: `Successfully fetched restaurants for category "${CategoryName}".`,
+      message: `Successfully fetched restaurants for category "${categorySlug}".`,
       data: restaurants,
       totalResults: totalCount,
       currentPage: page,
@@ -131,7 +135,7 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
 
   } catch (error) {
     console.error(
-      `Error fetching restaurants for category "${CategoryName}" and location (${userLatitude}, ${userLongitude}):`,
+      `Error fetching restaurants for category "${categorySlug}" and location (${userLatitude}, ${userLongitude}):`,
       error
     );
 
