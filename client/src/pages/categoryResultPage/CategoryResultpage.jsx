@@ -43,8 +43,8 @@ const CategoryResultPage = () => {
 
     try {
       // Get values from URL parameters, providing a default if they are missing
-      const longitude = searchParams.get("lng") || 75.86; // Changed from 'longitude'
-      const latitude = searchParams.get("lat") || 22.72;   // Changed from 'latitude'
+      const longitude = searchParams.get("lng") || 75.86;
+      const latitude = searchParams.get("lat") || 22.72;  
       const limit = searchParams.get("limit") || 5;
 
       // Construct the API URL using dynamic parameters from the URL and state

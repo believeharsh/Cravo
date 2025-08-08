@@ -20,13 +20,10 @@ const getAllCategories = asyncHandler(async (req, res) => {
 });
 
 const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
-  console.log("category result contooooo is firing")
+
   const categorySlug = req.query.categorySlug;
   const userLongitude = parseFloat(req.query.longitude);
   const userLatitude = parseFloat(req.query.latitude);
-
-  console.log("user lag" , userLatitude)
-  console.log("user long" , userLongitude)
 
   const limit = parseInt(req.query.limit) || 10;
   const page = parseInt(req.query.page) || 1;
