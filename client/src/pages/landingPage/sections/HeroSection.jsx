@@ -16,7 +16,6 @@ const debounce = (func, delay) => {
 };
 
 const Hero = () => {
-
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isLocationLoading, setIsLocationLoading] = useState(false);
@@ -39,14 +38,16 @@ const Hero = () => {
       return;
     }
     setIsLocationLoading(true);
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5`;
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+      query
+    )}&format=json&addressdetails=1&limit=5`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch suggestions from OpenStreetMap');
+        throw new Error("Failed to fetch suggestions from OpenStreetMap");
       }
       const data = await response.json();
-      const formattedSuggestions = data.map(item => ({
+      const formattedSuggestions = data.map((item) => ({
         name: item.display_name,
         lat: parseFloat(item.lat),
         lng: parseFloat(item.lon),
@@ -66,7 +67,7 @@ const Hero = () => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch address from OpenStreetMap');
+        throw new Error("Failed to fetch address from OpenStreetMap");
       }
       const data = await response.json();
       const newLocation = {
@@ -91,7 +92,9 @@ const Hero = () => {
   };
 
   // Debounced version of the search function
-  const debouncedFetchSuggestions = useRef(debounce(fetchGeocodeSuggestions, 500)).current;
+  const debouncedFetchSuggestions = useRef(
+    debounce(fetchGeocodeSuggestions, 500)
+  ).current;
 
   // --- Event Handlers ---
 
@@ -155,7 +158,7 @@ const Hero = () => {
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4 sm:space-y-6">
-              <h2 className="text-3xl sm:text-xl lg:text-5xl xl:text-6xl font-bold text-gray-800 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800 leading-tight">
                 Satisfy Your <br />
                 <span className="text-whitess">Cravings</span> <br />
                 <span className="block sm:inline">Instantly</span>
@@ -166,7 +169,6 @@ const Hero = () => {
             <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100">
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-
                   {/* Location Search Input & Suggestions */}
                   <div className="relative" ref={locationRef}>
                     <Icon
@@ -176,7 +178,7 @@ const Hero = () => {
                     />
                     <input
                       type="text"
-                      placeholder="Mumbai, Maharashtra"
+                      placeholder="Indore, MP, India"
                       className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium text-sm sm:text-base"
                       value={searchTerm}
                       onChange={handleLocationChange}
@@ -189,56 +191,63 @@ const Hero = () => {
                     <Icon
                       name={isLocationLoading ? "spinner" : "chevron-down"}
                       className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition-transform duration-200 ${
-                        locationFocused && !isLocationLoading ? "rotate-180" : ""
+                        locationFocused && !isLocationLoading
+                          ? "rotate-180"
+                          : ""
                       } ${isLocationLoading ? "animate-spin" : ""}`}
                       size={18}
                     />
 
                     {/* Suggestions Dropdown */}
-                    {showSuggestions && (searchTerm.length >= 3 || suggestions.length > 0 || isLocationLoading) && (
-                      <div className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden max-h-64 overflow-y-auto">
-                        {/* Use My Current Location Button */}
-                        <div
-                          className="flex items-center gap-3 p-4 text-sm font-medium text-blue-600 hover:bg-gray-50 cursor-pointer"
-                          onClick={handleUseCurrentLocation}
-                        >
-                          <Icon name="locate-fixed" size={18} />
-                          <span>Use My Current Location</span>
+                    {showSuggestions &&
+                      (searchTerm.length >= 3 ||
+                        suggestions.length > 0 ||
+                        isLocationLoading) && (
+                        <div className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden max-h-64 overflow-y-auto">
+                          {/* Use My Current Location Button */}
+                          <div
+                            className="flex items-center gap-3 p-4 text-sm font-medium text-blue-600 hover:bg-gray-50 cursor-pointer"
+                            onClick={handleUseCurrentLocation}
+                          >
+                            <Icon name="locate-fixed" size={18} />
+                            <span>Use My Current Location</span>
+                          </div>
+
+                          <hr className="border-gray-200" />
+
+                          {/* Loading State */}
+                          {isLocationLoading && (
+                            <div className="p-4 text-center text-sm text-gray-500">
+                              Loading...
+                            </div>
+                          )}
+
+                          {/* No Results State */}
+                          {!isLocationLoading &&
+                            suggestions.length === 0 &&
+                            searchTerm.length >= 3 && (
+                              <div className="p-4 text-center text-sm text-gray-500">
+                                No locations found.
+                              </div>
+                            )}
+
+                          {/* List of Suggestions */}
+                          {!isLocationLoading && suggestions.length > 0 && (
+                            <ul>
+                              {suggestions.map((location, index) => (
+                                <li
+                                  key={index}
+                                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm font-medium text-gray-700"
+                                  onMouseDown={(e) => e.preventDefault()} // Prevents blur event on click
+                                  onClick={() => handleSelectLocation(location)}
+                                >
+                                  {location.name}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
-
-                        <hr className="border-gray-200" />
-
-                        {/* Loading State */}
-                        {isLocationLoading && (
-                          <div className="p-4 text-center text-sm text-gray-500">
-                            Loading...
-                          </div>
-                        )}
-                        
-                        {/* No Results State */}
-                        {!isLocationLoading && suggestions.length === 0 && searchTerm.length >= 3 && (
-                          <div className="p-4 text-center text-sm text-gray-500">
-                            No locations found.
-                          </div>
-                        )}
-
-                        {/* List of Suggestions */}
-                        {!isLocationLoading && suggestions.length > 0 && (
-                          <ul>
-                            {suggestions.map((location, index) => (
-                              <li
-                                key={index}
-                                className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm font-medium text-gray-700"
-                                onMouseDown={(e) => e.preventDefault()} // Prevents blur event on click
-                                onClick={() => handleSelectLocation(location)}
-                              >
-                                {location.name}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    )}
+                      )}
                   </div>
 
                   {/* Restaurant Search Input */}
