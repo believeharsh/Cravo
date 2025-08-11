@@ -4,39 +4,34 @@ const CategorySchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true, // Category names should be unique (e.g., "Pizza", "Burgers")
+        unique: true, // here mongo automatically creates a unique index on 'name'
         trim: true
     },
     description: {
         type: String,
         trim: true
     },
-    image: { // URL for the category image/icon, typically from Cloudinary
+    image: {
         type: String,
-        required: true, // An image is essential for UI
+        required: true,
         trim: true
     },
-    slug: { // For SEO-friendly URLs, e.g., /category/pizza
+    slug: {
         type: String,
-        unique: true,
+        unique: true, // here mongo automatically creates a unique index on 'slug'
         lowercase: true,
         trim: true
     },
-    displayOrder: { // To control the order of categories on the homepage
+    displayOrder: {
         type: Number,
         default: 0
     },
-    isVisible: { // Flag to control if category appears on homepage/in listings
+    isVisible: {
         type: Boolean,
         default: true
     }
-}, { timestamps: true }); // Mongoose adds createdAt and updatedAt fields automatically
-
-// Create an index on the name for faster lookups and potentially text search
-CategorySchema.index({ name: 1 });
-CategorySchema.index({ slug: 1 }); // Index for fast slug lookups
+}, { timestamps: true });
 
 const Category = model('Category', CategorySchema);
 
 export default Category;
-
