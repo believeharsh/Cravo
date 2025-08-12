@@ -8,8 +8,6 @@ import { fileURLToPath } from 'url';
 
 const MONGODB_URI = "Add Your Mongo URI Here"
 
-
-
 cloudinary.config({
     cloud_name: "Your_Cloud_Name",
     api_key: "Your_Api_Key",
