@@ -14,16 +14,15 @@ const ProductSchema = new Schema({
     
     // Categorization
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-
     ingredients: [{ type: String }],
     calorieInformation: { type: Number }, // In Kcal
 
     // Customization Options
     customizationOptions: [{
-        name: { type: String, required: true }, // e.g., 'Toppings', 'Spice Level', 'Add-ons'
-        type: { type: String, enum: ['single-select', 'multi-select', 'text'], required: true },
+        name: { type: String, required: false }, // e.g., 'Toppings', 'Spice Level', 'Add-ons'
+        type: { type: String, enum: ['single-select', 'multi-select', 'text'], required: false },
         options: [{ // For single-select/multi-select
-            itemName: { type: String, required: true },
+            itemName: { type: String, required: false },
             priceImpact: { type: Number, default: 0 }, // Additional cost for this option
         }],
         isRequired: { type: Boolean, default: false } // Is this customization mandatory?
