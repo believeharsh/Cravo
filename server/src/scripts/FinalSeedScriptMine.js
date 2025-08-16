@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
+
 import cloudinary from "cloudinary";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -65,6 +67,12 @@ const getRandomSubset = (arr, count) => {
   const shuffled = arr.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 };
+
+const getBarCode = () => {
+  const timestamp = Date.now().toString().slice(-8); // last 8 digits of timestamp
+  const random = Math.floor(100000 + Math.random() * 900000).toString(); // 6 random digits
+  return (timestamp + random).slice(0, 13); // ensure 13 digits
+}
 
 const seedDatabase = async () => {
   try {
@@ -157,6 +165,8 @@ const seedDatabase = async () => {
             category: category._id,
             sku: `${restaurant.name.replace(/\s+/g, "").toUpperCase()}-${category.name.toUpperCase()}-${i + 1}`,
             availabilityStatus: "In Stock",
+            barcode: getBarCode() 
+            
           });
         }
       }
