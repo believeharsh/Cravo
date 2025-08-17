@@ -2,8 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid";
-
 import cloudinary from "cloudinary";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -83,12 +81,6 @@ const seedDatabase = async () => {
     });
     console.log("✅ MongoDB connected.");
 
-    // Clear old data
-    console.log("🗑️ Deleting old restaurants and products...");
-    await Restaurant.deleteMany({});
-    await Product.deleteMany({});
-    console.log("✅ Old restaurants and products deleted.");
-
     // Fetch categories
     console.log("🍔 Fetching categories from database...");
     const categories = await Category.find({});
@@ -147,7 +139,7 @@ const seedDatabase = async () => {
 
       for (const category of restaurantCategories) {
         const pool = productPools[category.name.toLowerCase()] || [];
-        const subset = getRandomSubset(pool, Math.min(2, pool.length)); // max 7 products per category
+        const subset = getRandomSubset(pool, Math.min(6, pool.length)); // max 10 products per category
 
         console.log(`    🍽️ Adding ${subset.length} products for category: ${category.name}`);
 
