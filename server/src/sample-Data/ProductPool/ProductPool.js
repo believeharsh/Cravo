@@ -68,7 +68,7 @@ export const productPools = {
       category: "Indian",
       price: 199,
       description: "Spicy chickpea curry served with deep-fried fluffy bread.",
-      image: "https://www.shutterstock.com/image-photo/chole-bhature-north-indian-food-600nw-2241211669.jpg",
+      image: "https://media.istockphoto.com/id/1257751693/photo/chole-bhature.jpg?s=612x612&w=0&k=20&c=WUxdVE-gre6GlyGUNtMYqWO555fUOgFT64gRvGuR-Hs=",
     },
     {
       name: "Masoor Dal",
@@ -199,7 +199,7 @@ export const productPools = {
       description:
         "Crispy fried chicken fillet served with creamy mayo, lettuce, and spices in a toasted bun.",
       price: 229,
-      image: 
+      image:
         "https://media.istockphoto.com/id/2153953475/photo/crispy-chicken-burger-isolated-on-white.jpg?s=612x612&w=0&k=20&c=D4CIsAuM78ILj3FBjp38cFfwTgbFU61oS_4rXeUoRMc=",
     },
     {
@@ -208,7 +208,7 @@ export const productPools = {
       description:
         "A healthy mix of vegetables and spices formed into a patty, topped with fresh veggies and sauces.",
       price: 179,
-      image: 
+      image:
         "https://media.istockphoto.com/id/1409574042/photo/plant-based-meatless-burger-of-chickpeas-and-sweet-potato-isolated-on-white.jpg?s=612x612&w=0&k=20&c=mbWsq9esiu5l8hTbtcWxja0Fq5Dr0LRWkOZ8YzM4dX8=",
     },
     {
@@ -218,7 +218,7 @@ export const productPools = {
         "Two layers of juicy patties stacked with cheese, onions, and house sauce for double the taste.",
       price: 299,
       image:
-        "https://media.istockphoto.com/id/945057664/photo/double-cheese-burger.jpg?s=612x612&w=0&k=20&c=MgeJALlqnJeqB7koJCjmxC2IqC4LbRSc0TGF24qHSNQ=", 
+        "https://media.istockphoto.com/id/945057664/photo/double-cheese-burger.jpg?s=612x612&w=0&k=20&c=MgeJALlqnJeqB7koJCjmxC2IqC4LbRSc0TGF24qHSNQ=",
     },
     {
       name: "Spicy Chicken Burger",
@@ -227,7 +227,7 @@ export const productPools = {
         "Crispy chicken fillet coated with spicy seasoning, topped with jalapenos and creamy mayo.",
       price: 249,
       image:
-        "https://media.istockphoto.com/id/1400488896/photo/spicy-country-fried-chicken-sandwich-on-a-white-background.jpg?s=612x612&w=0&k=20&c=VAjcNxJuEZ13eCD-bT-Z6xleZiI2VgefwGCKxsh2_68=", 
+        "https://media.istockphoto.com/id/1400488896/photo/spicy-country-fried-chicken-sandwich-on-a-white-background.jpg?s=612x612&w=0&k=20&c=VAjcNxJuEZ13eCD-bT-Z6xleZiI2VgefwGCKxsh2_68=",
     },
     {
       name: "Bacon Cheese Burger",
@@ -236,7 +236,7 @@ export const productPools = {
         "A savory combination of crispy bacon, melted cheese, fresh veggies, and grilled beef patty.",
       price: 279,
       image:
-        "https://media.istockphoto.com/id/923270448/photo/western-barbecue-bacon-cheeseburger.jpg?s=612x612&w=0&k=20&c=O4rOay5Vk95Pn2HBpIExG9PkhGUxgqKJ9v2tvkAyXy4=", 
+        "https://media.istockphoto.com/id/923270448/photo/western-barbecue-bacon-cheeseburger.jpg?s=612x612&w=0&k=20&c=O4rOay5Vk95Pn2HBpIExG9PkhGUxgqKJ9v2tvkAyXy4=",
     },
     {
       name: "Mushroom Swiss Burger",
@@ -293,7 +293,7 @@ export const productPools = {
       description:
         "Layered pasta baked with rich meat sauce, creamy béchamel, and melted cheese.",
       price: 399,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-fUgVR76WIubP5fdzWgbDtdu3D7MVfyvVcw&s",
+      image: "https://media.istockphoto.com/id/1316558471/photo/piece-of-baked-lasagna-close-up-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=zvz50NBecGUer7ahifeGANMUrj6Pn480WRjbiaDyjAM=",
     },
     {
       name: "Risotto",
@@ -488,7 +488,7 @@ export const productPools = {
       description:
         "Freshly squeezed orange juice packed with vitamin C and natural sweetness.",
       price: 70,
-      image: "https://media.istockphoto.com/id/152971676/photo/glass-of-orange-juice-and-fresh-oranges.jpg?s=612x612&w=0&k=20&c=PLfvkn63OMHN8epb8F9Yfx48BsBOxWzfwL2BSWdV1Nw=,
+      image: "https://media.istockphoto.com/id/152971676/photo/glass-of-orange-juice-and-fresh-oranges.jpg?s=612x612&w=0&k=20&c=PLfvkn63OMHN8epb8F9Yfx48BsBOxWzfwL2BSWdV1Nw=",
     },
     {
       name: "Monster Energy",
@@ -590,7 +590,7 @@ export const productPools = {
       description:
         "Nutrient-rich smoothie topped with fresh fruits, seeds, and granola.",
       price: 130,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlaXYeMmA79uuaoaAAaLl9OnUppVJdhTlLug&s",
+      image: "https://media.istockphoto.com/id/1128328281/photo/pineapple-mango-smoothie-bowl-with-coconut-bananas-blueberries-and-granola-above-view-on-a.jpg?s=612x612&w=0&k=20&c=Y5eHqdvELnpUUBh_a5OitOQj7iBq3-bIfL14KV7LvlY=",
     },
   ],
 
@@ -627,7 +627,7 @@ export const productPools = {
       description:
         "A wholesome smoothie bowl topped with fruits, seeds, and nuts for a nutrient-rich breakfast.",
       price: 200,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlaXYeMmA79uuaoaAAaLl9OnUppVJdhTlLug&s",
+      image: "https://media.istockphoto.com/id/1358328631/photo/delicious-acai-smoothie-with-granola-and-almonds-in-dessert-bowl-isolated-on-white.jpg?s=612x612&w=0&k=20&c=rc4_Rf7X8HmeG67uK2P_Z3uN6Q2_0BhBXvmoiGxIfYg=",
     },
     {
       name: "Avocado Toast",
@@ -836,7 +836,7 @@ export const productPools = {
         "Sizzling grilled strips of chicken or beef served with peppers, onions, and warm tortillas.",
       price: 239,
       image:
-        "https://media.istockphoto.com/id/184114180/photo/fajita-tacos.jpg?s=612x612&w=0&k=20&c=D6i1OiZ8M0FERawJfygUhhvwvi_SSL9PgI_YZOTVPqA=,
+        "https://media.istockphoto.com/id/184114180/photo/fajita-tacos.jpg?s=612x612&w=0&k=20&c=D6i1OiZ8M0FERawJfygUhhvwvi_SSL9PgI_YZOTVPqA=",
     },
     {
       name: "Tamales",
@@ -907,7 +907,7 @@ export const productPools = {
       description:
         "A wholesome curry made with chickpeas simmered in a spiced tomato-onion gravy.",
       price: 240,
-      image: "https://thumbs.dreamstime.com/b/chana-masala-chickpea-curry-traditional-indian-dish-isolated-white-background-387588046.jpg",
+      image: "https://media.istockphoto.com/id/1137018450/photo/chickpea-curry-with-rice-top-view-photo.jpg?s=612x612&w=0&k=20&c=RHVdKyy2NId4noi13I6D24htgw94AbwU2UfdXMqoTU8=",
     },
     {
       name: "Vegan Sandwich",
@@ -931,7 +931,7 @@ export const productPools = {
       description:
         "Bell peppers stuffed with quinoa, beans, and vegetables baked to perfection.",
       price: 300,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNLpByLNgm0Bl9h6Q8blODMXX4-1mtVuocyg&s",
+      image: "https://media.istockphoto.com/id/487049121/photo/stuffed-pepper.jpg?s=612x612&w=0&k=20&c=FRnEy6vwJvg8qn_g2R_N15_BTvyj8OBAmtJV_WZg6Os=",
     },
     {
       name: "Vegan Wrap",
@@ -959,7 +959,7 @@ export const productPools = {
       category: "sushi",
       description: "Hand-pressed sushi topped with fresh salmon slices.",
       price: 320,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSROQ9ZuUeW3vwGat6HiZX1C2YdpT5kWShajg&s",
+      image: "https://media.istockphoto.com/id/970146236/photo/sushi-with-salmon.jpg?s=612x612&w=0&k=20&c=foYKq-u_GHpIGv-aQcu39baZ9qTKvt0sbd739yq4GXM=",
     },
     {
       name: "Tuna Sashimi",
@@ -987,14 +987,14 @@ export const productPools = {
       category: "sushi",
       description: "Fresh tuna mixed with spicy sauce wrapped in sushi rice.",
       price: 480,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRH-_QkcyEFY1Bri5kiW5y_SS-8vabg87Mw&s",
+      image: "https://media.istockphoto.com/id/495774976/photo/spicy-tuna-roll.jpg?s=612x612&w=0&k=20&c=Ds9ERo4cOILgEFJSxqFWZH6TGvC74WXYb4AdSCeGG44=",
     },
     {
       name: "Dragon Roll",
       category: "sushi",
       description: "A specialty roll with eel, cucumber, and avocado on top.",
       price: 550,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_pPkRWfDK8DcByky9Yb-78c_Auu38Iwl8LQ&s",
+      image: "https://media.istockphoto.com/id/172711068/photo/dragon-roll.jpg?s=612x612&w=0&k=20&c=waLXj9opEi2tQLemtch3838sMiAfJUJBFyLxa12I_Ro=",
     },
     {
       name: "Eel Nigiri",
@@ -1019,7 +1019,7 @@ export const productPools = {
       image: "https://media.istockphoto.com/id/183044993/photo/salmon-avocado-sushi-roll.jpg?s=170667a&w=0&k=20&c=AO9MhJlr8i4eP8viYJ_BvzBuFUjqM-x9hlKkZgD5LoI=",
     },
   ],
-  
+
   //completed
   sandwiches: [
     {
@@ -1044,7 +1044,7 @@ export const productPools = {
       description:
         "Bacon, lettuce, and tomato stacked with mayonnaise in toasted bread.",
       price: 160,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpvAYrHJXiSYhXun81Mdbd4mBwFOKNugxl-A&s",
+      image: "https://media.istockphoto.com/id/591851332/photo/juicy-bacon-lettuce-and-tomato-sandwich.jpg?s=612x612&w=0&k=20&c=vZFrwYW8bv5n4QVB0lnuJuoodJiEmlnh8hVMmy-VmEc=",
     },
     {
       name: "Veggie Sandwich",
@@ -1103,7 +1103,7 @@ export const productPools = {
       image: "https://media.istockphoto.com/id/477723193/photo/cheese-and-tomato-sandwich.jpg?s=612x612&w=0&k=20&c=pivwNb-HB3byRe0Pko5Hc3TyJb1Dh82FJ_f3Wfc9EuY=",
     },
   ],
-  
+
 
   // completed
   salads: [
@@ -1139,7 +1139,7 @@ export const productPools = {
       description:
         "Healthy quinoa tossed with veggies, herbs, and a lemon dressing for a protein-packed meal.",
       price: 250,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMYG8llppT-v_Bw4ER4ZbD-XLRmiV42yFB1w&s",
+      image: "https://media.istockphoto.com/id/1322628932/photo/poke-bowl-with-salmon-avocado-quinoa-and-cucumber.jpg?s=612x612&w=0&k=20&c=dxyEXDzNYYjmKfNzi6QegEJQTbE-1jZZB4HtQKQABhs=",
     },
     {
       name: "Fruit Salad",
@@ -1155,7 +1155,7 @@ export const productPools = {
       description:
         "Classic Cobb salad with lettuce, bacon, boiled eggs, chicken, and avocado with ranch dressing.",
       price: 260,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqtb3TFSqxZJiYmM311XZV-H0br6yFa5VXlQ&s",
+      image: "https://media.istockphoto.com/id/1303326268/photo/healthy-cobb-salad-in-plastic-package-for-take-away-or-food-delivery-on-white-background-top.jpg?s=612x612&w=0&k=20&c=1IHFUQTjEzId9XSUOeB1m6YWo1FkSwP_zzCSElO-gRE=",
     },
     {
       name: "Pasta Salad",
@@ -1249,7 +1249,7 @@ export const productPools = {
       description:
         "Delicious Indo-Chinese style chicken and corn soup, mildly spiced and hearty.",
       price: 160,
-      image: "https://www.shutterstock.com/image-photo/food-photography-chicken-corn-soup-600nw-1641426703.jpg",
+      image: "https://media.istockphoto.com/id/1452460420/photo/chicken-corn-chowder-in-bowl-top-view.jpg?s=612x612&w=0&k=20&c=x8wGOztA4y33vzj07zDvXKe18JI86g54504shX_ipJw=",
     },
     {
       name: "Lentil Soup",
@@ -1257,7 +1257,7 @@ export const productPools = {
       description:
         "Nutritious soup made with red lentils, spices, and herbs for a protein-rich meal.",
       price: 130,
-      image: "https://thumbs.dreamstime.com/b/lentil-soup-25518071.jpg",
+      image: "https://media.istockphoto.com/id/120599192/photo/fresh-lentil-stew.jpg?s=612x612&w=0&k=20&c=gQNA3QRVQ87MdyP9hXPkP7khP3fuLoZDI_6v95sq-dI=",
     },
     {
       name: "Hot & Sour Soup",
@@ -1308,7 +1308,7 @@ export const productPools = {
       category: "bbq",
       description: "Shredded pork slow-cooked with tangy and smoky BBQ sauce.",
       price: 480,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPTX8UaN5Jx8VM8N9ImjWDOxwuMUp21_Z4tg&s",
+      image: "https://media.istockphoto.com/id/489172246/photo/bbq-pulled-pork-sandwich.jpg?s=612x612&w=0&k=20&c=6w1Qb1kCBHhsZsvzc-Vc0hbHa-mObS_ftweu1YUn9_8=",
     },
     {
       name: "Grilled Sausages",
@@ -1366,7 +1366,7 @@ export const productPools = {
         "Tender chicken cooked in a creamy tomato-based gravy with aromatic spices.",
       price: 320,
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Xs_XiMnBh08xPXnMPBxRaiVH144vcoUy4A&s",
+        "https://media.istockphoto.com/id/1170729895/photo/indian-butter-chicken-horizontal-photo.jpg?s=170667a&w=0&k=20&c=Mfw-Dz-fql9c8gqy7xN6vz3T1r_w2JbWtAphv87F4co=",
     },
     {
       name: "Paneer Tikka Masala",
@@ -1375,7 +1375,7 @@ export const productPools = {
         "Grilled paneer cubes simmered in rich tomato and onion gravy with spices.",
       price: 280,
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNIfMOAYuety3NF8dbohVQVb8S0-b_BXuCeA&s",
+        "https://media.istockphoto.com/id/2160229218/photo/paneer-butter-masala-in-a-bowl-on-white-background.jpg?s=612x612&w=0&k=20&c=swm0paacVCzV7Xf_cg1rEdJibxzaDSIvHXF6H1tEU8Q=",
     },
     {
       name: "Chicken Korma",
@@ -1391,7 +1391,7 @@ export const productPools = {
       description:
         "A Kashmiri delicacy of tender mutton in a flavorful spiced curry.",
       price: 420,
-      image: "https://static.vecteezy.com/system/resources/previews/015/933/781/non_2x/indian-style-mutton-or-gosht-masala-or-indian-lamb-meat-rogan-josh-served-with-naan-free-photo.jpg",
+      image: "https://media.istockphoto.com/id/608005280/photo/mutton-rogan-josh-mutton-curry-indian-cuisine.jpg?s=612x612&w=0&k=20&c=F-sjeDrKuwqVh51seSkRV7Lng8ujiObyJPDxLvz3oOM=",
     },
     {
       name: "Dal Makhani",
@@ -1443,6 +1443,7 @@ export const productPools = {
     },
   ],
 
+  //completed
   lunch: [
     {
       name: "Vegetable Pulao",
@@ -1459,7 +1460,7 @@ export const productPools = {
       description:
         "Red kidney beans curry served with steamed rice, a North Indian favorite.",
       price: 150,
-      image: "https://via.placeholder.com/400?text=Rajma+Chawal",
+      image: "https://media.istockphoto.com/id/669635320/photo/kidney-bean-curry-or-rajma-or-rajmah-chawal-and-roti-typical-north-indian-main-course.jpg?s=612x612&w=0&k=20&c=3ir3vZKHa2oPXkpEKHLbWPAPF1yhxRCyr4DIew41pzg=",
     },
     {
       name: "Aloo Gobi",
@@ -1483,7 +1484,7 @@ export const productPools = {
       description:
         "Scrambled cottage cheese cooked with onions, tomatoes, and spices.",
       price: 170,
-      image: "https://img.freepik.com/premium-photo/paneer-bhurji-white-background_894067-16716.jpg?w=360",
+      image: "https://media.istockphoto.com/id/1732968648/photo/paneer-burji-or-bhurji-cottage-cheese-dry-curry.jpg?s=612x612&w=0&k=20&c=XICWWcPmZZN1UOnDrfvlLkhjiiQOgxNTqzJx5qZXZHw=",
     },
     {
       name: "Masala Dosa",
@@ -1499,7 +1500,7 @@ export const productPools = {
       description:
         "Boiled eggs cooked in a flavorful onion-tomato based curry.",
       price: 160,
-      image: "https://www.shutterstock.com/image-photo/nargisi-kofta-curry-indian-cuisine-600nw-87936442.jpg",
+      image: "https://media.istockphoto.com/id/535396866/photo/indian-famous-egg-curry-or-anda-curry.jpg?s=612x612&w=0&k=20&c=GZQYSpkBfEtUuJ4-hjpuc1UJ14eRh3qOeXfGJxlNkO8=",
     },
     {
       name: "Lentil Soup",

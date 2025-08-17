@@ -3,6 +3,8 @@ const baseLat = 22.7196;
 const baseLon = 75.8577;
 
 export const restaurants = [
+    // first five restaurant's seeding for indore : 
+
     {
         name: 'Maame Da Dhaba',
         description: 'Authentic North Indian cuisine with a modern twist.',
@@ -27,7 +29,7 @@ export const restaurants = [
             location: { type: 'Point', coordinates: [baseLon + 0.03, baseLat - 0.01] }
         },
         contact: { phone: '9988776655', email: 'skpizzawala@example.com' },
-        cuisine_type: ['Italian', 'Pizza', 'Fast-Food'],
+        cuisine_type: ['Italian', 'Pizza'],
         rating: 4.8, numberOfReviews: 2000,
         opening_hours: [{ day: 'Tuesday', open: '12:00', close: '22:00' }],
         is_active: true, min_order_value: 180, delivery_radius_km: 7,
@@ -42,7 +44,7 @@ export const restaurants = [
             location: { type: 'Point', coordinates: [baseLon + 0.01, baseLat - 0.03] }
         },
         contact: { phone: '9123456789', email: 'burgerhub@example.com' },
-        cuisine_type: ['Fast-Food', 'Burgers', 'Lunch'],
+        cuisine_type: ['Fast-Food', 'Burgers'],
         rating: 4.2, numberOfReviews: 800,
         opening_hours: [{ day: 'Wednesday', open: '10:00', close: '22:00' }],
         is_active: true, min_order_value: 150, delivery_radius_km: 6,
@@ -79,81 +81,9 @@ export const restaurants = [
         is_veg: true, cost_for_two: 300, delivery_time_mins: 20,
         imagePath: 'https://media.istockphoto.com/id/952117426/photo/bakery-products.jpg?s=612x612&w=0&k=20&c=XQQ_Ue1kW28EdaFLlj3E0updE6TXuyHRWAhU4Yvk8Ds='
     },
-    // {
-    //     name: 'Healthy Bites',
-    //     description: 'Fresh salads, healthy wraps, and smoothies.',
-    //     address: {
-    //         street: 'Silicon City', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.04, baseLat - 0.02] }
-    //     },
-    //     contact: { phone: '9543210987', email: 'healthybites@example.com' },
-    //     cuisine_type: ['Healthy', 'Salads', 'Soups', 'Breakfast', 'Lunch'],
-    //     rating: 4.4, numberOfReviews: 750,
-    //     opening_hours: [{ day: 'Saturday', open: '09:30', close: '20:30' }],
-    //     is_active: true, min_order_value: 170, delivery_radius_km: 7,
-    //     is_veg: true, cost_for_two: 400, delivery_time_mins: 30,
-    //     imagePath: 'https://media.istockphoto.com/id/1075446340/photo/various-fresh-mix-salad-leaves-with-tomato-in-bowl-on-wooden-background.jpg?s=612x612&w=0&k=20&c=cqEZGpIBYfmLJhkpA2shK6t2P55k7fQPdvXFI146WGY='
-    // },
-    // {
-    //     name: 'Grill & Chill',
-    //     description: 'Delicious grilled sandwiches and refreshing beverages.',
-    //     address: {
-    //         street: 'L.I.G. Colony', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.02, baseLat + 0.03] }
-    //     },
-    //     contact: { phone: '9432109876', email: 'grillnchill@example.com' },
-    //     cuisine_type: ['Sandwiches', 'BBQ', 'Lunch'],
-    //     rating: 4.1, numberOfReviews: 400,
-    //     opening_hours: [{ day: 'Sunday', open: '10:30', close: '21:30' }],
-    //     is_active: true, min_order_value: 120, delivery_radius_km: 6,
-    //     is_veg: false, cost_for_two: 350, delivery_time_mins: 25,
-    //     imagePath: 'https://media.istockphoto.com/id/2181353563/photo/left-over-roast-turkey-and-swiss-sandwich.jpg?s=612x612&w=0&k=20&c=Vp8FbwGPjjdu2Vt-X_cV-6W8IU8XDtQSKEH9DpivDNU='
-    // },
-    // {
-    //     name: 'Coffee & Books',
-    //     description: 'Cozy cafe with great coffee and light bites.',
-    //     address: {
-    //         street: 'Sapna Sangeeta Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.01, baseLat + 0.04] }
-    //     },
-    //     contact: { phone: '9321098765', email: 'coffeeandbooks@example.com' },
-    //     cuisine_type: ['Cafe', 'Breakfast', 'Beverages'],
-    //     rating: 4.6, numberOfReviews: 1000,
-    //     opening_hours: [{ day: 'Monday', open: '08:00', close: '20:00' }],
-    //     is_active: true, min_order_value: 80, delivery_radius_km: 5,
-    //     is_veg: true, cost_for_two: 250, delivery_time_mins: 20,
-    //     imagePath: 'https://www.shutterstock.com/image-photo/indian-masala-chai-tea-traditional-600nw-2044313834.jpg'
-    // },
-    // {
-    //     name: 'Biryani Palace',
-    //     description: 'Exquisite biryanis and kebabs.',
-    //     address: {
-    //         street: 'Geeta Bhawan', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.005, baseLat + 0.005] }
-    //     },
-    //     contact: { phone: '9210987654', email: 'biryanipalace@example.com' },
-    //     cuisine_type: ['Indian', 'Biryani', 'Lunch', 'Dinner'],
-    //     rating: 4.3, numberOfReviews: 900,
-    //     opening_hours: [{ day: 'Tuesday', open: '12:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 250, delivery_radius_km: 6,
-    //     is_veg: false, cost_for_two: 550, delivery_time_mins: 45,
-    //     imagePath: 'https://media.istockphoto.com/id/469866881/photo/mutton-gosht-biryani.jpg?s=612x612&w=0&k=20&c=FH6dExVNp_hb9JtJCyGrmKAhPJwQo3UdlMC6gHCbVLg='
-    // },
-    // {
-    //     name: 'Dosa Hut',
-    //     description: 'Crispy dosas and South Indian specialties.',
-    //     address: {
-    //         street: 'Scheme No. 54', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.015, baseLat - 0.015] }
-    //     },
-    //     contact: { phone: '9109876543', email: 'dosahut@example.com' },
-    //     cuisine_type: ['Indian', 'South Indian', 'Breakfast'],
-    //     rating: 4.0, numberOfReviews: 500,
-    //     opening_hours: [{ day: 'Wednesday', open: '09:00', close: '22:00' }],
-    //     is_active: true, min_order_value: 100, delivery_radius_km: 4,
-    //     is_veg: true, cost_for_two: 300, delivery_time_mins: 25,
-    //     imagePath: 'https://media.istockphoto.com/id/2194547589/photo/south-indian-breakfast-dosa.jpg?s=612x612&w=0&k=20&c=1hCR2OqlNDYrY4nkJD3Avx4tOASsZN7v9aZsAE6lE4o='
-    // },
+
+    // next ten 
+   
     // {
     //     name: 'El Fuego Mexican Grill',
     //     description: 'Spicy Mexican tacos, burritos, and quesadillas.',
@@ -304,6 +234,8 @@ export const restaurants = [
     //     is_veg: true, cost_for_two: 400, delivery_time_mins: 30,
     //     imagePath: 'https://st2.depositphotos.com/5653638/11789/i/450/depositphotos_117893206-stock-photo-food-south-indian-food-idli.jpg'
     // },
+
+    // next ten 
     // {
     //     name: 'Burger Singh',
     //     description: 'Indian-inspired burgers and fusion sides.',
@@ -454,6 +386,8 @@ export const restaurants = [
     //     is_veg: true, cost_for_two: 450, delivery_time_mins: 30,
     //     imagePath: 'https://media.istockphoto.com/id/1138587655/photo/healthy-energy-balls-made-of-dried-fruits-and-nuts.jpg?s=612x612&w=0&k=20&c=TmWUlmA-2wPjEwUnNWLqX75Li-z1FrJYtwH-rx0TWig='
     // },
+
+    // next ten 
     // {
     //     name: 'Samurai Sushi',
     //     description: 'Elegant and authentic Japanese sushi and rolls.',
@@ -462,7 +396,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon - 0.045, baseLat - 0.045] }
     //     },
     //     contact: { phone: '9118899001', email: 'samuraisushi@example.com' },
-    //     cuisine_type: ['Sushi', 'Asian', 'Dinner'],
+    //     cuisine_type: ['Sushi', 'Asian'],
     //     rating: 4.9, numberOfReviews: 1200,
     //     opening_hours: [{ day: 'Monday', open: '18:00', close: '00:00' }],
     //     is_active: true, min_order_value: 400, delivery_radius_km: 12,
@@ -477,7 +411,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.005, baseLat + 0.005] }
     //     },
     //     contact: { phone: '9119900112', email: 'deliclub@example.com' },
-    //     cuisine_type: ['Sandwiches', 'Salads', 'Lunch'],
+    //     cuisine_type: ['Sandwiches', 'Lunch'],
     //     rating: 4.2, numberOfReviews: 450,
     //     opening_hours: [{ day: 'Tuesday', open: '10:00', close: '21:00' }],
     //     is_active: true, min_order_value: 120, delivery_radius_km: 6,
@@ -492,7 +426,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.055, baseLat + 0.025] }
     //     },
     //     contact: { phone: '9120011223', email: 'pindballuchi@example.com' },
-    //     cuisine_type: ['Indian', 'North Indian', 'Dinner'],
+    //     cuisine_type: ['North Indian'],
     //     rating: 4.5, numberOfReviews: 2000,
     //     opening_hours: [{ day: 'Wednesday', open: '12:00', close: '23:00' }],
     //     is_active: true, min_order_value: 250, delivery_radius_km: 7,
@@ -507,7 +441,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.015, baseLat + 0.025] }
     //     },
     //     contact: { phone: '9121122334', email: 'pizzabox@example.com' },
-    //     cuisine_type: ['Pizza', 'Italian', 'Fast-Food'],
+    //     cuisine_type: ['Pizza'],
     //     rating: 4.0, numberOfReviews: 800,
     //     opening_hours: [{ day: 'Thursday', open: '11:00', close: '22:00' }],
     //     is_active: true, min_order_value: 150, delivery_radius_km: 5,
@@ -522,7 +456,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.025, baseLat + 0.005] }
     //     },
     //     contact: { phone: '9122233445', email: 'burgerfactory@example.com' },
-    //     cuisine_type: ['Burgers', 'Fast-Food', 'Lunch', 'Dinner'],
+    //     cuisine_type: ['Burgers', 'Fast-Food'],
     //     rating: 4.6, numberOfReviews: 1400,
     //     opening_hours: [{ day: 'Friday', open: '12:00', close: '23:00' }],
     //     is_active: true, min_order_value: 180, delivery_radius_km: 8,
@@ -537,7 +471,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.01, baseLat - 0.035] }
     //     },
     //     contact: { phone: '9123344556', email: 'chinesewok@example.com' },
-    //     cuisine_type: ['Chinese', 'Asian', 'Fast-Food'],
+    //     cuisine_type: ['Chinese', 'Asian',],
     //     rating: 4.0, numberOfReviews: 700,
     //     opening_hours: [{ day: 'Saturday', open: '11:00', close: '22:00' }],
     //     is_active: true, min_order_value: 200, delivery_radius_km: 6,
@@ -552,7 +486,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.06, baseLat + 0.01] }
     //     },
     //     contact: { phone: '9124455667', email: 'cakesandbakes@example.com' },
-    //     cuisine_type: ['Desserts', 'Bakery', 'Beverages'],
+    //     cuisine_type: ['Desserts', 'Beverages'],
     //     rating: 4.8, numberOfReviews: 1800,
     //     opening_hours: [{ day: 'Sunday', open: '09:00', close: '21:00' }],
     //     is_active: true, min_order_value: 100, delivery_radius_km: 8,
@@ -582,7 +516,7 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon + 0.045, baseLat - 0.02] }
     //     },
     //     contact: { phone: '9126677889', email: 'burritohouse@example.com' },
-    //     cuisine_type: ['Mexican', 'Fast-Food'],
+    //     cuisine_type: ['Mexican'],
     //     rating: 4.3, numberOfReviews: 600,
     //     opening_hours: [{ day: 'Tuesday', open: '12:00', close: '22:00' }],
     //     is_active: true, min_order_value: 180, delivery_radius_km: 7,
@@ -597,13 +531,15 @@ export const restaurants = [
     //         location: { type: 'Point', coordinates: [baseLon - 0.025, baseLat + 0.025] }
     //     },
     //     contact: { phone: '9127788990', email: 'sizzlinggrill@example.com' },
-    //     cuisine_type: ['BBQ', 'Dinner', 'Lunch'],
+    //     cuisine_type: ['BBQ', 'Dinner'],
     //     rating: 4.7, numberOfReviews: 1100,
     //     opening_hours: [{ day: 'Wednesday', open: '12:00', close: '23:00' }],
     //     is_active: true, min_order_value: 250, delivery_radius_km: 9,
     //     is_veg: false, cost_for_two: 950, delivery_time_mins: 45,
     //     imagePath: 'https://media.istockphoto.com/id/2149097599/photo/assorted-grilled-meats-and-vegetables-on-barbecue-ribs-lamb-chops-beef-turkey-chicken.jpg?s=612x612&w=0&k=20&c=g_nK-7T-VrRPp5ZPhW6HcCAsqzxnCYluPRDDAQ3rNW8='
     // },
+
+
     // {
     //     name: 'Veggie World',
     //     description: 'All-vegetarian, traditional and modern dishes.',
@@ -754,6 +690,8 @@ export const restaurants = [
     //     is_veg: true, cost_for_two: 700, delivery_time_mins: 35,
     //     imagePath: 'https://media.istockphoto.com/id/1319266483/photo/typical-italian-dessert-cannoli-from-sicily.jpg?s=612x612&w=0&k=20&c=C-hAezG3mvZfSXrEptYuBwdHdR3QAZZp6Wf1qTQ1utw='
     // },
+
+
     // {
     //     name: 'The Burger Joint',
     //     description: 'Juicy, gourmet burgers and crispy fries.',
