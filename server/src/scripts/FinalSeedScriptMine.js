@@ -13,7 +13,8 @@ import Restaurant from "../models/restaurant.model.js";
 import Product from "../models/product.model.js";
 
 // Sample Data
-import { restaurants } from "../sample-Data/RestaurantsData.js";
+// import { IndoreRestaurants } from "../sample-Data/Restaurants-Data/IndoreRestaurant.js";
+import { bhopalRestaurants } from "../sample-Data/Restaurants-Data/BhopalRestaurant.js";
 import { productPools } from "../sample-Data/ProductPool/ProductPool.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -109,9 +110,9 @@ const seedDatabase = async () => {
     }, {});
 
     // Seed restaurants
-    console.log(`🏪 Seeding ${restaurants.length} restaurants...`);
+    console.log(`🏪 Seeding ${bhopalRestaurants.length} restaurants...`);
     const insertedRestaurants = [];
-    for (const restaurant of restaurants) {
+    for (const restaurant of bhopalRestaurants) {
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {
@@ -119,11 +120,7 @@ const seedDatabase = async () => {
         coordinates: [baseLon + randomOffset(), baseLat + randomOffset()],
       };
 
-      const imgUrl = await uploadImageOnce(
-        restaurant.imagePath,
-        800,
-        600
-      );
+      const imgUrl = await uploadImageOnce(restaurant.imagePath, 800, 600);
 
       const doc = await Restaurant.create({
         ...restaurant,
@@ -156,7 +153,7 @@ const seedDatabase = async () => {
 
       for (const category of restaurantCategories) {
         const pool = productPools[category.name.toLowerCase()] || [];
-        const subset = getRandomSubset(pool, Math.min(6, pool.length)); // max 6 products per category
+        const subset = getRandomSubset(pool, Math.min(6, pool.length)); // max 5 products per category
 
         console.log(
           `    🍽️ Adding ${subset.length} products for category: ${category.name}`
