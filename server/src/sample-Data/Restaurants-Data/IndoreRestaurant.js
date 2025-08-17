@@ -2,27 +2,27 @@
 const baseLat = 22.7196;
 const baseLon = 75.8577;
 
-export const restaurants = [
+export const IndoreRestaurants = [
 
     // seeded data for indore
     // first five restaurant's seeding for indore : 
 
-    // {
-    //     name: 'Maame Da Dhaba',
-    //     description: 'Authentic North Indian cuisine with a modern twist.',
-    //     address: {
-    //         street: '10 AB Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.02, baseLat + 0.01] }
-    //     },
-    //     contact: { phone: '9876543210', email: 'maamedadhaba@example.com' },
-    //     cuisine_type: ['Indian', 'Lunch', 'Dinner'],
-    //     rating: 4.5, numberOfReviews: 1500,
-    //     opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 200, delivery_radius_km: 5,
-    //     is_veg: false, cost_for_two: 600, delivery_time_mins: 35,
-    //     imagePath: 'https://media.istockphoto.com/id/889605874/photo/lamb-korma-curry-inside-karahi-indian-serving-dishes-north-indian-food.jpg?s=612x612&w=0&k=20&c=esAlk0l1emtL-_gcuwgU4rvbRVb24k7UiQqrgnDAJKs='
+    {
+        name: 'Maame Da Dhaba',
+        description: 'Authentic North Indian cuisine with a modern twist.',
+        address: {
+            street: '10 AB Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.02, baseLat + 0.01] }
+        },
+        contact: { phone: '9876543210', email: 'maamedadhaba@example.com' },
+        cuisine_type: ['Indian', 'Lunch', 'Dinner'],
+        rating: 4.5, numberOfReviews: 1500,
+        opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
+        is_active: true, min_order_value: 200, delivery_radius_km: 5,
+        is_veg: false, cost_for_two: 600, delivery_time_mins: 35,
+        imagePath: 'https://media.istockphoto.com/id/889605874/photo/lamb-korma-curry-inside-karahi-indian-serving-dishes-north-indian-food.jpg?s=612x612&w=0&k=20&c=esAlk0l1emtL-_gcuwgU4rvbRVb24k7UiQqrgnDAJKs='
 
-    // },
+    },
     // {
     //     name: 'SK Pizza Wala',
     //     description: 'Freshly baked Neapolitan pizzas and Italian pasta.',
