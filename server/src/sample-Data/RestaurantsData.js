@@ -3,84 +3,86 @@ const baseLat = 22.7196;
 const baseLon = 75.8577;
 
 export const restaurants = [
+
+    // seeded data for indore
     // first five restaurant's seeding for indore : 
 
-    {
-        name: 'Maame Da Dhaba',
-        description: 'Authentic North Indian cuisine with a modern twist.',
-        address: {
-            street: '10 AB Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-            location: { type: 'Point', coordinates: [baseLon - 0.02, baseLat + 0.01] }
-        },
-        contact: { phone: '9876543210', email: 'maamedadhaba@example.com' },
-        cuisine_type: ['Indian', 'Lunch', 'Dinner'],
-        rating: 4.5, numberOfReviews: 1500,
-        opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
-        is_active: true, min_order_value: 200, delivery_radius_km: 5,
-        is_veg: false, cost_for_two: 600, delivery_time_mins: 35,
-        imagePath: 'https://media.istockphoto.com/id/889605874/photo/lamb-korma-curry-inside-karahi-indian-serving-dishes-north-indian-food.jpg?s=612x612&w=0&k=20&c=esAlk0l1emtL-_gcuwgU4rvbRVb24k7UiQqrgnDAJKs='
+    // {
+    //     name: 'Maame Da Dhaba',
+    //     description: 'Authentic North Indian cuisine with a modern twist.',
+    //     address: {
+    //         street: '10 AB Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+    //         location: { type: 'Point', coordinates: [baseLon - 0.02, baseLat + 0.01] }
+    //     },
+    //     contact: { phone: '9876543210', email: 'maamedadhaba@example.com' },
+    //     cuisine_type: ['Indian', 'Lunch', 'Dinner'],
+    //     rating: 4.5, numberOfReviews: 1500,
+    //     opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
+    //     is_active: true, min_order_value: 200, delivery_radius_km: 5,
+    //     is_veg: false, cost_for_two: 600, delivery_time_mins: 35,
+    //     imagePath: 'https://media.istockphoto.com/id/889605874/photo/lamb-korma-curry-inside-karahi-indian-serving-dishes-north-indian-food.jpg?s=612x612&w=0&k=20&c=esAlk0l1emtL-_gcuwgU4rvbRVb24k7UiQqrgnDAJKs='
 
-    },
-    {
-        name: 'SK Pizza Wala',
-        description: 'Freshly baked Neapolitan pizzas and Italian pasta.',
-        address: {
-            street: '25 Palasia Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-            location: { type: 'Point', coordinates: [baseLon + 0.03, baseLat - 0.01] }
-        },
-        contact: { phone: '9988776655', email: 'skpizzawala@example.com' },
-        cuisine_type: ['Italian', 'Pizza'],
-        rating: 4.8, numberOfReviews: 2000,
-        opening_hours: [{ day: 'Tuesday', open: '12:00', close: '22:00' }],
-        is_active: true, min_order_value: 180, delivery_radius_km: 7,
-        is_veg: false, cost_for_two: 750, delivery_time_mins: 40,
-        imagePath: 'https://media.istockphoto.com/id/1171008705/photo/italian-pizza-margherita.jpg?s=612x612&w=0&k=20&c=J1i7bbbex7tk3FXs8W-hd9Yf9ZxnsE5C36O92Z3zcoM='
-    },
-    {
-        name: 'The Burger Hub',
-        description: 'Gourmet burgers and shakes for every craving.',
-        address: {
-            street: 'Bhawarkua Main Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-            location: { type: 'Point', coordinates: [baseLon + 0.01, baseLat - 0.03] }
-        },
-        contact: { phone: '9123456789', email: 'burgerhub@example.com' },
-        cuisine_type: ['Fast-Food', 'Burgers'],
-        rating: 4.2, numberOfReviews: 800,
-        opening_hours: [{ day: 'Wednesday', open: '10:00', close: '22:00' }],
-        is_active: true, min_order_value: 150, delivery_radius_km: 6,
-        is_veg: false, cost_for_two: 500, delivery_time_mins: 25,
-        imagePath: 'https://media.istockphoto.com/id/1302436326/photo/junk-food-homemade-beef-burgers-on-vintage-wooden-background.jpg?s=612x612&w=0&k=20&c=NsyDE31unoNd80wGfrkMOqvsnjeNOpHER-yL_8KwcRw='
-    },
-    {
-        name: 'Chopstix Express',
-        description: 'Quick and delicious Chinese stir-fries and noodles.',
-        address: {
-            street: 'Rajendra Nagar', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-            location: { type: 'Point', coordinates: [baseLon - 0.03, baseLat - 0.01] }
-        },
-        contact: { phone: '9765432109', email: 'chopstix@example.com' },
-        cuisine_type: ['Lunch', 'Dinner'],
-        rating: 4.0, numberOfReviews: 600,
-        opening_hours: [{ day: 'Thursday', open: '11:30', close: '22:30' }],
-        is_active: true, min_order_value: 220, delivery_radius_km: 4,
-        is_veg: false, cost_for_two: 450, delivery_time_mins: 30,
-        imagePath: 'https://media.istockphoto.com/id/483137365/photo/asian-chow-mein-noodles.jpg?s=612x612&w=0&k=20&c=aVkPKpDkiAM7CxTFinQBax0i-nm-ybzWimrJRyPePcg='
-    },
-    {
-        name: 'Sweet Tooth Cafe',
-        description: 'Delightful desserts, pastries, and coffee.',
-        address: {
-            street: 'Vijay Nagar Square', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-            location: { type: 'Point', coordinates: [baseLon + 0.04, baseLat + 0.02] }
-        },
-        contact: { phone: '9654321098', email: 'sweettooth@example.com' },
-        cuisine_type: [ 'Beverages', 'Breakfast'],
-        rating: 4.7, numberOfReviews: 1200,
-        opening_hours: [{ day: 'Friday', open: '09:00', close: '21:00' }],
-        is_active: true, min_order_value: 100, delivery_radius_km: 8,
-        is_veg: true, cost_for_two: 300, delivery_time_mins: 20,
-        imagePath: 'https://media.istockphoto.com/id/952117426/photo/bakery-products.jpg?s=612x612&w=0&k=20&c=XQQ_Ue1kW28EdaFLlj3E0updE6TXuyHRWAhU4Yvk8Ds='
-    },
+    // },
+    // {
+    //     name: 'SK Pizza Wala',
+    //     description: 'Freshly baked Neapolitan pizzas and Italian pasta.',
+    //     address: {
+    //         street: '25 Palasia Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+    //         location: { type: 'Point', coordinates: [baseLon + 0.03, baseLat - 0.01] }
+    //     },
+    //     contact: { phone: '9988776655', email: 'skpizzawala@example.com' },
+    //     cuisine_type: ['Italian', 'Pizza'],
+    //     rating: 4.8, numberOfReviews: 2000,
+    //     opening_hours: [{ day: 'Tuesday', open: '12:00', close: '22:00' }],
+    //     is_active: true, min_order_value: 180, delivery_radius_km: 7,
+    //     is_veg: false, cost_for_two: 750, delivery_time_mins: 40,
+    //     imagePath: 'https://media.istockphoto.com/id/1171008705/photo/italian-pizza-margherita.jpg?s=612x612&w=0&k=20&c=J1i7bbbex7tk3FXs8W-hd9Yf9ZxnsE5C36O92Z3zcoM='
+    // },
+    // {
+    //     name: 'The Burger Hub',
+    //     description: 'Gourmet burgers and shakes for every craving.',
+    //     address: {
+    //         street: 'Bhawarkua Main Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+    //         location: { type: 'Point', coordinates: [baseLon + 0.01, baseLat - 0.03] }
+    //     },
+    //     contact: { phone: '9123456789', email: 'burgerhub@example.com' },
+    //     cuisine_type: ['Fast-Food', 'Burgers'],
+    //     rating: 4.2, numberOfReviews: 800,
+    //     opening_hours: [{ day: 'Wednesday', open: '10:00', close: '22:00' }],
+    //     is_active: true, min_order_value: 150, delivery_radius_km: 6,
+    //     is_veg: false, cost_for_two: 500, delivery_time_mins: 25,
+    //     imagePath: 'https://media.istockphoto.com/id/1302436326/photo/junk-food-homemade-beef-burgers-on-vintage-wooden-background.jpg?s=612x612&w=0&k=20&c=NsyDE31unoNd80wGfrkMOqvsnjeNOpHER-yL_8KwcRw='
+    // },
+    // {
+    //     name: 'Chopstix Express',
+    //     description: 'Quick and delicious Chinese stir-fries and noodles.',
+    //     address: {
+    //         street: 'Rajendra Nagar', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+    //         location: { type: 'Point', coordinates: [baseLon - 0.03, baseLat - 0.01] }
+    //     },
+    //     contact: { phone: '9765432109', email: 'chopstix@example.com' },
+    //     cuisine_type: ['Lunch', 'Dinner'],
+    //     rating: 4.0, numberOfReviews: 600,
+    //     opening_hours: [{ day: 'Thursday', open: '11:30', close: '22:30' }],
+    //     is_active: true, min_order_value: 220, delivery_radius_km: 4,
+    //     is_veg: false, cost_for_two: 450, delivery_time_mins: 30,
+    //     imagePath: 'https://media.istockphoto.com/id/483137365/photo/asian-chow-mein-noodles.jpg?s=612x612&w=0&k=20&c=aVkPKpDkiAM7CxTFinQBax0i-nm-ybzWimrJRyPePcg='
+    // },
+    // {
+    //     name: 'Sweet Tooth Cafe',
+    //     description: 'Delightful desserts, pastries, and coffee.',
+    //     address: {
+    //         street: 'Vijay Nagar Square', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+    //         location: { type: 'Point', coordinates: [baseLon + 0.04, baseLat + 0.02] }
+    //     },
+    //     contact: { phone: '9654321098', email: 'sweettooth@example.com' },
+    //     cuisine_type: [ 'Beverages', 'Breakfast'],
+    //     rating: 4.7, numberOfReviews: 1200,
+    //     opening_hours: [{ day: 'Friday', open: '09:00', close: '21:00' }],
+    //     is_active: true, min_order_value: 100, delivery_radius_km: 8,
+    //     is_veg: true, cost_for_two: 300, delivery_time_mins: 20,
+    //     imagePath: 'https://media.istockphoto.com/id/952117426/photo/bakery-products.jpg?s=612x612&w=0&k=20&c=XQQ_Ue1kW28EdaFLlj3E0updE6TXuyHRWAhU4Yvk8Ds='
+    // },
 
     // next ten 
    
@@ -540,218 +542,221 @@ export const restaurants = [
     // },
 
 
-    // {
-    //     name: 'Veggie World',
-    //     description: 'All-vegetarian, traditional and modern dishes.',
-    //     address: {
-    //         street: 'Sapna Sangeeta, near Treasure Island', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.015, baseLat + 0.035] }
-    //     },
-    //     contact: { phone: '9128899001', email: 'veggieworld@example.com' },
-    //     cuisine_type: ['Indian', 'Vegan', 'Healthy', 'Lunch', 'Dinner'],
-    //     rating: 4.4, numberOfReviews: 1500,
-    //     opening_hours: [{ day: 'Thursday', open: '11:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 150, delivery_radius_km: 7,
-    //     is_veg: true, cost_for_two: 500, delivery_time_mins: 30,
-    //     imagePath: 'https://media.istockphoto.com/id/1212329362/photo/table-top-view-of-indian-food.jpg?s=612x612&w=0&k=20&c=qLGeFzjZl10DmzgvF6mi1KAQVXHgCpBqgKaYx9DRzXw='
-    // },
-    // {
-    //     name: 'The South Indian Rasoi',
-    //     description: 'Crispy dosas, idlis, and authentic South Indian thalis.',
-    //     address: {
-    //         street: 'MG Road, near C21 Mall', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.02, baseLat + 0.02] }
-    //     },
-    //     contact: { phone: '9129900112', email: 'southrasoi@example.com' },
-    //     cuisine_type: ['Indian', 'South Indian', 'Breakfast', 'Lunch'],
-    //     rating: 4.6, numberOfReviews: 1200,
-    //     opening_hours: [{ day: 'Friday', open: '09:00', close: '22:00' }],
-    //     is_active: true, min_order_value: 120, delivery_radius_km: 5,
-    //     is_veg: true, cost_for_two: 350, delivery_time_mins: 25,
-    //     imagePath: 'https://media.istockphoto.com/id/1460788317/photo/south-indian-vegetarian-breakfast.jpg?s=612x612&w=0&k=20&c=uWbKr62yUQ4xf7_rzfEjEq1ELk-vYyO1obLTvd6E-3s='
-    // },
-    // {
-    //     name: 'The Shake Factory',
-    //     description: 'Thick, creamy shakes and a wide range of beverages.',
-    //     address: {
-    //         street: 'Vijay Nagar, Scheme 54', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.03, baseLat + 0.045] }
-    //     },
-    //     contact: { phone: '9130011223', email: 'shakefactory@example.com' },
-    //     cuisine_type: ['Beverages', 'Desserts', 'Fast-Food'],
-    //     rating: 4.5, numberOfReviews: 900,
-    //     opening_hours: [{ day: 'Saturday', open: '11:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 100, delivery_radius_km: 6,
-    //     is_veg: true, cost_for_two: 200, delivery_time_mins: 20,
-    //     imagePath: 'https://media.istockphoto.com/id/512752948/photo/chocolate-milkshake-with-whipped-cream.jpg?s=612x612&w=0&k=20&c=ngIDW6yk07lR2UDSQqtPyz2vuab8AA_iJlRrJYwNhhk='
-    // },
-    // {
-    //     name: 'The Lunch Box',
-    //     description: 'Curated lunch meals and thalis for quick delivery.',
-    //     address: {
-    //         street: 'Rajendra Nagar, near DAVV', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.045, baseLat - 0.01] }
-    //     },
-    //     contact: { phone: '9131122334', email: 'lunchbox@example.com' },
-    //     cuisine_type: ['Lunch', 'Indian'],
-    //     rating: 4.1, numberOfReviews: 400,
-    //     opening_hours: [{ day: 'Sunday', open: '11:30', close: '15:00' }],
-    //     is_active: true, min_order_value: 150, delivery_radius_km: 5,
-    //     is_veg: false, cost_for_two: 300, delivery_time_mins: 25,
-    //     imagePath: 'https://media.istockphoto.com/id/1173807289/photo/indian-food.jpg?s=612x612&w=0&k=20&c=1F-in5AuRPGd8-95r0r2DZAwP7Qf6KQrROHxINFXsxM='
-    // },
-    // {
-    //     name: 'The Dinner Bell',
-    //     description: 'Gourmet dinner options delivered to your doorstep.',
-    //     address: {
-    //         street: 'L.I.G. Colony, near Geeta Bhawan', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.025, baseLat + 0.035] }
-    //     },
-    //     contact: { phone: '9132233445', email: 'dinnerbell@example.com' },
-    //     cuisine_type: ['Dinner', 'Indian', 'Italian'],
-    //     rating: 4.5, numberOfReviews: 800,
-    //     opening_hours: [{ day: 'Monday', open: '18:00', close: '00:00' }],
-    //     is_active: true, min_order_value: 250, delivery_radius_km: 8,
-    //     is_veg: false, cost_for_two: 800, delivery_time_mins: 40,
-    //     imagePath: 'https://media.istockphoto.com/id/1164157153/photo/helthy-food-delivery-of-coil-cooking-meat-fish-and-vegetables.jpg?s=612x612&w=0&k=20&c=xHGRcIMc5MsTwV82wCKJE79ZwNjX8pHErqrysvaV5tU='
-    // },
-    // {
-    //     name: 'The Healthy Cafe',
-    //     description: 'Wholesome and nutritious meals for a healthy life.',
-    //     address: {
-    //         street: 'Scheme No. 114, near Bombay Hospital', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.055, baseLat + 0.02] }
-    //     },
-    //     contact: { phone: '9133344556', email: 'healthycafe@example.com' },
-    //     cuisine_type: ['Healthy', 'Breakfast', 'Lunch'],
-    //     rating: 4.7, numberOfReviews: 600,
-    //     opening_hours: [{ day: 'Tuesday', open: '09:00', close: '21:00' }],
-    //     is_active: true, min_order_value: 150, delivery_radius_km: 7,
-    //     is_veg: true, cost_for_two: 400, delivery_time_mins: 30,
-    //     imagePath: 'https://media.istockphoto.com/id/2150471415/photo/vegan-buddha-bowl-for-balanced-diet-with-tofu-quinoa-vegetables-and-legumes-wooden-table.jpg?s=612x612&w=0&k=20&c=ZUQbh9AZLg9GvlqpbLf50gegsG6qu2hZU6TyyjbRZ7M='
-    // },
-    // {
-    //     name: 'The Soup Spot',
-    //     description: 'Daily fresh soups and grilled sandwiches.',
-    //     address: {
-    //         street: 'Ring Road, near Velocity', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.02, baseLat - 0.04] }
-    //     },
-    //     contact: { phone: '9134455667', email: 'soupspot@example.com' },
-    //     cuisine_type: ['Soups', 'Sandwiches', 'Lunch'],
-    //     rating: 4.2, numberOfReviews: 350,
-    //     opening_hours: [{ day: 'Wednesday', open: '11:00', close: '20:00' }],
-    //     is_active: true, min_order_value: 100, delivery_radius_km: 6,
-    //     is_veg: true, cost_for_two: 300, delivery_time_mins: 25,
-    //     imagePath: 'https://media.istockphoto.com/id/532704551/photo/homemade-grilled-cheese-with-tomato-soup.jpg?s=612x612&w=0&k=20&c=3LVSax_eDlLM6p8KU9r8ZrBknuaip_4lUhZttJTB_dI='
-    // },
-    // {
-    //     name: 'The BBQ House',
-    //     description: 'Classic BBQ ribs, chicken, and steaks.',
-    //     address: {
-    //         street: 'Vijay Nagar, Scheme 54', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.035, baseLat + 0.02] }
-    //     },
-    //     contact: { phone: '9135566778', email: 'bbqhouse@example.com' },
-    //     cuisine_type: ['BBQ', 'Dinner'],
-    //     rating: 4.8, numberOfReviews: 900,
-    //     opening_hours: [{ day: 'Thursday', open: '18:00', close: '01:00' }],
-    //     is_active: true, min_order_value: 300, delivery_radius_km: 10,
-    //     is_veg: false, cost_for_two: 1100, delivery_time_mins: 50,
-    //     imagePath: 'https://media.istockphoto.com/id/177486070/photo/barbecue-chicken-and-ribs.jpg?s=612x612&w=0&k=20&c=5i1Q9CZ-Uag1O56fwj6H4lgT2IWLYJg60ToA78O_yl4='
-    // },
-    // {
-    //     name: 'The Indian Street Food',
-    //     description: 'Authentic Indian street food and snacks.',
-    //     address: {
-    //         street: 'Sarafa Bazaar, Main Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.01, baseLat - 0.01] }
-    //     },
-    //     contact: { phone: '9136677889', email: 'indianstreetfood@example.com' },
-    //     cuisine_type: ['Indian', 'Fast-Food'],
-    //     rating: 4.4, numberOfReviews: 2000,
-    //     opening_hours: [{ day: 'Friday', open: '16:00', close: '02:00' }],
-    //     is_active: true, min_order_value: 80, delivery_radius_km: 4,
-    //     is_veg: true, cost_for_two: 200, delivery_time_mins: 20,
-    //     imagePath: 'https://media.istockphoto.com/id/465006874/photo/street-food-stall-in-india.jpg?s=612x612&w=0&k=20&c=M_p2sqrDzHf3HmJNnfx1hrlz-HYu46sgykoIu2hQGiY='
-    // },
-    // {
-    //     name: 'The Italian Bistro',
-    //     description: 'Classic Italian dishes and desserts.',
-    //     address: {
-    //         street: 'MG Road, near Regal Square', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.01, baseLat - 0.015] }
-    //     },
-    //     contact: { phone: '9137788990', email: 'italianbistro@example.com' },
-    //     cuisine_type: ['Italian', 'Pizza', 'Pasta', 'Desserts'],
-    //     rating: 4.6, numberOfReviews: 1200,
-    //     opening_hours: [{ day: 'Saturday', open: '12:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 200, delivery_radius_km: 7,
-    //     is_veg: true, cost_for_two: 700, delivery_time_mins: 35,
-    //     imagePath: 'https://media.istockphoto.com/id/1319266483/photo/typical-italian-dessert-cannoli-from-sicily.jpg?s=612x612&w=0&k=20&c=C-hAezG3mvZfSXrEptYuBwdHdR3QAZZp6Wf1qTQ1utw='
-    // },
+
+    // UnSeeded Data is Here : for indore : 
+
+    {
+        name: 'Veggie World',
+        description: 'All-vegetarian, traditional and modern dishes.',
+        address: {
+            street: 'Sapna Sangeeta, near Treasure Island', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.015, baseLat + 0.035] }
+        },
+        contact: { phone: '9128899001', email: 'veggieworld@example.com' },
+        cuisine_type: ['Indian', 'Vegan', 'Healthy', 'Lunch', 'Dinner'],
+        rating: 4.4, numberOfReviews: 1500,
+        opening_hours: [{ day: 'Thursday', open: '11:00', close: '23:00' }],
+        is_active: true, min_order_value: 150, delivery_radius_km: 7,
+        is_veg: true, cost_for_two: 500, delivery_time_mins: 30,
+        imagePath: 'https://media.istockphoto.com/id/1212329362/photo/table-top-view-of-indian-food.jpg?s=612x612&w=0&k=20&c=qLGeFzjZl10DmzgvF6mi1KAQVXHgCpBqgKaYx9DRzXw='
+    },
+    {
+        name: 'The South Indian Rasoi',
+        description: 'Crispy dosas, idlis, and authentic South Indian thalis.',
+        address: {
+            street: 'MG Road, near C21 Mall', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.02, baseLat + 0.02] }
+        },
+        contact: { phone: '9129900112', email: 'southrasoi@example.com' },
+        cuisine_type: ['Indian', 'South Indian', 'Breakfast', 'Lunch'],
+        rating: 4.6, numberOfReviews: 1200,
+        opening_hours: [{ day: 'Friday', open: '09:00', close: '22:00' }],
+        is_active: true, min_order_value: 120, delivery_radius_km: 5,
+        is_veg: true, cost_for_two: 350, delivery_time_mins: 25,
+        imagePath: 'https://media.istockphoto.com/id/1460788317/photo/south-indian-vegetarian-breakfast.jpg?s=612x612&w=0&k=20&c=uWbKr62yUQ4xf7_rzfEjEq1ELk-vYyO1obLTvd6E-3s='
+    },
+    {
+        name: 'The Shake Factory',
+        description: 'Thick, creamy shakes and a wide range of beverages.',
+        address: {
+            street: 'Vijay Nagar, Scheme 54', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.03, baseLat + 0.045] }
+        },
+        contact: { phone: '9130011223', email: 'shakefactory@example.com' },
+        cuisine_type: ['Beverages', 'Desserts', 'Fast-Food'],
+        rating: 4.5, numberOfReviews: 900,
+        opening_hours: [{ day: 'Saturday', open: '11:00', close: '23:00' }],
+        is_active: true, min_order_value: 100, delivery_radius_km: 6,
+        is_veg: true, cost_for_two: 200, delivery_time_mins: 20,
+        imagePath: 'https://media.istockphoto.com/id/512752948/photo/chocolate-milkshake-with-whipped-cream.jpg?s=612x612&w=0&k=20&c=ngIDW6yk07lR2UDSQqtPyz2vuab8AA_iJlRrJYwNhhk='
+    },
+    {
+        name: 'The Lunch Box',
+        description: 'Curated lunch meals and thalis for quick delivery.',
+        address: {
+            street: 'Rajendra Nagar, near DAVV', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.045, baseLat - 0.01] }
+        },
+        contact: { phone: '9131122334', email: 'lunchbox@example.com' },
+        cuisine_type: ['Lunch', 'Indian'],
+        rating: 4.1, numberOfReviews: 400,
+        opening_hours: [{ day: 'Sunday', open: '11:30', close: '15:00' }],
+        is_active: true, min_order_value: 150, delivery_radius_km: 5,
+        is_veg: false, cost_for_two: 300, delivery_time_mins: 25,
+        imagePath: 'https://media.istockphoto.com/id/1173807289/photo/indian-food.jpg?s=612x612&w=0&k=20&c=1F-in5AuRPGd8-95r0r2DZAwP7Qf6KQrROHxINFXsxM='
+    },
+    {
+        name: 'The Dinner Bell',
+        description: 'Gourmet dinner options delivered to your doorstep.',
+        address: {
+            street: 'L.I.G. Colony, near Geeta Bhawan', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.025, baseLat + 0.035] }
+        },
+        contact: { phone: '9132233445', email: 'dinnerbell@example.com' },
+        cuisine_type: ['Dinner', 'Indian', 'Italian'],
+        rating: 4.5, numberOfReviews: 800,
+        opening_hours: [{ day: 'Monday', open: '18:00', close: '00:00' }],
+        is_active: true, min_order_value: 250, delivery_radius_km: 8,
+        is_veg: false, cost_for_two: 800, delivery_time_mins: 40,
+        imagePath: 'https://media.istockphoto.com/id/1164157153/photo/helthy-food-delivery-of-coil-cooking-meat-fish-and-vegetables.jpg?s=612x612&w=0&k=20&c=xHGRcIMc5MsTwV82wCKJE79ZwNjX8pHErqrysvaV5tU='
+    },
+    {
+        name: 'The Healthy Cafe',
+        description: 'Wholesome and nutritious meals for a healthy life.',
+        address: {
+            street: 'Scheme No. 114, near Bombay Hospital', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.055, baseLat + 0.02] }
+        },
+        contact: { phone: '9133344556', email: 'healthycafe@example.com' },
+        cuisine_type: ['Healthy', 'Breakfast', 'Lunch'],
+        rating: 4.7, numberOfReviews: 600,
+        opening_hours: [{ day: 'Tuesday', open: '09:00', close: '21:00' }],
+        is_active: true, min_order_value: 150, delivery_radius_km: 7,
+        is_veg: true, cost_for_two: 400, delivery_time_mins: 30,
+        imagePath: 'https://media.istockphoto.com/id/2150471415/photo/vegan-buddha-bowl-for-balanced-diet-with-tofu-quinoa-vegetables-and-legumes-wooden-table.jpg?s=612x612&w=0&k=20&c=ZUQbh9AZLg9GvlqpbLf50gegsG6qu2hZU6TyyjbRZ7M='
+    },
+    {
+        name: 'The Soup Spot',
+        description: 'Daily fresh soups and grilled sandwiches.',
+        address: {
+            street: 'Ring Road, near Velocity', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.02, baseLat - 0.04] }
+        },
+        contact: { phone: '9134455667', email: 'soupspot@example.com' },
+        cuisine_type: ['Soups', 'Sandwiches', 'Lunch'],
+        rating: 4.2, numberOfReviews: 350,
+        opening_hours: [{ day: 'Wednesday', open: '11:00', close: '20:00' }],
+        is_active: true, min_order_value: 100, delivery_radius_km: 6,
+        is_veg: true, cost_for_two: 300, delivery_time_mins: 25,
+        imagePath: 'https://media.istockphoto.com/id/532704551/photo/homemade-grilled-cheese-with-tomato-soup.jpg?s=612x612&w=0&k=20&c=3LVSax_eDlLM6p8KU9r8ZrBknuaip_4lUhZttJTB_dI='
+    },
+    {
+        name: 'The BBQ House',
+        description: 'Classic BBQ ribs, chicken, and steaks.',
+        address: {
+            street: 'Vijay Nagar, Scheme 54', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.035, baseLat + 0.02] }
+        },
+        contact: { phone: '9135566778', email: 'bbqhouse@example.com' },
+        cuisine_type: ['BBQ', 'Dinner'],
+        rating: 4.8, numberOfReviews: 900,
+        opening_hours: [{ day: 'Thursday', open: '18:00', close: '01:00' }],
+        is_active: true, min_order_value: 300, delivery_radius_km: 10,
+        is_veg: false, cost_for_two: 1100, delivery_time_mins: 50,
+        imagePath: 'https://media.istockphoto.com/id/177486070/photo/barbecue-chicken-and-ribs.jpg?s=612x612&w=0&k=20&c=5i1Q9CZ-Uag1O56fwj6H4lgT2IWLYJg60ToA78O_yl4='
+    },
+    {
+        name: 'The Indian Street Food',
+        description: 'Authentic Indian street food and snacks.',
+        address: {
+            street: 'Sarafa Bazaar, Main Road', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.01, baseLat - 0.01] }
+        },
+        contact: { phone: '9136677889', email: 'indianstreetfood@example.com' },
+        cuisine_type: ['Indian', 'Fast-Food'],
+        rating: 4.4, numberOfReviews: 2000,
+        opening_hours: [{ day: 'Friday', open: '16:00', close: '02:00' }],
+        is_active: true, min_order_value: 80, delivery_radius_km: 4,
+        is_veg: true, cost_for_two: 200, delivery_time_mins: 20,
+        imagePath: 'https://media.istockphoto.com/id/465006874/photo/street-food-stall-in-india.jpg?s=612x612&w=0&k=20&c=M_p2sqrDzHf3HmJNnfx1hrlz-HYu46sgykoIu2hQGiY='
+    },
+    {
+        name: 'The Italian Bistro',
+        description: 'Classic Italian dishes and desserts.',
+        address: {
+            street: 'MG Road, near Regal Square', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.01, baseLat - 0.015] }
+        },
+        contact: { phone: '9137788990', email: 'italianbistro@example.com' },
+        cuisine_type: ['Italian', 'Pizza', 'Pasta', 'Desserts'],
+        rating: 4.6, numberOfReviews: 1200,
+        opening_hours: [{ day: 'Saturday', open: '12:00', close: '23:00' }],
+        is_active: true, min_order_value: 200, delivery_radius_km: 7,
+        is_veg: true, cost_for_two: 700, delivery_time_mins: 35,
+        imagePath: 'https://media.istockphoto.com/id/1319266483/photo/typical-italian-dessert-cannoli-from-sicily.jpg?s=612x612&w=0&k=20&c=C-hAezG3mvZfSXrEptYuBwdHdR3QAZZp6Wf1qTQ1utw='
+    },
 
 
-    // {
-    //     name: 'The Burger Joint',
-    //     description: 'Juicy, gourmet burgers and crispy fries.',
-    //     address: {
-    //         street: 'Scheme No. 54, near Vijay Nagar', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.04, baseLat - 0.005] }
-    //     },
-    //     contact: { phone: '9138899001', email: 'burgerjoint@example.com' },
-    //     cuisine_type: ['Burgers', 'Fast-Food'],
-    //     rating: 4.3, numberOfReviews: 900,
-    //     opening_hours: [{ day: 'Sunday', open: '11:00', close: '22:00' }],
-    //     is_active: true, min_order_value: 150, delivery_radius_km: 6,
-    //     is_veg: false, cost_for_two: 450, delivery_time_mins: 25,
-    //     imagePath: 'https://media.istockphoto.com/id/617759204/photo/steakhouse-double-bacon-cheeseburger.jpg?s=612x612&w=0&k=20&c=QRaHtrxJsmNKOlOTkvxyE-o-3kM-Me1zU320yPT8ycI='
-    // },
-    // {
-    //     name: 'The Asian Wok',
-    //     description: 'Authentic Chinese and Thai stir-fries.',
-    //     address: {
-    //         street: 'Malhar Mall Road, near C21 Mall', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon + 0.02, baseLat + 0.015] }
-    //     },
-    //     contact: { phone: '9139900112', email: 'asianwok@example.com' },
-    //     cuisine_type: ['Asian', 'Chinese', 'Dinner'],
-    //     rating: 4.5, numberOfReviews: 700,
-    //     opening_hours: [{ day: 'Monday', open: '12:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 200, delivery_radius_km: 8,
-    //     is_veg: false, cost_for_two: 600, delivery_time_mins: 35,
-    //     imagePath: 'https://media.istockphoto.com/id/622068426/photo/stir-fry-with-chicken-mushrooms-broccoli-and-peppers.jpg?s=612x612&w=0&k=20&c=u5nlDN-OFrrrOiDxr4EYp5b1L4oUGdEcJdyla1HunAs='
-    // },
-    // {
-    //     name: 'The Dessert Spot',
-    //     description: 'Delicious cakes, pastries, and ice creams.',
-    //     address: {
-    //         street: 'Sudama Nagar, near Holkar Stadium', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.03, baseLat - 0.035] }
-    //     },
-    //     contact: { phone: '9140011223', email: 'dessertspot@example.com' },
-    //     cuisine_type: ['Desserts', 'Beverages', 'Bakery'],
-    //     rating: 4.9, numberOfReviews: 1500,
-    //     opening_hours: [{ day: 'Tuesday', open: '11:00', close: '23:00' }],
-    //     is_active: true, min_order_value: 100, delivery_radius_km: 6,
-    //     is_veg: true, cost_for_two: 250, delivery_time_mins: 20,
-    //     imagePath: 'https://media.istockphoto.com/id/1194628992/photo/ice-cream-cake-with-chocolate-and-strawberries-on-plate-close-up-selective-focus.jpg?s=612x612&w=0&k=20&c=pFsfUhL-5TK7oq1_RCCimn7Wm-ll9zcgVaU3TxRhN5U='
-    // },
-    // {
-    //     name: 'The Breakfast House',
-    //     description: 'All-day breakfast with classic and modern options.',
-    //     address: {
-    //         street: 'Rajendra Nagar, near DAVV', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
-    //         location: { type: 'Point', coordinates: [baseLon - 0.05, baseLat - 0.015] }
-    //     },
-    //     contact: { phone: '9141122334', email: 'breakfasthouse@example.com' },
-    //     cuisine_type: ['Breakfast', 'Cafe', 'Beverages'],
-    //     rating: 4.6, numberOfReviews: 800,
-    //     opening_hours: [{ day: 'Wednesday', open: '08:00', close: '20:00' }],
-    //     is_active: true, min_order_value: 120, delivery_radius_km: 7,
-    //     is_veg: false, cost_for_two: 400, delivery_time_mins: 30,
-    //     imagePath: 'https://media.istockphoto.com/id/504424770/photo/breakfast-on-valentines-day-fried-eggs.jpg?s=612x612&w=0&k=20&c=SQXchOVyz_fU1Cs2W3GhKY3-dm73crULlDYowf3Ot_g='
-    // },
+    {
+        name: 'The Burger Joint',
+        description: 'Juicy, gourmet burgers and crispy fries.',
+        address: {
+            street: 'Scheme No. 54, near Vijay Nagar', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.04, baseLat - 0.005] }
+        },
+        contact: { phone: '9138899001', email: 'burgerjoint@example.com' },
+        cuisine_type: ['Burgers', 'Fast-Food'],
+        rating: 4.3, numberOfReviews: 900,
+        opening_hours: [{ day: 'Sunday', open: '11:00', close: '22:00' }],
+        is_active: true, min_order_value: 150, delivery_radius_km: 6,
+        is_veg: false, cost_for_two: 450, delivery_time_mins: 25,
+        imagePath: 'https://media.istockphoto.com/id/617759204/photo/steakhouse-double-bacon-cheeseburger.jpg?s=612x612&w=0&k=20&c=QRaHtrxJsmNKOlOTkvxyE-o-3kM-Me1zU320yPT8ycI='
+    },
+    {
+        name: 'The Asian Wok',
+        description: 'Authentic Chinese and Thai stir-fries.',
+        address: {
+            street: 'Malhar Mall Road, near C21 Mall', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon + 0.02, baseLat + 0.015] }
+        },
+        contact: { phone: '9139900112', email: 'asianwok@example.com' },
+        cuisine_type: ['Asian', 'Chinese', 'Dinner'],
+        rating: 4.5, numberOfReviews: 700,
+        opening_hours: [{ day: 'Monday', open: '12:00', close: '23:00' }],
+        is_active: true, min_order_value: 200, delivery_radius_km: 8,
+        is_veg: false, cost_for_two: 600, delivery_time_mins: 35,
+        imagePath: 'https://media.istockphoto.com/id/622068426/photo/stir-fry-with-chicken-mushrooms-broccoli-and-peppers.jpg?s=612x612&w=0&k=20&c=u5nlDN-OFrrrOiDxr4EYp5b1L4oUGdEcJdyla1HunAs='
+    },
+    {
+        name: 'The Dessert Spot',
+        description: 'Delicious cakes, pastries, and ice creams.',
+        address: {
+            street: 'Sudama Nagar, near Holkar Stadium', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.03, baseLat - 0.035] }
+        },
+        contact: { phone: '9140011223', email: 'dessertspot@example.com' },
+        cuisine_type: ['Desserts', 'Beverages', 'Bakery'],
+        rating: 4.9, numberOfReviews: 1500,
+        opening_hours: [{ day: 'Tuesday', open: '11:00', close: '23:00' }],
+        is_active: true, min_order_value: 100, delivery_radius_km: 6,
+        is_veg: true, cost_for_two: 250, delivery_time_mins: 20,
+        imagePath: 'https://media.istockphoto.com/id/1194628992/photo/ice-cream-cake-with-chocolate-and-strawberries-on-plate-close-up-selective-focus.jpg?s=612x612&w=0&k=20&c=pFsfUhL-5TK7oq1_RCCimn7Wm-ll9zcgVaU3TxRhN5U='
+    },
+    {
+        name: 'The Breakfast House',
+        description: 'All-day breakfast with classic and modern options.',
+        address: {
+            street: 'Rajendra Nagar, near DAVV', city: 'Indore', state: 'Madhya Pradesh', zip_code: '452001',
+            location: { type: 'Point', coordinates: [baseLon - 0.05, baseLat - 0.015] }
+        },
+        contact: { phone: '9141122334', email: 'breakfasthouse@example.com' },
+        cuisine_type: ['Breakfast', 'Cafe', 'Beverages'],
+        rating: 4.6, numberOfReviews: 800,
+        opening_hours: [{ day: 'Wednesday', open: '08:00', close: '20:00' }],
+        is_active: true, min_order_value: 120, delivery_radius_km: 7,
+        is_veg: false, cost_for_two: 400, delivery_time_mins: 30,
+        imagePath: 'https://media.istockphoto.com/id/504424770/photo/breakfast-on-valentines-day-fried-eggs.jpg?s=612x612&w=0&k=20&c=SQXchOVyz_fU1Cs2W3GhKY3-dm73crULlDYowf3Ot_g='
+    },
 ];
 
 

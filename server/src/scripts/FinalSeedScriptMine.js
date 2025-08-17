@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import cloudinary from "cloudinary";
 import path from "path";
 import { fileURLToPath } from "url";
+import crypto from "crypto";
 
 // Models
 import Category from "../models/category.model.js";
@@ -27,11 +28,23 @@ cloudinary.config({
   api_secret: "G0HTWbGFp1OJIDSHCW0Zh81ysOs",
 });
 
-// Cache to avoid uploading same image multiple times
+// Cache to avoid uploading same image multiple times per run
 const uploadedImagesCache = {};
-async function uploadImageOnce(url, publicId, width = 400, height = 400) {
+
+// Generate deterministic public_id from URL
+function getPublicIdFromUrl(url, prefix = "images") {
+  const hash = crypto.createHash("md5").update(url).digest("hex").slice(0, 12);
+  return `${prefix}/${hash}`;
+}
+
+async function uploadImageOnce(url, width = 400, height = 400) {
   if (!url) return null;
+
+  // If already uploaded in this run, return cached result
   if (uploadedImagesCache[url]) return uploadedImagesCache[url];
+
+  const publicId = getPublicIdFromUrl(url);
+
   try {
     const result = await cloudinary.uploader.upload(url, {
       public_id: publicId,
@@ -43,8 +56,9 @@ async function uploadImageOnce(url, publicId, width = 400, height = 400) {
       crop: "fill",
       gravity: "auto",
     });
+
     uploadedImagesCache[url] = result.secure_url;
-    console.log(`✅ Uploaded image: ${publicId}`);
+    console.log(`✅ Uploaded image once: ${publicId}`);
     return result.secure_url;
   } catch (err) {
     console.error(`❌ Failed to upload image ${url}: ${err.message}`);
@@ -70,7 +84,7 @@ const getBarCode = () => {
   const timestamp = Date.now().toString().slice(-8); // last 8 digits of timestamp
   const random = Math.floor(100000 + Math.random() * 900000).toString(); // 6 random digits
   return (timestamp + random).slice(0, 13); // ensure 13 digits
-}
+};
 
 const seedDatabase = async () => {
   try {
@@ -107,7 +121,6 @@ const seedDatabase = async () => {
 
       const imgUrl = await uploadImageOnce(
         restaurant.imagePath,
-        `restaurants/${restaurant.name.toLowerCase().replace(/\s+/g, "_")}_${Date.now()}`,
         800,
         600
       );
@@ -135,35 +148,45 @@ const seedDatabase = async () => {
         .map((c) => categoryMap[c.toLowerCase()])
         .filter(Boolean);
 
-      console.log(`  🗂️ Categories found: ${restaurantCategories.map(c => c.name).join(", ")}`);
+      console.log(
+        `  🗂️ Categories found: ${restaurantCategories
+          .map((c) => c.name)
+          .join(", ")}`
+      );
 
       for (const category of restaurantCategories) {
         const pool = productPools[category.name.toLowerCase()] || [];
-        const subset = getRandomSubset(pool, Math.min(6, pool.length)); // max 10 products per category
+        const subset = getRandomSubset(pool, Math.min(6, pool.length)); // max 6 products per category
 
-        console.log(`    🍽️ Adding ${subset.length} products for category: ${category.name}`);
+        console.log(
+          `    🍽️ Adding ${subset.length} products for category: ${category.name}`
+        );
 
         for (let i = 0; i < subset.length; i++) {
           const poolProduct = subset[i];
-          const imgUrl = await uploadImageOnce(
-            poolProduct.image,
-            `products/${restaurant.name.toLowerCase().replace(/\s+/g, "_")}_${poolProduct.name.toLowerCase().replace(/\s+/g, "_")}`
-          );
+          const imgUrl = await uploadImageOnce(poolProduct.image, 400, 400);
 
           allProducts.push({
             ...poolProduct,
             images: imgUrl ? [imgUrl] : [],
             restaurant: restaurant._id,
             category: category._id,
-            sku: `${restaurant.name.replace(/\s+/g, "").toUpperCase()}-${category.name.toUpperCase()}-${i + 1}`,
+            sku: `${restaurant.name
+              .replace(/\s+/g, "")
+              .toUpperCase()}-${category.name.toUpperCase()}-${i + 1}`,
             availabilityStatus: "In Stock",
-            barcode: getBarCode() 
-            
+            barcode: getBarCode(),
           });
         }
       }
 
-      console.log(`  ✅ Total products for ${restaurant.name}: ${allProducts.filter(p => p.restaurant.toString() === restaurant._id.toString()).length}`);
+      console.log(
+        `  ✅ Total products for ${restaurant.name}: ${
+          allProducts.filter(
+            (p) => p.restaurant.toString() === restaurant._id.toString()
+          ).length
+        }`
+      );
     }
 
     await Product.insertMany(allProducts);
