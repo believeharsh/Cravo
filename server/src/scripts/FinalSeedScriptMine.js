@@ -13,8 +13,8 @@ import Restaurant from "../models/restaurant.model.js";
 import Product from "../models/product.model.js";
 
 // Sample Data
-// import { IndoreRestaurants } from "../sample-Data/Restaurants-Data/IndoreRestaurant.js";
-import { bhopalRestaurants } from "../sample-Data/Restaurants-Data/BhopalRestaurant.js";
+// import { bhopalRestaurants } from "../sample-Data/Restaurants-Data/BhopalRestaurant.js";
+import { IndoreRestaurants } from "../sample-Data/Restaurants-Data/IndoreRestaurant.js";
 import { productPools } from "../sample-Data/ProductPool/ProductPool.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,24 +32,35 @@ cloudinary.config({
 // Cache to avoid uploading same image multiple times per run
 const uploadedImagesCache = {};
 
-// Generate deterministic public_id from URL
-function getPublicIdFromUrl(url, prefix = "images") {
+// Generate deterministic public_id from URL and folder
+function getPublicIdFromUrl(url, folder) {
   const hash = crypto.createHash("md5").update(url).digest("hex").slice(0, 12);
-  return `${prefix}/${hash}`;
+  return `${folder}/${hash}`;
 }
 
-async function uploadImageOnce(url, width = 400, height = 400) {
-  if (!url) return null;
+async function uploadImageOnce(url, folder, width = 400, height = 400) {
+  if (!url) {
+    console.log("    ⚠️ Skipping image upload: URL is null or undefined.");
+    return null;
+  }
 
-  // If already uploaded in this run, return cached result
-  if (uploadedImagesCache[url]) return uploadedImagesCache[url];
+  const publicId = getPublicIdFromUrl(url, folder); // Check cache first to avoid API call
 
-  const publicId = getPublicIdFromUrl(url);
+  if (uploadedImagesCache[url]) {
+    console.log(
+      `    ✅ Found image in cache. Returning cached URL for ${publicId}.`
+    );
+    return uploadedImagesCache[url];
+  }
 
   try {
+    console.log(
+      `    🚀 Attempting to upload image to folder '${folder}': ${url}`
+    );
     const result = await cloudinary.uploader.upload(url, {
+      folder: 'cravingcart/restaurants', // Cloudinary folder to store your category images
       public_id: publicId,
-      overwrite: true,
+      overwrite: false, // Prevents re-upload if file exists
       quality: "auto:low",
       fetch_format: "auto",
       width,
@@ -59,10 +70,28 @@ async function uploadImageOnce(url, width = 400, height = 400) {
     });
 
     uploadedImagesCache[url] = result.secure_url;
-    console.log(`✅ Uploaded image once: ${publicId}`);
+    console.log(`    🎉 Uploaded successfully! Public ID: ${publicId}`);
     return result.secure_url;
   } catch (err) {
-    console.error(`❌ Failed to upload image ${url}: ${err.message}`);
+    if (err.http_code === 409) {
+      const existingUrl = cloudinary.url(publicId, {
+        secure: true,
+        quality: "auto:low",
+        fetch_format: "auto",
+        width,
+        height,
+        crop: "fill",
+        gravity: "auto",
+      });
+      uploadedImagesCache[url] = existingUrl;
+      console.log(
+        `    ℹ️ Image with public ID ${publicId} already exists. Using existing URL.`
+      );
+      return existingUrl;
+    }
+    console.error(
+      `❌ Failed to upload image ${url}: ${err.message}. Providing placeholder.`
+    );
     return `https://placehold.co/${width}x${height}/cccccc/ffffff?text=${encodeURIComponent(
       publicId
     )}`;
@@ -89,30 +118,34 @@ const getBarCode = () => {
 
 const seedDatabase = async () => {
   try {
-    console.log("🔌 Connecting to MongoDB...");
-    await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("✅ MongoDB connected.");
+    console.log("=================================================");
+    console.log("          🚀 Starting Database Seeder 🚀");
+    console.log("=================================================");
+    console.log("\n🔌 Connecting to MongoDB...");
+    await mongoose.connect(MONGODB_URI);
+    console.log("✅ MongoDB connected successfully."); // Fetch categories
 
-    // Fetch categories
-    console.log("🍔 Fetching categories from database...");
+    console.log("\n🍔 Fetching categories from database...");
     const categories = await Category.find({});
     if (!categories.length) {
-      console.warn("⚠️ No categories found in DB! Seeding will fail.");
+      console.warn(
+        "⚠️ No categories found in DB! Seeding products will not work as expected."
+      );
+      return; // Exit if no categories
     } else {
       console.log(`✅ Fetched ${categories.length} categories.`);
     }
     const categoryMap = categories.reduce((map, cat) => {
       map[cat.name.toLowerCase()] = cat;
       return map;
-    }, {});
+    }, {}); // Seed restaurants
 
-    // Seed restaurants
-    console.log(`🏪 Seeding ${bhopalRestaurants.length} restaurants...`);
+    console.log(`\n🏪 Seeding ${IndoreRestaurants.length} restaurants...`);
     const insertedRestaurants = [];
-    for (const restaurant of bhopalRestaurants) {
+    for (const restaurant of IndoreRestaurants) {
+      console.log(
+        `\n  ------------------- Seeding Restaurant: ${restaurant.name} -------------------`
+      );
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {
@@ -120,7 +153,13 @@ const seedDatabase = async () => {
         coordinates: [baseLon + randomOffset(), baseLat + randomOffset()],
       };
 
-      const imgUrl = await uploadImageOnce(restaurant.imagePath, 800, 600);
+      console.log(`  🖼️ Processing restaurant image...`); // Pass the 'restaurants' folder name
+      const imgUrl = await uploadImageOnce(
+        restaurant.imagePath,
+        "restaurants",
+        800,
+        600
+      );
 
       const doc = await Restaurant.create({
         ...restaurant,
@@ -133,35 +172,55 @@ const seedDatabase = async () => {
       });
 
       insertedRestaurants.push(doc);
-      console.log(`🏬 Restaurant seeded: ${doc.name}`);
-    }
+      console.log(`✅ Restaurant seeded: ${doc.name} (ID: ${doc._id})`);
+    } // Seed products for each restaurant
 
-    // Seed products for each restaurant
-    console.log(`🍟 Seeding products for each restaurant...`);
+    console.log(`\n------------------- Seeding Products -------------------`);
     const allProducts = [];
     for (const restaurant of insertedRestaurants) {
-      console.log(`\n🔹 Processing restaurant: ${restaurant.name}`);
+      console.log(
+        `\n🔹 Processing products for restaurant: ${restaurant.name}`
+      );
       const restaurantCategories = restaurant.cuisine_type
         .map((c) => categoryMap[c.toLowerCase()])
         .filter(Boolean);
 
+      if (!restaurantCategories.length) {
+        console.warn(
+          `  ⚠️ No matching categories found for ${restaurant.name}. Skipping product seeding.`
+        );
+        continue;
+      }
+
       console.log(
-        `  🗂️ Categories found: ${restaurantCategories
+        `  🗂️ Categories to seed: ${restaurantCategories
           .map((c) => c.name)
           .join(", ")}`
       );
 
       for (const category of restaurantCategories) {
         const pool = productPools[category.name.toLowerCase()] || [];
-        const subset = getRandomSubset(pool, Math.min(6, pool.length)); // max 5 products per category
+        if (pool.length === 0) {
+          console.warn(
+            `    ⚠️ No products found in pool for category: ${category.name}.`
+          );
+          continue;
+        }
+        const subset = getRandomSubset(pool, Math.min(5, pool.length)); // max 6 products per category
 
         console.log(
-          `    🍽️ Adding ${subset.length} products for category: ${category.name}`
+          `    🍽️ Adding ${subset.length} products for category: ${category.name}`
         );
 
         for (let i = 0; i < subset.length; i++) {
           const poolProduct = subset[i];
-          const imgUrl = await uploadImageOnce(poolProduct.image, 400, 400);
+          console.log(`      ➡️ Processing product: ${poolProduct.name}`); // Pass the 'products' folder name
+          const imgUrl = await uploadImageOnce(
+            poolProduct.image,
+            "products",
+            400,
+            400
+          );
 
           allProducts.push({
             ...poolProduct,
@@ -176,22 +235,23 @@ const seedDatabase = async () => {
           });
         }
       }
-
-      console.log(
-        `  ✅ Total products for ${restaurant.name}: ${
-          allProducts.filter(
-            (p) => p.restaurant.toString() === restaurant._id.toString()
-          ).length
-        }`
-      );
     }
 
-    await Product.insertMany(allProducts);
-    console.log(`\n🎉 Total products seeded: ${allProducts.length}`);
+    if (allProducts.length > 0) {
+      console.log(
+        `\n📦 Inserting ${allProducts.length} products into the database...`
+      );
+      await Product.insertMany(allProducts);
+      console.log(`🎉 Total products seeded: ${allProducts.length}`);
+    } else {
+      console.log(`\n🤷‍♂️ No products were seeded.`);
+    }
 
-    console.log("🎉 Seeding completed successfully!");
+    console.log("\n=================================================");
+    console.log("  🎉 Seeding completed successfully!");
+    console.log("=================================================");
   } catch (err) {
-    console.error("❌ Error during seeding:", err);
+    console.error("\n❌ An error occurred during seeding:", err);
   } finally {
     await mongoose.disconnect();
     console.log("🔌 MongoDB disconnected.");
