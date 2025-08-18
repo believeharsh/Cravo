@@ -2,7 +2,9 @@ import React from "react";
 import Icon from "../../../components/ui/Icon";
 
 const RestaurantCard = ({ restaurant }) => {
-  const { name, rating, cuisine_type, images, address } = restaurant;
+  console.log("restaurants cards data" , restaurant)
+  const { name, rating, cuisine_type, images, address, min_order_value, 
+ } = restaurant;
 
   const imageUrl =
     images && images.length > 0 ? images[0] : "https://via.placeholder.com/400";
@@ -19,14 +21,10 @@ const RestaurantCard = ({ restaurant }) => {
         />
 
         {/* ITEMS AT ₹49 Banner */}
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-sm font-semibold px-3 py-1 rounded-b-xl">
-          ITEMS AT ₹49
+        <div className="absolute bottom-0 left-0 right-0 bg-black opacity-50 px-3 py-1 rounded-b-xl">
+          <div className=" text-white text-sm font-bold">ITEMS AT ₹{min_order_value} </div>
         </div>
 
-        {/* Ad Label */}
-        <div className="absolute top-2 left-2 bg-white text-gray-500 text-xs px-2 py-0.5 rounded-full font-semibold shadow">
-          Ad
-        </div>
       </div>
 
       {/* Info Section */}
@@ -46,7 +44,7 @@ const RestaurantCard = ({ restaurant }) => {
           {cuisine_type.join(", ")}
         </p>
 
-        <p className="text-gray-500 text-md truncate font-semibold">{address.city}</p>
+        <p className="text-gray-500 text-md truncate font-semibold">{address.street}</p>
       </div>
     </div>
   );
