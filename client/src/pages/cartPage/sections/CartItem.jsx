@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from '../../../components/ui/Icon'; 
-import Button from '../../../components/ui/Button'; 
+import Icon from '../../../components/ui/Icon';
+import Button from '../../../components/ui/Button';
 
 /**
  * Renders a single item in the shopping cart.
@@ -23,15 +23,11 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
       <div className="flex-1">
         <div className="flex items-start justify-between">
           <div>
-            <h4 className="font-semibold text-charcoal">
-              {item.name}
-            </h4>
-            <p className="text-sm text-medium-gray">
-              {item.restaurant}
-            </p>
+            <h4 className="font-semibold text-charcoal">{item.name}</h4>
+            <p className="text-sm text-medium-gray">{item.restaurant}</p>
             {item.customizations.length > 0 && (
               <p className="text-xs text-medium-gray mt-1">
-                {item.customizations.join(", ")}
+                {item.customizations.join(', ')}
               </p>
             )}
           </div>

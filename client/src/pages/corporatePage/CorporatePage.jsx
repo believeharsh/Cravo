@@ -1,106 +1,106 @@
-import React, { useState } from "react";
-import Icon from "../../components/ui/Icon";
-import Footer from "../../components/Footer";
-import CorporateNavigation from "./sections/CorporateNavigation";
+import React, { useState } from 'react';
+import Icon from '../../components/ui/Icon';
+import Footer from '../../components/Footer';
+import CorporateNavigation from './sections/CorporateNavigation';
 
 const CorporatePage = () => {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [selectedPlan, setSelectedPlan] = useState("standard");
+  const [activeTab, setActiveTab] = useState('overview');
+  const [selectedPlan, setSelectedPlan] = useState('standard');
   const [showContactForm, setShowContactForm] = useState(false);
 
   const [contactForm, setContactForm] = useState({
-    companyName: "",
-    contactName: "",
-    email: "",
-    phone: "",
-    employeeCount: "",
-    message: "",
+    companyName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    employeeCount: '',
+    message: '',
   });
 
   const corporateFeatures = [
     {
-      icon: "users", 
-      title: "Employee Management",
+      icon: 'users',
+      title: 'Employee Management',
       description:
-        "Easy employee onboarding with bulk invitations and role-based access controls.",
+        'Easy employee onboarding with bulk invitations and role-based access controls.',
     },
     {
-      icon: "credit-card", 
-      title: "Centralized Billing",
+      icon: 'credit-card',
+      title: 'Centralized Billing',
       description:
-        "Single invoice for all orders with detailed reporting and expense tracking.",
+        'Single invoice for all orders with detailed reporting and expense tracking.',
     },
     {
-      icon: "bar-chart-3", 
-      title: "Analytics Dashboard",
+      icon: 'bar-chart-3',
+      title: 'Analytics Dashboard',
       description:
-        "Comprehensive insights into ordering patterns, spending, and employee preferences.",
+        'Comprehensive insights into ordering patterns, spending, and employee preferences.',
     },
     {
-      icon: "settings", 
-      title: "Custom Policies",
+      icon: 'settings',
+      title: 'Custom Policies',
       description:
-        "Set spending limits, approved restaurants, and ordering time restrictions.",
+        'Set spending limits, approved restaurants, and ordering time restrictions.',
     },
     {
-      icon: "shield", 
-      title: "Security & Compliance",
+      icon: 'shield',
+      title: 'Security & Compliance',
       description:
-        "Enterprise-grade security with SOC 2 compliance and data protection.",
+        'Enterprise-grade security with SOC 2 compliance and data protection.',
     },
     {
-      icon: "head-phones", 
-      title: "dedicated-support",
+      icon: 'head-phones',
+      title: 'dedicated-support',
       description:
-        "24/7 priority support with dedicated account manager for enterprise clients.",
+        '24/7 priority support with dedicated account manager for enterprise clients.',
     },
   ];
 
   const pricingPlans = [
     {
-      id: "starter",
-      name: "Starter",
-      price: "Free",
-      description: "Perfect for small teams",
-      employees: "Up to 25 employees",
+      id: 'starter',
+      name: 'Starter',
+      price: 'Free',
+      description: 'Perfect for small teams',
+      employees: 'Up to 25 employees',
       features: [
-        "Basic employee management",
-        "Monthly spending reports",
-        "Email support",
-        "Standard delivery",
-        "Basic analytics",
+        'Basic employee management',
+        'Monthly spending reports',
+        'Email support',
+        'Standard delivery',
+        'Basic analytics',
       ],
       popular: false,
     },
     {
-      id: "standard",
-      name: "Standard",
-      price: "$99",
-      description: "Great for growing companies",
-      employees: "Up to 100 employees",
+      id: 'standard',
+      name: 'Standard',
+      price: '$99',
+      description: 'Great for growing companies',
+      employees: 'Up to 100 employees',
       features: [
-        "Advanced employee management",
-        "Real-time analytics",
-        "Priority support",
-        "Custom spending limits",
-        "Bulk ordering",
-        "API access",
+        'Advanced employee management',
+        'Real-time analytics',
+        'Priority support',
+        'Custom spending limits',
+        'Bulk ordering',
+        'API access',
       ],
       popular: true,
     },
     {
-      id: "enterprise",
-      name: "Enterprise",
-      price: "Custom",
-      description: "For large organizations",
-      employees: "Unlimited employees",
+      id: 'enterprise',
+      name: 'Enterprise',
+      price: 'Custom',
+      description: 'For large organizations',
+      employees: 'Unlimited employees',
       features: [
-        "Everything in Standard",
-        "Dedicated account manager",
-        "Custom integrations",
-        "Advanced reporting",
-        "SLA guarantee",
-        "White-label options",
+        'Everything in Standard',
+        'Dedicated account manager',
+        'Custom integrations',
+        'Advanced reporting',
+        'SLA guarantee',
+        'White-label options',
       ],
       popular: false,
     },
@@ -108,82 +108,82 @@ const CorporatePage = () => {
 
   const testimonials = [
     {
-      company: "TechCorp Inc.",
-      logo: "/api/placeholder/80/40",
+      company: 'TechCorp Inc.',
+      logo: '/api/placeholder/80/40',
       testimonial:
-        "Carve has transformed our office meal experience. The corporate dashboard gives us complete visibility into our food spending.",
-      author: "Sarah Johnson",
-      position: "HR Director",
-      employees: "500+ employees",
-      savings: "30% cost reduction",
+        'Carve has transformed our office meal experience. The corporate dashboard gives us complete visibility into our food spending.',
+      author: 'Sarah Johnson',
+      position: 'HR Director',
+      employees: '500+ employees',
+      savings: '30% cost reduction',
     },
     {
-      company: "StartupXYZ",
-      logo: "/api/placeholder/80/40",
+      company: 'StartupXYZ',
+      logo: '/api/placeholder/80/40',
       testimonial:
-        "The employee management features are fantastic. We can easily onboard new team members and track meal allowances.",
-      author: "Mike Chen",
-      position: "Operations Manager",
-      employees: "150+ employees",
-      savings: "25% time saved",
+        'The employee management features are fantastic. We can easily onboard new team members and track meal allowances.',
+      author: 'Mike Chen',
+      position: 'Operations Manager',
+      employees: '150+ employees',
+      savings: '25% time saved',
     },
     {
-      company: "Global Solutions",
-      logo: "/api/placeholder/80/40",
+      company: 'Global Solutions',
+      logo: '/api/placeholder/80/40',
       testimonial:
-        "Outstanding support and analytics. The insights help us make better decisions about our employee benefits program.",
-      author: "Emily Rodriguez",
-      position: "Benefits Manager",
-      employees: "1000+ employees",
-      savings: "40% efficiency gain",
+        'Outstanding support and analytics. The insights help us make better decisions about our employee benefits program.',
+      author: 'Emily Rodriguez',
+      position: 'Benefits Manager',
+      employees: '1000+ employees',
+      savings: '40% efficiency gain',
     },
   ];
 
   const stats = [
-    { label: "Corporate Clients", value: "500+", icon: "building-2" }, 
-    { label: "Employees Served", value: "50K+", icon: "users" }, 
-    { label: "Orders Delivered", value: "2M+", icon: "truck" }, 
-    { label: "Cost Savings", value: "35%", icon: "trending-up" }, 
+    { label: 'Corporate Clients', value: '500+', icon: 'building-2' },
+    { label: 'Employees Served', value: '50K+', icon: 'users' },
+    { label: 'Orders Delivered', value: '2M+', icon: 'truck' },
+    { label: 'Cost Savings', value: '35%', icon: 'trending-up' },
   ];
 
   const useCases = [
     {
-      icon: "coffee", 
-      title: "Daily Meals",
+      icon: 'coffee',
+      title: 'Daily Meals',
       description:
-        "Provide breakfast, lunch, and dinner options for your employees with flexible meal allowances.",
+        'Provide breakfast, lunch, and dinner options for your employees with flexible meal allowances.',
     },
     {
-      icon: "users-2", 
-      title: "Team Events",
+      icon: 'users-2',
+      title: 'Team Events',
       description:
-        "Order catering for meetings, celebrations, and team building events with bulk ordering features.",
+        'Order catering for meetings, celebrations, and team building events with bulk ordering features.',
     },
     {
-      icon: "clock", 
-      title: "Late Night Work",
+      icon: 'clock',
+      title: 'Late Night Work',
       description:
-        "Support employees working late with extended ordering hours and priority delivery.",
+        'Support employees working late with extended ordering hours and priority delivery.',
     },
     {
-      icon: "gift", 
-      title: "Employee Perks",
+      icon: 'gift',
+      title: 'Employee Perks',
       description:
-        "Enhance your benefits package with meal credits and special occasion treats.",
+        'Enhance your benefits package with meal credits and special occasion treats.',
     },
   ];
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = e => {
     e.preventDefault();
-    console.log("Contact form submitted:", contactForm);
+    console.log('Contact form submitted:', contactForm);
     setShowContactForm(false);
     setContactForm({
-      companyName: "",
-      contactName: "",
-      email: "",
-      phone: "",
-      employeeCount: "",
-      message: "",
+      companyName: '',
+      contactName: '',
+      email: '',
+      phone: '',
+      employeeCount: '',
+      message: '',
     });
   };
 
@@ -201,7 +201,7 @@ const CorporatePage = () => {
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Feed Your Team,{" "}
+                Feed Your Team,{' '}
                 <span className="text-yellow-400">Fuel Success</span>
               </h1>
 
@@ -314,11 +314,11 @@ const CorporatePage = () => {
             </header>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {pricingPlans.map((p) => (
+              {pricingPlans.map(p => (
                 <div
                   key={p.id}
                   className={`bg-white rounded-2xl shadow-lg border-2 p-8 relative hover:shadow-xl transition-all ${
-                    p.popular ? "border-yellow-400" : "border-cream"
+                    p.popular ? 'border-yellow-400' : 'border-cream'
                   }`}
                 >
                   {p.popular && (
@@ -338,7 +338,7 @@ const CorporatePage = () => {
                       <span className="text-4xl font-bold text-charcoal">
                         {p.price}
                       </span>
-                      {p.price !== "Free" && p.price !== "Custom" && (
+                      {p.price !== 'Free' && p.price !== 'Custom' && (
                         <span className="text-medium-gray">/month</span>
                       )}
                     </div>
@@ -348,7 +348,10 @@ const CorporatePage = () => {
                   <ul className="space-y-4 mb-8">
                     {p.features.map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Icon name="check-circle" className="w-5 h-5 text-mint-green" />
+                        <Icon
+                          name="check-circle"
+                          className="w-5 h-5 text-mint-green"
+                        />
                         <span className="text-medium-gray">{f}</span>
                       </li>
                     ))}
@@ -358,11 +361,11 @@ const CorporatePage = () => {
                     onClick={() => setSelectedPlan(p.id)}
                     className={`w-full py-3 rounded-lg font-semibold transition-all ${
                       p.popular
-                        ? "bg-yellow-400 hover:bg-yellow-500 text-white shadow-lg hover:shadow-xl"
-                        : "bg-gray-100 hover:bg-gray-200 text-charcoal"
+                        ? 'bg-yellow-400 hover:bg-yellow-500 text-white shadow-lg hover:shadow-xl'
+                        : 'bg-gray-100 hover:bg-gray-200 text-charcoal'
                     }`}
                   >
-                    {p.price === "Custom" ? "Contact Sales" : "Get Started"}
+                    {p.price === 'Custom' ? 'Contact Sales' : 'Get Started'}
                   </button>
                 </div>
               ))}
@@ -392,9 +395,7 @@ const CorporatePage = () => {
                       alt={t.company}
                       className="w-16 h-8 object-contain bg-gray-100 rounded-lg p-1"
                     />
-                    <h3 className="font-semibold text-charcoal">
-                      {t.company}
-                    </h3>
+                    <h3 className="font-semibold text-charcoal">{t.company}</h3>
                   </div>
                   <p className="text-medium-gray flex-1 mb-6">
                     “{t.testimonial}”
@@ -445,7 +446,7 @@ const CorporatePage = () => {
                   placeholder="Company Name"
                   required
                   value={contactForm.companyName}
-                  onChange={(e) =>
+                  onChange={e =>
                     setContactForm({
                       ...contactForm,
                       companyName: e.target.value,
@@ -458,7 +459,7 @@ const CorporatePage = () => {
                     placeholder="Contact Name"
                     required
                     value={contactForm.contactName}
-                    onChange={(e) =>
+                    onChange={e =>
                       setContactForm({
                         ...contactForm,
                         contactName: e.target.value,
@@ -471,7 +472,7 @@ const CorporatePage = () => {
                     placeholder="Email"
                     required
                     value={contactForm.email}
-                    onChange={(e) =>
+                    onChange={e =>
                       setContactForm({ ...contactForm, email: e.target.value })
                     }
                   />
@@ -481,7 +482,7 @@ const CorporatePage = () => {
                     className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
                     placeholder="Phone"
                     value={contactForm.phone}
-                    onChange={(e) =>
+                    onChange={e =>
                       setContactForm({ ...contactForm, phone: e.target.value })
                     }
                   />
@@ -491,7 +492,7 @@ const CorporatePage = () => {
                     className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
                     placeholder="Employees"
                     value={contactForm.employeeCount}
-                    onChange={(e) =>
+                    onChange={e =>
                       setContactForm({
                         ...contactForm,
                         employeeCount: e.target.value,
@@ -504,7 +505,7 @@ const CorporatePage = () => {
                   className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 resize-none"
                   placeholder="How can we help?"
                   value={contactForm.message}
-                  onChange={(e) =>
+                  onChange={e =>
                     setContactForm({ ...contactForm, message: e.target.value })
                   }
                 />

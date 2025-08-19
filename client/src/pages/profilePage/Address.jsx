@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Plus,
-  Edit3,
-  Trash2,
-} from 'lucide-react';
+import { Plus, Edit3, Trash2 } from 'lucide-react';
 import Icon from '../../components/ui/Icon';
 
 const Addresses = () => {
@@ -28,9 +24,9 @@ const Addresses = () => {
   });
 
   const addressTypes = [
-    { value: 'home', label: 'Home', icon: "home" },
-    { value: 'work', label: 'Work', icon: "building" },
-    { value: 'other', label: 'Other', icon: "map-pin" },
+    { value: 'home', label: 'Home', icon: 'home' },
+    { value: 'work', label: 'Work', icon: 'building' },
+    { value: 'other', label: 'Other', icon: 'map-pin' },
   ];
 
   /* ───────────────────────────────
@@ -58,7 +54,7 @@ const Addresses = () => {
     setEditingId(null);
   };
 
-  const handleEdit = (address) => {
+  const handleEdit = address => {
     setFormData(address);
     setEditingId(address.id);
     setIsAddingNew(false);
@@ -71,14 +67,14 @@ const Addresses = () => {
         id: Date.now(),
         label:
           formData.label ||
-          addressTypes.find((t) => t.value === formData.type)?.label,
+          addressTypes.find(t => t.value === formData.type)?.label,
       };
       setAddresses([...addresses, newAddress]);
     } else {
       setAddresses(
-        addresses.map((addr) =>
-          addr.id === editingId ? { ...formData, id: editingId } : addr,
-        ),
+        addresses.map(addr =>
+          addr.id === editingId ? { ...formData, id: editingId } : addr
+        )
       );
     }
     handleCancel();
@@ -90,23 +86,23 @@ const Addresses = () => {
     resetForm();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = id => {
     if (window.confirm('Are you sure you want to delete this address?')) {
-      setAddresses(addresses.filter((addr) => addr.id !== id));
+      setAddresses(addresses.filter(addr => addr.id !== id));
     }
   };
 
-  const handleSetDefault = (id) => {
+  const handleSetDefault = id => {
     setAddresses(
-      addresses.map((addr) => ({
+      addresses.map(addr => ({
         ...addr,
         isDefault: addr.id === id,
-      })),
+      }))
     );
   };
 
-  const getAddressIcon = (type) => {
-    const match = addressTypes.find((t) => t.value === type);
+  const getAddressIcon = type => {
+    const match = addressTypes.find(t => t.value === type);
     return match ? match.icon : MapPin;
   };
 
@@ -119,13 +115,15 @@ const Addresses = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-charcoal">My Addresses</h1>
-          <p className="text-medium-gray mt-1">Manage your delivery addresses</p>
+          <p className="text-medium-gray mt-1">
+            Manage your delivery addresses
+          </p>
         </div>
         <button
           onClick={handleAddNew}
           className="flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
         >
-          <Icon name={"plus"} className="w-5 h-5" />
+          <Icon name={'plus'} className="w-5 h-5" />
           Add New Address
         </button>
       </div>
@@ -140,13 +138,15 @@ const Addresses = () => {
 
       {/* Address List */}
       <div className="space-y-4">
-        {addresses.map((address) => {
+        {addresses.map(address => {
           const Icon = getAddressIcon(address.type);
           return (
             <div
               key={address.id}
               className={`bg-white rounded-2xl shadow-lg border p-6 transition-all hover:shadow-xl ${
-                address.isDefault ? 'border-yellow-400 bg-yellow-50' : 'border-cream'
+                address.isDefault
+                  ? 'border-yellow-400 bg-yellow-50'
+                  : 'border-cream'
               }`}
             >
               <div className="flex items-start justify-between">
@@ -171,14 +171,16 @@ const Addresses = () => {
                       </h3>
                       {address.isDefault && (
                         <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-400 text-white text-xs font-medium rounded-full">
-                          <Icon name={"star"} className="w-3 h-3" />
+                          <Icon name={'star'} className="w-3 h-3" />
                           Default
                         </span>
                       )}
                     </div>
 
                     <div className="text-medium-gray space-y-1">
-                      <p className="font-medium text-charcoal">{address.name}</p>
+                      <p className="font-medium text-charcoal">
+                        {address.name}
+                      </p>
                       <p>{address.phone}</p>
                       <p>
                         {address.street}
@@ -207,14 +209,14 @@ const Addresses = () => {
                     onClick={() => handleEdit(address)}
                     className="p-2 text-mint-green hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   >
-                    <Icon name={"lucide-edit-3"} className="w-5 h-5" />
+                    <Icon name={'lucide-edit-3'} className="w-5 h-5" />
                   </button>
 
                   <button
                     onClick={() => handleDelete(address.id)}
                     className="p-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
-                    <Icon name={"lucide-trash-2"} className="w-5 h-5" />
+                    <Icon name={'lucide-trash-2'} className="w-5 h-5" />
                   </button>
                 </div>
               </div>

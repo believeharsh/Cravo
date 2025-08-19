@@ -1,9 +1,9 @@
-import { Schema, model } from "mongoose";
-import bcrypt from "bcryptjs";
+import { Schema, model } from 'mongoose';
+import bcrypt from 'bcryptjs';
 import {
   createAccessToken,
   createRefreshToken,
-} from "../services/userTokens.js";
+} from '../services/userTokens.js';
 
 const UserSchema = new Schema(
   {
@@ -21,16 +21,16 @@ const UserSchema = new Schema(
     // User Roles
     role: {
       type: String,
-      enum: ["customer", "admin", "delivery_partner"],
-      default: "customer",
+      enum: ['customer', 'admin', 'delivery_partner'],
+      default: 'customer',
     },
 
     // User Preferences & Settings
-    preferredLanguage: { type: String, default: "en" },
-    preferredCurrency: { type: String, default: "USD" },
+    preferredLanguage: { type: String, default: 'en' },
+    preferredCurrency: { type: String, default: 'USD' },
 
     // Linked Data (References to other collections)
-    addresses: [{ type: Schema.Types.ObjectId, ref: "Address" }],
+    addresses: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
     paymentMethods: [
       {
         cardType: { type: String },
@@ -39,9 +39,9 @@ const UserSchema = new Schema(
         isDefault: { type: Boolean, default: false },
       },
     ],
-    wishlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 
-    recentlyViewed: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 
     // Account Status
     isActive: { type: Boolean, default: true },
@@ -60,8 +60,8 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
     return next();
   }
 
@@ -75,12 +75,12 @@ UserSchema.methods.isPasswordCorrect = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-UserSchema.static("matchPassAndGenTokens", async function (email, password) {
+UserSchema.static('matchPassAndGenTokens', async function (email, password) {
   const user = await this.findOne({ email });
-  if (!user) throw new Error("User not found!");
+  if (!user) throw new Error('User not found!');
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) throw new Error("Incorrect Password");
+  if (!isPasswordValid) throw new Error('Incorrect Password');
 
   // Generating tokens
   const accessToken = createAccessToken(user);
@@ -92,6 +92,6 @@ UserSchema.static("matchPassAndGenTokens", async function (email, password) {
   return { accessToken, refreshToken };
 });
 
-const User = model("User", UserSchema);
+const User = model('User', UserSchema);
 
 export default User;

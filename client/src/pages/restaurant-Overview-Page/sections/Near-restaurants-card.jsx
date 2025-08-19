@@ -4,21 +4,21 @@ import React from 'react';
 /*  Sample data – tweak / extend any time                             */
 /* ------------------------------------------------------------------ */
 const restaurants = [
-  { id: 1,  name: 'North Spice House',   cuisine: 'North Indian',   icon: '🍛' },
-  { id: 2,  name: 'Curry Mahal',         cuisine: 'North Indian',   icon: '🍲' },
-  { id: 3,  name: 'Tandoori Treats',     cuisine: 'Punjabi',        icon: '🍢' },
-  { id: 4,  name: 'Punjab Junction',     cuisine: 'Punjabi',        icon: '🥘' },
-  { id: 5,  name: 'Saffron North',       cuisine: 'North Indian',   icon: '🫕' },
-  { id: 6,  name: 'Southern Spice',      cuisine: 'South Indian',   icon: '🍛' },
-  { id: 7,  name: 'Dosa Corner',         cuisine: 'South Indian',   icon: '🥞' },
-  { id: 8,  name: 'Idli Express',        cuisine: 'South Indian',   icon: '🍘' },
-  { id: 9,  name: 'Andhra Bites',        cuisine: 'South Indian',   icon: '🌶️' },
-  { id: 10, name: 'Chettinad Kitchen',   cuisine: 'South Indian',   icon: '🍲' },
-  { id: 11, name: 'Biryani Junction',    cuisine: 'Hyderabadi',     icon: '🍗' },
-  { id: 12, name: 'Kolhapuri Curry',     cuisine: 'Maharashtrian',  icon: '🍲' },
-  { id: 13, name: 'Rajasthani Rasoi',    cuisine: 'Rajasthani',     icon: '🍛' },
-  { id: 14, name: 'Bengali Bistro',      cuisine: 'Bengali',        icon: '🐟' },
-  { id: 15, name: 'Gujarati Thali',      cuisine: 'Gujarati',       icon: '🥗' },
+  { id: 1, name: 'North Spice House', cuisine: 'North Indian', icon: '🍛' },
+  { id: 2, name: 'Curry Mahal', cuisine: 'North Indian', icon: '🍲' },
+  { id: 3, name: 'Tandoori Treats', cuisine: 'Punjabi', icon: '🍢' },
+  { id: 4, name: 'Punjab Junction', cuisine: 'Punjabi', icon: '🥘' },
+  { id: 5, name: 'Saffron North', cuisine: 'North Indian', icon: '🫕' },
+  { id: 6, name: 'Southern Spice', cuisine: 'South Indian', icon: '🍛' },
+  { id: 7, name: 'Dosa Corner', cuisine: 'South Indian', icon: '🥞' },
+  { id: 8, name: 'Idli Express', cuisine: 'South Indian', icon: '🍘' },
+  { id: 9, name: 'Andhra Bites', cuisine: 'South Indian', icon: '🌶️' },
+  { id: 10, name: 'Chettinad Kitchen', cuisine: 'South Indian', icon: '🍲' },
+  { id: 11, name: 'Biryani Junction', cuisine: 'Hyderabadi', icon: '🍗' },
+  { id: 12, name: 'Kolhapuri Curry', cuisine: 'Maharashtrian', icon: '🍲' },
+  { id: 13, name: 'Rajasthani Rasoi', cuisine: 'Rajasthani', icon: '🍛' },
+  { id: 14, name: 'Bengali Bistro', cuisine: 'Bengali', icon: '🐟' },
+  { id: 15, name: 'Gujarati Thali', cuisine: 'Gujarati', icon: '🥗' },
 ];
 
 /* ------------------------------------------------------------------ */

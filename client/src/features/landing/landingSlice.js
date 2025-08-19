@@ -1,25 +1,25 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../api/axiosInstance";
-import { checkAuthStatus } from "../auth/authSlice";
-import { fetchUserLocation } from "../location/locationSlice";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axiosInstance from '../../api/axiosInstance';
+import { checkAuthStatus } from '../auth/authSlice';
+import { fetchUserLocation } from '../location/locationSlice';
 
 // Async Thunk to fetch landing page data
 export const fetchLandingPageData = createAsyncThunk(
-  "landingPage/fetchLandingPageData", // Action type prefix
+  'landingPage/fetchLandingPageData', // Action type prefix
   async ({ longitude, latitude, maxDistanceKm }, { rejectWithValue }) => {
     try {
-      // Making a GET api request to the server to get the initial landing data 
+      // Making a GET api request to the server to get the initial landing data
       const response = await axiosInstance.get(
         `/api/v1/landingResources/?longitude=${longitude}&latitude=${latitude}&maxDistanceKm=${maxDistanceKm}`
       );
       console.log(
-        "fetchLandingPageData func: API call successful, response:",
+        'fetchLandingPageData func: API call successful, response:',
         response
       );
       // The data returned from the API will be the payload for `fulfilled`
       return response.data;
     } catch (err) {
-      console.error("fetchLandingPageData func: API call failed!", err);
+      console.error('fetchLandingPageData func: API call failed!', err);
       // Handle different types of errors gracefully without console noise
       if (err.response) {
         // Server responded with a status code outside of 2xx range
@@ -28,7 +28,7 @@ export const fetchLandingPageData = createAsyncThunk(
         return rejectWithValue(errorMessage);
       } else if (err.request) {
         // The request was made but no response was received
-        return rejectWithValue("Network error: No response from server.");
+        return rejectWithValue('Network error: No response from server.');
       } else {
         // Something else happened in setting up the request
         return rejectWithValue(`Error setting up request: ${err.message}`);
@@ -39,35 +39,35 @@ export const fetchLandingPageData = createAsyncThunk(
 
 // New Async Thunk to initialize the entire application
 export const initializeApplication = createAsyncThunk(
-  "landingPage/initializeApplication",
+  'landingPage/initializeApplication',
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      console.log("initializeApplication: Starting app initialization...");
+      console.log('initializeApplication: Starting app initialization...');
 
       // 1. Perform authentication status check
-      console.log("initializeApplication: Dispatching checkAuthStatus...");
+      console.log('initializeApplication: Dispatching checkAuthStatus...');
       try {
         await dispatch(checkAuthStatus()).unwrap();
-        console.log("initializeApplication: Auth status checked. (SUCCESS)");
+        console.log('initializeApplication: Auth status checked. (SUCCESS)');
       } catch (authError) {
         console.warn(
-          "initializeApplication: Auth status check FAILED. User is likely unauthenticated.",
+          'initializeApplication: Auth status check FAILED. User is likely unauthenticated.',
           authError
         );
         // We continue the initialization even if auth fails.
       }
 
       // 2. Get user's geolocation and then dispatch the data fetch
-      console.log("initializeApplication: Attempting to get geolocation...");
+      console.log('initializeApplication: Attempting to get geolocation...');
 
       try {
         // Dispatch fetchUserLocation and wait for it to complete.
         // `.unwrap()` returns the payload of the fulfilled action, or throws an error for a rejected one.
         const locationResult = await dispatch(fetchUserLocation()).unwrap();
         const { lat, lng } = locationResult;
-        console.log("coordinates fetched with new slice", lat, lng, )
+        console.log('coordinates fetched with new slice', lat, lng);
         console.log(
-          "Geolocation obtained. Dispatching fetchLandingPageData with coordinates..."
+          'Geolocation obtained. Dispatching fetchLandingPageData with coordinates...'
         );
         dispatch(
           fetchLandingPageData({
@@ -78,35 +78,35 @@ export const initializeApplication = createAsyncThunk(
         );
       } catch (locationError) {
         // If geolocation fails (e.g., user denies permission), fetch with a fallback (no location)
-        console.warn("Geolocation failed or denied. Fetching default content.");
+        console.warn('Geolocation failed or denied. Fetching default content.');
         dispatch(fetchLandingPageData({}));
       }
     } catch (error) {
       // that prevent the entire initialization from proceeding.
       console.error(
-        "initializeApplication: UNEXPECTED critical error during app initialization!",
+        'initializeApplication: UNEXPECTED critical error during app initialization!',
         error
       );
       return rejectWithValue(
         error.message ||
-          "Failed to initialize application due to unexpected error"
+          'Failed to initialize application due to unexpected error'
       );
     }
   }
 );
 
 const landingPageSlice = createSlice({
-  name: "landingPage", 
+  name: 'landingPage',
   initialState: {
-    data: null, 
+    data: null,
     isLoading: false,
-    error: null, 
+    error: null,
     isAppFullyInitialized: false,
-    appInitError: null, 
+    appInitError: null,
   },
   reducers: {
     // Synchronous reducers (if any are needed for direct state manipulation)
-    clearLandingPageError: (state) => {
+    clearLandingPageError: state => {
       state.error = null;
     },
     // You might add a reducer to manually set data if needed for testing/mocking
@@ -116,10 +116,10 @@ const landingPageSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       // Handle the pending state of the fetchLandingPageData async thunk
-      .addCase(fetchLandingPageData.pending, (state) => {
+      .addCase(fetchLandingPageData.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -136,17 +136,17 @@ const landingPageSlice = createSlice({
         state.error = action.payload;
       })
       // --- New cases for initializeApplication thunk ---
-      .addCase(initializeApplication.pending, (state) => {
+      .addCase(initializeApplication.pending, state => {
         state.isAppFullyInitialized = false;
         state.appInitError = null;
       })
-      .addCase(initializeApplication.fulfilled, (state) => {
+      .addCase(initializeApplication.fulfilled, state => {
         state.isAppFullyInitialized = true;
         state.appInitError = null;
       })
       .addCase(initializeApplication.rejected, (state, action) => {
         state.isAppFullyInitialized = true;
-        state.appInitError = action.payload || "Unknown initialization error";
+        state.appInitError = action.payload || 'Unknown initialization error';
       });
   },
 });

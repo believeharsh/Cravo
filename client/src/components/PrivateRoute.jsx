@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = ({ allowedRoles = [] }) => {
-  const {isAuthenticated, role, isInitialized, isAuthChecking } = useSelector((state) => state.auth);
+  const { isAuthenticated, role, isInitialized, isAuthChecking } = useSelector(
+    state => state.auth
+  );
 
   if (isAuthChecking || !isInitialized) {
     return (

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 /**
  * @description An asynchronous thunk to fetch the user's current location.
@@ -11,9 +11,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
  * - rejected: When the request fails (e.g., user denies permission).
  */
 
-
 export const fetchUserLocation = createAsyncThunk(
-  "location/fetchUserLocation",
+  'location/fetchUserLocation',
   async (_, { rejectWithValue }) => {
     try {
       // Use a Promise wrapper for the callback-based Geolocation API
@@ -45,7 +44,7 @@ export const fetchUserLocation = createAsyncThunk(
  */
 
 const locationSlice = createSlice({
-  name: "location",
+  name: 'location',
   initialState: {
     latitude: null,
     longitude: null,
@@ -55,10 +54,10 @@ const locationSlice = createSlice({
   reducers: {
     // Reducers for synchronous actions can go here if needed
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       // Handles the pending state of the fetchUserLocation thunk
-      .addCase(fetchUserLocation.pending, (state) => {
+      .addCase(fetchUserLocation.pending, state => {
         state.isLoading = true;
         state.error = null;
       })

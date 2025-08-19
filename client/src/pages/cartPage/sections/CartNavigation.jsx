@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import Icon from "../../../components/ui/Icon";
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import Icon from '../../../components/ui/Icon';
 
 const CartNavigation = () => {
   return (
@@ -10,7 +10,11 @@ const CartNavigation = () => {
           <Link to="/" className="flex items-center space-x-3 sm:space-x-4">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center">
               <span className="text-yellow-400 font-bold text-lg sm:text-xl">
-                <Icon name="shopping-cart" size={24} className="text-yellow-400" />
+                <Icon
+                  name="shopping-cart"
+                  size={24}
+                  className="text-yellow-400"
+                />
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
@@ -21,10 +25,12 @@ const CartNavigation = () => {
           <div className="flex items-center space-x-4 sm:space-x-8">
             <div className="hidden lg:flex items-center space-x-6">
               <NavLink
-                to="/help-support" 
+                to="/help-support"
                 className={({ isActive }) =>
                   `flex items-center gap-1 ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-600 hover:text-gray-800"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-600 hover:text-gray-800'
                   }`
                 }
               >
@@ -35,7 +41,9 @@ const CartNavigation = () => {
                 to="/profile"
                 className={({ isActive }) =>
                   `flex items-center gap-1 ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-600 hover:text-gray-800"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-600 hover:text-gray-800'
                   }`
                 }
               >

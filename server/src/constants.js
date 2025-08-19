@@ -1,1 +1,1 @@
-export const Db_Name = "CravingCartDB" ; 
+export const Db_Name = 'CravingCartDB';

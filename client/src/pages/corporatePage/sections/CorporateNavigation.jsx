@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import Icon from "../../../components/ui/Icon";
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import Icon from '../../../components/ui/Icon';
 
 const CorporateNavigation = () => {
   return (
@@ -25,7 +25,9 @@ const CorporateNavigation = () => {
                 to="/corporate/about-cravo"
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-700 hover:text-gray-900"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-700 hover:text-gray-900'
                   }`
                 }
               >
@@ -36,7 +38,9 @@ const CorporateNavigation = () => {
                 to="/corporate/our-business"
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-700 hover:text-gray-900"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-700 hover:text-gray-900'
                   }`
                 }
               >
@@ -44,36 +48,42 @@ const CorporateNavigation = () => {
                 <span className="hidden xl:block">Our Business</span>
               </NavLink>
               <NavLink
-                to="/corporate/newsroom" 
+                to="/corporate/newsroom"
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-700 hover:text-gray-900"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-700 hover:text-gray-900'
                   }`
                 }
               >
-                <Icon name="newspaper" size={20} /> 
+                <Icon name="newspaper" size={20} />
                 <span className="hidden xl:block">NewsRoom</span>
               </NavLink>
               <NavLink
                 to="/corporate/delivering-for-everyone"
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-700 hover:text-gray-900"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-700 hover:text-gray-900'
                   }`
                 }
               >
-                <Icon name="truck" size={20} /> 
+                <Icon name="truck" size={20} />
                 <span className="hidden xl:block">Delivering For Everyone</span>
               </NavLink>
               <NavLink
                 to="/corporate/connect-us"
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
-                    isActive ? "text-yellow-600 font-semibold" : "text-gray-700 hover:text-gray-900"
+                    isActive
+                      ? 'text-yellow-600 font-semibold'
+                      : 'text-gray-700 hover:text-gray-900'
                   }`
                 }
               >
-                <Icon name="mail" size={20} /> 
+                <Icon name="mail" size={20} />
                 <span className="hidden xl:block">Connect Us</span>
               </NavLink>
             </div>

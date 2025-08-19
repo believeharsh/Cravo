@@ -1,10 +1,10 @@
-import React from "react";
-import CitiesSection from "./sections/CitiesSection";
-import Footer from "./sections/FooterSection";
-import Navbar from "./sections/NavigationSection";
-import Hero from "./sections/HeroSection";
-import CategoriesSlider from "./sections/CategoriesSection";
-import RestaurantsSection from "./sections/RestaurantsSection";
+import React from 'react';
+import CitiesSection from './sections/CitiesSection';
+import Footer from './sections/FooterSection';
+import Navbar from './sections/NavigationSection';
+import Hero from './sections/HeroSection';
+import CategoriesSlider from './sections/CategoriesSection';
+import RestaurantsSection from './sections/RestaurantsSection';
 
 const LandingPage = () => {
   return (

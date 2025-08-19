@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon from '../../../components/ui/Icon'; 
-import Button from '../../../components/ui/Button'; 
-import AddressCard from './AddressCard'; 
+import Icon from '../../../components/ui/Icon';
+import Button from '../../../components/ui/Button';
+import AddressCard from './AddressCard';
 
 /**
  * Renders the section for selecting a delivery address.
@@ -13,8 +13,11 @@ import AddressCard from './AddressCard';
  * @returns {JSX.Element} The DeliveryAddressSection component.
  */
 
-
-const DeliveryAddressSection = ({ addresses, selectedAddress, setSelectedAddress }) => {
+const DeliveryAddressSection = ({
+  addresses,
+  selectedAddress,
+  setSelectedAddress,
+}) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
       <div className="flex items-center gap-3 mb-4">

@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import Icon from "../../../components/ui/Icon";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import Icon from '../../../components/ui/Icon';
 
-const Categorycard = ({c, totalVisibleItems, gapValue}) => {
-
+const Categorycard = ({ c, totalVisibleItems, gapValue }) => {
   const calculatedWidth = `calc((100% - ${gapValue * (totalVisibleItems - 1)}px) / ${totalVisibleItems})`;
 
   return (
-    <div
-      className="flex-shrink-0"
-      style={{ width: calculatedWidth }}
-    >
+    <div className="flex-shrink-0" style={{ width: calculatedWidth }}>
       <div className="flex flex-col items-center cursor-pointer">
         <img
           src={c.image}
           alt={c.name}
           className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-cover rounded-full"
-          onError={(e) => {
+          onError={e => {
             e.target.src = '/placeholder-category.png';
           }}
         />
@@ -36,7 +32,7 @@ const RestaurantCategoriesSlider = () => {
   const cardGapPx = 8; // Example: 8px for a tight gap (Tailwind's gap-2)
 
   const [foodCategories, setFoodCategories] = useState([]);
-  const { data, isLoading, error } = useSelector((state) => state.landingPage);
+  const { data, isLoading, error } = useSelector(state => state.landingPage);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -48,7 +44,7 @@ const RestaurantCategoriesSlider = () => {
   }, [data]);
 
   const getItemsPerView = () => {
-    if (typeof window === "undefined") return itemsPerView.mobile;
+    if (typeof window === 'undefined') return itemsPerView.mobile;
     if (window.innerWidth >= 1024) return itemsPerView.desktop;
     if (window.innerWidth >= 768) return itemsPerView.tablet;
     return itemsPerView.mobile;
@@ -59,23 +55,23 @@ const RestaurantCategoriesSlider = () => {
   useEffect(() => {
     const update = () => setVisibleItemsCount(getItemsPerView());
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   // Calculate the maximum index the slider can reach.
   const maxIndex = Math.max(0, foodCategories.length - visibleItemsCount);
 
   useEffect(() => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex, maxIndex));
+    setCurrentIndex(prevIndex => Math.min(prevIndex, maxIndex));
   }, [visibleItemsCount, maxIndex, foodCategories.length]);
 
   const slideLeft = () => {
-    setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1));
+    setCurrentIndex(prevIndex => Math.max(0, prevIndex - 1));
   };
 
   const slideRight = () => {
-    setCurrentIndex((prevIndex) => Math.min(maxIndex, prevIndex + 1));
+    setCurrentIndex(prevIndex => Math.min(maxIndex, prevIndex + 1));
   };
 
   // Calculate the width of one "slide step" (one card + its gap)
@@ -87,12 +83,19 @@ const RestaurantCategoriesSlider = () => {
       <section className="py-5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-800">What's on your mind</h2>
+            <h2 className="text-xl font-bold text-gray-800">
+              What's on your mind
+            </h2>
           </div>
           <div className="flex" style={{ gap: `${cardGapPx}px` }}>
             {[...Array(visibleItemsCount)].map((_, i) => (
-              <div key={i} className="flex-shrink-0"
-                   style={{ width: `calc((100% - ${cardGapPx * (visibleItemsCount - 1)}px) / ${visibleItemsCount})` }}>
+              <div
+                key={i}
+                className="flex-shrink-0"
+                style={{
+                  width: `calc((100% - ${cardGapPx * (visibleItemsCount - 1)}px) / ${visibleItemsCount})`,
+                }}
+              >
                 <div className="flex flex-col items-center">
                   <div className="bg-gray-200 rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 animate-pulse"></div>
                   <div className="bg-gray-200 rounded h-4 w-16 mt-2 animate-pulse"></div>
@@ -139,24 +142,24 @@ const RestaurantCategoriesSlider = () => {
                 disabled={currentIndex === 0}
                 className={`p-2 rounded-full border transition ${
                   currentIndex === 0
-                    ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                    : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
+                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
                 }`}
                 aria-label="Previous categories"
               >
-                <Icon name={"chevron-left"} size={18} />
+                <Icon name={'chevron-left'} size={18} />
               </button>
               <button
                 onClick={slideRight}
                 disabled={currentIndex === maxIndex}
                 className={`p-2 rounded-full border transition ${
                   currentIndex === maxIndex
-                    ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                    : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
+                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
                 }`}
                 aria-label="Next categories"
               >
-                <Icon name={"chevron-right"} size={18} />
+                <Icon name={'chevron-right'} size={18} />
               </button>
             </div>
           )}
@@ -169,10 +172,10 @@ const RestaurantCategoriesSlider = () => {
             style={{
               // Removed the 'width' property from here
               transform: `translateX(calc(-${currentIndex} * ${cardWidthWithGap}))`, // Precise translation
-              gap: `${cardGapPx}px` // Apply the smaller gap here
+              gap: `${cardGapPx}px`, // Apply the smaller gap here
             }}
           >
-            {foodCategories.map((c) => (
+            {foodCategories.map(c => (
               <Categorycard
                 key={c._id}
                 c={c}

@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import Icon from "../../../components/ui/Icon"
+import React, { useState, useRef, useEffect } from 'react';
+import Icon from '../../../components/ui/Icon';
 
 const FilterAndSortBar = ({
   // These props are what the parent CategoryResultPage will manage and pass down
@@ -19,55 +19,55 @@ const FilterAndSortBar = ({
   // Hardcoded data for sort and filter options
   const sortOptions = [
     {
-      id: "relevance",
-      label: "Relevance",
-      description: "Best match for your search",
+      id: 'relevance',
+      label: 'Relevance',
+      description: 'Best match for your search',
     },
-    { id: "rating", label: "Rating", description: "Highest rated first" },
+    { id: 'rating', label: 'Rating', description: 'Highest rated first' },
     {
-      id: "deliveryTime",
-      label: "Delivery Time",
-      description: "Fastest delivery first",
-    },
-    {
-      id: "costLowToHigh",
-      label: "Cost: Low to High",
-      description: "Cheapest first",
+      id: 'deliveryTime',
+      label: 'Delivery Time',
+      description: 'Fastest delivery first',
     },
     {
-      id: "costHighToLow",
-      label: "Cost: High to Low",
-      description: "Most expensive first",
+      id: 'costLowToHigh',
+      label: 'Cost: Low to High',
+      description: 'Cheapest first',
+    },
+    {
+      id: 'costHighToLow',
+      label: 'Cost: High to Low',
+      description: 'Most expensive first',
     },
   ];
 
   const filterOptions = {
     rating: [
-      { id: "4.5+", label: "4.5+ Rating", count: 120 },
-      { id: "4.0+", label: "4.0+ Rating", count: 250 },
-      { id: "3.5+", label: "3.5+ Rating", count: 380 },
+      { id: '4.5+', label: '4.5+ Rating', count: 120 },
+      { id: '4.0+', label: '4.0+ Rating', count: 250 },
+      { id: '3.5+', label: '3.5+ Rating', count: 380 },
     ],
     price: [
-      { id: "under200", label: "Under ₹200", count: 85 },
-      { id: "200-400", label: "₹200 - ₹400", count: 150 },
-      { id: "400-600", label: "₹400 - ₹600", count: 95 },
-      { id: "above600", label: "Above ₹600", count: 45 },
+      { id: 'under200', label: 'Under ₹200', count: 85 },
+      { id: '200-400', label: '₹200 - ₹400', count: 150 },
+      { id: '400-600', label: '₹400 - ₹600', count: 95 },
+      { id: 'above600', label: 'Above ₹600', count: 45 },
     ],
     deliveryTime: [
-      { id: "under30", label: "Under 30 mins", count: 180 },
-      { id: "30-45", label: "30-45 mins", count: 220 },
-      { id: "above45", label: "Above 45 mins", count: 75 },
+      { id: 'under30', label: 'Under 30 mins', count: 180 },
+      { id: '30-45', label: '30-45 mins', count: 220 },
+      { id: 'above45', label: 'Above 45 mins', count: 75 },
     ],
     offers: [
-      { id: "discount", label: "Discounts Available", count: 95 },
-      { id: "freeDelivery", label: "Free Delivery", count: 120 },
-      { id: "buyOneGetOne", label: "Buy 1 Get 1", count: 35 },
+      { id: 'discount', label: 'Discounts Available', count: 95 },
+      { id: 'freeDelivery', label: 'Free Delivery', count: 120 },
+      { id: 'buyOneGetOne', label: 'Buy 1 Get 1', count: 35 },
     ],
   };
 
   // Close dropdowns when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (sortByRef.current && !sortByRef.current.contains(event.target)) {
         setIsSortByOpen(false);
       }
@@ -76,22 +76,22 @@ const FilterAndSortBar = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleQuickFilter = (filterType) => {
-    setQuickFilters((prev) => ({
+  const handleQuickFilter = filterType => {
+    setQuickFilters(prev => ({
       ...prev,
       [filterType]: !prev[filterType],
     }));
   };
 
   const handleFilterChange = (category, filterId) => {
-    setSelectedFilters((prev) => ({
+    setSelectedFilters(prev => ({
       ...prev,
       [category]: prev[category].includes(filterId)
-        ? prev[category].filter((id) => id !== filterId)
+        ? prev[category].filter(id => id !== filterId)
         : [...prev[category], filterId],
     }));
   };
@@ -121,11 +121,11 @@ const FilterAndSortBar = ({
       <div className="flex flex-wrap items-center gap-3">
         {/* Quick Filter Buttons */}
         <button
-          onClick={() => handleQuickFilter("tenMinDelivery")}
+          onClick={() => handleQuickFilter('tenMinDelivery')}
           className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
             quickFilters.tenMinDelivery
-              ? "bg-yellow-400 text-gray-800"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? 'bg-yellow-400 text-gray-800'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
           <Icon name="zap" size={16} />
@@ -133,11 +133,11 @@ const FilterAndSortBar = ({
         </button>
 
         <button
-          onClick={() => handleQuickFilter("topRated")}
+          onClick={() => handleQuickFilter('topRated')}
           className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
             quickFilters.topRated
-              ? "bg-yellow-400 text-gray-800"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? 'bg-yellow-400 text-gray-800'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
           <Icon name="award" size={16} />
@@ -145,11 +145,11 @@ const FilterAndSortBar = ({
         </button>
 
         <button
-          onClick={() => handleQuickFilter("offers")}
+          onClick={() => handleQuickFilter('offers')}
           className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
             quickFilters.offers
-              ? "bg-yellow-400 text-gray-800"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? 'bg-yellow-400 text-gray-800'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
           <Icon name="trending-up" size={16} />
@@ -169,7 +169,7 @@ const FilterAndSortBar = ({
               name="chevron-down"
               size={16}
               className={`transform transition-transform ${
-                isSortByOpen ? "rotate-180" : ""
+                isSortByOpen ? 'rotate-180' : ''
               }`}
             />
           </button>
@@ -180,7 +180,7 @@ const FilterAndSortBar = ({
                 <h3 className="font-bold text-gray-800">Sort By</h3>
               </div>
               <div className="p-2">
-                {sortOptions.map((option) => (
+                {sortOptions.map(option => (
                   <button
                     key={option.id}
                     onClick={() => {
@@ -245,10 +245,10 @@ const FilterAndSortBar = ({
                     className="p-4 border-b border-gray-100 last:border-b-0"
                   >
                     <h4 className="font-semibold text-gray-800 mb-3 capitalize">
-                      {category === "deliveryTime" ? "Delivery Time" : category}
+                      {category === 'deliveryTime' ? 'Delivery Time' : category}
                     </h4>
                     <div className="space-y-2">
-                      {options.map((option) => (
+                      {options.map(option => (
                         <label
                           key={option.id}
                           className="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded-lg"

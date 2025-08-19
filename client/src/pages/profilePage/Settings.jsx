@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  AlertTriangle,
-  RefreshCw,
-  Database,
-} from 'lucide-react';
+import { AlertTriangle, RefreshCw, Database } from 'lucide-react';
 import Icon from '../../components/ui/Icon';
 
 const Settings = () => {
@@ -41,11 +37,10 @@ const Settings = () => {
   /* ───────────────────────────────
                 Helpers
   ─────────────────────────────── */
-  const handleToggle = (key) =>
-    setSettings((s) => ({ ...s, [key]: !s[key] }));
+  const handleToggle = key => setSettings(s => ({ ...s, [key]: !s[key] }));
 
   const handleSelectChange = (key, val) =>
-    setSettings((s) => ({ ...s, [key]: val }));
+    setSettings(s => ({ ...s, [key]: val }));
 
   const handleSaveSettings = () => console.log('Settings saved:', settings);
 
@@ -112,7 +107,9 @@ const Settings = () => {
   }) => (
     <div
       className={`flex items-center justify-between p-4 rounded-xl border transition-colors ${
-        warning ? 'border-red-200 bg-red-50' : 'border-cream bg-white hover:bg-gray-50'
+        warning
+          ? 'border-red-200 bg-red-50'
+          : 'border-cream bg-white hover:bg-gray-50'
       }`}
     >
       <div className="flex items-start gap-4">
@@ -121,10 +118,15 @@ const Settings = () => {
             warning ? 'bg-red-100' : 'bg-yellow-100'
           }`}
         >
-          <Icon name={icon} className={`w-5 h-5 ${warning ? 'text-red-600' : 'text-yellow-600'}`} />
+          <Icon
+            name={icon}
+            className={`w-5 h-5 ${warning ? 'text-red-600' : 'text-yellow-600'}`}
+          />
         </div>
         <div className="flex-1">
-          <h3 className={`font-semibold ${warning ? 'text-red-800' : 'text-charcoal'}`}>
+          <h3
+            className={`font-semibold ${warning ? 'text-red-800' : 'text-charcoal'}`}
+          >
             {title}
           </h3>
           <p
@@ -158,14 +160,14 @@ const Settings = () => {
             onClick={handleResetSettings}
             className="flex items-center gap-2 px-4 py-2 text-medium-gray hover:text-charcoal border border-cream hover:border-gray-300 rounded-lg transition-colors"
           >
-            <Icon name={"refresh-cw"} className="w-4 h-4" />
+            <Icon name={'refresh-cw'} className="w-4 h-4" />
             Reset
           </button>
           <button
             onClick={handleSaveSettings}
             className="flex items-center gap-2 px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
           >
-            <Icon name={"save"} className="w-4 h-4" />
+            <Icon name={'save'} className="w-4 h-4" />
             Save Changes
           </button>
         </div>
@@ -183,12 +185,12 @@ const Settings = () => {
       {/* 4. Data & Marketing */}
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
         <h2 className="text-xl font-bold text-charcoal mb-6 flex items-center gap-3">
-          <Icon name={"database"} className="w-6 h-6 text-yellow-600" />
+          <Icon name={'database'} className="w-6 h-6 text-yellow-600" />
           Data &amp; Marketing
         </h2>
         <div className="space-y-4">
           <SettingItem
-            icon={"star"}
+            icon={'star'}
             title="Personalized Ads"
             description="Show ads based on your preferences and order history"
           >
@@ -199,7 +201,7 @@ const Settings = () => {
           </SettingItem>
 
           <SettingItem
-            icon={"database"}
+            icon={'database'}
             title="Data Collection"
             description="Allow collection of anonymized usage data to improve our service"
           >
@@ -210,7 +212,7 @@ const Settings = () => {
           </SettingItem>
 
           <SettingItem
-            icon={"users"}
+            icon={'users'}
             title="Third-Party Sharing"
             description="Permit sharing of limited data with trusted partners"
           >
@@ -221,7 +223,7 @@ const Settings = () => {
           </SettingItem>
 
           <SettingItem
-            icon={"mail"}
+            icon={'mail'}
             title="Marketing Communications"
             description="Receive product updates and newsletters"
           >
@@ -236,12 +238,12 @@ const Settings = () => {
       {/* 5. Danger Zone */}
       <div className="bg-white rounded-2xl shadow-lg border border-red-200 p-6">
         <h2 className="text-xl font-bold text-red-700 mb-6 flex items-center gap-3">
-          <Icon name={"alert-triangle"} className="w-6 h-6 text-red-600" />
+          <Icon name={'alert-triangle'} className="w-6 h-6 text-red-600" />
           Danger Zone
         </h2>
         <div className="space-y-4">
           <SettingItem
-            icon={"lucide-trash-2"}
+            icon={'lucide-trash-2'}
             title="Delete Account"
             description="Permanently delete your account and all associated data"
             warning
@@ -263,7 +265,7 @@ const Settings = () => {
             </p>
             <input
               value={deleteConfirmText}
-              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              onChange={e => setDeleteConfirmText(e.target.value)}
               className="w-full px-3 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
             />
             <div className="flex gap-2">

@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, clearAuthError } from '../../features/auth/authSlice';
 
-import Icon from "../../components/ui/Icon"; 
-import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input";
+import Icon from '../../components/ui/Icon';
+import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const authState = useSelector((state) => state.auth);
-  const currentUser = useSelector((state) => state.auth.user);
+  const authState = useSelector(state => state.auth);
+  const currentUser = useSelector(state => state.auth.user);
   console.log(currentUser);
   const { isLoading, error, isAuthenticated, role } = authState;
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleInputChange = (e) =>
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleInputChange = e =>
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleLogin = async (e) => {
+  const handleLogin = async e => {
     e.preventDefault();
     dispatch(clearAuthError());
 
@@ -33,7 +33,7 @@ const LoginPage = () => {
     if (!formData.email.trim() || !formData.password.trim()) {
       // You could set an error state in Redux or local component state here
       // For example: setLocalError("Email and password are required.");
-      console.error("Email and password are required."); // Log for now
+      console.error('Email and password are required.'); // Log for now
       return;
     }
 
@@ -42,11 +42,11 @@ const LoginPage = () => {
 
     if (loginUser.fulfilled.match(resultAction)) {
       if (rememberMe && resultAction.payload?.role) {
-        localStorage.setItem("role", resultAction.payload.role);
+        localStorage.setItem('role', resultAction.payload.role);
         // If your API sends an accessToken that needs to be persisted here, do it:
         // localStorage.setItem("accessToken", resultAction.payload.token);
       }
-      navigate("/restaurants"); // Navigate on successful login
+      navigate('/restaurants'); // Navigate on successful login
     }
   };
 
@@ -59,12 +59,12 @@ const LoginPage = () => {
 
   // For logging state (can be removed in production)
   useEffect(() => {
-    console.log("Current Redux Auth State:", authState);
-    console.log("Current Logged-in User:", currentUser);
+    console.log('Current Redux Auth State:', authState);
+    console.log('Current Logged-in User:', currentUser);
 
     if (isAuthenticated && currentUser) {
-      console.log("User logged in successfully:", currentUser);
-      console.log("User Role:", role);
+      console.log('User logged in successfully:', currentUser);
+      console.log('User Role:', role);
     }
   }, [authState, currentUser, isAuthenticated, role]);
 
@@ -126,7 +126,7 @@ const LoginPage = () => {
               </p>
             )}
 
-            <form className="space-y-6" onSubmit={handleLogin} >
+            <form className="space-y-6" onSubmit={handleLogin}>
               {/* Email */}
               <div>
                 <label
@@ -136,7 +136,11 @@ const LoginPage = () => {
                   Email Address
                 </label>
                 <div className="relative">
-                  <Icon name="mail" className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" size={20} />
+                  <Icon
+                    name="mail"
+                    className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none"
+                    size={20}
+                  />
                   <Input
                     id="email"
                     name="email"
@@ -159,11 +163,15 @@ const LoginPage = () => {
                   Password
                 </label>
                 <div className="relative">
-                  <Icon name="lock" className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none" size={20} />
+                  <Icon
+                    name="lock"
+                    className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none"
+                    size={20}
+                  />
                   <Input
                     id="password"
                     name="password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     required
                     value={formData.password}
                     onChange={handleInputChange}
@@ -176,11 +184,17 @@ const LoginPage = () => {
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-
-                      <Icon name="eye-off" className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" size={20} />
+                      <Icon
+                        name="eye-off"
+                        className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200"
+                        size={20}
+                      />
                     ) : (
-
-                      <Icon name="eye" className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" size={20} />
+                      <Icon
+                        name="eye"
+                        className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200"
+                        size={20}
+                      />
                     )}
                   </Button>
                 </div>
@@ -194,7 +208,7 @@ const LoginPage = () => {
                     name="remember-me"
                     type="checkbox"
                     checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
+                    onChange={e => setRememberMe(e.target.checked)}
                     className="h-4 w-4 text-yellow-400 border-cream rounded-2xl"
                   />
                   <span className="ml-2 text-sm text-medium-gray">
@@ -220,8 +234,11 @@ const LoginPage = () => {
                 ) : (
                   <>
                     Sign In
-
-                    <Icon name="arrow-right" className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" size={16} /> 
+                    <Icon
+                      name="arrow-right"
+                      className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200"
+                      size={16}
+                    />
                   </>
                 )}
               </Button>
@@ -254,7 +271,9 @@ const LoginPage = () => {
 
           {/* Branding on small screens */}
           <div className="text-center lg:hidden">
-            <h3 className="text-xl font-bold text-charcoal mb-2">🍽️ FoodieHub</h3>
+            <h3 className="text-xl font-bold text-charcoal mb-2">
+              🍽️ FoodieHub
+            </h3>
             <p className="text-sm text-medium-gray">
               Your culinary journey starts here
             </p>

@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import Icon from "../../../components/ui/Icon";
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import Icon from '../../../components/ui/Icon';
 
 const Navbar = () => {
   return (
@@ -25,12 +25,12 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 transition-colors font-medium ${
                   isActive
-                    ? "text-yellow-600"
-                    : "text-gray-800 hover:text-gray-600"
+                    ? 'text-yellow-600'
+                    : 'text-gray-800 hover:text-gray-600'
                 }`
               }
             >
-              <Icon name={"building-2"} size={18} />
+              <Icon name={'building-2'} size={18} />
               <span>Corporate</span>
             </NavLink>
 
@@ -40,8 +40,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 transition-colors font-medium ${
                   isActive
-                    ? "text-yellow-600"
-                    : "text-gray-800 hover:text-gray-600"
+                    ? 'text-yellow-600'
+                    : 'text-gray-800 hover:text-gray-600'
                 }`
               }
             >
@@ -60,7 +60,7 @@ const Navbar = () => {
 
           <NavLink to="/login">
             <button className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200">
-              <Icon name={"login"} size={16} className="text-blue-600" />
+              <Icon name={'login'} size={16} className="text-blue-600" />
               <span className="font-medium text-gray-800 text-sm">Sign in</span>
             </button>
           </NavLink>

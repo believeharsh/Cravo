@@ -41,12 +41,13 @@ const Input = ({
   const combinedInputClasses = `${baseInputClasses} ${className}`.trim();
 
   // Classes for the label element
-  const combinedLabelClasses = `block text-sm font-medium text-coffee mb-2 ${labelClassName}`.trim();
+  const combinedLabelClasses =
+    `block text-sm font-medium text-coffee mb-2 ${labelClassName}`.trim();
 
   // For dynamically sizing icons within the input
   const iconSizeClasses = 'h-5 w-5';
 
-  const renderIcon = (icon) => {
+  const renderIcon = icon => {
     if (!icon) return null;
     // Clone the icon to add specific styling for the input context
     return React.cloneElement(icon, {
@@ -86,9 +87,7 @@ const Input = ({
         */}
       </div>
       {error && (
-        <p className="mt-1 text-sm text-red-500 font-medium">
-          {error}
-        </p>
+        <p className="mt-1 text-sm text-red-500 font-medium">{error}</p>
       )}
     </div>
   );

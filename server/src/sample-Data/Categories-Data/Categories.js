@@ -25,52 +25,52 @@
 
 export const categoriesToUpload = [
   {
-    name: "North-Indian",
-    slug: "north-indian",
+    name: 'North-Indian',
+    slug: 'north-indian',
     description:
-      "Rich and flavorful curries, tandoori dishes, and breads from Northern India.",
+      'Rich and flavorful curries, tandoori dishes, and breads from Northern India.',
     imagePath:
-      "https://media.istockphoto.com/id/1427322057/photo/bombay-duck-thali-served-in-a-plate-over-white-background-selective-focus.jpg?s=612x612&w=0&k=20&c=JNj4KXHWztFBpfTstmQSUi9B94fJ1Noi2pmWvF5GTzE=",
+      'https://media.istockphoto.com/id/1427322057/photo/bombay-duck-thali-served-in-a-plate-over-white-background-selective-focus.jpg?s=612x612&w=0&k=20&c=JNj4KXHWztFBpfTstmQSUi9B94fJ1Noi2pmWvF5GTzE=',
   },
   {
-    name: "South-Indian",
-    slug: "south-indian",
+    name: 'South-Indian',
+    slug: 'south-indian',
     description:
-      "Traditional and aromatic dosas, idlis, and curries from Southern India.",
+      'Traditional and aromatic dosas, idlis, and curries from Southern India.',
     imagePath:
-      "https://media.istockphoto.com/id/516397136/photo/idli-vada-sambar-on-white-background-south-indian-food.jpg?s=170667a&w=0&k=20&c=LMRVMPDzxLspFYQ8bztSsi_dXkD1dG11Kslc_9zdaWk=",
+      'https://media.istockphoto.com/id/516397136/photo/idli-vada-sambar-on-white-background-south-indian-food.jpg?s=170667a&w=0&k=20&c=LMRVMPDzxLspFYQ8bztSsi_dXkD1dG11Kslc_9zdaWk=',
   },
   {
-    name: "Chinese",
-    slug: "chinese",
+    name: 'Chinese',
+    slug: 'chinese',
     description:
-      "Wok-tossed noodles, fried rice, and savory Indo-Chinese specialties.",
+      'Wok-tossed noodles, fried rice, and savory Indo-Chinese specialties.',
     imagePath:
-      "https://media.istockphoto.com/id/1069146316/photo/chinese-steamed-buns-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=-mZiRHDLV7SbTEBJKG6Rn1snOBO8WAzIGqgiyUAeRCc=",
+      'https://media.istockphoto.com/id/1069146316/photo/chinese-steamed-buns-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=-mZiRHDLV7SbTEBJKG6Rn1snOBO8WAzIGqgiyUAeRCc=',
   },
   {
-    name: "Japanese",
-    slug: "japanese",
+    name: 'Japanese',
+    slug: 'japanese',
     description:
-      "Fresh sushi, savory ramen, and other authentic Japanese delights.",
+      'Fresh sushi, savory ramen, and other authentic Japanese delights.',
     imagePath:
-      "https://media.istockphoto.com/id/1403976634/photo/various-sushi-rolls-placed-on-round-ceramic-plate.jpg?s=612x612&w=0&k=20&c=pqKTnfMHrnH7RhAJspIDhk9wvL9FqqHHiDAnSwo5huk=",
+      'https://media.istockphoto.com/id/1403976634/photo/various-sushi-rolls-placed-on-round-ceramic-plate.jpg?s=612x612&w=0&k=20&c=pqKTnfMHrnH7RhAJspIDhk9wvL9FqqHHiDAnSwo5huk=',
   },
   {
-    name: "Indian-Sweets",
-    slug: "indian-sweets",
+    name: 'Indian-Sweets',
+    slug: 'indian-sweets',
     description:
-      "Mouth-watering traditional Indian desserts and confectioneries.",
+      'Mouth-watering traditional Indian desserts and confectioneries.',
     imagePath:
-      "https://media.istockphoto.com/id/521249695/photo/habshi-halwa-6.jpg?s=612x612&w=0&k=20&c=w1KJRcghi4tGHRBYa8cfNsHCJM1E3zu07Az_jZkS9YE=",
+      'https://media.istockphoto.com/id/521249695/photo/habshi-halwa-6.jpg?s=612x612&w=0&k=20&c=w1KJRcghi4tGHRBYa8cfNsHCJM1E3zu07Az_jZkS9YE=',
   },
   {
-    name: "Street-Food",
-    slug: "street-food",
+    name: 'Street-Food',
+    slug: 'street-food',
     description:
-      "Popular and tangy on-the-go snacks and dishes from the streets of India.",
+      'Popular and tangy on-the-go snacks and dishes from the streets of India.',
     imagePath:
-      "https://media.istockphoto.com/id/1328735849/photo/samosa-in-plate-with-ketchup-on-white-background-indian-and-pakistani-food-aloo-samosa.jpg?s=612x612&w=0&k=20&c=Xz1YK2Rs0HFya9xAV2swLQaHytk1F4h_kRNj1thUnMg=",
+      'https://media.istockphoto.com/id/1328735849/photo/samosa-in-plate-with-ketchup-on-white-background-indian-and-pakistani-food-aloo-samosa.jpg?s=612x612&w=0&k=20&c=Xz1YK2Rs0HFya9xAV2swLQaHytk1F4h_kRNj1thUnMg=',
   },
 
   // { name: 'Pizza', slug: 'pizza', description: 'Delicious Italian pizzas.', imagePath: path.resolve(__dirname, '../../images/categories/pizza-categories.webp') },

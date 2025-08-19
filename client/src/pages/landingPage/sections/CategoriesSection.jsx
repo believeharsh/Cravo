@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import Icon from "../../../components/ui/Icon";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import Icon from '../../../components/ui/Icon';
+import { useNavigate } from 'react-router-dom';
 
 const CategoryCard = ({ c, width, onClick }) => (
   <div
     className="flex-shrink-0 sm:px-1"
     style={{ width }}
-    onClick={() => onClick( c.name || c.slug )}
+    onClick={() => onClick(c.name || c.slug)}
   >
     <div
       className="flex flex-col items-center
@@ -19,8 +18,8 @@ const CategoryCard = ({ c, width, onClick }) => (
         src={c.image}
         alt={c.name}
         className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg"
-        onError={(e) => {
-          e.target.src = "/placeholder-category.png";
+        onError={e => {
+          e.target.src = '/placeholder-category.png';
         }}
       />
       <span className="mt-3 font-semibold text-gray-700 text-md text-center">
@@ -33,10 +32,10 @@ const CategoryCard = ({ c, width, onClick }) => (
 const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
   const [foodCategories, setFoodCategories] = useState([]);
-  const { data, isLoading, error } = useSelector((state) => state.landingPage);
-  const { latitude, longitude } = useSelector((state) => state.location);
+  const { data, isLoading, error } = useSelector(state => state.landingPage);
+  const { latitude, longitude } = useSelector(state => state.location);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     let categories = [];
@@ -48,10 +47,9 @@ const CategoriesSlider = () => {
     setFoodCategories(categories);
   }, [data]);
 
-  
   /* SSR-safe "items per view" */
   const getItemsPerView = () => {
-    if (typeof window === "undefined") return itemsPerView.mobile;
+    if (typeof window === 'undefined') return itemsPerView.mobile;
     if (window.innerWidth >= 1024) return itemsPerView.desktop;
     if (window.innerWidth >= 640) return itemsPerView.tablet;
     return itemsPerView.mobile;
@@ -64,8 +62,8 @@ const CategoriesSlider = () => {
   useEffect(() => {
     const update = () => setItemsToShow(getItemsPerView());
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   // Split categories into two rows
@@ -77,15 +75,14 @@ const CategoriesSlider = () => {
   /* keep index in range when viewport shrinks */
   const maxIndex = Math.max(0, categoriesPerRow - itemsToShow);
   useEffect(
-    () => setIndex((i) => Math.min(i, maxIndex)),
+    () => setIndex(i => Math.min(i, maxIndex)),
     [itemsToShow, maxIndex]
   );
 
   const cardWidthPct = 100 / itemsToShow;
   const translatePct = -index * cardWidthPct;
 
-
-  const handleNavigateToCategoryResultPage = (categorySlug) => {
+  const handleNavigateToCategoryResultPage = categorySlug => {
     // Check if location data exists before navigating
     if (latitude && longitude) {
       navigate(`/categories/${categorySlug}?lat=${latitude}&lng=${longitude}`);
@@ -94,7 +91,6 @@ const CategoriesSlider = () => {
       navigate(`/categories/${categorySlug}`);
     }
   };
-
 
   // Show loading state
   if (isLoading) {
@@ -158,26 +154,26 @@ const CategoriesSlider = () => {
           {categoriesPerRow > itemsToShow && (
             <div className="flex gap-2">
               <button
-                onClick={() => setIndex((i) => Math.max(0, i - 1))}
+                onClick={() => setIndex(i => Math.max(0, i - 1))}
                 disabled={index === 0}
                 className={`p-2 rounded-full border transition ${
                   index === 0
-                    ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                    : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
+                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
                 }`}
               >
-                <Icon name={"chevron-left"} size={18} />
+                <Icon name={'chevron-left'} size={18} />
               </button>
               <button
-                onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+                onClick={() => setIndex(i => Math.min(maxIndex, i + 1))}
                 disabled={index === maxIndex}
                 className={`p-2 rounded-full border transition ${
                   index === maxIndex
-                    ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                    : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
+                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
                 }`}
               >
-                <Icon name={"chevron-right"} size={18} />
+                <Icon name={'chevron-right'} size={18} />
               </button>
             </div>
           )}
@@ -191,7 +187,7 @@ const CategoriesSlider = () => {
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(${translatePct}%)` }}
             >
-              {firstRowCategories.map((c) => (
+              {firstRowCategories.map(c => (
                 <CategoryCard
                   key={`row1-${c._id}`}
                   c={c}
@@ -208,7 +204,7 @@ const CategoriesSlider = () => {
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(${translatePct}%)` }}
             >
-              {secondRowCategories.map((c) => (
+              {secondRowCategories.map(c => (
                 <CategoryCard
                   key={`row2-${c._id}`}
                   c={c}

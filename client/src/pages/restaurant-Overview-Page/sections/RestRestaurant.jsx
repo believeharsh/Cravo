@@ -1,7 +1,6 @@
 import React from 'react';
 import { Star } from 'lucide-react';
 
-
 /* sample data */
 
 const restaurants = [
@@ -204,7 +203,7 @@ const restaurants = [
     deliveryTime: '30-35 mins',
     priceForTwo: '₹500',
     cuisines: ['BBQ', 'Grill', 'American'],
-  }
+  },
 ];
 
 /* Card */

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const CityCard = ({ city }) => (
   <div className="px-2 sm:px-3 mb-4">
@@ -8,28 +8,35 @@ const CityCard = ({ city }) => (
                  justify-center py-5 hover:-translate-y-1 hover:shadow-md
                  transition-transform duration-200 ease-out"
     >
-      <span className="font-medium text-gray-700 text-sm text-center">{city.name}</span>
+      <span className="font-medium text-gray-700 text-sm text-center">
+        {city.name}
+      </span>
     </div>
   </div>
 );
 
 const CitiesSection = () => {
-  const { data, isLoading, error } = useSelector((state) => state.landingPage);
+  const { data, isLoading, error } = useSelector(state => state.landingPage);
   const [cities, setCities] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  
+
   // Number of cities to show initially
   const INITIAL_CITIES_COUNT = 8;
 
   useEffect(() => {
     if (data?.data?.citiesWeServe?.data) {
       setCities(data.data.citiesWeServe.data);
-      console.log("usestate cities in cities Sections", data.data.citiesWeServe.data);
+      console.log(
+        'usestate cities in cities Sections',
+        data.data.citiesWeServe.data
+      );
     }
   }, [data]);
 
   // Get cities to display based on showAll state
-  const citiesToDisplay = showAll ? cities : cities.slice(0, INITIAL_CITIES_COUNT);
+  const citiesToDisplay = showAll
+    ? cities
+    : cities.slice(0, INITIAL_CITIES_COUNT);
   const hasMoreCities = cities.length > INITIAL_CITIES_COUNT;
 
   const handleShowMore = () => {
@@ -46,9 +53,7 @@ const CitiesSection = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6 mt-15">
           <div>
-            <h2 className="text-xl font-bold text-gray-800">
-              Cities We Serve
-            </h2>
+            <h2 className="text-xl font-bold text-gray-800">Cities We Serve</h2>
             <p className="text-gray-600 text-sm mt-1">
               Bringing delicious food to your doorstep across India
             </p>
@@ -57,7 +62,7 @@ const CitiesSection = () => {
 
         {/* Cities Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {citiesToDisplay.map((city) => (
+          {citiesToDisplay.map(city => (
             <CityCard key={city._id} city={city} />
           ))}
         </div>

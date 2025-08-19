@@ -1,116 +1,116 @@
-import React, { useState } from "react";
-import Icon from '../../components/ui/Icon'; 
-import Button from '../../components/ui/Button'; 
-import CartNavigation from "./sections/CartNavigation";
+import React, { useState } from 'react';
+import Icon from '../../components/ui/Icon';
+import Button from '../../components/ui/Button';
+import CartNavigation from './sections/CartNavigation';
 
 // Import the new section components
-import CartItemsSection from "./sections/CartItemsSection";
-import DeliveryAddressSection from "./sections/DeliveryAddressSection";
-import PaymentMethodSection from "./sections/PaymentMethodSection";
-import DeliveryInstructionsSection from "./sections/DeliveryInstructionsSection";
-import OrderSummarySection from "./sections/OrderSummarySection";
+import CartItemsSection from './sections/CartItemsSection';
+import DeliveryAddressSection from './sections/DeliveryAddressSection';
+import PaymentMethodSection from './sections/PaymentMethodSection';
+import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection';
+import OrderSummarySection from './sections/OrderSummarySection';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: "Margherita Pizza",
+      name: 'Margherita Pizza',
       restaurant: "Tony's Italian Kitchen",
       price: 18.99,
       originalPrice: 22.99,
       quantity: 2,
-      image: "/api/placeholder/80/80",
-      customizations: ["Extra cheese", "Thin crust"],
+      image: '/api/placeholder/80/80',
+      customizations: ['Extra cheese', 'Thin crust'],
       isVeg: true,
       rating: 4.8,
-      description: "Fresh mozzarella, tomato sauce, basil",
+      description: 'Fresh mozzarella, tomato sauce, basil',
     },
     {
       id: 2,
-      name: "Chicken Tikka Masala",
-      restaurant: "Spice Garden",
+      name: 'Chicken Tikka Masala',
+      restaurant: 'Spice Garden',
       price: 16.5,
       originalPrice: 16.5,
       quantity: 1,
-      image: "/api/placeholder/80/80",
-      customizations: ["Medium spice", "Extra rice"],
+      image: '/api/placeholder/80/80',
+      customizations: ['Medium spice', 'Extra rice'],
       isVeg: false,
       rating: 4.7,
-      description: "Tender chicken in creamy tomato curry",
+      description: 'Tender chicken in creamy tomato curry',
     },
     {
       id: 3,
-      name: "Caesar Salad",
-      restaurant: "Green Bowl",
+      name: 'Caesar Salad',
+      restaurant: 'Green Bowl',
       price: 12.99,
       originalPrice: 15.99,
       quantity: 1,
-      image: "/api/placeholder/80/80",
-      customizations: ["No croutons", "Extra dressing"],
+      image: '/api/placeholder/80/80',
+      customizations: ['No croutons', 'Extra dressing'],
       isVeg: true,
       rating: 4.6,
-      description: "Crisp romaine lettuce, parmesan, caesar dressing",
+      description: 'Crisp romaine lettuce, parmesan, caesar dressing',
     },
   ]);
 
   const addresses = [
     {
       id: 1,
-      type: "Home",
-      icon: "home",
-      address: "123 Main Street, Apt 4B",
-      city: "New York, NY 10001",
-      landmark: "Near Central Park",
+      type: 'Home',
+      icon: 'home',
+      address: '123 Main Street, Apt 4B',
+      city: 'New York, NY 10001',
+      landmark: 'Near Central Park',
       isDefault: true,
     },
     {
       id: 2,
-      type: "Work",
-      icon: "building",
-      address: "456 Business Ave, Floor 12",
-      city: "New York, NY 10005",
-      landmark: "Manhattan Financial District",
+      type: 'Work',
+      icon: 'building',
+      address: '456 Business Ave, Floor 12',
+      city: 'New York, NY 10005',
+      landmark: 'Manhattan Financial District',
       isDefault: false,
     },
   ];
 
   const [selectedAddress, setSelectedAddress] = useState(0);
   const [selectedPayment, setSelectedPayment] = useState(0);
-  const [promoCode, setPromoCode] = useState("");
+  const [promoCode, setPromoCode] = useState('');
   const [appliedPromo, setAppliedPromo] = useState(null);
-  const [deliveryInstructions, setDeliveryInstructions] = useState("");
+  const [deliveryInstructions, setDeliveryInstructions] = useState('');
 
   const paymentMethods = [
     {
       id: 1,
-      type: "Credit Card",
-      details: "Visa ending in 4242",
-      icon: "credit-card",
+      type: 'Credit Card',
+      details: 'Visa ending in 4242',
+      icon: 'credit-card',
       isDefault: true,
     },
     {
       id: 2,
-      type: "PayPal",
-      details: "john.doe@email.com",
-      icon: "credit-card",
+      type: 'PayPal',
+      details: 'john.doe@email.com',
+      icon: 'credit-card',
       isDefault: false,
     },
   ];
 
   const promoCodes = [
     {
-      code: "SAVE20",
+      code: 'SAVE20',
       discount: 20,
-      type: "percentage",
+      type: 'percentage',
       minOrder: 25,
-      description: "20% off on orders above $25",
+      description: '20% off on orders above $25',
     },
     {
-      code: "FLAT10",
+      code: 'FLAT10',
       discount: 10,
-      type: "fixed",
+      type: 'fixed',
       minOrder: 30,
-      description: "$10 off on orders above $30",
+      description: '$10 off on orders above $30',
     },
   ];
 
@@ -130,7 +130,7 @@ const CartPage = () => {
 
   let promoDiscount = 0;
   if (appliedPromo) {
-    if (appliedPromo.type === "percentage") {
+    if (appliedPromo.type === 'percentage') {
       promoDiscount = (subtotal * appliedPromo.discount) / 100;
     } else {
       promoDiscount = appliedPromo.discount;
@@ -141,27 +141,27 @@ const CartPage = () => {
 
   const updateQuantity = (itemId, newQuantity) => {
     if (newQuantity === 0) {
-      setCartItems((prev) => prev.filter((item) => item.id !== itemId));
+      setCartItems(prev => prev.filter(item => item.id !== itemId));
     } else {
-      setCartItems((prev) =>
-        prev.map((item) =>
+      setCartItems(prev =>
+        prev.map(item =>
           item.id === itemId ? { ...item, quantity: newQuantity } : item
         )
       );
     }
   };
 
-  const removeItem = (itemId) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== itemId));
+  const removeItem = itemId => {
+    setCartItems(prev => prev.filter(item => item.id !== itemId));
   };
 
   const applyPromoCode = () => {
-    const promo = promoCodes.find((p) => p.code === promoCode.toUpperCase());
+    const promo = promoCodes.find(p => p.code === promoCode.toUpperCase());
     if (promo && subtotal >= promo.minOrder) {
       setAppliedPromo(promo);
-      setPromoCode("");
+      setPromoCode('');
     } else {
-      alert("Invalid promo code or minimum order not met");
+      alert('Invalid promo code or minimum order not met');
     }
   };
 
@@ -170,7 +170,7 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    console.log("Proceeding to checkout...");
+    console.log('Proceeding to checkout...');
     // In a real app, this would dispatch an action or navigate to a payment gateway
   };
 
@@ -180,7 +180,10 @@ const CartPage = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-md mx-auto text-center">
             <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Icon name="shopping-cart" className="w-16 h-16 text-medium-gray" />
+              <Icon
+                name="shopping-cart"
+                className="w-16 h-16 text-medium-gray"
+              />
             </div>
             <h2 className="text-2xl font-bold text-charcoal mb-4">
               Your cart is empty

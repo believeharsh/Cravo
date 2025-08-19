@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-
   CheckCircle,
   XCircle,
   Calendar,
@@ -24,42 +23,42 @@ const Orders = () => {
   ]);
 
   /* ── Helpers ───────────────────────────────────────────────────────────── */
-  const getStatusInfo = (status) => {
+  const getStatusInfo = status => {
     switch (status) {
       case 'preparing':
         return {
           label: 'Preparing',
           color: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-          icon: "clock",
+          icon: 'clock',
         };
       case 'on_the_way':
         return {
           label: 'On the way',
           color: 'text-blue-600 bg-blue-50 border-blue-200',
-          icon: "truck",
+          icon: 'truck',
         };
       case 'delivered':
         return {
           label: 'Delivered',
           color: 'text-mint-green bg-green-50 border-green-200',
-          icon: "check-circle",
+          icon: 'check-circle',
         };
       case 'cancelled':
         return {
           label: 'Cancelled',
           color: 'text-red-600 bg-red-50 border-red-200',
-          icon: "x-circle",
+          icon: 'x-circle',
         };
       default:
         return {
           label: 'Unknown',
           color: 'text-medium-gray bg-gray-50 border-gray-200',
-          icon: "package",
+          icon: 'package',
         };
     }
   };
 
-  const formatDate = (d) =>
+  const formatDate = d =>
     new Date(d).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -68,7 +67,7 @@ const Orders = () => {
       minute: '2-digit',
     });
 
-  const formatETA = (d) => {
+  const formatETA = d => {
     const eta = new Date(d);
     const diff = Math.ceil((eta - Date.now()) / 60000);
     if (diff <= 0) return 'Any moment now';
@@ -77,16 +76,17 @@ const Orders = () => {
   };
 
   /* ── Filtering ─────────────────────────────────────────────────────────── */
-  const filteredOrders = orders.filter((o) => {
+  const filteredOrders = orders.filter(o => {
     const term = searchTerm.toLowerCase();
     const matchesSearch =
       o.id.toLowerCase().includes(term) ||
       o.restaurant.name.toLowerCase().includes(term) ||
-      o.items.some((it) => it.name.toLowerCase().includes(term));
+      o.items.some(it => it.name.toLowerCase().includes(term));
 
     const matchesTab =
       activeTab === 'all' ||
-      (activeTab === 'active' && ['preparing', 'on_the_way'].includes(o.status)) ||
+      (activeTab === 'active' &&
+        ['preparing', 'on_the_way'].includes(o.status)) ||
       (activeTab === 'completed' && o.status === 'delivered') ||
       (activeTab === 'cancelled' && o.status === 'cancelled');
 
@@ -104,18 +104,18 @@ const Orders = () => {
   });
 
   /* ── Actions ───────────────────────────────────────────────────────────── */
-  const handleReorder = (order) => console.log('Reorder:', order.id);
-  const handleCancelOrder = (id) => {
+  const handleReorder = order => console.log('Reorder:', order.id);
+  const handleCancelOrder = id => {
     if (window.confirm('Cancel this order?')) {
-      setOrders((prev) =>
-        prev.map((o) =>
-          o.id === id ? { ...o, status: 'cancelled', canCancel: false } : o,
-        ),
+      setOrders(prev =>
+        prev.map(o =>
+          o.id === id ? { ...o, status: 'cancelled', canCancel: false } : o
+        )
       );
     }
   };
-  const handleTrackOrder = (o) => console.log('Track:', o.id);
-  const toggleExpand = (id) => setExpandedOrder(expandedOrder === id ? null : id);
+  const handleTrackOrder = o => console.log('Track:', o.id);
+  const toggleExpand = id => setExpandedOrder(expandedOrder === id ? null : id);
 
   /* ── JSX ───────────────────────────────────────────────────────────────── */
   return (
@@ -125,7 +125,8 @@ const Orders = () => {
         <div>
           <h1 className="text-3xl font-bold text-charcoal">My Orders</h1>
           <p className="text-medium-gray mt-1">
-            {filteredOrders.length} {filteredOrders.length === 1 ? 'order' : 'orders'} found
+            {filteredOrders.length}{' '}
+            {filteredOrders.length === 1 ? 'order' : 'orders'} found
           </p>
         </div>
       </div>
@@ -159,11 +160,13 @@ const Orders = () => {
                 {
                   {
                     all: orders.length,
-                    active: orders.filter((o) =>
-                      ['preparing', 'on_the_way'].includes(o.status),
+                    active: orders.filter(o =>
+                      ['preparing', 'on_the_way'].includes(o.status)
                     ).length,
-                    completed: orders.filter((o) => o.status === 'delivered').length,
-                    cancelled: orders.filter((o) => o.status === 'cancelled').length,
+                    completed: orders.filter(o => o.status === 'delivered')
+                      .length,
+                    cancelled: orders.filter(o => o.status === 'cancelled')
+                      .length,
                   }[key]
                 }
               </span>
@@ -176,20 +179,26 @@ const Orders = () => {
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
-            <Icon name={"search"} className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+            <Icon
+              name={'search'}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray"
+            />
             <input
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               placeholder="Search orders, restaurants, or items..."
               className="w-full pl-10 pr-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
             />
           </div>
 
           <div className="relative">
-            <Icon name={"calendar"} className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+            <Icon
+              name={'calendar'}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray"
+            />
             <select
               value={filterDateRange}
-              onChange={(e) => setFilterDateRange(e.target.value)}
+              onChange={e => setFilterDateRange(e.target.value)}
               className="pl-10 pr-8 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 bg-white min-w-[150px]"
             >
               <option value="all">All Time</option>
@@ -203,7 +212,7 @@ const Orders = () => {
 
       {/* Orders List */}
       <div className="space-y-4">
-        {filteredOrders.map((o) => {
+        {filteredOrders.map(o => {
           const status = getStatusInfo(o.status);
           const isOpen = expandedOrder === o.id;
           return (
@@ -226,7 +235,9 @@ const Orders = () => {
                     <h3 className="font-semibold text-charcoal">
                       {o.restaurant.name}
                     </h3>
-                    <p className="text-medium-gray text-sm">{formatDate(o.orderDate)}</p>
+                    <p className="text-medium-gray text-sm">
+                      {formatDate(o.orderDate)}
+                    </p>
                     <div
                       className={`inline-flex items-center gap-1 px-2 py-0.5 mt-1 text-xs rounded-full border ${status.color}`}
                     >
@@ -247,13 +258,23 @@ const Orders = () => {
                 </div>
 
                 <div className="text-right">
-                  <p className="font-bold text-charcoal">${o.total.toFixed(2)}</p>
-                  <p className="text-sm text-medium-gray">{o.items.length} items</p>
+                  <p className="font-bold text-charcoal">
+                    ${o.total.toFixed(2)}
+                  </p>
+                  <p className="text-sm text-medium-gray">
+                    {o.items.length} items
+                  </p>
                   <div className="mt-3">
                     {isOpen ? (
-                      <Icon name={"chevron-up"} className="w-5 h-5 text-medium-gray" />
+                      <Icon
+                        name={'chevron-up'}
+                        className="w-5 h-5 text-medium-gray"
+                      />
                     ) : (
-                      <Icon name={"chevron-down"} className="w-5 h-5 text-medium-gray" />
+                      <Icon
+                        name={'chevron-down'}
+                        className="w-5 h-5 text-medium-gray"
+                      />
                     )}
                   </div>
                 </div>
@@ -264,7 +285,7 @@ const Orders = () => {
                 <div className="border-t border-cream px-6 pb-6 space-y-6">
                   {/* Items */}
                   <div className="space-y-4">
-                    {o.items.map((it) => (
+                    {o.items.map(it => (
                       <div key={it.id} className="flex items-center gap-4">
                         <img
                           src={it.image}
@@ -281,7 +302,9 @@ const Orders = () => {
                             </p>
                           )}
                         </div>
-                        <p className="font-medium text-charcoal">${it.price.toFixed(2)}</p>
+                        <p className="font-medium text-charcoal">
+                          ${it.price.toFixed(2)}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -314,7 +337,7 @@ const Orders = () => {
                           onClick={() => handleReorder(o)}
                           className="flex items-center gap-1 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors"
                         >
-                          <Icon name={"shopping-cart"} className="w-4 h-4" />
+                          <Icon name={'shopping-cart'} className="w-4 h-4" />
                           Reorder
                         </button>
                       )}
@@ -323,7 +346,7 @@ const Orders = () => {
                           onClick={() => handleCancelOrder(o.id)}
                           className="flex items-center gap-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                         >
-                          <Icon name={"x-circle"} className="w-4 h-4" />
+                          <Icon name={'x-circle'} className="w-4 h-4" />
                           Cancel Order
                         </button>
                       )}
@@ -332,7 +355,7 @@ const Orders = () => {
                           onClick={() => handleTrackOrder(o)}
                           className="flex items-center gap-1 px-4 py-2 border border-yellow-400 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors"
                         >
-                          <Icon name={"navigation"} className="w-4 h-4" />
+                          <Icon name={'navigation'} className="w-4 h-4" />
                           Track
                         </button>
                       )}
@@ -340,7 +363,7 @@ const Orders = () => {
                         className="flex items-center gap-1 px-4 py-2 border border-cream hover:bg-gray-50 rounded-lg transition-colors"
                         onClick={() => console.log('Invoice for', o.id)}
                       >
-                        <Icon name={"recipt"} className="w-4 h-4" />
+                        <Icon name={'recipt'} className="w-4 h-4" />
                         Invoice
                       </button>
                     </div>
@@ -349,18 +372,18 @@ const Orders = () => {
                   {/* Delivery info */}
                   <div className="pt-6 border-t border-cream space-y-3 text-sm">
                     <p className="flex items-center gap-2 text-medium-gray">
-                      <Icon name={"map-pin"} className="w-4 h-4" />
+                      <Icon name={'map-pin'} className="w-4 h-4" />
                       {o.deliveryAddress}
                     </p>
                     {o.deliveryInstructions && (
                       <p className="flex items-center gap-2 text-medium-gray">
-                        <Icon name={"clock"} className="w-4 h-4" />
+                        <Icon name={'clock'} className="w-4 h-4" />
                         {o.deliveryInstructions}
                       </p>
                     )}
                     {o.driver && (
                       <p className="flex items-center gap-2 text-medium-gray">
-                        <Icon name={"phone"} className="w-4 h-4" />
+                        <Icon name={'phone'} className="w-4 h-4" />
                         {o.driver.name} &middot; {o.driver.phone}
                       </p>
                     )}
@@ -374,11 +397,16 @@ const Orders = () => {
         {/* Empty-state */}
         {filteredOrders.length === 0 && (
           <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-            <Icon name={"package"} className="w-10 h-10 mx-auto text-yellow-400" />
+            <Icon
+              name={'package'}
+              className="w-10 h-10 mx-auto text-yellow-400"
+            />
             <h3 className="mt-4 text-xl font-semibold text-charcoal">
               No orders match your filters
             </h3>
-            <p className="text-medium-gray">Try adjusting search or date range.</p>
+            <p className="text-medium-gray">
+              Try adjusting search or date range.
+            </p>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Icon from "../../../components/ui/Icon";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Icon from '../../../components/ui/Icon';
 
 const RestaurantCard = ({ restaurant, width }) => (
   <div
@@ -14,8 +14,8 @@ const RestaurantCard = ({ restaurant, width }) => (
     >
       {/* Restaurant Image */}
       <div className="relative h-32 sm:h-36 overflow-hidden">
-        <img 
-          src={restaurant.images[0]} 
+        <img
+          src={restaurant.images[0]}
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />
@@ -25,7 +25,7 @@ const RestaurantCard = ({ restaurant, width }) => (
           </div>
         )}
         <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-          <Icon name={"star"} size={10} fill="currentColor" />
+          <Icon name={'star'} size={10} fill="currentColor" />
           {restaurant.rating}
         </div>
       </div>
@@ -35,28 +35,32 @@ const RestaurantCard = ({ restaurant, width }) => (
         <h3 className="font-semibold text-gray-800 text-sm mb-1 truncate">
           {restaurant.name}
         </h3>
-        
+
         <div className="flex items-center gap-1 mb-2">
           <span className="text-xs text-gray-500">
-            {restaurant.cuisine_type.join(", ")}
+            {restaurant.cuisine_type.join(', ')}
           </span>
         </div>
 
         <div className="flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center gap-1">
-            <Icon name={"map-pin"} size={10} />
+            <Icon name={'map-pin'} size={10} />
             <span>{restaurant.address.city}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Icon name={"clock"} size={10} />
+            <Icon name={'clock'} size={10} />
             <span>{restaurant.delivery_radius_km}km</span>
           </div>
         </div>
 
         <div className="mt-2 pt-2 border-t border-gray-100">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-600">Min Order: ₹{restaurant.min_order_value}</span>
-            <span className="text-gray-500">({restaurant.numberOfReviews} reviews)</span>
+            <span className="text-gray-600">
+              Min Order: ₹{restaurant.min_order_value}
+            </span>
+            <span className="text-gray-500">
+              ({restaurant.numberOfReviews} reviews)
+            </span>
           </div>
         </div>
       </div>
@@ -66,21 +70,21 @@ const RestaurantCard = ({ restaurant, width }) => (
 
 const RestaurantsSection = () => {
   const itemsPerView = { mobile: 1, tablet: 2, desktop: 3 };
-  const { data, isLoading, error } = useSelector((state) => state.landingPage);
+  const { data, isLoading, error } = useSelector(state => state.landingPage);
   const [restaurants, setRestaurants] = useState([]);
 
-  console.log("restaurant section is getting rendered") ; 
+  console.log('restaurant section is getting rendered');
 
   useEffect(() => {
     if (data?.data?.featuredRestaurants?.data?.restaurants) {
       setRestaurants(data.data.featuredRestaurants.data.restaurants);
-      console.log("usestate restaurants in the resturantsection" , restaurants) ; 
+      console.log('usestate restaurants in the resturantsection', restaurants);
     }
   }, [data]);
 
   /* SSR-safe "items per view" */
   const getItemsPerView = () => {
-    if (typeof window === "undefined") return itemsPerView.mobile;
+    if (typeof window === 'undefined') return itemsPerView.mobile;
     if (window.innerWidth >= 1024) return itemsPerView.desktop;
     if (window.innerWidth >= 640) return itemsPerView.tablet;
     return itemsPerView.mobile;
@@ -93,14 +97,14 @@ const RestaurantsSection = () => {
   useEffect(() => {
     const update = () => setItemsToShow(getItemsPerView());
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   /* keep index in range when viewport shrinks */
   const maxIndex = Math.max(0, restaurants.length - itemsToShow);
   useEffect(
-    () => setIndex((i) => Math.min(i, maxIndex)),
+    () => setIndex(i => Math.min(i, maxIndex)),
     [itemsToShow, maxIndex]
   );
 
@@ -122,26 +126,26 @@ const RestaurantsSection = () => {
           </div>
           <div className="flex gap-2">
             <button
-              onClick={() => setIndex((i) => Math.max(0, i - 1))}
+              onClick={() => setIndex(i => Math.max(0, i - 1))}
               disabled={index === 0}
               className={`p-2 rounded-full border transition ${
                 index === 0
-                  ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                  : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
+                  ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                  : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
               }`}
             >
-              <Icon name={"chevron-left"} size={18} />
+              <Icon name={'chevron-left'} size={18} />
             </button>
             <button
-              onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+              onClick={() => setIndex(i => Math.min(maxIndex, i + 1))}
               disabled={index === maxIndex}
               className={`p-2 rounded-full border transition ${
                 index === maxIndex
-                  ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                  : "border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600"
+                  ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                  : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
               }`}
             >
-              <Icon name={"chevron-right"} size={18} />
+              <Icon name={'chevron-right'} size={18} />
             </button>
           </div>
         </div>
@@ -152,8 +156,12 @@ const RestaurantsSection = () => {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(${translatePct}%)` }}
           >
-            {restaurants.map((restaurant) => (
-              <RestaurantCard key={restaurant._id} restaurant={restaurant} width={`${cardWidthPct}%`} />
+            {restaurants.map(restaurant => (
+              <RestaurantCard
+                key={restaurant._id}
+                restaurant={restaurant}
+                width={`${cardWidthPct}%`}
+              />
             ))}
           </div>
         </div>

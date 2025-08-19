@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import Icon from "../../../components/ui/Icon";
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
+import Icon from '../../../components/ui/Icon';
 
 // Utility function to debounce API calls
 const debounce = (func, delay) => {
@@ -16,7 +16,7 @@ const debounce = (func, delay) => {
 };
 
 const Hero = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isLocationLoading, setIsLocationLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -32,7 +32,7 @@ const Hero = () => {
   // --- API Functions (your "frontend backend") ---
 
   // Function for manual search (Geocoding) using OpenStreetMap Nominatim API
-  const fetchGeocodeSuggestions = async (query) => {
+  const fetchGeocodeSuggestions = async query => {
     if (query.length < 3) {
       setSuggestions([]);
       return;
@@ -44,17 +44,17 @@ const Hero = () => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error("Failed to fetch suggestions from OpenStreetMap");
+        throw new Error('Failed to fetch suggestions from OpenStreetMap');
       }
       const data = await response.json();
-      const formattedSuggestions = data.map((item) => ({
+      const formattedSuggestions = data.map(item => ({
         name: item.display_name,
         lat: parseFloat(item.lat),
         lng: parseFloat(item.lon),
       }));
       setSuggestions(formattedSuggestions);
     } catch (error) {
-      console.error("Geocoding API error:", error);
+      console.error('Geocoding API error:', error);
       setSuggestions([]);
     } finally {
       setIsLocationLoading(false);
@@ -67,7 +67,7 @@ const Hero = () => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error("Failed to fetch address from OpenStreetMap");
+        throw new Error('Failed to fetch address from OpenStreetMap');
       }
       const data = await response.json();
       const newLocation = {
@@ -78,7 +78,7 @@ const Hero = () => {
       setSelectedLocation(newLocation);
       setSearchTerm(data.display_name);
     } catch (error) {
-      console.error("Reverse geocoding API error:", error);
+      console.error('Reverse geocoding API error:', error);
       // Fallback in case API fails
       const fallbackName = `Location: ${lat.toFixed(2)}, ${lng.toFixed(2)}`;
       const newLocation = {
@@ -99,7 +99,7 @@ const Hero = () => {
   // --- Event Handlers ---
 
   // Handle changes in the location input field
-  const handleLocationChange = (e) => {
+  const handleLocationChange = e => {
     const value = e.target.value;
     setSearchTerm(value);
     setShowSuggestions(true); // Show suggestions as soon as user types
@@ -107,7 +107,7 @@ const Hero = () => {
   };
 
   // Handle when a suggestion is clicked
-  const handleSelectLocation = (location) => {
+  const handleSelectLocation = location => {
     setSelectedLocation(location);
     setSearchTerm(location.name);
     setShowSuggestions(false);
@@ -118,35 +118,35 @@ const Hero = () => {
     if (navigator.geolocation) {
       setIsLocationLoading(true);
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        position => {
           const { latitude, longitude } = position.coords;
           fetchReverseGeocode(latitude, longitude);
           setIsLocationLoading(false);
           setShowSuggestions(false); // Hide the dropdown
         },
-        (error) => {
-          console.error("Geolocation error:", error);
+        error => {
+          console.error('Geolocation error:', error);
           setIsLocationLoading(false);
           // You could show an error message to the user here
         },
         { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      console.error('Geolocation is not supported by this browser.');
       // You could show a message to the user that their browser doesn't support geolocation
     }
   };
 
   // Close the suggestions dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (locationRef.current && !locationRef.current.contains(event.target)) {
         setShowSuggestions(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [locationRef]);
 
@@ -172,7 +172,7 @@ const Hero = () => {
                   {/* Location Search Input & Suggestions */}
                   <div className="relative" ref={locationRef}>
                     <Icon
-                      name={"map-pin"}
+                      name={'map-pin'}
                       className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
                       size={18}
                     />
@@ -189,12 +189,12 @@ const Hero = () => {
                       onBlur={() => setLocationFocused(false)}
                     />
                     <Icon
-                      name={isLocationLoading ? "spinner" : "chevron-down"}
+                      name={isLocationLoading ? 'spinner' : 'chevron-down'}
                       className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition-transform duration-200 ${
                         locationFocused && !isLocationLoading
-                          ? "rotate-180"
-                          : ""
-                      } ${isLocationLoading ? "animate-spin" : ""}`}
+                          ? 'rotate-180'
+                          : ''
+                      } ${isLocationLoading ? 'animate-spin' : ''}`}
                       size={18}
                     />
 
@@ -238,7 +238,7 @@ const Hero = () => {
                                 <li
                                   key={index}
                                   className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm font-medium text-gray-700"
-                                  onMouseDown={(e) => e.preventDefault()} // Prevents blur event on click
+                                  onMouseDown={e => e.preventDefault()} // Prevents blur event on click
                                   onClick={() => handleSelectLocation(location)}
                                 >
                                   {location.name}
@@ -253,7 +253,7 @@ const Hero = () => {
                   {/* Restaurant Search Input */}
                   <div className="relative">
                     <Icon
-                      name={"search"}
+                      name={'search'}
                       className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
                       size={18}
                     />
@@ -265,9 +265,9 @@ const Hero = () => {
                       onBlur={() => setFoodFocused(false)}
                     />
                     <Icon
-                      name={"chevron-down"}
+                      name={'chevron-down'}
                       className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition-transform duration-200 ${
-                        foodFocused ? "rotate-180" : ""
+                        foodFocused ? 'rotate-180' : ''
                       }`}
                       size={18}
                     />
@@ -276,7 +276,7 @@ const Hero = () => {
 
                 {/* The "Find Delicious Food" button now needs to be smarter.
                     It should use the selectedLocation, but for now we'll keep the link. */}
-                <NavLink to={"/categories"}>
+                <NavLink to={'/categories'}>
                   <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer">
                     Find Delicious Food
                   </button>

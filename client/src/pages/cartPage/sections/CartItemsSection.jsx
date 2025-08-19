@@ -1,5 +1,5 @@
 import React from 'react';
-import CartItem from './CartItem'; 
+import CartItem from './CartItem';
 
 /**
  * Renders the section displaying all items in the shopping cart.
@@ -15,16 +15,12 @@ const CartItemsSection = ({ cartItems, updateQuantity, removeItem }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-charcoal">
-          Order Items
-        </h3>
-        <span className="text-medium-gray">
-          {cartItems.length} items
-        </span>
+        <h3 className="text-xl font-semibold text-charcoal">Order Items</h3>
+        <span className="text-medium-gray">{cartItems.length} items</span>
       </div>
 
       <div className="space-y-4">
-        {cartItems.map((item) => (
+        {cartItems.map(item => (
           <CartItem
             key={item.id}
             item={item}

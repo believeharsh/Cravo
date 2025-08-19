@@ -1,32 +1,32 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
-import mongoose from "mongoose";
-import cloudinary from "cloudinary";
-import path from "path";
-import { fileURLToPath } from "url";
-import crypto from "crypto";
+import mongoose from 'mongoose';
+import cloudinary from 'cloudinary';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import crypto from 'crypto';
 
 // Models
-import Category from "../models/category.model.js";
-import Restaurant from "../models/restaurant.model.js";
-import Product from "../models/product.model.js";
+import Category from '../models/category.model.js';
+import Restaurant from '../models/restaurant.model.js';
+import Product from '../models/product.model.js';
 
 // Sample Data
 // import { bhopalRestaurants } from "../sample-Data/Restaurants-Data/BhopalRestaurant.js";
-import { IndoreRestaurants } from "../sample-Data/Restaurants-Data/IndoreRestaurant.js";
-import { productPools } from "../sample-Data/ProductPool/ProductPool.js";
+import { IndoreRestaurants } from '../sample-Data/Restaurants-Data/IndoreRestaurant.js';
+import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const MONGODB_URI =
-  "mongodb+srv://cravobelieveharsh:cravobelieveharsh11@cravingcartcluster.jbwz5cy.mongodb.net/?retryWrites=true&w=majority&appName=CravingCartCluster";
+  'mongodb+srv://cravobelieveharsh:cravobelieveharsh11@cravingcartcluster.jbwz5cy.mongodb.net/?retryWrites=true&w=majority&appName=CravingCartCluster';
 
 cloudinary.config({
-  cloud_name: "dd5elqfus",
-  api_key: "985926514817166",
-  api_secret: "G0HTWbGFp1OJIDSHCW0Zh81ysOs",
+  cloud_name: 'dd5elqfus',
+  api_key: '985926514817166',
+  api_secret: 'G0HTWbGFp1OJIDSHCW0Zh81ysOs',
 });
 
 // Cache to avoid uploading same image multiple times per run
@@ -34,13 +34,13 @@ const uploadedImagesCache = {};
 
 // Generate deterministic public_id from URL and folder
 function getPublicIdFromUrl(url, folder) {
-  const hash = crypto.createHash("md5").update(url).digest("hex").slice(0, 12);
+  const hash = crypto.createHash('md5').update(url).digest('hex').slice(0, 12);
   return `${folder}/${hash}`;
 }
 
 async function uploadImageOnce(url, folder, width = 400, height = 400) {
   if (!url) {
-    console.log("    ⚠️ Skipping image upload: URL is null or undefined.");
+    console.log('    ⚠️ Skipping image upload: URL is null or undefined.');
     return null;
   }
 
@@ -61,12 +61,12 @@ async function uploadImageOnce(url, folder, width = 400, height = 400) {
       folder: 'cravingcart/restaurants', // Cloudinary folder to store your category images
       public_id: publicId,
       overwrite: false, // Prevents re-upload if file exists
-      quality: "auto:low",
-      fetch_format: "auto",
+      quality: 'auto:low',
+      fetch_format: 'auto',
       width,
       height,
-      crop: "fill",
-      gravity: "auto",
+      crop: 'fill',
+      gravity: 'auto',
     });
 
     uploadedImagesCache[url] = result.secure_url;
@@ -76,12 +76,12 @@ async function uploadImageOnce(url, folder, width = 400, height = 400) {
     if (err.http_code === 409) {
       const existingUrl = cloudinary.url(publicId, {
         secure: true,
-        quality: "auto:low",
-        fetch_format: "auto",
+        quality: 'auto:low',
+        fetch_format: 'auto',
         width,
         height,
-        crop: "fill",
-        gravity: "auto",
+        crop: 'fill',
+        gravity: 'auto',
       });
       uploadedImagesCache[url] = existingUrl;
       console.log(
@@ -118,18 +118,18 @@ const getBarCode = () => {
 
 const seedDatabase = async () => {
   try {
-    console.log("=================================================");
-    console.log("          🚀 Starting Database Seeder 🚀");
-    console.log("=================================================");
-    console.log("\n🔌 Connecting to MongoDB...");
+    console.log('=================================================');
+    console.log('          🚀 Starting Database Seeder 🚀');
+    console.log('=================================================');
+    console.log('\n🔌 Connecting to MongoDB...');
     await mongoose.connect(MONGODB_URI);
-    console.log("✅ MongoDB connected successfully."); // Fetch categories
+    console.log('✅ MongoDB connected successfully.'); // Fetch categories
 
-    console.log("\n🍔 Fetching categories from database...");
+    console.log('\n🍔 Fetching categories from database...');
     const categories = await Category.find({});
     if (!categories.length) {
       console.warn(
-        "⚠️ No categories found in DB! Seeding products will not work as expected."
+        '⚠️ No categories found in DB! Seeding products will not work as expected.'
       );
       return; // Exit if no categories
     } else {
@@ -149,14 +149,14 @@ const seedDatabase = async () => {
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {
-        type: "Point",
+        type: 'Point',
         coordinates: [baseLon + randomOffset(), baseLat + randomOffset()],
       };
 
       console.log(`  🖼️ Processing restaurant image...`); // Pass the 'restaurants' folder name
       const imgUrl = await uploadImageOnce(
         restaurant.imagePath,
-        "restaurants",
+        'restaurants',
         800,
         600
       );
@@ -182,7 +182,7 @@ const seedDatabase = async () => {
         `\n🔹 Processing products for restaurant: ${restaurant.name}`
       );
       const restaurantCategories = restaurant.cuisine_type
-        .map((c) => categoryMap[c.toLowerCase()])
+        .map(c => categoryMap[c.toLowerCase()])
         .filter(Boolean);
 
       if (!restaurantCategories.length) {
@@ -194,8 +194,8 @@ const seedDatabase = async () => {
 
       console.log(
         `  🗂️ Categories to seed: ${restaurantCategories
-          .map((c) => c.name)
-          .join(", ")}`
+          .map(c => c.name)
+          .join(', ')}`
       );
 
       for (const category of restaurantCategories) {
@@ -217,7 +217,7 @@ const seedDatabase = async () => {
           console.log(`      ➡️ Processing product: ${poolProduct.name}`); // Pass the 'products' folder name
           const imgUrl = await uploadImageOnce(
             poolProduct.image,
-            "products",
+            'products',
             400,
             400
           );
@@ -228,9 +228,9 @@ const seedDatabase = async () => {
             restaurant: restaurant._id,
             category: category._id,
             sku: `${restaurant.name
-              .replace(/\s+/g, "")
+              .replace(/\s+/g, '')
               .toUpperCase()}-${category.name.toUpperCase()}-${i + 1}`,
-            availabilityStatus: "In Stock",
+            availabilityStatus: 'In Stock',
             barcode: getBarCode(),
           });
         }
@@ -247,14 +247,14 @@ const seedDatabase = async () => {
       console.log(`\n🤷‍♂️ No products were seeded.`);
     }
 
-    console.log("\n=================================================");
-    console.log("  🎉 Seeding completed successfully!");
-    console.log("=================================================");
+    console.log('\n=================================================');
+    console.log('  🎉 Seeding completed successfully!');
+    console.log('=================================================');
   } catch (err) {
-    console.error("\n❌ An error occurred during seeding:", err);
+    console.error('\n❌ An error occurred during seeding:', err);
   } finally {
     await mongoose.disconnect();
-    console.log("🔌 MongoDB disconnected.");
+    console.log('🔌 MongoDB disconnected.');
   }
 };
 

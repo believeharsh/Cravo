@@ -1,229 +1,241 @@
-import React, { useState } from "react";
-import Footer from "../../components/Footer";
-import Icon from "../../components/ui/Icon"; // Adjust path as needed
+import React, { useState } from 'react';
+import Footer from '../../components/Footer';
+import Icon from '../../components/ui/Icon'; // Adjust path as needed
 
 const OffersPage = () => {
   /* ────────────────────────── state ────────────────────────── */
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedOfferType, setSelectedOfferType] = useState("all");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedOfferType, setSelectedOfferType] = useState('all');
   const [copiedId, setCopiedId] = useState(null);
 
   /* ────────────────────────── data ─────────────────────────── */
   const categories = [
-    { key: "all", label: "All Offers", icon: "tag" },
-    { key: "pizza", label: "Pizza", icon: "pizza" },
-    { key: "burgers", label: "Burgers", icon: "sandwich" },
-    { key: "asian", label: "Asian", icon: "egg-fried" },
-    { key: "desserts", label: "Desserts", icon: "cake" },
-    { key: "healthy", label: "Healthy", icon: "leaf" },
+    { key: 'all', label: 'All Offers', icon: 'tag' },
+    { key: 'pizza', label: 'Pizza', icon: 'pizza' },
+    { key: 'burgers', label: 'Burgers', icon: 'sandwich' },
+    { key: 'asian', label: 'Asian', icon: 'egg-fried' },
+    { key: 'desserts', label: 'Desserts', icon: 'cake' },
+    { key: 'healthy', label: 'Healthy', icon: 'leaf' },
   ];
 
   const offerTypes = [
-    { key: "all", label: "All Types" },
-    { key: "percentage", label: "Percentage Off" },
-    { key: "fixed", label: "Fixed Amount" },
-    { key: "bogo", label: "Buy One Get One" },
-    { key: "free_delivery", label: "Free Delivery" },
+    { key: 'all', label: 'All Types' },
+    { key: 'percentage', label: 'Percentage Off' },
+    { key: 'fixed', label: 'Fixed Amount' },
+    { key: 'bogo', label: 'Buy One Get One' },
+    { key: 'free_delivery', label: 'Free Delivery' },
   ];
 
   const featuredOffers = [
     {
-      id: "f1",
-      title: "Get 50% Off on Your First Order!",
-      description: "Applies to all menu items for new customers. Limited time offer!",
-      image: "https://via.placeholder.com/400x250/FFD700/FFFFFF?text=PizzaOffer",
-      discount: "50% OFF",
-      code: "WELCOME50",
-      type: "percentage",
-      category: "pizza",
+      id: 'f1',
+      title: 'Get 50% Off on Your First Order!',
+      description:
+        'Applies to all menu items for new customers. Limited time offer!',
+      image:
+        'https://via.placeholder.com/400x250/FFD700/FFFFFF?text=PizzaOffer',
+      discount: '50% OFF',
+      code: 'WELCOME50',
+      type: 'percentage',
+      category: 'pizza',
       isNew: true,
       isTrending: true,
       minOrder: 20,
       maxDiscount: 15,
-      validUntil: "2025-12-31",
+      validUntil: '2025-12-31',
       restaurant: {
-        name: "Pizza Hub",
-        image: "https://via.placeholder.com/100x100/FF5733/FFFFFF?text=PH",
+        name: 'Pizza Hub',
+        image: 'https://via.placeholder.com/100x100/FF5733/FFFFFF?text=PH',
         rating: 4.5,
-        deliveryTime: "30-45 min",
+        deliveryTime: '30-45 min',
       },
     },
     {
-      id: "f2",
-      title: "Buy One Get One Free on All Burgers!",
-      description: "Double the deliciousness with this amazing BOGO deal. Grab it now!",
-      image: "https://via.placeholder.com/400x250/FFA500/FFFFFF?text=BurgerOffer",
-      discount: "BOGO",
-      code: "BURGERBOGO",
-      type: "bogo",
-      category: "burgers",
+      id: 'f2',
+      title: 'Buy One Get One Free on All Burgers!',
+      description:
+        'Double the deliciousness with this amazing BOGO deal. Grab it now!',
+      image:
+        'https://via.placeholder.com/400x250/FFA500/FFFFFF?text=BurgerOffer',
+      discount: 'BOGO',
+      code: 'BURGERBOGO',
+      type: 'bogo',
+      category: 'burgers',
       isNew: false,
       isTrending: true,
       minOrder: 15,
       maxDiscount: null,
-      validUntil: "2025-11-15",
+      validUntil: '2025-11-15',
       restaurant: {
-        name: "Burger Bonanza",
-        image: "https://via.placeholder.com/100x100/FFC300/FFFFFF?text=BB",
+        name: 'Burger Bonanza',
+        image: 'https://via.placeholder.com/100x100/FFC300/FFFFFF?text=BB',
         rating: 4.2,
-        deliveryTime: "25-40 min",
+        deliveryTime: '25-40 min',
       },
     },
     {
-      id: "f3",
-      title: "Free Delivery on Orders Over $25",
-      description: "Enjoy your favorite meals delivered to your door, on us!",
-      image: "https://via.placeholder.com/400x250/87CEEB/FFFFFF?text=DeliveryOffer",
-      discount: "FREE",
-      code: "FREEDELIVERY",
-      type: "free_delivery",
-      category: "all",
+      id: 'f3',
+      title: 'Free Delivery on Orders Over $25',
+      description: 'Enjoy your favorite meals delivered to your door, on us!',
+      image:
+        'https://via.placeholder.com/400x250/87CEEB/FFFFFF?text=DeliveryOffer',
+      discount: 'FREE',
+      code: 'FREEDELIVERY',
+      type: 'free_delivery',
+      category: 'all',
       isNew: true,
       isTrending: false,
       minOrder: 25,
       maxDiscount: null,
-      validUntil: "2025-10-31",
+      validUntil: '2025-10-31',
       restaurant: {
-        name: "Tasty Bites",
-        image: "https://via.placeholder.com0x100/581845/FFFFFF?text=TB",
+        name: 'Tasty Bites',
+        image: 'https://via.placeholder.com0x100/581845/FFFFFF?text=TB',
         rating: 4.7,
-        deliveryTime: "20-35 min",
+        deliveryTime: '20-35 min',
       },
     },
   ];
 
   const regularOffers = [
     {
-      id: "r1",
-      title: "$5 Off Your Next Sushi Order",
-      description: "Craving sushi? Use this code for a discount on your next delicious meal.",
-      image: "https://via.placeholder.com/400x250/9370DB/FFFFFF?text=SushiOffer",
-      discount: "$5 OFF",
-      code: "SUSHI5",
-      type: "fixed",
-      category: "asian",
+      id: 'r1',
+      title: '$5 Off Your Next Sushi Order',
+      description:
+        'Craving sushi? Use this code for a discount on your next delicious meal.',
+      image:
+        'https://via.placeholder.com/400x250/9370DB/FFFFFF?text=SushiOffer',
+      discount: '$5 OFF',
+      code: 'SUSHI5',
+      type: 'fixed',
+      category: 'asian',
       isNew: false,
       isTrending: false,
       minOrder: 30,
       maxDiscount: 5,
-      validUntil: "2025-09-30",
+      validUntil: '2025-09-30',
       restaurant: {
-        name: "Sakura Sushi",
-        image: "https://via.placeholder.com/100x100/4682B4/FFFFFF?text=SS",
+        name: 'Sakura Sushi',
+        image: 'https://via.placeholder.com/100x100/4682B4/FFFFFF?text=SS',
         rating: 4.6,
-        deliveryTime: "40-55 min",
+        deliveryTime: '40-55 min',
       },
     },
     {
-      id: "r2",
-      title: "10% Off All Healthy Salads",
-      description: "Eat well and save! Get a discount on our fresh and healthy salad range.",
-      image: "https://via.placeholder.com/400x250/8FBC8F/FFFFFF?text=SaladOffer",
-      discount: "10% OFF",
-      code: "HEALTHY10",
-      type: "percentage",
-      category: "healthy",
+      id: 'r2',
+      title: '10% Off All Healthy Salads',
+      description:
+        'Eat well and save! Get a discount on our fresh and healthy salad range.',
+      image:
+        'https://via.placeholder.com/400x250/8FBC8F/FFFFFF?text=SaladOffer',
+      discount: '10% OFF',
+      code: 'HEALTHY10',
+      type: 'percentage',
+      category: 'healthy',
       isNew: false,
       isTrending: false,
       minOrder: 10,
       maxDiscount: 7,
-      validUntil: "2025-08-31",
+      validUntil: '2025-08-31',
       restaurant: {
-        name: "Green Eats",
-        image: "https://via.placeholder.com/100x100/3CB371/FFFFFF?text=GE",
+        name: 'Green Eats',
+        image: 'https://via.placeholder.com/100x100/3CB371/FFFFFF?text=GE',
         rating: 4.3,
-        deliveryTime: "20-30 min",
+        deliveryTime: '20-30 min',
       },
     },
     {
-      id: "r3",
-      title: "Dessert Duo Deal: 2 Desserts for $10",
-      description: "Treat yourself and a friend with our sweet dessert offer.",
-      image: "https://via.placeholder.com/400x250/FF69B4/FFFFFF?text=DessertOffer",
-      discount: "$10 DEAL",
-      code: "DUODEAL",
-      type: "fixed",
-      category: "desserts",
+      id: 'r3',
+      title: 'Dessert Duo Deal: 2 Desserts for $10',
+      description: 'Treat yourself and a friend with our sweet dessert offer.',
+      image:
+        'https://via.placeholder.com/400x250/FF69B4/FFFFFF?text=DessertOffer',
+      discount: '$10 DEAL',
+      code: 'DUODEAL',
+      type: 'fixed',
+      category: 'desserts',
       isNew: false,
       isTrending: false,
       minOrder: 10,
       maxDiscount: null,
-      validUntil: "2025-07-20",
+      validUntil: '2025-07-20',
       restaurant: {
-        name: "Sweet Tooth",
-        image: "https://via.placeholder.com/100x100/FF1493/FFFFFF?text=ST",
+        name: 'Sweet Tooth',
+        image: 'https://via.placeholder.com/100x100/FF1493/FFFFFF?text=ST',
         rating: 4.8,
-        deliveryTime: "15-25 min",
+        deliveryTime: '15-25 min',
       },
     },
     {
-      id: "r4",
-      title: "Weekend Special: 20% Off All Orders",
-      description: "Enjoy a delightful weekend with great savings on all your favorite meals.",
-      image: "https://via.placeholder.com/400x250/FF6347/FFFFFF?text=WeekendOffer",
-      discount: "20% OFF",
-      code: "WEEKEND20",
-      type: "percentage",
-      category: "all",
+      id: 'r4',
+      title: 'Weekend Special: 20% Off All Orders',
+      description:
+        'Enjoy a delightful weekend with great savings on all your favorite meals.',
+      image:
+        'https://via.placeholder.com/400x250/FF6347/FFFFFF?text=WeekendOffer',
+      discount: '20% OFF',
+      code: 'WEEKEND20',
+      type: 'percentage',
+      category: 'all',
       isNew: true,
       isTrending: false,
       minOrder: 25,
       maxDiscount: 10,
-      validUntil: "2025-07-21",
+      validUntil: '2025-07-21',
       restaurant: {
-        name: "Global Cuisine",
-        image: "https://via.placeholder.com/100x100/DC143C/FFFFFF?text=GC",
+        name: 'Global Cuisine',
+        image: 'https://via.placeholder.com/100x100/DC143C/FFFFFF?text=GC',
         rating: 4.4,
-        deliveryTime: "35-50 min",
+        deliveryTime: '35-50 min',
       },
     },
   ];
   const allOffers = [...featuredOffers, ...regularOffers];
 
   /* ────────────────────────── helpers ──────────────────────── */
-  const handleCopyCode = (offer) => {
+  const handleCopyCode = offer => {
     navigator.clipboard.writeText(offer.code);
     setCopiedId(offer.id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const formatDate = (d) =>
-    new Date(d).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
+  const formatDate = d =>
+    new Date(d).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
     });
 
   const OfferIcon = ({ type }) => {
     let iconName;
     switch (type) {
-      case "percentage":
-        iconName = "percent";
+      case 'percentage':
+        iconName = 'percent';
         break;
-      case "fixed":
-        iconName = "tag";
+      case 'fixed':
+        iconName = 'tag';
         break;
-      case "bogo":
-        iconName = "gift";
+      case 'bogo':
+        iconName = 'gift';
         break;
-      case "free_delivery":
-        iconName = "truck";
+      case 'free_delivery':
+        iconName = 'truck';
         break;
       default:
-        iconName = "tag"; // Default icon
+        iconName = 'tag'; // Default icon
     }
     return <Icon name={iconName} className="w-5 h-5 text-yellow-600" />;
   };
 
-  const filterFn = (o) => {
+  const filterFn = o => {
     const term = searchTerm.toLowerCase();
     const matches =
       o.title.toLowerCase().includes(term) ||
       o.description.toLowerCase().includes(term) ||
       o.restaurant.name.toLowerCase().includes(term);
-    const cat = selectedCategory === "all" || o.category === selectedCategory;
-    const typ = selectedOfferType === "all" || o.type === selectedOfferType;
+    const cat = selectedCategory === 'all' || o.category === selectedCategory;
+    const typ = selectedOfferType === 'all' || o.type === selectedOfferType;
     return matches && cat && typ;
   };
 
@@ -261,7 +273,7 @@ const OffersPage = () => {
         <div className="flex items-center gap-2">
           <OfferIcon type={offer.type} />
           <span className="text-sm font-medium text-yellow-600 capitalize">
-            {offer.type.replace("_", " ")}
+            {offer.type.replace('_', ' ')}
           </span>
         </div>
         <h3 className="font-semibold text-charcoal line-clamp-2">
@@ -327,8 +339,8 @@ const OffersPage = () => {
           <div
             className="absolute inset-0 bg-center bg-cover"
             style={{
-              backgroundImage: "url(/api/placeholder/1200/400)",
-              backgroundBlendMode: "overlay",
+              backgroundImage: 'url(/api/placeholder/1200/400)',
+              backgroundBlendMode: 'overlay',
             }}
           />
           <div className="relative z-10 container mx-auto h-full flex items-center px-4">
@@ -340,7 +352,8 @@ const OffersPage = () => {
               </p>
               <div className="flex gap-6 text-yellow-100 text-sm font-semibold">
                 <div className="flex items-center gap-2">
-                  <Icon name="fire" className="w-5 h-5" /> {allOffers.length}+ Active Offers
+                  <Icon name="fire" className="w-5 h-5" /> {allOffers.length}+
+                  Active Offers
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="users" className="w-5 h-5" /> 10K+ Happy Customers
@@ -356,10 +369,13 @@ const OffersPage = () => {
             {/* Search */}
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1 relative">
-                <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray" />
+                <Icon
+                  name="search"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray"
+                />
                 <input
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={e => setSearchTerm(e.target.value)}
                   placeholder="Search offers, restaurants, or food items..."
                   className="w-full pl-10 pr-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
                 />
@@ -367,14 +383,14 @@ const OffersPage = () => {
 
               {/* Category pills */}
               <div className="flex flex-wrap gap-2">
-                {categories.map((c) => (
+                {categories.map(c => (
                   <button
                     key={c.key}
                     onClick={() => setSelectedCategory(c.key)}
                     className={`flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all border ${
                       selectedCategory === c.key
-                        ? "bg-yellow-400 text-white shadow-lg border-yellow-400"
-                        : "bg-white text-medium-gray border-cream hover:bg-gray-100"
+                        ? 'bg-yellow-400 text-white shadow-lg border-yellow-400'
+                        : 'bg-white text-medium-gray border-cream hover:bg-gray-100'
                     }`}
                   >
                     <Icon name={c.icon} className="w-4 h-4" /> {c.label}
@@ -385,10 +401,10 @@ const OffersPage = () => {
               {/* Type dropdown */}
               <select
                 value={selectedOfferType}
-                onChange={(e) => setSelectedOfferType(e.target.value)}
+                onChange={e => setSelectedOfferType(e.target.value)}
                 className="px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 bg-white min-w-[180px]"
               >
-                {offerTypes.map((t) => (
+                {offerTypes.map(t => (
                   <option key={t.key} value={t.key}>
                     {t.label}
                   </option>
@@ -412,7 +428,7 @@ const OffersPage = () => {
             </div>
 
             <div className="grid lg:grid-cols-3 gap-6">
-              {featuredOffers.filter(filterFn).map((o) => (
+              {featuredOffers.filter(filterFn).map(o => (
                 <OfferCard key={o.id} offer={o} />
               ))}
               {featuredOffers.filter(filterFn).length === 0 && (
@@ -433,7 +449,7 @@ const OffersPage = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {regularOffers.filter(filterFn).map((o) => (
+              {regularOffers.filter(filterFn).map(o => (
                 <OfferCard key={o.id} offer={o} />
               ))}
               {regularOffers.filter(filterFn).length === 0 && (

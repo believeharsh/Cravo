@@ -21,14 +21,12 @@
 // (Admin) PATCH /api/v1/products/{id} - Partially update a product
 // (Admin) DELETE /api/v1/products/{id} - Delete a product
 
-
 // Categories:
 
 // GET /api/v1/categories - Get all categories
 // GET /api/v1/categories/{id} - Get a specific category
 // (Admin) POST /api/v1/categories - Create a new category
 // (Admin) PUT /api/v1/categories/{id} - Update a category
-
 
 // Orders:
 

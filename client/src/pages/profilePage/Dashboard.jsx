@@ -1,42 +1,65 @@
 import React, { useState } from 'react';
-import Icon from "../../components/ui/Icon"
+import Icon from '../../components/ui/Icon';
 
 const ProfilePage = () => {
-  const [edit, setEdit] = useState({ profile: false, email: false, password: false });
-  const [show, setShow] = useState({ current: false, new: false, confirm: false });
+  const [edit, setEdit] = useState({
+    profile: false,
+    email: false,
+    password: false,
+  });
+  const [show, setShow] = useState({
+    current: false,
+    new: false,
+    confirm: false,
+  });
 
   const [profileData, setProfileData] = useState({
-    firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567', dob: '1990-05-15', address: 'New York, NY',
-    bio: 'Loves cooking and sharing recipes.', joinDate: 'Jan 2023'
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    phone: '+1 (555) 123-4567',
+    dob: '1990-05-15',
+    address: 'New York, NY',
+    bio: 'Loves cooking and sharing recipes.',
+    joinDate: 'Jan 2023',
   });
 
   const [form, setForm] = useState({
     ...profileData,
     email: profileData.email,
-    currentPassword: '', newPassword: '', confirmPassword: ''
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
   });
 
-  const handleSave = (type) => {
+  const handleSave = type => {
     if (type === 'profile') {
-      setProfileData((prev) => ({ ...prev, ...form }));
+      setProfileData(prev => ({ ...prev, ...form }));
     } else if (type === 'email') {
-      setProfileData((prev) => ({ ...prev, email: form.email }));
+      setProfileData(prev => ({ ...prev, email: form.email }));
     } else if (type === 'password') {
-      if (form.newPassword !== form.confirmPassword) return alert('Passwords do not match!');
+      if (form.newPassword !== form.confirmPassword)
+        return alert('Passwords do not match!');
       alert('Password updated!');
-      setForm((f) => ({ ...f, currentPassword: '', newPassword: '', confirmPassword: '' }));
+      setForm(f => ({
+        ...f,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      }));
     }
-    setEdit((e) => ({ ...e, [type]: false }));
+    setEdit(e => ({ ...e, [type]: false }));
   };
 
-  const handleCancel = (type) => {
-    setForm((f) => ({
+  const handleCancel = type => {
+    setForm(f => ({
       ...f,
       ...profileData,
-      currentPassword: '', newPassword: '', confirmPassword: ''
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
     }));
-    setEdit((e) => ({ ...e, [type]: false }));
+    setEdit(e => ({ ...e, [type]: false }));
   };
 
   const Input = ({ label, name, type = 'text', passwordToggle }) => (
@@ -46,16 +69,20 @@ const ProfilePage = () => {
         <input
           type={passwordToggle ? (show[name] ? 'text' : 'password') : type}
           value={form[name]}
-          onChange={(e) => setForm({ ...form, [name]: e.target.value })}
+          onChange={e => setForm({ ...form, [name]: e.target.value })}
           className="w-full mt-1 px-3 py-2 text-sm border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
         />
         {passwordToggle && (
           <button
             type="button"
-            onClick={() => setShow((s) => ({ ...s, [name]: !s[name] }))}
+            onClick={() => setShow(s => ({ ...s, [name]: !s[name] }))}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
           >
-            {show[name] ? <Icon name={"eye-off"} size={16} /> : <Eye size={16} />}
+            {show[name] ? (
+              <Icon name={'eye-off'} size={16} />
+            ) : (
+              <Eye size={16} />
+            )}
           </button>
         )}
       </div>
@@ -67,16 +94,25 @@ const ProfilePage = () => {
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold text-charcoal">{title}</h2>
         {!edit[type] ? (
-          <button onClick={() => setEdit((e) => ({ ...e, [type]: true }))} className="text-sm flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg">
-            <Icon name={"lucide-edit-3"}size={14} /> Edit
+          <button
+            onClick={() => setEdit(e => ({ ...e, [type]: true }))}
+            className="text-sm flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg"
+          >
+            <Icon name={'lucide-edit-3'} size={14} /> Edit
           </button>
         ) : (
           <div className="flex gap-2">
-            <button onClick={() => handleSave(type)} className="text-sm flex items-center gap-1 bg-mint-green hover:bg-green-500 text-white px-3 py-1 rounded-lg">
-              <Icon name={"save"} size={14} /> Save
+            <button
+              onClick={() => handleSave(type)}
+              className="text-sm flex items-center gap-1 bg-mint-green hover:bg-green-500 text-white px-3 py-1 rounded-lg"
+            >
+              <Icon name={'save'} size={14} /> Save
             </button>
-            <button onClick={() => handleCancel(type)} className="text-sm flex items-center gap-1 bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-lg">
-              <Icon name={"x"} size={14} /> Cancel
+            <button
+              onClick={() => handleCancel(type)}
+              className="text-sm flex items-center gap-1 bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-lg"
+            >
+              <Icon name={'x'} size={14} /> Cancel
             </button>
           </div>
         )}
@@ -91,16 +127,20 @@ const ProfilePage = () => {
       <div className="bg-gradient-to-r from-yellow-400 to-mint-green rounded-2xl p-6 text-white flex items-center gap-4">
         <div className="relative">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-            <Icon name={"users"} className="w-8 h-8 text-coffee" />
+            <Icon name={'users'} className="w-8 h-8 text-coffee" />
           </div>
           <button className="absolute -bottom-1 -right-1 bg-yellow-500 p-1 rounded-full">
-            <Icon name={"camera"} size={12} className="text-white" />
+            <Icon name={'camera'} size={12} className="text-white" />
           </button>
         </div>
         <div>
-          <h1 className="text-xl font-bold">{profileData.firstName} {profileData.lastName}</h1>
+          <h1 className="text-xl font-bold">
+            {profileData.firstName} {profileData.lastName}
+          </h1>
           <p className="text-yellow-100">{profileData.email}</p>
-          <p className="text-yellow-100 text-xs">Since {profileData.joinDate}</p>
+          <p className="text-yellow-100 text-xs">
+            Since {profileData.joinDate}
+          </p>
         </div>
       </div>
 
@@ -124,10 +164,10 @@ const ProfilePage = () => {
           <Input label="Email Address" name="email" type="email" />
         ) : (
           <div className="flex items-center gap-3 bg-gray-50 px-3 py-2 rounded-lg">
-            <Icon name={"mail"} size={16} className="text-medium-gray" />
+            <Icon name={'mail'} size={16} className="text-medium-gray" />
             <span>{profileData.email}</span>
             <span className="ml-auto bg-mint-green text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
-              <Icon name={"check"} size={12} /> Verified
+              <Icon name={'check'} size={12} /> Verified
             </span>
           </div>
         )}

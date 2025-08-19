@@ -1,5 +1,5 @@
-import React from "react";
-import Icon from "../../../components/ui/Icon";
+import React from 'react';
+import Icon from '../../../components/ui/Icon';
 
 const LinkItem = ({ href, children }) => (
   <a
@@ -66,35 +66,35 @@ const Footer = () => (
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Facebook"
           >
-            <Icon name={"facebook"} size={18} />
+            <Icon name={'facebook'} size={18} />
           </a>
           <a
             href="#"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Instagram"
           >
-            <Icon name={"instagram"} size={18} />
+            <Icon name={'instagram'} size={18} />
           </a>
           <a
             href="#"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Twitter"
           >
-            <Icon name={"twitter"} size={18} />
+            <Icon name={'twitter'} size={18} />
           </a>
           <a
             href="#"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="LinkedIn"
           >
-            <Icon name={"linkedin"} size={18} />
+            <Icon name={'linkedin'} size={18} />
           </a>
           <a
             href="#"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="YouTube"
           >
-            <Icon name={"youtube"} size={18} />
+            <Icon name={'youtube'} size={18} />
           </a>
         </div>
 
@@ -108,4 +108,3 @@ const Footer = () => (
 );
 
 export default Footer;
-

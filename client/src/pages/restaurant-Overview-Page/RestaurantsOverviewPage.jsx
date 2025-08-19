@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 
 // Restaurant-Overview-Page sections import
-import RestaurantNavbar from "./sections/RestarurantNavbar";
-import RestaurantGrid from "./sections/RestRestaurant";
-import NearbyCuisineGrid from "./sections/Near-restaurants-card";
-import Footer from "../../components/Footer";
-import TopRestaurants from "./sections/TopRestaurants";
-import Navbar from "../../components/Navbar";
-import RestaurantCategoriesSlider from "./sections/Category-Slider";
+import RestaurantNavbar from './sections/RestarurantNavbar';
+import RestaurantGrid from './sections/RestRestaurant';
+import NearbyCuisineGrid from './sections/Near-restaurants-card';
+import Footer from '../../components/Footer';
+import TopRestaurants from './sections/TopRestaurants';
+import Navbar from '../../components/Navbar';
+import RestaurantCategoriesSlider from './sections/Category-Slider';
 
 const RestaurantsOverviewPage = () => {
   const [showRestaurantNavbar, setShowRestaurantNavbar] = useState(false);
@@ -41,14 +41,14 @@ const RestaurantsOverviewPage = () => {
     };
 
     // Add scroll event listener
-    window.addEventListener("scroll", throttledHandleScroll);
+    window.addEventListener('scroll', throttledHandleScroll);
 
     // Check initial position
     handleScroll();
 
     // Cleanup
     return () => {
-      window.removeEventListener("scroll", throttledHandleScroll);
+      window.removeEventListener('scroll', throttledHandleScroll);
     };
   }, []);
 

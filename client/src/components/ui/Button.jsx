@@ -24,7 +24,8 @@ const Button = ({
   ...props
 }) => {
   // Base styles applied to all buttons
-  let baseClasses = 'font-semibold rounded-md transition-colors duration-normal ease-in-out whitespace-nowrap';
+  let baseClasses =
+    'font-semibold rounded-md transition-colors duration-normal ease-in-out whitespace-nowrap';
 
   // Styles based on the 'variant' prop
   let variantClasses = '';
@@ -33,20 +34,25 @@ const Button = ({
       variantClasses = 'bg-primary text-charcoal hover:bg-yellow-500';
       break;
     case 'secondary':
-      variantClasses = 'bg-medium-gray text-white hover:bg-gray-600 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-medium-gray focus:ring-opacity-75';
+      variantClasses =
+        'bg-medium-gray text-white hover:bg-gray-600 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-medium-gray focus:ring-opacity-75';
       break;
     case 'outline':
-      variantClasses = 'border border-primary text-primary hover:bg-primary hover:text-white active:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-75';
+      variantClasses =
+        'border border-primary text-primary hover:bg-primary hover:text-white active:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-75';
       break;
     case 'ghost':
-      variantClasses = 'text-charcoal hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-75';
+      variantClasses =
+        'text-charcoal hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-75';
       break;
     case 'success':
-      variantClasses = 'bg-mint-green text-white hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-mint-green focus:ring-opacity-75';
+      variantClasses =
+        'bg-mint-green text-white hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-mint-green focus:ring-opacity-75';
       break;
     // Add more variants as needed (e.g., 'danger', 'info')
     default:
-      variantClasses = 'bg-gray-200 text-charcoal hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-medium-gray focus:ring-opacity-75';
+      variantClasses =
+        'bg-gray-200 text-charcoal hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-medium-gray focus:ring-opacity-75';
   }
 
   // Styles based on the 'size' prop
@@ -71,13 +77,16 @@ const Button = ({
   }
 
   // Disabled state styling
-  const disabledClasses = disabled ? 'opacity-60 cursor-not-allowed pointer-events-none' : '';
+  const disabledClasses = disabled
+    ? 'opacity-60 cursor-not-allowed pointer-events-none'
+    : '';
 
   // Combine all classes
-  const combinedClasses = `${baseClasses} ${variantClasses} ${sizeClasses} ${disabledClasses} ${className}`.trim();
+  const combinedClasses =
+    `${baseClasses} ${variantClasses} ${sizeClasses} ${disabledClasses} ${className}`.trim();
 
   // Clone icons to add dynamic size classes
-  const renderIcon = (icon) => {
+  const renderIcon = icon => {
     if (!icon) return null;
     return React.cloneElement(icon, {
       className: `${icon.props.className || ''} ${iconSizeClasses}`.trim(),

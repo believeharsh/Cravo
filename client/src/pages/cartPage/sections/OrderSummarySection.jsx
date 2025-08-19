@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon from '../../../components/ui/Icon'; 
-import Button from '../../../components/ui/Button'; 
-import Input from '../../../components/ui/Input'; 
+import Icon from '../../../components/ui/Icon';
+import Button from '../../../components/ui/Button';
+import Input from '../../../components/ui/Input';
 
 /**
  * Renders the order summary section, including promo code application and total calculations.
@@ -48,9 +48,7 @@ const OrderSummarySection = ({
         {appliedPromo ? (
           <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
             <div>
-              <p className="font-semibold text-charcoal">
-                {appliedPromo.code}
-              </p>
+              <p className="font-semibold text-charcoal">{appliedPromo.code}</p>
               <p className="text-sm text-medium-gray">
                 {appliedPromo.description}
               </p>
@@ -68,7 +66,7 @@ const OrderSummarySection = ({
             <Input
               id="promo-code-input" // Add an ID for accessibility
               value={promoCode}
-              onChange={(e) => setPromoCode(e.target.value)}
+              onChange={e => setPromoCode(e.target.value)}
               placeholder="Enter promo code"
               className="flex-1 px-4 py-3 border border-cream rounded-lg " // Specific styling for this input
             />
@@ -104,9 +102,7 @@ const OrderSummarySection = ({
         <div className="flex justify-between">
           <span>Delivery Fee</span>
           <span>
-            {deliveryFee === 0
-              ? "Free"
-              : `$${deliveryFee.toFixed(2)}`}
+            {deliveryFee === 0 ? 'Free' : `$${deliveryFee.toFixed(2)}`}
           </span>
         </div>
         <div className="flex justify-between">

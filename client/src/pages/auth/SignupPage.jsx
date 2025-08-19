@@ -1,52 +1,54 @@
-import React, { useState } from "react";
-import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../../api/axiosInstance";
-import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input";
+import React, { useState } from 'react';
+import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosInstance from '../../api/axiosInstance';
+import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
 
 const SignupPage = () => {
   const navigate = useNavigate();
 
   // form data
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
 
   // ui state
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   // field change handler
-  const handleInputChange = (e) =>
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleInputChange = e =>
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   // submit handler
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    setError("");
+    setError('');
 
-    if ([formData.name, formData.email, formData.password].some((f) => !f.trim())) {
-      return setError("All fields are required.");
+    if (
+      [formData.name, formData.email, formData.password].some(f => !f.trim())
+    ) {
+      return setError('All fields are required.');
     }
 
     setIsLoading(true);
     try {
-      await axiosInstance.post("/api/v1/auth/signup", formData, {
-        headers: { "Content-Type": "application/json" },
+      await axiosInstance.post('/api/v1/auth/signup', formData, {
+        headers: { 'Content-Type': 'application/json' },
         // so the browser keeps the access & refresh cookies
         withCredentials: true,
       });
 
-      navigate("/restaurants");
+      navigate('/restaurants');
     } catch (err) {
       if (err.response?.status === 409) {
-        setError("A user already exists with this e-mail.");
+        setError('A user already exists with this e-mail.');
       } else {
-        setError("Something went wrong. Please try again.");
+        setError('Something went wrong. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -68,13 +70,18 @@ const SignupPage = () => {
         {/* form */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-yellow-100">
           {error && (
-            <p className="mb-4 text-sm text-red-500 text-center font-medium">{error}</p>
+            <p className="mb-4 text-sm text-red-500 text-center font-medium">
+              {error}
+            </p>
           )}
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             {/* name */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-yellow-800 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-yellow-800 mb-2"
+              >
                 Full Name
               </label>
               <Input
@@ -91,7 +98,10 @@ const SignupPage = () => {
 
             {/* email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-yellow-800 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-yellow-800 mb-2"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -111,7 +121,10 @@ const SignupPage = () => {
 
             {/* password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-yellow-800 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-yellow-800 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -119,7 +132,7 @@ const SignupPage = () => {
                 <Input
                   id="password"
                   name="password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={formData.password}
                   onChange={handleInputChange}
@@ -160,8 +173,11 @@ const SignupPage = () => {
           {/* sign in */}
           <div className="mt-6 text-center">
             <p className="text-gray-600">
-              Already have an account?{" "}
-              <Link to="/login" className="font-medium text-yellow-600 hover:text-yellow-700">
+              Already have an account?{' '}
+              <Link
+                to="/login"
+                className="font-medium text-yellow-600 hover:text-yellow-700"
+              >
                 Sign in here
               </Link>
             </p>

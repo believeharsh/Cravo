@@ -1,8 +1,8 @@
-import { Router } from "express";
-import {getLandingPageData} from "../controllers/landing.controller.js" ; 
+import { Router } from 'express';
+import { getLandingPageData } from '../controllers/landing.controller.js';
 
-const landingRoute = Router() ; 
+const landingRoute = Router();
 
-landingRoute.get("/" , getLandingPageData)
+landingRoute.get('/', getLandingPageData);
 
-export default landingRoute ; 
+export default landingRoute;

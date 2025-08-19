@@ -1,9 +1,12 @@
-import { Router } from "express";
-import { categoryResultForGivenCetgory, getAllCategories } from "../controllers/category.controller.js";
+import { Router } from 'express';
+import {
+  categoryResultForGivenCetgory,
+  getAllCategories,
+} from '../controllers/category.controller.js';
 
-const categoryRoute = Router() ; 
+const categoryRoute = Router();
 
-categoryRoute.get("/get-All-Categories", getAllCategories) ; 
-categoryRoute.get("/category-result", categoryResultForGivenCetgory) ; 
+categoryRoute.get('/get-All-Categories', getAllCategories);
+categoryRoute.get('/category-result', categoryResultForGivenCetgory);
 
-export default categoryRoute ; 
+export default categoryRoute;

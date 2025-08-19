@@ -1,22 +1,22 @@
-import Category from "../models/category.model.js";
-import Product from "../models/product.model.js";
-import Restaurant from "../models/restaurant.model.js";
-import { asyncHandler } from "../services/asyncHandler.js";
-import { apiResponse } from "../services/apiResponse.js";
-import { apiError } from "../services/ApiError.js";
-import mongoose from "mongoose";
+import Category from '../models/category.model.js';
+import Product from '../models/product.model.js';
+import Restaurant from '../models/restaurant.model.js';
+import { asyncHandler } from '../services/asyncHandler.js';
+import { apiResponse } from '../services/apiResponse.js';
+import { apiError } from '../services/ApiError.js';
+import mongoose from 'mongoose';
 
 const getAllRestaurantsByCategory = asyncHandler(async (req, res) => {
   const { categoryName } = req.query;
   // Input validation
-  if (!categoryName || categoryName.trim() === "") {
-    throw new apiError(400, "Category name is required.");
+  if (!categoryName || categoryName.trim() === '') {
+    throw new apiError(400, 'Category name is required.');
   }
 
   // Finding the Category document by its name
 
   const category = await Category.findOne({
-    name: { $regex: new RegExp(`^${categoryName}$`, "i") }, // Using $regex with ^ and $ for exact match, and 'i' for case-insensitivity.
+    name: { $regex: new RegExp(`^${categoryName}$`, 'i') }, // Using $regex with ^ and $ for exact match, and 'i' for case-insensitivity.
   });
 
   if (!category) {
@@ -27,7 +27,7 @@ const getAllRestaurantsByCategory = asyncHandler(async (req, res) => {
 
   const foodItemsInCategoryId = await Product.find({
     category: category._id,
-  }).distinct("restaurant");
+  }).distinct('restaurant');
 
   // If no food items are found for this category, it means no restaurants offer it
   if (!foodItemsInCategoryId || foodItemsInCategoryId.length === 0) {
@@ -50,7 +50,7 @@ const getAllRestaurantsByCategory = asyncHandler(async (req, res) => {
   if (!restaurants || restaurants.length === 0) {
     throw new apiError(
       500,
-      "Failed to retrieve restaurant details for the found food items."
+      'Failed to retrieve restaurant details for the found food items.'
     );
   }
 
@@ -69,23 +69,22 @@ const getRestaurantById = asyncHandler(async (req, res) => {
   const { restaurantId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(restaurantId)) {
-    throw new apiError(400, "Invalid restaurant ID format.");
+    throw new apiError(400, 'Invalid restaurant ID format.');
   }
 
   // Finding the restaurant by its ID
   const restaurant = await Restaurant.findById(restaurantId);
 
   if (!restaurant) {
-    throw new apiError(404, "Restaurant not found.");
+    throw new apiError(404, 'Restaurant not found.');
   }
 
   return res
     .status(200)
-    .json(new apiResponse(200, restaurant, "Restaurant fetched successfully."));
+    .json(new apiResponse(200, restaurant, 'Restaurant fetched successfully.'));
 });
 
 const getRestaurantsByLocation = asyncHandler(async (req, res) => {
-
   const { longitude, latitude, maxDistanceKm } = req.query;
 
   if (!longitude || !latitude) {
@@ -108,7 +107,7 @@ const getRestaurantsByLocation = asyncHandler(async (req, res) => {
   ) {
     throw new apiError(
       400,
-      "Invalid longitude or latitude. Must be valid numerical coordinates."
+      'Invalid longitude or latitude. Must be valid numerical coordinates.'
     );
   }
 
@@ -120,7 +119,7 @@ const getRestaurantsByLocation = asyncHandler(async (req, res) => {
   if (isNaN(maxDistMeters) || maxDistMeters < 0) {
     throw new apiError(
       400,
-      "Invalid maxDistanceKm. Must be a non-negative number."
+      'Invalid maxDistanceKm. Must be a non-negative number.'
     );
   }
 
@@ -129,10 +128,10 @@ const getRestaurantsByLocation = asyncHandler(async (req, res) => {
   // $geometry specifies the point [longitude, latitude]
   // $maxDistance specifies the maximum distance in meters
   const restaurants = await Restaurant.find({
-    "address.location": {
+    'address.location': {
       $nearSphere: {
         $geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: [lon, lat], // [longitude, latitude]
         },
         $maxDistance: maxDistMeters, // Distance in meters
@@ -148,7 +147,7 @@ const getRestaurantsByLocation = asyncHandler(async (req, res) => {
         new apiResponse(
           200,
           [],
-          "No restaurants found near the specified location"
+          'No restaurants found near the specified location'
         )
       );
   }
@@ -160,11 +159,10 @@ const getRestaurantsByLocation = asyncHandler(async (req, res) => {
         count: restaurants.length,
         restaurants: restaurants,
       },
-      "Restaurants fetched successfully by location."
+      'Restaurants fetched successfully by location.'
     )
   );
 });
-
 
 export {
   getAllRestaurantsByCategory,

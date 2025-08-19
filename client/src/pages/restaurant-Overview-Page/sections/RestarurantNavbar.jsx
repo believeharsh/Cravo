@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import Icon from "../../../components/ui/Icon"
+import React, { useState, useRef, useEffect } from 'react';
+import Icon from '../../../components/ui/Icon';
 
 const RestaurantNavbar = ({
   isVisible = true,
@@ -9,8 +9,8 @@ const RestaurantNavbar = ({
 }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortByOpen, setIsSortByOpen] = useState(false);
-  const [selectedSortBy, setSelectedSortBy] = useState("relevance");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSortBy, setSelectedSortBy] = useState('relevance');
+  const [searchQuery, setSearchQuery] = useState('');
   const [activeFilters, setActiveFilters] = useState({
     fastDelivery: false,
     newProducts: false,
@@ -25,84 +25,84 @@ const RestaurantNavbar = ({
   const filterRef = useRef(null);
 
   const sortOptions = [
-    { id: "relevance", label: "Relevance", description: "Best match for you" },
-    { id: "rating", label: "Rating", description: "Highest rated first" },
+    { id: 'relevance', label: 'Relevance', description: 'Best match for you' },
+    { id: 'rating', label: 'Rating', description: 'Highest rated first' },
     {
-      id: "deliveryTime",
-      label: "Delivery Time",
-      description: "Fastest first",
+      id: 'deliveryTime',
+      label: 'Delivery Time',
+      description: 'Fastest first',
     },
     {
-      id: "costLowToHigh",
-      label: "Cost: Low to High",
-      description: "Cheapest first",
+      id: 'costLowToHigh',
+      label: 'Cost: Low to High',
+      description: 'Cheapest first',
     },
     {
-      id: "costHighToLow",
-      label: "Cost: High to Low",
-      description: "Most expensive first",
+      id: 'costHighToLow',
+      label: 'Cost: High to Low',
+      description: 'Most expensive first',
     },
     {
-      id: "popularity",
-      label: "Popularity",
-      description: "Most ordered first",
+      id: 'popularity',
+      label: 'Popularity',
+      description: 'Most ordered first',
     },
   ];
 
   const quickFilters = [
     {
-      id: "fastDelivery",
-      label: "Fast Delivery",
-      icon: "zap",
-      color: "text-green-500",
-      activeColor: "bg-green-100 text-green-700 border-green-300",
+      id: 'fastDelivery',
+      label: 'Fast Delivery',
+      icon: 'zap',
+      color: 'text-green-500',
+      activeColor: 'bg-green-100 text-green-700 border-green-300',
     },
     {
-      id: "newProducts",
-      label: "New",
-      icon: "sparkles",
-      color: "text-purple-500",
-      activeColor: "bg-purple-100 text-purple-700 border-purple-300",
+      id: 'newProducts',
+      label: 'New',
+      icon: 'sparkles',
+      color: 'text-purple-500',
+      activeColor: 'bg-purple-100 text-purple-700 border-purple-300',
     },
     {
-      id: "rating4Plus",
-      label: "Rating 4.0+",
-      icon: "star",
-      color: "text-yellow-500",
-      activeColor: "bg-yellow-100 text-yellow-700 border-yellow-300",
+      id: 'rating4Plus',
+      label: 'Rating 4.0+',
+      icon: 'star',
+      color: 'text-yellow-500',
+      activeColor: 'bg-yellow-100 text-yellow-700 border-yellow-300',
     },
     {
-      id: "pureVeg",
-      label: "Pure Veg",
-      icon: "leaf",
-      color: "text-green-600",
-      activeColor: "bg-green-100 text-green-700 border-green-300",
+      id: 'pureVeg',
+      label: 'Pure Veg',
+      icon: 'leaf',
+      color: 'text-green-600',
+      activeColor: 'bg-green-100 text-green-700 border-green-300',
     },
     {
-      id: "offers",
-      label: "Offers",
-      icon: "tag",
-      color: "text-red-500",
-      activeColor: "bg-red-100 text-red-700 border-red-300",
+      id: 'offers',
+      label: 'Offers',
+      icon: 'tag',
+      color: 'text-red-500',
+      activeColor: 'bg-red-100 text-red-700 border-red-300',
     },
     {
-      id: "price300to600",
-      label: "₹300-600",
+      id: 'price300to600',
+      label: '₹300-600',
       icon: null, // Using null for icons that aren't available
-      color: "text-blue-500",
-      activeColor: "bg-blue-100 text-blue-700 border-blue-300",
+      color: 'text-blue-500',
+      activeColor: 'bg-blue-100 text-blue-700 border-blue-300',
     },
     {
-      id: "priceLess300",
-      label: "Less than ₹300",
+      id: 'priceLess300',
+      label: 'Less than ₹300',
       icon: null, // Using null for icons that aren't available
-      color: "text-indigo-500",
-      activeColor: "bg-indigo-100 text-indigo-700 border-indigo-300",
+      color: 'text-indigo-500',
+      activeColor: 'bg-indigo-100 text-indigo-700 border-indigo-300',
     },
   ];
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (sortByRef.current && !sortByRef.current.contains(event.target)) {
         setIsSortByOpen(false);
       }
@@ -111,11 +111,11 @@ const RestaurantNavbar = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleQuickFilterToggle = (filterId) => {
+  const handleQuickFilterToggle = filterId => {
     const newFilters = {
       ...activeFilters,
       [filterId]: !activeFilters[filterId],
@@ -124,13 +124,13 @@ const RestaurantNavbar = ({
     onFilterChange && onFilterChange(newFilters);
   };
 
-  const handleSortChange = (sortId) => {
+  const handleSortChange = sortId => {
     setSelectedSortBy(sortId);
     setIsSortByOpen(false);
     onSortChange && onSortChange(sortId);
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = e => {
     e.preventDefault();
     onSearchChange && onSearchChange(searchQuery);
   };
@@ -151,7 +151,7 @@ const RestaurantNavbar = ({
   return (
     <div
       className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ease-in-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
+        isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
       <div className="bg-white border-b border-gray-200 shadow-md">
@@ -160,7 +160,7 @@ const RestaurantNavbar = ({
           <div className="flex items-center justify-between py-4">
             {/* Left Side - Quick Filters */}
             <div className="flex items-center space-x-2 flex-1 overflow-x-auto scrollbar-hide">
-              {quickFilters.slice(0, 5).map((filter) => {
+              {quickFilters.slice(0, 5).map(filter => {
                 const isActive = activeFilters[filter.id];
 
                 return (
@@ -170,7 +170,7 @@ const RestaurantNavbar = ({
                     className={`flex items-center space-x-2 px-3 py-2 rounded-xl font-medium transition-all duration-200 whitespace-nowrap border ${
                       isActive
                         ? filter.activeColor
-                        : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200"
+                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200'
                     }`}
                   >
                     {filter.icon && <Icon name={filter.icon} size={16} />}
@@ -193,7 +193,7 @@ const RestaurantNavbar = ({
                   type="text"
                   placeholder="Search restaurants..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={e => setSearchQuery(e.target.value)}
                   className="w-48 pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-sm"
                 />
               </form>
@@ -209,7 +209,7 @@ const RestaurantNavbar = ({
                     name="chevron-down"
                     size={16}
                     className={`transform transition-transform ${
-                      isSortByOpen ? "rotate-180" : ""
+                      isSortByOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
@@ -220,7 +220,7 @@ const RestaurantNavbar = ({
                       <h3 className="font-bold text-gray-800">Sort By</h3>
                     </div>
                     <div className="p-2 max-h-64 overflow-y-auto">
-                      {sortOptions.map((option) => (
+                      {sortOptions.map(option => (
                         <button
                           key={option.id}
                           onClick={() => handleSortChange(option.id)}
@@ -235,7 +235,11 @@ const RestaurantNavbar = ({
                             </p>
                           </div>
                           {selectedSortBy === option.id && (
-                            <Icon name="check" size={16} className="text-yellow-400" />
+                            <Icon
+                              name="check"
+                              size={16}
+                              className="text-yellow-400"
+                            />
                           )}
                         </button>
                       ))}
@@ -278,7 +282,7 @@ const RestaurantNavbar = ({
                             Quick Filters
                           </h4>
                           <div className="grid grid-cols-2 gap-2">
-                            {quickFilters.map((filter) => {
+                            {quickFilters.map(filter => {
                               const isActive = activeFilters[filter.id];
 
                               return (
@@ -290,10 +294,12 @@ const RestaurantNavbar = ({
                                   className={`flex items-center space-x-2 p-3 rounded-xl transition-all duration-200 border text-sm ${
                                     isActive
                                       ? filter.activeColor
-                                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200"
+                                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200'
                                   }`}
                                 >
-                                  {filter.icon && <Icon name={filter.icon} size={14} />}
+                                  {filter.icon && (
+                                    <Icon name={filter.icon} size={14} />
+                                  )}
                                   <span>{filter.label}</span>
                                 </button>
                               );
@@ -324,7 +330,7 @@ const RestaurantNavbar = ({
                 <span className="text-sm text-gray-600">Active filters:</span>
                 {Object.entries(activeFilters).map(([key, isActive]) => {
                   if (!isActive) return null;
-                  const filter = quickFilters.find((f) => f.id === key);
+                  const filter = quickFilters.find(f => f.id === key);
                   return (
                     <span
                       key={key}

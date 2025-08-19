@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const axiosInstance = axios.create({
@@ -8,6 +8,5 @@ const axiosInstance = axios.create({
 
 let isRefreshing = false;
 let failedRequestsQueue = [];
-
 
 export default axiosInstance;

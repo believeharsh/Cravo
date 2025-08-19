@@ -1,6 +1,11 @@
 import React from 'react';
 
-const CategoryHeader = ({ categoryName, categoryDescription, restaurantCount, userLocation }) => {
+const CategoryHeader = ({
+  categoryName,
+  categoryDescription,
+  restaurantCount,
+  userLocation,
+}) => {
   return (
     <div className="mb-8">
       <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">

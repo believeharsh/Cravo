@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Icon from "./ui/Icon";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Icon from './ui/Icon';
 
 const InternalLinkItem = ({ to, children }) => (
   <Link
@@ -21,10 +21,15 @@ const Footer = () => (
           {/* swap the SVG/emoji with your real logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl flex items-center justify-center">
-              <img src={`/assets/Cravo_logo.png`} alt="Cravo Logo" /> {/* Added alt text */}
+              <img src={`/assets/Cravo_logo.png`} alt="Cravo Logo" />{' '}
+              {/* Added alt text */}
             </div>
             <div className="w-10 sm:w-32 ">
-              <img src={`/assets/Cravo_white_text_logo.png`} alt="Cravo Text Logo" /> {/* Added alt text */}
+              <img
+                src={`/assets/Cravo_white_text_logo.png`}
+                alt="Cravo Text Logo"
+              />{' '}
+              {/* Added alt text */}
             </div>
           </div>
           <p className="mt-4 text-sm text-gray-400 leading-relaxed">
@@ -44,10 +49,18 @@ const Footer = () => (
 
         <div>
           <h4 className="font-semibold mb-3">Legal</h4>
-          <InternalLinkItem to="/terms-of-service">Terms&nbsp;of&nbsp;Service</InternalLinkItem>
-          <InternalLinkItem to="/privacy-policy">Privacy&nbsp;Policy</InternalLinkItem>
-          <InternalLinkItem to="/cookie-policy">Cookie&nbsp;Policy</InternalLinkItem>
-          <InternalLinkItem to="/refund-policy">Refund&nbsp;Policy</InternalLinkItem>
+          <InternalLinkItem to="/terms-of-service">
+            Terms&nbsp;of&nbsp;Service
+          </InternalLinkItem>
+          <InternalLinkItem to="/privacy-policy">
+            Privacy&nbsp;Policy
+          </InternalLinkItem>
+          <InternalLinkItem to="/cookie-policy">
+            Cookie&nbsp;Policy
+          </InternalLinkItem>
+          <InternalLinkItem to="/refund-policy">
+            Refund&nbsp;Policy
+          </InternalLinkItem>
         </div>
 
         <div>
@@ -68,7 +81,7 @@ const Footer = () => (
           >
             Android&nbsp;App
           </a>
-          <InternalLinkItem to="/">Web&nbsp;Ordering</InternalLinkItem> 
+          <InternalLinkItem to="/">Web&nbsp;Ordering</InternalLinkItem>
         </div>
       </div>
 
@@ -83,7 +96,7 @@ const Footer = () => (
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Facebook"
           >
-            <Icon name={"facebook"} size={18} />
+            <Icon name={'facebook'} size={18} />
           </a>
           <a
             href="https://www.instagram.com/yourcravoapp"
@@ -92,16 +105,16 @@ const Footer = () => (
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Instagram"
           >
-            <Icon name={"instagram"} size={18} />
+            <Icon name={'instagram'} size={18} />
           </a>
           <a
-            href="https://twitter.com/yourcravoapp" 
+            href="https://twitter.com/yourcravoapp"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="Twitter"
           >
-            <Icon name={"twitter"} size={18} />
+            <Icon name={'twitter'} size={18} />
           </a>
           <a
             href="https://www.linkedin.com/company/yourcravoapp"
@@ -110,16 +123,16 @@ const Footer = () => (
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="LinkedIn"
           >
-            <Icon name={"linkedin"} size={18} />
+            <Icon name={'linkedin'} size={18} />
           </a>
           <a
-            href="https://www.youtube.com/yourcravoapp" 
+            href="https://www.youtube.com/yourcravoapp"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
             aria-label="YouTube"
           >
-            <Icon name={"youtube"} size={18} />
+            <Icon name={'youtube'} size={18} />
           </a>
         </div>
 

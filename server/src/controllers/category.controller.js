@@ -1,12 +1,12 @@
-import Category from "../models/category.model.js";
-import { asyncHandler } from "../services/asyncHandler.js";
-import { apiResponse } from "../services/apiResponse.js";
-import Restaurant from "../models/restaurant.model.js";
+import Category from '../models/category.model.js';
+import { asyncHandler } from '../services/asyncHandler.js';
+import { apiResponse } from '../services/apiResponse.js';
+import Restaurant from '../models/restaurant.model.js';
 
 const getAllCategories = asyncHandler(async (req, res) => {
   const categories = await Category.find({ isVisible: true })
     .sort({ displayOrder: 1 })
-    .select("name image slug displayOrder")
+    .select('name image slug displayOrder')
     .lean();
   return res
     .status(201)
@@ -14,13 +14,12 @@ const getAllCategories = asyncHandler(async (req, res) => {
       new apiResponse(
         201,
         { categories: categories },
-        "all categories fetched succussfully"
+        'all categories fetched succussfully'
       )
     );
 });
 
 const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
-
   const categorySlug = req.query.categorySlug;
   const userLongitude = parseFloat(req.query.longitude);
   const userLatitude = parseFloat(req.query.latitude);
@@ -41,11 +40,11 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
   // Validation for Latitude and Longitude
   if (isNaN(userLongitude) || userLongitude < -180 || userLongitude > 180) {
     res.status(400);
-    throw new Error("Valid longitude (between -180 and 180) is required.");
+    throw new Error('Valid longitude (between -180 and 180) is required.');
   }
   if (isNaN(userLatitude) || userLatitude < -90 || userLatitude > 90) {
     res.status(400);
-    throw new Error("Valid latitude (between -90 and 90) is required.");
+    throw new Error('Valid latitude (between -90 and 90) is required.');
   }
 
   const skipAmount = (page - 1) * limit;
@@ -56,16 +55,16 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
       {
         $geoNear: {
           near: {
-            type: "Point",
+            type: 'Point',
             coordinates: [userLongitude, userLatitude],
           },
-          distanceField: "distance",
+          distanceField: 'distance',
           spherical: true,
           maxDistance: MAX_DISTANCE_METERS,
           query: {
             cuisine_type: categorySlug,
           },
-          key: "address.location",
+          key: 'address.location',
         },
       },
       {
@@ -82,21 +81,21 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
       {
         $geoNear: {
           near: {
-            type: "Point",
+            type: 'Point',
             coordinates: [userLongitude, userLatitude],
           },
-          distanceField: "distance",
+          distanceField: 'distance',
           spherical: true,
           maxDistance: MAX_DISTANCE_METERS,
           query: {
             cuisine_type: categorySlug,
           },
-          key: "address.location",
+          key: 'address.location',
         },
       },
       {
-        $count: "totalCount"
-      }
+        $count: 'totalCount',
+      },
     ];
 
     // Execute both pipelines concurrently for better performance
@@ -120,16 +119,17 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
       });
     }
 
-    console.log(`Found a total of ${totalCount} restaurants for category "${categorySlug}".`);
+    console.log(
+      `Found a total of ${totalCount} restaurants for category "${categorySlug}".`
+    );
 
     res.status(200).json({
       message: `Successfully fetched restaurants for category "${categorySlug}".`,
       data: restaurants,
       totalResults: totalCount,
       currentPage: page,
-      totalPages: totalPages
+      totalPages: totalPages,
     });
-
   } catch (error) {
     console.error(
       `Error fetching restaurants for category "${categorySlug}" and location (${userLatitude}, ${userLongitude}):`,
@@ -145,11 +145,10 @@ const categoryResultForGivenCetgory = asyncHandler(async (req, res) => {
     } else {
       res.status(500);
       throw new Error(
-        "Server error while fetching restaurants by category and location."
+        'Server error while fetching restaurants by category and location.'
       );
     }
   }
 });
-
 
 export { getAllCategories, categoryResultForGivenCetgory };

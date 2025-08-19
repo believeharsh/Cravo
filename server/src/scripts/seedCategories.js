@@ -1,22 +1,22 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary } from 'cloudinary';
 // import path from "path";
 // import { fileURLToPath } from "url";
-import mongoose from "mongoose";
-import Category from "../models/category.model.js";
+import mongoose from 'mongoose';
+import Category from '../models/category.model.js';
 
-import { categoriesToUpload } from "../sample-Data/Categories-Data/Categories.js";
+import { categoriesToUpload } from '../sample-Data/Categories-Data/Categories.js';
 
 const MONGODB_URI =
-  "mongodb+srv://cravobelieveharsh:cravobelieveharsh11@cravingcartcluster.jbwz5cy.mongodb.net/?retryWrites=true&w=majority&appName=CravingCartCluster";
+  'mongodb+srv://cravobelieveharsh:cravobelieveharsh11@cravingcartcluster.jbwz5cy.mongodb.net/?retryWrites=true&w=majority&appName=CravingCartCluster';
 
 // Get __dirname equivalent for ES Modules
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 
 cloudinary.config({
-  cloud_name: "dd5elqfus",
-  api_key: "985926514817166",
-  api_secret: "G0HTWbGFp1OJIDSHCW0Zh81ysOs",
+  cloud_name: 'dd5elqfus',
+  api_key: '985926514817166',
+  api_secret: 'G0HTWbGFp1OJIDSHCW0Zh81ysOs',
 });
 
 // Define your categories with their local image paths
@@ -70,7 +70,7 @@ cloudinary.config({
   const uploadedCategoriesData = [];
   let displayOrderCounter = 1;
 
-  console.log("Starting Cloudinary image upload for categories...");
+  console.log('Starting Cloudinary image upload for categories...');
 
   for (const category of categoriesToUpload) {
     try {
@@ -81,16 +81,16 @@ cloudinary.config({
       const uploadResult = await cloudinary.uploader.upload(
         category.imagePath,
         {
-          folder: "cravingcart/categories", // Cloudinary folder to store your category images
+          folder: 'cravingcart/categories', // Cloudinary folder to store your category images
           public_id: category.slug, // Use slug as public_id for easy identification
           overwrite: true, // Overwrite if an image with the same public_id exists
           // Apply common optimizations for web delivery
-          quality: "auto:low", // Auto quality with a slight bias towards smaller file size
-          fetch_format: "auto", // Automatically convert to optimal format (e.g., webp)
+          quality: 'auto:low', // Auto quality with a slight bias towards smaller file size
+          fetch_format: 'auto', // Automatically convert to optimal format (e.g., webp)
           width: 400, // Recommend a reasonable width for category icons/previews
           height: 400, // Recommend a reasonable height
-          crop: "fill", // Crop to fill the dimensions without stretching
-          gravity: "auto", // Auto-detect the most interesting part of the image
+          crop: 'fill', // Crop to fill the dimensions without stretching
+          gravity: 'auto', // Auto-detect the most interesting part of the image
         }
       );
 
@@ -122,12 +122,12 @@ cloudinary.config({
     }
   }
 
-  console.log("\n--- Cloudinary Upload Process Complete ---");
+  console.log('\n--- Cloudinary Upload Process Complete ---');
   console.log(
-    "Please copy the following JSON array and paste it into your `seedCategories.js` file:\n"
+    'Please copy the following JSON array and paste it into your `seedCategories.js` file:\n'
   );
   console.log(JSON.stringify(uploadedCategoriesData, null, 2)); // Pretty print the JSON output
-  console.log("\n------------------------------------------------\n");
+  console.log('\n------------------------------------------------\n');
 
   try {
     await mongoose.connect(MONGODB_URI, {
@@ -135,7 +135,7 @@ cloudinary.config({
       useUnifiedTopology: true,
       // Remove useCreateIndex and useFindAndModify as they are deprecated in Mongoose 6+
     });
-    console.log("MongoDB connected for seeding!");
+    console.log('MongoDB connected for seeding!');
 
     for (const categoryData of uploadedCategoriesData) {
       // Find one document with the same name. If it exists, update it, otherwise insert a new one.
@@ -148,11 +148,11 @@ cloudinary.config({
       console.log(`Category "${categoryData.name}" upserted.`);
     }
 
-    console.log("All categories seeded successfully!");
+    console.log('All categories seeded successfully!');
   } catch (error) {
-    console.error("Error seeding categories:", error);
+    console.error('Error seeding categories:', error);
   } finally {
     await mongoose.disconnect();
-    console.log("MongoDB disconnected.");
+    console.log('MongoDB disconnected.');
   }
 })();

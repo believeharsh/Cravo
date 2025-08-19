@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from '../../../components/ui/Icon'; 
-import Button from '../../../components/ui/Button'; 
+import Icon from '../../../components/ui/Icon';
+import Button from '../../../components/ui/Button';
 
 /**
  * Renders the section for delivery instructions.
@@ -10,7 +10,10 @@ import Button from '../../../components/ui/Button';
  * @param {function(React.ChangeEvent<HTMLTextAreaElement>): void} props.setDeliveryInstructions - Function to update delivery instructions.
  * @returns {JSX.Element} The DeliveryInstructionsSection component.
  */
-const DeliveryInstructionsSection = ({ deliveryInstructions, setDeliveryInstructions }) => {
+const DeliveryInstructionsSection = ({
+  deliveryInstructions,
+  setDeliveryInstructions,
+}) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
       <div className="flex items-center gap-3 mb-4">
@@ -24,7 +27,7 @@ const DeliveryInstructionsSection = ({ deliveryInstructions, setDeliveryInstruct
 
       <textarea
         value={deliveryInstructions}
-        onChange={(e) => setDeliveryInstructions(e.target.value)}
+        onChange={e => setDeliveryInstructions(e.target.value)}
         placeholder="Add delivery instructions (optional)"
         rows={3}
         className="w-full p-3 border border-cream rounded-lg resize-none focus:ring-1 focus:ring-yellow-400"
