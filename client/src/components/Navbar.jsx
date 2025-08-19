@@ -1,18 +1,118 @@
-import React, { useState, useMemo } from "react"; 
+import React, { useState, useMemo } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Icon from "./ui/Icon";
-import Button from "../components/ui/Button"
-import { useSelector } from "react-redux";
+
+// Simple, self-contained Button component
+const Button = ({ children, onClick, className = "", variant = "default", ...props }) => {
+  const baseStyles = "px-4 py-2 rounded-xl font-medium transition-all duration-200";
+  const variantStyles = {
+    default: "bg-gray-200 text-gray-800 hover:bg-gray-300",
+    primary: "bg-yellow-400 text-gray-800 hover:bg-yellow-500",
+    ghost: "bg-transparent text-gray-400 hover:bg-gray-100",
+  };
+  return (
+    <button
+      onClick={onClick}
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Simple, self-contained Icon component (using inline SVG for cross-platform compatibility)
+const Icon = ({ name, size = 24, className = "" }) => {
+  const icons = {
+    "tag": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.586 4.586a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828L11.414 18.414A2 2 0 0 1 8.586 18.414L4.586 14.414a2 2 0 0 1 0-2.828z"></path><path d="M7 7h.01"></path></svg>
+    ),
+    "building2": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 22v-4a2 2 0 1 1 4 0v4M12 22v-8a2 2 0 1 1 4 0v8M10 22v-6a2 2 0 1 1 4 0v6M8 22v-4a2 2 0 1 1 4 0v4M6 22v-8a2 2 0 1 1 4 0v8M4 22v-4a2 2 0 1 1 4 0v4M2 22v-8a2 2 0 1 1 4 0v8"></path></svg>
+    ),
+    "help-circle": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.86 0"></path><path d="M12 17h.01"></path></svg>
+    ),
+    "shopping-cart": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 12.83a2 2 0 0 0 1.95 1.57h9.8a2 2 0 0 0 1.95-1.57L23 6H6"></path></svg>
+    ),
+    "user": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+    ),
+    "login": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+    ),
+    "x": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    ),
+    "menu": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    ),
+    "search": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    ),
+    "map-pin": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 17.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"></path><path d="M12 2C6.48 2 2 6.48 2 12c0 6.62 9 10 9 10s9-3.38 9-10c0-5.52-4.48-10-10-10z"></path></svg>
+    ),
+    "chevron-down": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    ),
+    "chevron-right": (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    )
+  };
+  return <div className={className}>{icons[name]}</div>;
+};
+
+// SearchModal component will be rendered as a pop-up
+const SearchModal = ({ isOpen, onClose, searchQuery, onSearchChange, onSearchSubmit }) => {
+  // Return null if the modal is not open
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300">
+      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 transition-transform duration-300 transform scale-100 opacity-100">
+        {/* Close button */}
+        <Button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors" variant="ghost">
+          <Icon name="x" size={24} />
+        </Button>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Search</h2>
+        <form onSubmit={onSearchSubmit} className="w-full relative">
+          <div className="relative">
+            <Icon
+              name="search"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+              size={20}
+            />
+            <input
+              type="text"
+              placeholder="Search for restaurants, cuisines, or dishes..."
+              value={searchQuery}
+              onChange={onSearchChange}
+              className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-800 font-medium transition-colors duration-200"
+              autoFocus // Automatically focus the input when the modal opens
+            />
+          </div>
+        </form>
+        {/* You can add recent searches or popular suggestions here */}
+        <div className="mt-6">
+          <p className="text-sm text-gray-500">
+            Start typing to explore options...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Navbar = ({ showSearch = true, cartCount = 0 }) => {
+  // State for mobile menu and search modal
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [userLocation, setUserLocation] = useState("San Francisco, CA"); // Placeholder for user's location
+  const isAuthenticated = false; // Mocking authentication state
 
-  const { isAuthenticated } = useSelector((state) => state.auth);
-
-  // Use useMemo to create the navItems array,
-  // so it only recomputes when isAuthenticated or cartCount changes.
+  // Use useMemo to create the navItems array, so it only recomputes when dependencies change.
   const navItems = useMemo(() => {
     const baseNavItems = [
       {
@@ -60,20 +160,29 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
       baseNavItems.push({
         id: "signin",
         label: "Sign In",
-        Iconname: "login", 
+        Iconname: "login",
         path: "/auth/signin",
-        // isButton: true, 
         showOnMobile: true,
       });
     }
 
     return baseNavItems;
-  }, [isAuthenticated, cartCount]); // Depend on these values
+  }, [isAuthenticated, cartCount]);
 
-  const handleSearch = (e) => {
+  // Handle the search submission
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
-    // In a real app, you'd likely use navigate('/search-results?query=' + searchQuery)
+    // In a real app, you'd navigate here, e.g., navigate(`/search?query=${searchQuery}`);
+    setIsSearchModalOpen(false); // Close modal after search
+  };
+
+  const openSearchModal = () => {
+    setIsSearchModalOpen(true);
+  };
+
+  const closeSearchModal = () => {
+    setIsSearchModalOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -84,145 +193,103 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
     <>
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-3">
-          {/* Top Row: Logo, Search (Desktop), Desktop Nav, Mobile Toggle */}
+          {/* Top Row: Logo, Location, Search (Desktop), Desktop Nav, Mobile Toggle */}
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo Section */}
-            <Link to="/" className="flex items-center space-x-3 cursor-pointer">
+            <Link to="/" className="flex items-center space-x-3 cursor-pointer flex-shrink-0">
               <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl border-2 border-white flex items-center justify-center">
-                <img src={`/assets/Cravo_logo.png`} alt="Cravo Logo" />
+                {/* Fallback to simple icon if image is not found */}
+                <img
+                  src={`/assets/Cravo_logo.png`}
+                  alt="Cravo Logo"
+                  onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/60x60/fde047/6b7280?text=C"; }}
+                />
               </div>
-              <div className="w-10 sm:w-32 ">
+              <div className="w-10 sm:w-32 hidden sm:block">
                 <img
                   src={`/assets/Cravo_text_black_logo_without_bg.png`}
                   alt="Cravo Text Logo"
+                  onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/128x38/fde047/6b7280?text=Cravo"; }}
                 />
               </div>
             </Link>
 
-            {/* Search Bar (Desktop) */}
-            {showSearch && (
-              <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
-                <form onSubmit={handleSearch} className="w-full relative">
-                  <div className="relative">
-                    <Icon
-                      name="search"
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
-                      size={20}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Search for restaurants, cuisines, or dishes..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onFocus={() => setIsSearchFocused(true)}
-                      onBlur={() => setIsSearchFocused(false)}
-                      className="w-full pl-12 pr-4 py-3 border-2  border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium transition-colors duration-200"
-                    />
-                    {isSearchFocused && (
-                      <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg p-4 z-10">
-                        <p className="text-sm text-gray-600">
-                          Start typing to search...
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </form>
+            {/* Location & Search section (Desktop & Mobile) */}
+            <div className="hidden sm:flex flex-1 items-center space-x-4 ml-6 mr-auto">
+              {/* Location display */}
+              <div className="flex items-center space-x-2 text-gray-700 hover:text-yellow-600 transition-colors cursor-pointer group">
+                <Icon name="map-pin" size={20} className="text-gray-400 group-hover:text-yellow-500 transition-colors" />
+                <span className="font-medium text-sm md:text-base hidden sm:inline">{userLocation}</span>
+                <Icon name="chevron-down" size={20} className="text-gray-400 group-hover:text-yellow-500 transition-colors" />
               </div>
-            )}
+
+              {/* Smaller Search field that opens modal */}
+              {showSearch && (
+                <div
+                  className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors max-w-xs"
+                  onClick={openSearchModal}
+                >
+                  <Icon name="search" size={18} className="text-gray-500" />
+                  <span className="text-gray-500 text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis">Search for food, restaurants...</span>
+                </div>
+              )}
+            </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-2">
-              {navItems.map((item) => {
-                if (!item.path) return null; // Should not happen with the current setup
-                
-                // Conditional rendering for authenticated user
-                if (!isAuthenticated) {
-                  return (
-                    <NavLink
-                    key={item.id}
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
-                        isActive
-                          ? "bg-yellow-50 text-yellow-600"
-                          : "text-gray-700 hover:text-gray-900"
-                      }`
-                    }
-                  >
-                    <Icon name={item.Iconname} size={18} />
-                    <span className="hidden xl:block">{item.label}</span>
-
-                    </NavLink>
-                    
-                  );
-                }
-
-                return (
-                  <NavLink
-                    key={item.id}
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
-                        isActive
-                          ? "bg-yellow-50 text-yellow-600"
-                          : "text-gray-700 hover:text-gray-900"
-                      }`
-                    }
-                  >
-                    <Icon name={item.Iconname} size={18} />
-                    <span className="hidden xl:block">{item.label}</span>
-
-                    {/* Badge */}
-                    {item.badge && (
-                      <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-0.5 rounded-full">
-                        {item.badge}
-                      </span>
-                    )}
-
-                    {/* Count */}
-                    {item.count > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                        {item.count > 99 ? "99+" : item.count}
-                      </span>
-                    )}
-                  </NavLink>
-                );
-              })}
+            <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.id}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
+                      isActive
+                        ? "bg-yellow-50 text-yellow-600"
+                        : "text-gray-700 hover:text-gray-900"
+                    }`
+                  }
+                >
+                  <Icon name={item.Iconname} size={18} />
+                  <span className="hidden xl:block">{item.label}</span>
+                  {/* Badge & Count */}
+                  {item.badge && (
+                    <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-0.5 rounded-full">
+                      {item.badge}
+                    </span>
+                  )}
+                  {item.count > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      {item.count > 99 ? "99+" : item.count}
+                    </span>
+                  )}
+                </NavLink>
+              ))}
             </div>
 
-            {/* Mobile Menu Button */}
-            <Button
-              onClick={toggleMobileMenu}
-              className="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors"
-              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-            >
-              {isMobileMenuOpen ? (
-                <Icon name={"x"} size={24} className="text-gray-600" />
-              ) : (
-                <Icon name={"menu"} size={24} className="text-gray-600" />
-              )}
-            </Button>
+            {/* Mobile Menu Button & Search Icon */}
+            <div className="sm:hidden flex items-center space-x-2 flex-shrink-0">
+                {showSearch && (
+                  <Button
+                    onClick={openSearchModal}
+                    className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
+                    aria-label="Open search"
+                  >
+                    <Icon name={"search"} size={24} className="text-gray-600" />
+                  </Button>
+                )}
+                <Button
+                  onClick={toggleMobileMenu}
+                  className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
+                  aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+                >
+                  {isMobileMenuOpen ? (
+                    <Icon name={"x"} size={24} className="text-gray-600" />
+                  ) : (
+                    <Icon name={"menu"} size={24} className="text-gray-600" />
+                  )}
+                </Button>
+            </div>
           </div>
-
-          {/* Mobile Search Bar (always visible below the top row on mobile) */}
-          {showSearch && (
-            <div className="lg:hidden pb-4">
-              <form onSubmit={handleSearch} className="relative">
-                <Icon
-                  name={"search"}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
-                  size={18}
-                />
-                <input
-                  type="text"
-                  placeholder="Search restaurants, food..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium"
-                />
-              </form>
-            </div>
-          )}
 
           {/* Mobile Navigation Menu (expands downwards) */}
           <div
@@ -231,64 +298,47 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
             }`}
           >
             <div className="py-4 border-t border-gray-200 space-y-2">
+              <div className="flex items-center space-x-3 p-4 rounded-xl text-gray-700">
+                <Icon name="map-pin" size={20} className="text-gray-400" />
+                <span>{userLocation}</span>
+              </div>
               {navItems
                 .filter((item) => item.showOnMobile)
-                .map((item) => {
-                  // Conditional rendering for button vs. NavLink in mobile menu
-                  if (item.isButton) {
-                    return (
-                      <Link key={item.id} to={item.path} onClick={toggleMobileMenu}>
-                        <Button
-                          variant="primary"
-                          className="w-full justify-center py-3" // Make button full width and center text for mobile
-                        >
-                          <Icon name={item.Iconname} size={20} className="mr-3" />
-                          <span>{item.label}</span>
-                        </Button>
-                      </Link>
-                    );
-                  }
+                .map((item) => (
+                  <NavLink
+                    key={item.id}
+                    to={item.path}
+                    onClick={toggleMobileMenu}
+                    className={({ isActive }) =>
+                      `w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 ${
+                        isActive
+                          ? "bg-yellow-50 text-yellow-600 border border-yellow-200"
+                          : "text-gray-700 hover:bg-gray-50"
+                      }`
+                    }
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Icon name={item.Iconname} size={20} />
+                      <span>{item.label}</span>
+                    </div>
 
-                  return (
-                    <NavLink
-                      key={item.id}
-                      to={item.path}
-                      onClick={toggleMobileMenu} // Close menu on item click
-                      className={({ isActive }) =>
-                        `w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 ${
-                          isActive
-                            ? "bg-yellow-50 text-yellow-600 border border-yellow-200"
-                            : "text-gray-700 hover:bg-gray-50"
-                        }`
-                      }
-                    >
-                      <div className="flex items-center space-x-3">
-                        <Icon name={item.Iconname} size={20} />
-                        <span>{item.label}</span>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        {/* Badge */}
-                        {item.badge && (
-                          <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-1 rounded-full">
-                            {item.badge}
-                          </span>
-                        )}
-
-                        {/* Count */}
-                        {item.count > 0 && (
-                          <span className="bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
-                            {item.count > 99 ? "99+" : item.count}
-                          </span>
-                        )}
-                        <Icon name="chevron-right" size={16} className="text-gray-400" />
-                      </div>
-                    </NavLink>
-                  );
-                })}
+                    <div className="flex items-center space-x-2">
+                      {/* Badge & Count */}
+                      {item.badge && (
+                        <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-1 rounded-full">
+                          {item.badge}
+                        </span>
+                      )}
+                      {item.count > 0 && (
+                        <span className="bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+                          {item.count > 99 ? "99+" : item.count}
+                        </span>
+                      )}
+                      <Icon name="chevron-right" size={16} className="text-gray-400" />
+                    </div>
+                  </NavLink>
+                ))}
             </div>
-
-            {/* Mobile Menu Footer (optional, inside the expanding menu) */}
             <div className="p-4 bg-gray-50 border-t border-gray-200">
               <p className="text-sm text-gray-600 text-center">
                 CravingCart - Satisfy Your Cravings
@@ -297,6 +347,14 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
           </div>
         </div>
       </nav>
+      {/* Render the search modal */}
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={closeSearchModal}
+        searchQuery={searchQuery}
+        onSearchChange={(e) => setSearchQuery(e.target.value)}
+        onSearchSubmit={handleSearchSubmit}
+      />
     </>
   );
 };
