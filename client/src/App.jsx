@@ -1,57 +1,68 @@
-import "./App.css";
+/// Testing the husky and prettier in the cravo
+
+const myobj = {
+  hello: 'what is happening',
+};
+
+import './App.css';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate, 
-} from "react-router-dom";
+  Navigate,
+} from 'react-router-dom';
 
-import CategoryResultPage from "./pages/categoryResultPage/CategoryResultpage";
-import OffersPage from "./pages/offersPage/OffersPage";
-import AdminPage from "./pages/adminPage/AdminPage";
-import LandingPage from "./pages/landingPage/LandingPage"; 
+import CategoryResultPage from './pages/categoryResultPage/CategoryResultpage';
+import OffersPage from './pages/offersPage/OffersPage';
+import AdminPage from './pages/adminPage/AdminPage';
+import LandingPage from './pages/landingPage/LandingPage';
 
+import LoginPage from './pages/auth/LoginPage';
+import SignupPage from './pages/auth/SignupPage';
 
-import LoginPage from "./pages/auth/LoginPage";
-import SignupPage from "./pages/auth/SignupPage";
+import RestaurantsOverviewPage from './pages/restaurant-Overview-Page/RestaurantsOverviewPage';
+import CartPage from './pages/cartPage/CartPage';
+import Settings from './pages/profilePage/Settings';
+import Favorites from './pages/profilePage/Favorites';
+import HelpSupport from './pages/profilePage/Help-Support';
+import Orders from './pages/profilePage/Orders';
+import Payments from './pages/profilePage/Payment';
+import Addresses from './pages/profilePage/Address';
+import Dashboard from './pages/profilePage/Dashboard';
 
-import RestaurantsOverviewPage from "./pages/restaurant-Overview-Page/RestaurantsOverviewPage"; 
-import CartPage from "./pages/cartPage/CartPage";
-import Settings from "./pages/profilePage/Settings";
-import Favorites from "./pages/profilePage/Favorites";
-import HelpSupport from "./pages/profilePage/Help-Support";
-import Orders from "./pages/profilePage/Orders";
-import Payments from "./pages/profilePage/Payment";
-import Addresses from "./pages/profilePage/Address";
-import Dashboard from "./pages/profilePage/Dashboard";
-
-import ProfileLayout from "./components/ProfileLayout";
-import NotFound from "./components/NotFound";
-import CorporatePage from "./pages/corporatePage/CorporatePage";
+import ProfileLayout from './components/ProfileLayout';
+import NotFound from './components/NotFound';
+import CorporatePage from './pages/corporatePage/CorporatePage';
 import PrivateRoute from './components/PrivateRoute';
 
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import UnauthorizedPage from "./components/UnAuthorizedPage";
-import { initializeApplication } from "./features/landing/landingSlice";
-import DeliveryLoader from "./components/DeliveryLoader";
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import UnauthorizedPage from './components/UnAuthorizedPage';
+import { initializeApplication } from './features/landing/landingSlice';
+import DeliveryLoader from './components/DeliveryLoader';
 
 function App() {
   const dispatch = useDispatch();
   const hasAppInitializedRef = useRef(false);
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  const { isAppFullyInitialized, appInitError } = useSelector((state) => state.landingPage); 
+  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAppFullyInitialized, appInitError } = useSelector(
+    state => state.landingPage
+  );
 
-  console.log(isAuthenticated) ; 
+  console.log(isAuthenticated);
 
   useEffect(() => {
     // The `hasAppInitializedRef.current` ensures it runs once even with StrictMode.
     if (!hasAppInitializedRef.current) {
-      console.log("App.jsx: Dispatching initializeApplication on initial mount (first time, controlled by ref).");
+      console.log(
+        'App.jsx: Dispatching initializeApplication on initial mount (first time, controlled by ref).'
+      );
       dispatch(initializeApplication());
       hasAppInitializedRef.current = true;
     } else {
-      console.log("App.jsx: initializeApplication has already been dispatched or is in progress (due to StrictMode re-run).");
+      console.log(
+        'App.jsx: initializeApplication has already been dispatched or is in progress (due to StrictMode re-run).'
+      );
     }
   }, [dispatch]); // Dependency array: run once on mount
 
@@ -62,7 +73,7 @@ function App() {
   }
 
   if (appInitError) {
-      console.error("App Initialization Error:", appInitError);
+    console.error('App Initialization Error:', appInitError);
   }
 
   // Once authentication status is initialized, render the appropriate routes
@@ -70,7 +81,13 @@ function App() {
     <Routes>
       <Route
         index
-        element={isAuthenticated ? <Navigate to="/restaurants" replace /> : <LandingPage />}
+        element={
+          isAuthenticated ? (
+            <Navigate to="/restaurants" replace />
+          ) : (
+            <LandingPage />
+          )
+        }
       />
 
       {/* Public Routes (accessible to both guests and authenticated users) */}
