@@ -1,9 +1,3 @@
-/// Testing the husky and prettier in the cravo
-
-const myobj = {
-  hello: 'what is happening',
-};
-
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';

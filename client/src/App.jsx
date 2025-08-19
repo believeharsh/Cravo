@@ -1,9 +1,3 @@
-/// Testing the husky and prettier in the cravo
-
-const myobj = {
-  hello: 'what is happening',
-};
-
 import './App.css';
 import {
   BrowserRouter as Router,
