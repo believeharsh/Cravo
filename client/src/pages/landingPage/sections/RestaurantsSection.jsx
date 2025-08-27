@@ -1,67 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../../components/ui/Icon';
+import { Link } from 'react-router-dom';
 
-const RestaurantCard = ({ restaurant, width }) => (
+const RestaurantCard = ({ restaurant }) => (
   <div
-    className="flex-shrink-0 px-2 sm:px-3"
-    style={{ width }} /* % width from parent */
+    className="bg-white rounded-xl border border-gray-200 overflow-hidden
+      hover:-translate-y-1 hover:shadow-md
+      transition-transform duration-200 ease-out cursor-pointer"
   >
-    <div
-      className="bg-white rounded-xl border border-gray-200 overflow-hidden
-                 hover:-translate-y-1 hover:shadow-md
-                 transition-transform duration-200 ease-out cursor-pointer"
-    >
-      {/* Restaurant Image */}
-      <div className="relative h-32 sm:h-36 overflow-hidden">
-        <img
-          src={restaurant.images[0]}
-          alt={restaurant.name}
-          className="w-full h-full object-cover"
-        />
-        {restaurant.is_active && (
-          <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-            Open
-          </div>
-        )}
-        <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-          <Icon name={'star'} size={10} fill="currentColor" />
-          {restaurant.rating}
+    {/* Restaurant Image */}
+    <div className="relative h-32 sm:h-36 overflow-hidden">
+      <img
+        src={restaurant.images[0]}
+        alt={restaurant.name}
+        className="w-full h-full object-cover"
+      />
+      {restaurant.is_active && (
+        <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+          Open
+        </div>
+      )}
+      <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+        <Icon name={'star'} size={10} fill="currentColor" />
+        {restaurant.rating}
+      </div>
+    </div>
+
+    {/* Restaurant Details */}
+    <div className="p-4">
+      <h3 className="font-semibold text-gray-800 text-sm mb-1 truncate">
+        {restaurant.name}
+      </h3>
+
+      <div className="flex items-center gap-1 mb-2">
+        <span className="text-xs text-gray-500">
+          {restaurant.cuisine_type.join(', ')}
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between text-xs text-gray-500">
+        <div className="flex items-center gap-1">
+          <Icon name={'map-pin'} size={10} />
+          <span>{restaurant.address.city}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Icon name={'clock'} size={10} />
+          <span>{restaurant.delivery_radius_km}km</span>
         </div>
       </div>
 
-      {/* Restaurant Details */}
-      <div className="p-4">
-        <h3 className="font-semibold text-gray-800 text-sm mb-1 truncate">
-          {restaurant.name}
-        </h3>
-
-        <div className="flex items-center gap-1 mb-2">
-          <span className="text-xs text-gray-500">
-            {restaurant.cuisine_type.join(', ')}
+      <div className="mt-2 pt-2 border-t border-gray-100">
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-gray-600">
+            Min Order: ₹{restaurant.min_order_value}
           </span>
-        </div>
-
-        <div className="flex items-center justify-between text-xs text-gray-500">
-          <div className="flex items-center gap-1">
-            <Icon name={'map-pin'} size={10} />
-            <span>{restaurant.address.city}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Icon name={'clock'} size={10} />
-            <span>{restaurant.delivery_radius_km}km</span>
-          </div>
-        </div>
-
-        <div className="mt-2 pt-2 border-t border-gray-100">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-600">
-              Min Order: ₹{restaurant.min_order_value}
-            </span>
-            <span className="text-gray-500">
-              ({restaurant.numberOfReviews} reviews)
-            </span>
-          </div>
+          <span className="text-gray-500">
+            ({restaurant.numberOfReviews} reviews)
+          </span>
         </div>
       </div>
     </div>
@@ -157,11 +153,14 @@ const RestaurantsSection = () => {
             style={{ transform: `translateX(${translatePct}%)` }}
           >
             {restaurants.map(restaurant => (
-              <RestaurantCard
+              <Link
                 key={restaurant._id}
-                restaurant={restaurant}
-                width={`${cardWidthPct}%`}
-              />
+                to={`/menu/${restaurant._id}`}
+                className="flex-shrink-0 px-2 sm:px-3"
+                style={{ width: `${cardWidthPct}%` }}
+              >
+                <RestaurantCard restaurant={restaurant} />
+              </Link>
             ))}
           </div>
         </div>
