@@ -34,6 +34,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UnauthorizedPage from './components/UnAuthorizedPage';
 import { initializeApplication } from './features/landing/landingSlice';
 import DeliveryLoader from './components/DeliveryLoader';
+import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 
 function App() {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ function App() {
       {/* Public Routes (accessible to both guests and authenticated users) */}
       <Route path="restaurants" element={<RestaurantsOverviewPage />} />
       <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
+      <Route path="menu/:restaurantSlug" element={<RestaurantMenuPage />} />
       <Route path="offers" element={<OffersPage />} />
       <Route path="cart" element={<CartPage />} />
       <Route path="corporate" element={<CorporatePage />} />
