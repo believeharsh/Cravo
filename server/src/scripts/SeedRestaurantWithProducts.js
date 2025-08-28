@@ -13,8 +13,8 @@ import Restaurant from '../models/restaurant.model.js';
 import Product from '../models/product.model.js';
 
 // Sample Data
-// import { bhopalRestaurants } from "../sample-Data/Restaurants-Data/BhopalRestaurant.js";
-import { IndoreRestaurants } from '../sample-Data/Restaurants-Data/IndoreRestaurant.js';
+import { bhopalRestaurants } from '../sample-Data/Restaurants-Data/BhopalRestaurant.js';
+// import { IndoreRestaurants } from '../sample-Data/Restaurants-Data/IndoreRestaurant.js';
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -123,8 +123,9 @@ const seedDatabase = async () => {
     console.log('=================================================');
     console.log('\n🔌 Connecting to MongoDB...');
     await mongoose.connect(MONGODB_URI);
-    console.log('✅ MongoDB connected successfully.'); // Fetch categories
+    console.log('✅ MongoDB connected successfully.');
 
+    // Fetch and log categories from DB
     console.log('\n🍔 Fetching categories from database...');
     const categories = await Category.find({});
     if (!categories.length) {
@@ -134,15 +135,18 @@ const seedDatabase = async () => {
       return; // Exit if no categories
     } else {
       console.log(`✅ Fetched ${categories.length} categories.`);
+      console.log('✅ Found the following categories in the database:');
+      categories.forEach(cat => console.log(`    - ${cat.name}`));
     }
     const categoryMap = categories.reduce((map, cat) => {
       map[cat.name.toLowerCase()] = cat;
       return map;
-    }, {}); // Seed restaurants
+    }, {});
 
-    console.log(`\n🏪 Seeding ${IndoreRestaurants.length} restaurants...`);
+    // Seed restaurants
+    console.log(`\n🏪 Seeding ${bhopalRestaurants.length} restaurants...`);
     const insertedRestaurants = [];
-    for (const restaurant of IndoreRestaurants) {
+    for (const restaurant of bhopalRestaurants) {
       console.log(
         `\n  ------------------- Seeding Restaurant: ${restaurant.name} -------------------`
       );
@@ -153,7 +157,7 @@ const seedDatabase = async () => {
         coordinates: [baseLon + randomOffset(), baseLat + randomOffset()],
       };
 
-      console.log(`  🖼️ Processing restaurant image...`); // Pass the 'restaurants' folder name
+      console.log(`  🖼️ Processing restaurant image...`);
       const imgUrl = await uploadImageOnce(
         restaurant.imagePath,
         'restaurants',
@@ -173,21 +177,37 @@ const seedDatabase = async () => {
 
       insertedRestaurants.push(doc);
       console.log(`✅ Restaurant seeded: ${doc.name} (ID: ${doc._id})`);
-    } // Seed products for each restaurant
+    }
 
+    // Seed products for each restaurant
     console.log(`\n------------------- Seeding Products -------------------`);
     const allProducts = [];
+
     for (const restaurant of insertedRestaurants) {
       console.log(
         `\n🔹 Processing products for restaurant: ${restaurant.name}`
       );
+
+      // Check the cuisine_type from the restaurant data
+      console.log(
+        `    🔍 Restaurant cuisine types: ${restaurant.cuisine_type.join(', ')}`
+      );
+
       const restaurantCategories = restaurant.cuisine_type
-        .map(c => categoryMap[c.toLowerCase()])
+        .map(c => {
+          const category = categoryMap[c.toLowerCase()];
+          if (!category) {
+            console.warn(
+              `    ⚠️ No database category found for cuisine type: '${c}'. Skipping this cuisine.`
+            );
+          }
+          return category;
+        })
         .filter(Boolean);
 
       if (!restaurantCategories.length) {
         console.warn(
-          `  ⚠️ No matching categories found for ${restaurant.name}. Skipping product seeding.`
+          `  ⚠️ Final check: No matching categories found for ${restaurant.name}. Skipping product seeding entirely.`
         );
         continue;
       }
@@ -206,7 +226,7 @@ const seedDatabase = async () => {
           );
           continue;
         }
-        const subset = getRandomSubset(pool, Math.min(5, pool.length)); // max 6 products per category
+        const subset = getRandomSubset(pool, Math.min(3, pool.length)); // max 4 products per category
 
         console.log(
           `    🍽️ Adding ${subset.length} products for category: ${category.name}`
@@ -214,7 +234,7 @@ const seedDatabase = async () => {
 
         for (let i = 0; i < subset.length; i++) {
           const poolProduct = subset[i];
-          console.log(`      ➡️ Processing product: ${poolProduct.name}`); // Pass the 'products' folder name
+          console.log(`      ➡️ Processing product: ${poolProduct.name}`);
           const imgUrl = await uploadImageOnce(
             poolProduct.image,
             'products',
