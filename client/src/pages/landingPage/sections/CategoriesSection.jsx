@@ -17,12 +17,12 @@ const CategoryCard = ({ c, width, onClick }) => (
       <img
         src={c.image}
         alt={c.name}
-        className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg"
+        className="w-24 h-24 sm:w-28 sm:h-28 object-cover "
         onError={e => {
           e.target.src = '/placeholder-category.png';
         }}
       />
-      <span className="mt-3 font-semibold text-gray-700 text-md text-center">
+      <span className="mt-2 font-semibold text-gray-700 text-md text-center">
         {c.name}
       </span>
     </div>
