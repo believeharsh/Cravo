@@ -52,7 +52,6 @@ const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
   try {
     const { restaurantID } = req.params;
 
-    // 1. Validate that a restaurant ID was provided.
     if (!restaurantID) {
       return res.status(400).json({
         success: false,
@@ -60,8 +59,6 @@ const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
       });
     }
 
-    // 2. Fetch the restaurant details first.
-    // We use findById() because we expect a single restaurant.
     const restaurant = await Restaurant.findById(restaurantID);
 
     // 3. If the restaurant is not found, return a 404 immediately.
@@ -72,10 +69,10 @@ const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
       });
     }
 
-    // 4. Fetch all products for that specific restaurant.
-    const products = await Product.find({ restaurant: restaurantID });
+    const products = await Product.find({ restaurant: restaurantID }).populate(
+      'category'
+    );
 
-    // 5. Send a single, combined response with both the restaurant and its products.
     res.status(200).json({
       success: true,
       message: `Fetched products and details for restaurant '${restaurant.name}' successfully.`,
