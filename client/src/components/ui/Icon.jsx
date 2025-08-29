@@ -1,6 +1,3 @@
-import React from 'react';
-
-// Importing all the lucide icons that are being used thorugh out the app
 import {
   ArrowLeft,
   Menu,
@@ -98,9 +95,14 @@ import {
   Sparkles,
   ShoppingCart,
   LogIn,
+  Timer,
+  Salad,
+  Pizza,
+  IndianRupee,
 } from 'lucide-react';
 
-// A map from a friendly string name to the actual Lucide React component
+// creating a map with icons names properties and adding actual Lucide React Icon to them
+
 const iconMap = {
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
@@ -153,7 +155,7 @@ const iconMap = {
   'bar-chart-3': BarChart3,
   coffee: Coffee,
   play: Play,
-  'head-phones': Headphones,
+  headphones: Headphones,
   gift: Gift,
   'users-2': Users2,
   users: User,
@@ -185,10 +187,10 @@ const iconMap = {
   book: Book,
   'file-text': FileText,
   video: Video,
-  'external-Link': ExternalLink,
+  'external-link': ExternalLink,
   package: Package,
   'chevron-up': ChevronUp,
-  'x-circel': XCircle,
+  'x-circle': XCircle,
   calendar: Calendar,
   navigation: Navigation,
   receipt: Receipt,
@@ -199,23 +201,26 @@ const iconMap = {
   'refresh-cw': RefreshCw,
   database: Database,
   sparkles: Sparkles,
+  timer: Timer,
+  salad: Salad,
+  pizza: Pizza,
+  'indian-rupee': IndianRupee,
 };
 
+// Main Icon component that renders the correct icon based on props.
 const Icon = ({
   name,
-  size = 20, // Default size
-  color = 'currentColor', // Default color (inherits from text color)
-  className = '', // For additional Tailwind or custom classes
-  ...props // rest props
+  size = 20,
+  color = 'currentColor',
+  className = '',
+  ...props
 }) => {
   const LucideIconComponent = iconMap[name.toLowerCase()];
 
   if (!LucideIconComponent) {
-    // Log a warning in development if an unmapped icon name is used
     if (process.env.NODE_ENV === 'development') {
       console.warn(
-        `Icon "${name}" not found or not mapped in components/ui/Icon.jsx. ` +
-          `Please import it from 'lucide-react' and add it to the 'iconMap'.`
+        `Icon "${name}" not found or not mapped. Please add it to the 'iconMap'.`
       );
     }
     return null;
