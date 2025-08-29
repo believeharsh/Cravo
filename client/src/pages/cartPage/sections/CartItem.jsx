@@ -1,79 +1,68 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
-import Button from '../../../components/ui/Button';
 
-/**
- * Renders a single item in the shopping cart.
- *
- * @param {object} props - Component props.
- * @param {object} props.item - The cart item object.
- * @param {function(number, number): void} props.updateQuantity - Function to update this item's quantity.
- * @param {function(number): void} props.removeItem - Function to remove this item from the cart.
- * @returns {JSX.Element} The CartItem component.
- */
 const CartItem = ({ item, updateQuantity, removeItem }) => {
   return (
-    <div className="flex gap-4 p-4 border border-cream rounded-xl hover:border-gray-300 transition-colors">
-      <img
-        src={item.image}
-        alt={item.name}
-        className="w-20 h-20 rounded-lg object-cover bg-gray-200 flex-shrink-0"
-      />
+    <div className="flex items-center space-x-2 border-b border-gray-100 py-1 last:border-b-0 last:pb-0">
+      {/* Thumbnail */}
+      <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden shadow-sm">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      <div className="flex-1">
-        <div className="flex items-start justify-between">
-          <div>
-            <h4 className="font-semibold text-charcoal">{item.name}</h4>
-            <p className="text-sm text-medium-gray">{item.restaurant}</p>
-            {item.customizations.length > 0 && (
-              <p className="text-xs text-medium-gray mt-1">
-                {item.customizations.join(', ')}
-              </p>
-            )}
-          </div>
-
-          <Button
-            onClick={() => removeItem(item.id)}
-            className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-            type="button" // Important: Ensure this is a button type
-          >
-            <Icon name="trash-2" className="w-5 h-5" />
-          </Button>
-        </div>
-
-        <div className="flex items-end justify-between mt-4">
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-charcoal">
-              ${(item.price * item.quantity).toFixed(2)}
+      {/* Info */}
+      <div className="flex-grow min-w-0">
+        <h3 className="text-sm font-semibold text-gray-900 truncate">
+          {item.name}
+        </h3>
+        <p className="text-xs text-gray-500 truncate">{item.restaurant}</p>
+        {item.customizations.length > 0 && (
+          <p className="text-xs text-gray-400 truncate">
+            {item.customizations.join(', ')}
+          </p>
+        )}
+        <div className="flex items-center mt-0.5">
+          <span className="text-sm font-semibold text-gray-700">
+            ₹{item.price.toFixed(2)}
+          </span>
+          {item.originalPrice > item.price && (
+            <span className="ml-1 text-xs text-gray-400 line-through">
+              ₹{item.originalPrice.toFixed(2)}
             </span>
-            {item.price < item.originalPrice && (
-              <span className="text-sm line-through text-medium-gray">
-                ${(item.originalPrice * item.quantity).toFixed(2)}
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button
-              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-              className="p-2 bg-gray-100 hover:bg-gray-200 text-medium-gray rounded-lg"
-              type="button" // Important: Ensure this is a button type
-            >
-              <Icon name="minus" className="w-4 h-4" />
-            </Button>
-            <span className="font-medium text-charcoal w-8 text-center">
-              {item.quantity}
-            </span>
-            <Button
-              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-              className="p-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg"
-              type="button" // Important: Ensure this is a button type
-            >
-              <Icon name="plus" className="w-4 h-4" />
-            </Button>
-          </div>
+          )}
         </div>
       </div>
+
+      {/* Quantity Controls */}
+      <div className="flex items-center space-x-1">
+        <button
+          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+          className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+          disabled={item.quantity <= 1}
+        >
+          <Icon name="minus" size={14} className="text-gray-600" />
+        </button>
+        <span className="text-sm font-semibold text-gray-800 w-5 text-center">
+          {item.quantity}
+        </span>
+        <button
+          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+          className="w-7 h-7 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors"
+        >
+          <Icon name="plus" size={14} className="text-white" />
+        </button>
+      </div>
+
+      {/* Remove */}
+      <button
+        onClick={() => removeItem(item.id)}
+        className="ml-1 text-gray-400 hover:text-red-500 transition-colors"
+      >
+        <Icon name="trash" size={18} />
+      </button>
     </div>
   );
 };

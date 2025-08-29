@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../../components/ui/Icon';
-import Button from '../../components/ui/Button';
-import CartNavigation from './sections/CartNavigation';
 
-// Import the new section components
+import CartNavigation from './sections/CartNavigation';
 import CartItemsSection from './sections/CartItemsSection';
 import DeliveryAddressSection from './sections/DeliveryAddressSection';
 import PaymentMethodSection from './sections/PaymentMethodSection';
@@ -19,7 +17,7 @@ const CartPage = () => {
       price: 18.99,
       originalPrice: 22.99,
       quantity: 2,
-      image: '/api/placeholder/80/80',
+      image: 'https://placehold.co/80x80/ffe5e5/cc5252?text=Pizza',
       customizations: ['Extra cheese', 'Thin crust'],
       isVeg: true,
       rating: 4.8,
@@ -32,7 +30,7 @@ const CartPage = () => {
       price: 16.5,
       originalPrice: 16.5,
       quantity: 1,
-      image: '/api/placeholder/80/80',
+      image: 'https://placehold.co/80x80/e5fff0/52cc52?text=Curry',
       customizations: ['Medium spice', 'Extra rice'],
       isVeg: false,
       rating: 4.7,
@@ -45,7 +43,7 @@ const CartPage = () => {
       price: 12.99,
       originalPrice: 15.99,
       quantity: 1,
-      image: '/api/placeholder/80/80',
+      image: 'https://placehold.co/80x80/e5f0ff/5280cc?text=Salad',
       customizations: ['No croutons', 'Extra dressing'],
       isVeg: true,
       rating: 4.6,
@@ -74,25 +72,40 @@ const CartPage = () => {
     },
   ];
 
-  const [selectedAddress, setSelectedAddress] = useState(0);
-  const [selectedPayment, setSelectedPayment] = useState(0);
-  const [promoCode, setPromoCode] = useState('');
-  const [appliedPromo, setAppliedPromo] = useState(null);
-  const [deliveryInstructions, setDeliveryInstructions] = useState('');
-
   const paymentMethods = [
     {
       id: 1,
       type: 'Credit Card',
       details: 'Visa ending in 4242',
       icon: 'credit-card',
-      isDefault: true,
+      isDefault: false,
     },
     {
       id: 2,
-      type: 'PayPal',
+      type: 'UPI',
+      details: 'Visa ending in 4242',
+      icon: 'bank-note',
+      isDefault: true,
+    },
+    {
+      id: 3,
+      type: 'Debit Card',
       details: 'john.doe@email.com',
       icon: 'credit-card',
+      isDefault: false,
+    },
+    {
+      id: 4,
+      type: 'Cash On Delivery',
+      details: 'john.doe@email.com',
+      icon: 'bank-note',
+      isDefault: false,
+    },
+    {
+      id: 5,
+      type: 'Wallet',
+      details: 'john.doe@email.com',
+      icon: 'wallet',
       isDefault: false,
     },
   ];
@@ -114,7 +127,18 @@ const CartPage = () => {
     },
   ];
 
-  // Calculations for order summary (these remain in CartPage as they depend on multiple states)
+  const [selectedAddress, setSelectedAddress] = useState(
+    addresses[0]?.id || null
+  );
+  const [selectedPayment, setSelectedPayment] = useState(
+    paymentMethods[0]?.id || null
+  );
+  const [promoCode, setPromoCode] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState(null);
+  const [promoMessage, setPromoMessage] = useState('');
+  const [deliveryInstructions, setDeliveryInstructions] = useState('');
+
+  // Calculations for order summary
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -157,110 +181,108 @@ const CartPage = () => {
 
   const applyPromoCode = () => {
     const promo = promoCodes.find(p => p.code === promoCode.toUpperCase());
-    if (promo && subtotal >= promo.minOrder) {
-      setAppliedPromo(promo);
-      setPromoCode('');
+    setPromoMessage(''); // Clear previous message
+    if (promo) {
+      if (subtotal >= promo.minOrder) {
+        setAppliedPromo(promo);
+        setPromoCode('');
+        setPromoMessage('Promo code applied successfully!');
+      } else {
+        setPromoMessage(`Minimum order of $${promo.minOrder} required.`);
+      }
     } else {
-      alert('Invalid promo code or minimum order not met');
+      setPromoMessage('Invalid promo code.');
     }
   };
 
   const removePromoCode = () => {
     setAppliedPromo(null);
+    setPromoMessage('');
   };
 
   const handleCheckout = () => {
     console.log('Proceeding to checkout...');
-    // In a real app, this would dispatch an action or navigate to a payment gateway
   };
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-cream">
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-md mx-auto text-center">
-            <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Icon
-                name="shopping-cart"
-                className="w-16 h-16 text-medium-gray"
-              />
-            </div>
-            <h2 className="text-2xl font-bold text-charcoal mb-4">
-              Your cart is empty
-            </h2>
-            <p className="text-medium-gray mb-8">
-              Add some delicious items to get started!
-            </p>
-            <Button className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all">
-              Browse Restaurants
-            </Button>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans">
+        <div className="max-w-md mx-auto text-center p-8 bg-white rounded-3xl shadow-lg">
+          <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="shopping-cart" className="w-12 h-12 text-yellow-500" />
           </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Your cart is empty
+          </h2>
+          <p className="text-gray-600 mb-8">
+            Start adding delicious items to your order!
+          </p>
+          <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+            Browse Restaurants
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50 font-sans">
       <CartNavigation />
-      <div className="min-h-screen bg-cream">
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-charcoal mb-2">Your Cart</h1>
-            <p className="text-medium-gray">
-              {cartItems.length} items in your cart
-            </p>
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Cart Header */}
+        {/* <div className="mb-6">
+          <h1 className="text-3xl font-extrabold text-gray-800 mb-1">Your Cart</h1>
+          <p className="text-base text-gray-500">
+            {cartItems.length} items from {new Set(cartItems.map(item => item.restaurant)).size} restaurant{new Set(cartItems.map(item => item.restaurant)).size > 1 ? 's' : ''}
+          </p>
+        </div> */}
+
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Left Column (Items, Delivery & Payment) */}
+          <div className="lg:col-span-2 space-y-4">
+            <CartItemsSection
+              cartItems={cartItems}
+              updateQuantity={updateQuantity}
+              removeItem={removeItem}
+            />
+            <DeliveryAddressSection
+              addresses={addresses}
+              selectedAddress={selectedAddress}
+              setSelectedAddress={setSelectedAddress}
+            />
+            <PaymentMethodSection
+              paymentMethods={paymentMethods}
+              selectedPayment={selectedPayment}
+              setSelectedPayment={setSelectedPayment}
+            />
+            <DeliveryInstructionsSection
+              deliveryInstructions={deliveryInstructions}
+              setDeliveryInstructions={setDeliveryInstructions}
+            />
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Left Column (Address, Payment, Instructions) */}
-            <div className="lg:col-span-1 space-y-6">
-              <DeliveryAddressSection
-                addresses={addresses}
-                selectedAddress={selectedAddress}
-                setSelectedAddress={setSelectedAddress}
-              />
-
-              <PaymentMethodSection
-                paymentMethods={paymentMethods}
-                selectedPayment={selectedPayment}
-                setSelectedPayment={setSelectedPayment}
-              />
-
-              <DeliveryInstructionsSection
-                deliveryInstructions={deliveryInstructions}
-                setDeliveryInstructions={setDeliveryInstructions}
-              />
-            </div>
-
-            {/* Right Column (Order Items, Summary) */}
-            <div className="lg:col-span-2 space-y-6">
-              <CartItemsSection
-                cartItems={cartItems}
-                updateQuantity={updateQuantity}
-                removeItem={removeItem}
-              />
-
-              <OrderSummarySection
-                promoCode={promoCode}
-                setPromoCode={setPromoCode}
-                appliedPromo={appliedPromo}
-                applyPromoCode={applyPromoCode}
-                removePromoCode={removePromoCode}
-                subtotal={subtotal}
-                itemDiscount={itemDiscount}
-                promoDiscount={promoDiscount}
-                deliveryFee={deliveryFee}
-                serviceFee={serviceFee}
-                gst={gst}
-                finalTotal={finalTotal}
-                handleCheckout={handleCheckout}
-              />
-            </div>
+          {/* Right Column (Order Summary) */}
+          <div className="lg:col-span-1">
+            <OrderSummarySection
+              promoCode={promoCode}
+              setPromoCode={setPromoCode}
+              appliedPromo={appliedPromo}
+              applyPromoCode={applyPromoCode}
+              removePromoCode={removePromoCode}
+              promoMessage={promoMessage}
+              subtotal={subtotal}
+              itemDiscount={itemDiscount}
+              promoDiscount={promoDiscount}
+              deliveryFee={deliveryFee}
+              serviceFee={serviceFee}
+              gst={gst}
+              finalTotal={finalTotal}
+              handleCheckout={handleCheckout}
+            />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

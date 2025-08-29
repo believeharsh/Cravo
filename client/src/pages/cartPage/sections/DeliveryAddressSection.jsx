@@ -3,49 +3,34 @@ import Icon from '../../../components/ui/Icon';
 import Button from '../../../components/ui/Button';
 import AddressCard from './AddressCard';
 
-/**
- * Renders the section for selecting a delivery address.
- *
- * @param {object} props - Component props.
- * @param {Array<object>} props.addresses - An array of address objects.
- * @param {number} props.selectedAddress - The index of the currently selected address.
- * @param {function(number): void} props.setSelectedAddress - Function to set the selected address index.
- * @returns {JSX.Element} The DeliveryAddressSection component.
- */
-
 const DeliveryAddressSection = ({
   addresses,
   selectedAddress,
   setSelectedAddress,
 }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
-          <Icon name="map-pin" className="w-5 h-5 text-yellow-600" />
-        </div>
-        <h3 className="text-lg font-semibold text-charcoal">
-          Delivery Address
-        </h3>
-      </div>
-
+    <div className="bg-white rounded-3xl shadow-lg p-4">
+      <h2 className="text-xl font-bold text-gray-800 mb-3">Delivery Details</h2>
       <div className="space-y-3">
-        {addresses.map((address, index) => (
-          <AddressCard
-            key={address.id}
-            address={address}
-            isSelected={selectedAddress === index}
-            onClick={() => setSelectedAddress(index)}
-          />
+        {addresses.map(addr => (
+          <div
+            key={addr.id}
+            onClick={() => setSelectedAddress(addr.id)}
+            className={`p-3 rounded-xl cursor-pointer transition-all duration-200 ${selectedAddress === addr.id ? 'bg-yellow-50 border-2 border-yellow-400' : 'bg-gray-50 border border-transparent hover:bg-gray-100'}`}
+          >
+            <div className="flex items-center space-x-3">
+              <div className="flex-shrink-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow">
+                <Icon name={addr.icon} className="w-4 h-4 text-gray-600" />
+              </div>
+              <div className="flex-grow">
+                <p className="font-semibold text-gray-800">{addr.type}</p>
+                <p className="text-sm text-gray-500">
+                  {addr.address}, {addr.city}
+                </p>
+              </div>
+            </div>
+          </div>
         ))}
-
-        <Button
-          className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-medium-gray hover:border-yellow-400 hover:text-yellow-600 transition-colors flex items-center justify-center gap-2"
-          type="button" // Important: Ensure this is a button type
-        >
-          <Icon name="plus" className="w-4 h-4" />
-          Add New Address
-        </Button>
       </div>
     </div>
   );

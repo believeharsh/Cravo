@@ -99,11 +99,14 @@ import {
   Salad,
   Pizza,
   IndianRupee,
+  Trash,
+  Banknote,
 } from 'lucide-react';
 
 // creating a map with icons names properties and adding actual Lucide React Icon to them
 
 const iconMap = {
+  'bank-note': Banknote,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
   search: Search,
@@ -129,6 +132,7 @@ const iconMap = {
   youtube: Youtube,
   'arrow-left': ArrowLeft,
   'credit-card': CreditCard,
+
   settings: Settings,
   'help-circle': HelpCircle,
   logout: LogOut,
@@ -205,6 +209,7 @@ const iconMap = {
   salad: Salad,
   pizza: Pizza,
   'indian-rupee': IndianRupee,
+  trash: Trash,
 };
 
 // Main Icon component that renders the correct icon based on props.
