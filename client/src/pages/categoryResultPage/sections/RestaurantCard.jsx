@@ -7,32 +7,35 @@ const RestaurantCard = ({ restaurant }) => {
     restaurant;
 
   const imageUrl =
-    images && images.length > 0 ? images[0] : 'https://via.placeholder.com/400';
+    images && images.length > 0
+      ? images[0]
+      : 'https://placehold.co/400x240/f0f0f0/808080?text=Restaurant';
   const deliveryTime = '20-25 mins';
 
   return (
-    <div className="w-60 rounded-xl overflow-hidden shadow hover:shadow-md transition-shadow duration-300 cursor-pointer">
-      {/* Image Section */}
-      <div className="relative">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="w-full h-40 object-cover rounded-xl"
-        />
-
-        {/* ITEMS AT ₹49 Banner */}
-        <div className="absolute bottom-0 left-0 right-0 bg-black opacity-50 px-3 py-1 rounded-b-xl">
-          <div className=" text-white text-sm font-bold">
-            ITEMS AT ₹{min_order_value}{' '}
+    <div className="w-70 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-white">
+      {/* Image Section with Background and Banner */}
+      <div
+        className="relative w-full h-40 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+        }}
+      >
+        {/* Min Order Value Banner */}
+        <div className="absolute bottom-0 left-0 right-0 px-3 pb-2">
+          <div className="inline-block bg-black/60 px-3 py-1 rounded-md">
+            <span className="text-white text-sm font-bold tracking-wide italic">
+              ITEMS AT ₹{min_order_value}
+            </span>
           </div>
         </div>
       </div>
 
       {/* Info Section */}
-      <div className="pt-2 pb-3 px-2">
-        <h3 className="text-xl font-bold text-gray-900 truncate ">{name}</h3>
+      <div className="pt-2 pb-3 px-3">
+        <h3 className="text-xl font-bold text-gray-900 truncate">{name}</h3>
 
-        <div className="flex items-center space-x-2 text-sm text-gray-600 font-medium">
+        <div className="flex items-center space-x-2 text-sm text-gray-600 font-medium my-1">
           <div className="flex items-center space-x-1 text-green-600">
             <Icon name="star" size={14} className="text-green-500" />
             <span>{rating}</span>

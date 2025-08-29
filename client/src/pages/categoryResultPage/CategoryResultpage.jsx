@@ -8,10 +8,8 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import axiosInstance from '../../api/axiosInstance';
 
 const CategoryResultPage = () => {
-  // Use useParams to get the dynamic categorySlug from the URL path
   const { categorySlug } = useParams();
 
-  // Use useSearchParams to get and manage query parameters from the URL
   const [searchParams, setSearchParams] = useSearchParams();
 
   // State for API data
@@ -43,9 +41,13 @@ const CategoryResultPage = () => {
 
     try {
       // Get values from URL parameters, providing a default if they are missing
-      const longitude = searchParams.get('lng') || 75.86;
-      const latitude = searchParams.get('lat') || 22.72;
-      const limit = searchParams.get('limit') || 5;
+      // const longitude = searchParams.get('lng') || 75.86;
+      // const latitude = searchParams.get('lat') || 22.72;
+      // const limit = searchParams.get('limit') || 5;
+
+      const longitude = 75.86;
+      const latitude = 22.72;
+      const limit = 20;
 
       // Construct the API URL using dynamic parameters from the URL and state
       const apiUrl = `/api/v1/categories/category-result?categorySlug=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
