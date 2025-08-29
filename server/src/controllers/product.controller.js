@@ -69,9 +69,9 @@ const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
       });
     }
 
-    const products = await Product.find({ restaurant: restaurantID }).populate(
-      'category'
-    );
+    const products = await Product.find({ restaurant: restaurantID })
+      .populate('category')
+      .populate('restaurant');
 
     res.status(200).json({
       success: true,
