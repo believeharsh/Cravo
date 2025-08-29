@@ -88,7 +88,10 @@ function App() {
       {/* Public Routes (accessible to both guests and authenticated users) */}
       <Route path="restaurants" element={<RestaurantsOverviewPage />} />
       <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
-      <Route path="menu/:restaurantID" element={<RestaurantMenuPage />} />
+      <Route
+        path="menu/:restaurantName/:restaurantID"
+        element={<RestaurantMenuPage />}
+      />
       <Route path="offers" element={<OffersPage />} />
       <Route path="cart" element={<CartPage />} />
       <Route path="corporate" element={<CorporatePage />} />

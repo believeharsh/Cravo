@@ -152,16 +152,21 @@ const RestaurantsSection = () => {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(${translatePct}%)` }}
           >
-            {restaurants.map(restaurant => (
-              <Link
-                key={restaurant._id}
-                to={`/menu/${restaurant._id}`}
-                className="flex-shrink-0 px-2 sm:px-3"
-                style={{ width: `${cardWidthPct}%` }}
-              >
-                <RestaurantCard restaurant={restaurant} />
-              </Link>
-            ))}
+            {restaurants.map(restaurant => {
+              const restaurant_slug = restaurant.name
+                .toLowerCase()
+                .replace(/\s+/g, '-');
+              return (
+                <Link
+                  key={restaurant._id}
+                  to={`/menu/${restaurant_slug}/${restaurant._id}`}
+                  className="flex-shrink-0 px-2 sm:px-3"
+                  style={{ width: `${cardWidthPct}%` }}
+                >
+                  <RestaurantCard restaurant={restaurant} />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
