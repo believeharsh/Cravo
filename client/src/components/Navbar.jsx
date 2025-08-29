@@ -1,5 +1,8 @@
 import React, { useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
+import Icon from './ui/Icon';
 
 // Simple, self-contained Button component
 const Button = ({
@@ -25,206 +28,6 @@ const Button = ({
       {children}
     </button>
   );
-};
-
-// Simple, self-contained Icon component (using inline SVG for cross-platform compatibility)
-const Icon = ({ name, size = 24, className = '' }) => {
-  const icons = {
-    tag: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12.586 4.586a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828L11.414 18.414A2 2 0 0 1 8.586 18.414L4.586 14.414a2 2 0 0 1 0-2.828z"></path>
-        <path d="M7 7h.01"></path>
-      </svg>
-    ),
-    building2: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M14 22v-4a2 2 0 1 1 4 0v4M12 22v-8a2 2 0 1 1 4 0v8M10 22v-6a2 2 0 1 1 4 0v6M8 22v-4a2 2 0 1 1 4 0v4M6 22v-8a2 2 0 1 1 4 0v8M4 22v-4a2 2 0 1 1 4 0v4M2 22v-8a2 2 0 1 1 4 0v8"></path>
-      </svg>
-    ),
-    'help-circle': (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M9.09 9a3 3 0 0 1 5.86 0"></path>
-        <path d="M12 17h.01"></path>
-      </svg>
-    ),
-    'shopping-cart': (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="9" cy="21" r="1"></circle>
-        <circle cx="20" cy="21" r="1"></circle>
-        <path d="M1 1h4l2.68 12.83a2 2 0 0 0 1.95 1.57h9.8a2 2 0 0 0 1.95-1.57L23 6H6"></path>
-      </svg>
-    ),
-    user: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-    ),
-    login: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-        <polyline points="10 17 15 12 10 7"></polyline>
-        <line x1="15" y1="12" x2="3" y2="12"></line>
-      </svg>
-    ),
-    x: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    ),
-    menu: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    ),
-    search: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-    ),
-    'map-pin': (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 17.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"></path>
-        <path d="M12 2C6.48 2 2 6.48 2 12c0 6.62 9 10 9 10s9-3.38 9-10c0-5.52-4.48-10-10-10z"></path>
-      </svg>
-    ),
-    'chevron-down': (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    ),
-    'chevron-right': (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    ),
-  };
-  return <div className={className}>{icons[name]}</div>;
 };
 
 // SearchModal component will be rendered as a pop-up
@@ -278,13 +81,16 @@ const SearchModal = ({
   );
 };
 
-const Navbar = ({ showSearch = true, cartCount = 0 }) => {
+const Navbar = ({ showSearch = true }) => {
   // State for mobile menu and search modal
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [userLocation, setUserLocation] = useState('San Francisco, CA'); // Placeholder for user's location
   const isAuthenticated = false; // Mocking authentication state
+
+  const cartCount = useSelector(selectCartTotalQuantity);
+  console.log('Quantity of the products in the cart', cartCount);
 
   // Use useMemo to create the navItems array, so it only recomputes when dependencies change.
   const navItems = useMemo(() => {
@@ -454,9 +260,10 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
                       {item.badge}
                     </span>
                   )}
-                  {item.count > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                      {item.count > 99 ? '99+' : item.count}
+                  {item.count && (
+                    <span className="absolute -top-0.5 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      {/* {item.count > 99 ? '99+' : item.count} */}
+                      {cartCount > 99 ? '99+' : `  ${cartCount}`}
                     </span>
                   )}
                 </NavLink>
@@ -530,8 +337,8 @@ const Navbar = ({ showSearch = true, cartCount = 0 }) => {
                           {item.badge}
                         </span>
                       )}
-                      {item.count > 0 && (
-                        <span className="bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+                      {item.count && (
+                        <span className="bg-green-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
                           {item.count > 99 ? '99+' : item.count}
                         </span>
                       )}

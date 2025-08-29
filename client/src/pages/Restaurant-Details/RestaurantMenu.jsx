@@ -9,6 +9,12 @@ import RestaurantHeader from './sections/RestaurantHeader';
 import MenuFilters from './sections/MenuFilters';
 import ProductList from './sections/ProductList';
 import DealsSection from './sections/DealsSections';
+import { useSelector } from 'react-redux';
+import {
+  selectCartTotalQuantity,
+  selectCartTotalValue,
+} from '../../features/cart/cartSelectors';
+import CartStatusSection from './sections/CartStatusSection';
 
 const RestaurantMenuPage = () => {
   const { restaurantID } = useParams();
@@ -17,6 +23,15 @@ const RestaurantMenuPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
+
+  const { items } = useSelector(state => state.cart);
+  console.log(items);
+
+  const cartCount = useSelector(selectCartTotalQuantity);
+  console.log('Quantity of the products in the cart', cartCount);
+
+  const cartValue = useSelector(selectCartTotalValue);
+  console.log(cartValue);
 
   useEffect(() => {
     const fetchRestaurantData = async () => {
@@ -85,7 +100,7 @@ const RestaurantMenuPage = () => {
         />
         <ProductList menuItems={menuItems} activeFilter={activeFilter} />
       </div>
-
+      <CartStatusSection />
       <Footer />
     </div>
   );

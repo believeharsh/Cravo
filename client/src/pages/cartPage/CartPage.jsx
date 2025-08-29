@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCartTotalValue } from '../../features/cart/cartSelectors';
+import { updateQuantity, removeFromCart } from '../../features/cart/cartSlice';
 import Icon from '../../components/ui/Icon';
 
 import CartNavigation from './sections/CartNavigation';
@@ -9,48 +12,11 @@ import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection'
 import OrderSummarySection from './sections/OrderSummarySection';
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Margherita Pizza',
-      restaurant: "Tony's Italian Kitchen",
-      price: 18.99,
-      originalPrice: 22.99,
-      quantity: 2,
-      image: 'https://placehold.co/80x80/ffe5e5/cc5252?text=Pizza',
-      customizations: ['Extra cheese', 'Thin crust'],
-      isVeg: true,
-      rating: 4.8,
-      description: 'Fresh mozzarella, tomato sauce, basil',
-    },
-    {
-      id: 2,
-      name: 'Chicken Tikka Masala',
-      restaurant: 'Spice Garden',
-      price: 16.5,
-      originalPrice: 16.5,
-      quantity: 1,
-      image: 'https://placehold.co/80x80/e5fff0/52cc52?text=Curry',
-      customizations: ['Medium spice', 'Extra rice'],
-      isVeg: false,
-      rating: 4.7,
-      description: 'Tender chicken in creamy tomato curry',
-    },
-    {
-      id: 3,
-      name: 'Caesar Salad',
-      restaurant: 'Green Bowl',
-      price: 12.99,
-      originalPrice: 15.99,
-      quantity: 1,
-      image: 'https://placehold.co/80x80/e5f0ff/5280cc?text=Salad',
-      customizations: ['No croutons', 'Extra dressing'],
-      isVeg: true,
-      rating: 4.6,
-      description: 'Crisp romaine lettuce, parmesan, caesar dressing',
-    },
-  ]);
+  // Use useSelector to get the actual cart items from the Redux store
+  const { items: cartItems } = useSelector(state => state.cart);
+  const dispatch = useDispatch();
 
+  // Hardcoded data for addresses, payment methods, and promo codes for now
   const addresses = [
     {
       id: 1,
@@ -128,23 +94,23 @@ const CartPage = () => {
   ];
 
   const [selectedAddress, setSelectedAddress] = useState(
-    addresses[0]?.id || null
+    addresses.find(addr => addr.isDefault)?.id || null
   );
   const [selectedPayment, setSelectedPayment] = useState(
-    paymentMethods[0]?.id || null
+    paymentMethods.find(pm => pm.isDefault)?.id || null
   );
   const [promoCode, setPromoCode] = useState('');
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [promoMessage, setPromoMessage] = useState('');
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
 
+  // Use selectors to get the subtotal and total value from the cart items
+  const subtotal = useSelector(selectCartTotalValue);
+
   // Calculations for order summary
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
   const originalTotal = cartItems.reduce(
-    (sum, item) => sum + item.originalPrice * item.quantity,
+    (sum, item) =>
+      sum + (item.product.originalPrice || item.product.price) * item.quantity,
     0
   );
   const itemDiscount = originalTotal - subtotal;
@@ -163,25 +129,29 @@ const CartPage = () => {
 
   const finalTotal = subtotal + deliveryFee + serviceFee + gst - promoDiscount;
 
-  const updateQuantity = (itemId, newQuantity) => {
-    if (newQuantity === 0) {
-      setCartItems(prev => prev.filter(item => item.id !== itemId));
-    } else {
-      setCartItems(prev =>
-        prev.map(item =>
-          item.id === itemId ? { ...item, quantity: newQuantity } : item
-        )
-      );
-    }
+  // Functions now dispatch Redux actions
+  const updateItemQuantity = (item, newQuantity) => {
+    dispatch(
+      updateQuantity({
+        product: item.product,
+        quantity: newQuantity,
+        customizations: item.customizations,
+      })
+    );
   };
 
-  const removeItem = itemId => {
-    setCartItems(prev => prev.filter(item => item.id !== itemId));
+  const removeItem = item => {
+    dispatch(
+      removeFromCart({
+        product: item.product,
+        customizations: item.customizations,
+      })
+    );
   };
 
   const applyPromoCode = () => {
     const promo = promoCodes.find(p => p.code === promoCode.toUpperCase());
-    setPromoMessage(''); // Clear previous message
+    setPromoMessage('');
     if (promo) {
       if (subtotal >= promo.minOrder) {
         setAppliedPromo(promo);
@@ -229,20 +199,12 @@ const CartPage = () => {
     <div className="min-h-screen bg-gray-50 font-sans">
       <CartNavigation />
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Cart Header */}
-        {/* <div className="mb-6">
-          <h1 className="text-3xl font-extrabold text-gray-800 mb-1">Your Cart</h1>
-          <p className="text-base text-gray-500">
-            {cartItems.length} items from {new Set(cartItems.map(item => item.restaurant)).size} restaurant{new Set(cartItems.map(item => item.restaurant)).size > 1 ? 's' : ''}
-          </p>
-        </div> */}
-
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left Column (Items, Delivery & Payment) */}
           <div className="lg:col-span-2 space-y-4">
             <CartItemsSection
               cartItems={cartItems}
-              updateQuantity={updateQuantity}
+              updateQuantity={updateItemQuantity}
               removeItem={removeItem}
             />
             <DeliveryAddressSection

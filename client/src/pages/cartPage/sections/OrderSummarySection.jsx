@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from '../../../components/ui/Icon';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
@@ -19,6 +19,8 @@ const OrderSummarySection = ({
   finalTotal,
   handleCheckout,
 }) => {
+  const [isNoContactSelected, setIsNoContactSelected] = useState(false);
+
   return (
     <div className="bg-white rounded-3xl shadow-lg p-4 space-y-4">
       {/* Promo Code Input */}
@@ -63,39 +65,86 @@ const OrderSummarySection = ({
         <div className="space-y-2 text-gray-600 font-medium">
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span>${subtotal.toFixed(2)}</span>
+            <span className="flex items-center">
+              <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+              {subtotal.toFixed(2)}
+            </span>
           </div>
           {itemDiscount > 0 && (
             <div className="flex justify-between text-green-600">
               <span>Item Discount</span>
-              <span>-${itemDiscount.toFixed(2)}</span>
+              <span className="flex items-center">
+                -<Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                {itemDiscount.toFixed(2)}
+              </span>
             </div>
           )}
           {promoDiscount > 0 && (
             <div className="flex justify-between text-green-600">
               <span>Promo Discount</span>
-              <span>-${promoDiscount.toFixed(2)}</span>
+              <span className="flex items-center">
+                -<Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                {promoDiscount.toFixed(2)}
+              </span>
             </div>
           )}
           <div className="flex justify-between">
             <span>Delivery Fee</span>
-            <span>
-              {deliveryFee === 0 ? 'Free' : `$${deliveryFee.toFixed(2)}`}
+            <span className="flex items-center">
+              {deliveryFee === 0 ? (
+                'Free'
+              ) : (
+                <>
+                  <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                  {deliveryFee.toFixed(2)}
+                </>
+              )}
             </span>
           </div>
           <div className="flex justify-between">
             <span>Service Fee</span>
-            <span>${serviceFee.toFixed(2)}</span>
+            <span className="flex items-center">
+              <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+              {serviceFee.toFixed(2)}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Taxes & GST</span>
-            <span>${gst.toFixed(2)}</span>
+            <span className="flex items-center">
+              <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+              {gst.toFixed(2)}
+            </span>
           </div>
         </div>
         <div className="h-px bg-gray-200" />
+
+        {/* No-contact delivery option */}
+        <div className="flex items-start space-x-2">
+          <input
+            type="checkbox"
+            id="no-contact-checkbox"
+            checked={isNoContactSelected}
+            onChange={e => setIsNoContactSelected(e.target.checked)}
+            className="mt-1 w-7 h-7 accent-yellow-400 focus:ring-yellow-400"
+          />
+          <label
+            htmlFor="no-contact-checkbox"
+            className="text-sm font-medium text-gray-700"
+          >
+            {isNoContactSelected
+              ? 'Our delivery partner will call to confirm. Please ensure that your address has all the required details.'
+              : 'Opt in for No-contact Delivery. Unwell, or avoiding contact? Partner will safely place the order outside your door (not for COD).'}
+          </label>
+        </div>
+
+        <div className="h-px bg-gray-200" />
+
         <div className="flex justify-between text-lg font-bold text-gray-800">
           <span>Final Total</span>
-          <span>${finalTotal.toFixed(2)}</span>
+          <p className="flex items-center">
+            <Icon name="indian-rupee" className="w-5 h-5 mr-2" />
+            {finalTotal.toFixed(2)}
+          </p>
         </div>
       </div>
 

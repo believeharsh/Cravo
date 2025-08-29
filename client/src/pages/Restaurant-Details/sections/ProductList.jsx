@@ -1,48 +1,7 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
-
+import ProductCard from './ProductCard';
 // Reusable Product Card Component (you can move this to its own file later)
-const ProductCard = ({ item, handleAddToCart }) => (
-  <div className="bg-white rounded-3xl shadow-md p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-    <div className="flex-grow">
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex flex-col">
-          <h3 className="text-xl font-bold text-gray-900 mb-1">{item.name}</h3>
-          <p className="text-sm text-gray-500 mb-2">{item.description}</p>
-          {item.isBestseller && (
-            <div className="flex items-center text-sm font-semibold text-amber-500 mb-1">
-              <Icon name="star" className="w-4 h-4 mr-1 fill-current" />{' '}
-              Bestseller
-            </div>
-          )}
-          <div className="flex items-center">
-            <Icon name="indian-rupee" className="text-gray-800 w-4 h-4 mr-1" />
-            <span className="text-xl font-extrabold text-gray-800">
-              {item.price}
-            </span>
-          </div>
-        </div>
-        {item.images && item.images.length > 0 && (
-          <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 ml-4 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-            <img
-              src={item.images[0]}
-              alt={item.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
-      </div>
-    </div>
-    <div className="mt-4 flex justify-end">
-      <button
-        onClick={() => handleAddToCart(item)}
-        className="flex items-center px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md"
-      >
-        <Icon name="shopping-cart" className="w-4 h-4 mr-2" /> Add
-      </button>
-    </div>
-  </div>
-);
 
 const ProductList = ({ menuItems, activeFilter }) => {
   const handleAddToCart = item => {

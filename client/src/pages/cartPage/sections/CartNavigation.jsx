@@ -5,7 +5,7 @@ import Icon from '../../../components/ui/Icon';
 const CartNavigation = () => {
   return (
     <>
-      <nav className="px-4 sm:px-6 py-4 sm:py-6 bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav className="px-4 sm:px-6 py-3 sm:py-4 bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-3 sm:space-x-4">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center">

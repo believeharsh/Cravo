@@ -8,7 +8,7 @@ const CartItemsSection = ({ cartItems, updateQuantity, removeItem }) => {
       <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
         {cartItems.map(item => (
           <CartItem
-            key={item.id}
+            key={item._id}
             item={item}
             updateQuantity={updateQuantity}
             removeItem={removeItem}
