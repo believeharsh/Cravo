@@ -69,12 +69,9 @@ const RestaurantsSection = () => {
   const { data, isLoading, error } = useSelector(state => state.landingPage);
   const [restaurants, setRestaurants] = useState([]);
 
-  console.log('restaurant section is getting rendered');
-
   useEffect(() => {
     if (data?.data?.featuredRestaurants?.data?.restaurants) {
       setRestaurants(data.data.featuredRestaurants.data.restaurants);
-      console.log('usestate restaurants in the resturantsection', restaurants);
     }
   }, [data]);
 

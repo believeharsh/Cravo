@@ -26,10 +26,6 @@ const CitiesSection = () => {
   useEffect(() => {
     if (data?.data?.citiesWeServe?.data) {
       setCities(data.data.citiesWeServe.data);
-      console.log(
-        'usestate cities in cities Sections',
-        data.data.citiesWeServe.data
-      );
     }
   }, [data]);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 /* sample data */
 
@@ -243,6 +244,9 @@ const RestaurantCard = ({ r }) => (
 /*  Main grid component */
 
 const RestaurantGrid = () => {
+  const { data, isLoading, error } = useSelector(state => state.landingPage);
+  const RestaurantData = data.data.featuredRestaurants;
+  console.log('RestRestaurant Data for restaurant page', RestaurantData);
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">

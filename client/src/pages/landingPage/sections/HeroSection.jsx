@@ -276,7 +276,7 @@ const Hero = () => {
 
                 {/* The "Find Delicious Food" button now needs to be smarter.
                     It should use the selectedLocation, but for now we'll keep the link. */}
-                <NavLink to={'/categories'}>
+                <NavLink to={'/restaurants'}>
                   <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer">
                     Find Delicious Food
                   </button>
