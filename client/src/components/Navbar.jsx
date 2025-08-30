@@ -81,7 +81,7 @@ const SearchModal = ({
   );
 };
 
-const Navbar = ({ showSearch = true }) => {
+const Navbar = ({ showSearch = true, visibilty }) => {
   // State for mobile menu and search modal
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
@@ -171,7 +171,9 @@ const Navbar = ({ showSearch = true }) => {
 
   return (
     <>
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav
+        className={`bg-white border-b border-gray-200 top-0 z-50 shadow-sm ${visibilty}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-3">
           {/* Top Row: Logo, Location, Search (Desktop), Desktop Nav, Mobile Toggle */}
           <div className="flex items-center justify-between h-16 lg:h-20">

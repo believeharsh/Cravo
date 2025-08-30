@@ -66,7 +66,7 @@ const OrderSummarySection = ({
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span className="flex items-center">
-              <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+              <Icon name="indian-rupee" className="w-3 h-3" />
               {subtotal.toFixed(2)}
             </span>
           </div>
@@ -74,7 +74,7 @@ const OrderSummarySection = ({
             <div className="flex justify-between text-green-600">
               <span>Item Discount</span>
               <span className="flex items-center">
-                -<Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                -<Icon name="indian-rupee" className="w-3 h-3" />
                 {itemDiscount.toFixed(2)}
               </span>
             </div>
@@ -95,7 +95,7 @@ const OrderSummarySection = ({
                 'Free'
               ) : (
                 <>
-                  <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                  <Icon name="indian-rupee" className="w-3 h-3" />
                   {deliveryFee.toFixed(2)}
                 </>
               )}
@@ -104,14 +104,14 @@ const OrderSummarySection = ({
           <div className="flex justify-between">
             <span>Service Fee</span>
             <span className="flex items-center">
-              <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+              <Icon name="indian-rupee" className="w-3 h-3" />
               {serviceFee.toFixed(2)}
             </span>
           </div>
           <div className="flex justify-between">
             <span>Taxes & GST</span>
             <span className="flex items-center">
-              <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+              <Icon name="indian-rupee" className="w-3 h-3" />
               {gst.toFixed(2)}
             </span>
           </div>
@@ -142,7 +142,7 @@ const OrderSummarySection = ({
         <div className="flex justify-between text-lg font-bold text-gray-800">
           <span>Final Total</span>
           <p className="flex items-center">
-            <Icon name="indian-rupee" className="w-5 h-5 mr-2" />
+            <Icon name="indian-rupee" className="w-4 h-4" />
             {finalTotal.toFixed(2)}
           </p>
         </div>
@@ -152,7 +152,7 @@ const OrderSummarySection = ({
       <div>
         <button
           onClick={handleCheckout}
-          className="w-full flex items-center justify-center px-6 py-4 bg-green-500 hover:bg-green-600 text-white font-bold text-lg rounded-xl shadow-lg transition-colors"
+          className="w-full flex items-center justify-center px-6 py-4 bg-green-500 hover:bg-green-600 text-white font-bold text-lg rounded-xl shadow-lg transition-colors cursor-pointer"
         >
           <Icon name="indian-rupee" className="w-5 h-5 mr-2" />
           Proceed to Checkout

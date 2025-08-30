@@ -4,7 +4,7 @@ import Icon from '../../../components/ui/Icon';
 const MenuFilters = ({ activeFilter, setActiveFilter }) => {
   const allCategories = ['All', 'Bestseller', 'Veg', 'Non-Veg'];
   return (
-    <div className="sticky top-0 z-20 bg-gray-50 pt-6 -mt-6">
+    <div className="sticky top-0 z-20 bg-gray-50 pt-1 -mt-2">
       <div className="flex gap-4 p-4 -mx-4 overflow-x-auto scrollbar-hide bg-white rounded-3xl shadow-sm">
         {allCategories.map(filter => (
           <button

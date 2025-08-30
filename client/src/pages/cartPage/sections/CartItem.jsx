@@ -57,7 +57,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
             <div className="flex items-center">
               <span className="text-sm font-normal text-gray-600">Total:</span>
               <span className="flex items-center ml-1 text-sm font-semibold text-gray-800">
-                <Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                <Icon name="indian-rupee" className="w-3 h-3" />
                 <p>
                   {(item.quantity * product.price).toFixed(2)}{' '}
                   <span> | Quantity {item.quantity}</span>
@@ -70,9 +70,9 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
         {/* Quantity Controls */}
         <div className="flex items-center space-x-1 flex-shrink-0">
           <button
-            // Pass the full item object to the updateQuantity function
+            // Passing the full item object to the updateQuantity function
             onClick={() => updateQuantity(item, item.quantity - 1)}
-            className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors cursor-pointer"
             disabled={item.quantity <= 1}
           >
             <Icon name="minus" size={14} className="text-gray-600" />
@@ -81,9 +81,9 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
             {item.quantity}
           </span>
           <button
-            // Pass the full item object to the updateQuantity function
+            // Passing the full item object to the updateQuantity function
             onClick={() => updateQuantity(item, item.quantity + 1)}
-            className="w-7 h-7 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors cursor-pointer"
           >
             <Icon name="plus" size={14} className="text-white" />
           </button>
@@ -94,7 +94,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
       <button
         // Pass the full item object to the removeItem function
         onClick={() => removeItem(item)}
-        className="ml-2 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
+        className="ml-2 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
       >
         <Icon name="trash" size={18} />
       </button>

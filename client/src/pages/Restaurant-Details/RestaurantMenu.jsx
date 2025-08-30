@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -32,7 +32,7 @@ const RestaurantMenuPage = () => {
 
   const cartValue = useSelector(selectCartTotalValue);
   console.log(cartValue);
-
+  // useEffect for api calling
   useEffect(() => {
     const fetchRestaurantData = async () => {
       setLoading(true);
@@ -60,6 +60,48 @@ const RestaurantMenuPage = () => {
 
     fetchRestaurantData();
   }, [restaurantID]);
+
+  const [showRestaurantNavbar, setShowRestaurantNavbar] = useState(false);
+  const topRestaurantsRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (topRestaurantsRef.current) {
+        const topRestaurantsElement = topRestaurantsRef.current;
+        const rect = topRestaurantsElement.getBoundingClientRect();
+
+        // Switch navbar when TopRestaurants section reaches the top of viewport
+        if (rect.top <= 100) {
+          setShowRestaurantNavbar(true);
+        } else {
+          setShowRestaurantNavbar(false);
+        }
+      }
+    };
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', throttledHandleScroll);
+
+    // Check initial position
+    handleScroll();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', throttledHandleScroll);
+    };
+  }, []);
 
   if (loading) {
     return (
@@ -89,8 +131,12 @@ const RestaurantMenuPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-helvetica">
-      <Navbar showSearch={true} currentPage="restaurant" cartCount={2} />
-
+      <Navbar
+        showSearch={true}
+        currentPage="restaurant"
+        cartCount={2}
+        visibilty={''}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <RestaurantHeader restaurant={restaurant} />
         <DealsSection />
