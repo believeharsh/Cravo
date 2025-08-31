@@ -15,10 +15,14 @@ import {
 
 const authRoute = Router();
 
-authRoute.post('/signin', loginUser);
-authRoute.post('/signup', registerUser);
-authRoute.get('/verify-auth', checkAuth, getAuthStatus);
+authRoute.post('/login', loginUser);
+
+authRoute.post('/register', registerUser);
+
 authRoute.get('/logout', checkAuth, isLoggedIn, logoutUser);
-authRoute.get('/verify-account', verifyUser);
+
+authRoute.get('/profile', checkAuth, getAuthStatus);
+
+authRoute.get('/verify', verifyUser);
 
 export default authRoute;

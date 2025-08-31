@@ -209,7 +209,6 @@ const getAuthStatus = asyncHandler(async (req, res) => {
 const changePassword = () => {};
 
 const verifyUser = asyncHandler(async (req, res) => {
-  console.log('verify user controller is firing now');
   const { token, email } = req.query; // Get token and email from query parameters
 
   if (!token || !email) {
