@@ -138,7 +138,7 @@ export const categoriesToUpload = [
   },
 
   {
-    name: 'Fast Food',
+    name: 'Fast-Food',
     slug: 'fast-food',
     description: 'Quick and tasty options.',
     imagePath:

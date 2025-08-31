@@ -481,7 +481,7 @@ export const productPools = {
         'A refreshing mocktail with lime, mint, sugar, and soda water served chilled.',
       price: 80,
       image:
-        'https://media.istockphoto.com/id/1176926767/photo/mojito-cocktail-classic-cocktail-isolated-on-white-background-with-clipping-path.jpg?s=612x612&w=0&k=20&c=qjNNOSYEW6JmCH7tphjqhhn3sWjQsZDDh4MACW6pCIw=o',
+        'https://media.istockphoto.com/id/2153950211/photo/mojito-cocktail-with-ice-isolated-over-white-background-fresh-mohito-drink-with-lime-and-mint.jpg?s=612x612&w=0&k=20&c=llDNuAy-dsKupm6pqFliOXY7mx_PG5i8pq65993BLpc=',
     },
     {
       name: 'Cold Coffee',
