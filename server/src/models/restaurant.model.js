@@ -13,7 +13,11 @@ const RestaurantSchema = new Schema(
     },
     address: {
       street: { type: String, required: true, trim: true },
-      city: { type: String, required: true, trim: true },
+      city: {
+        type: Schema.Types.ObjectId,
+        ref: 'City',
+        required: true,
+      },
       state: { type: String, required: true, trim: true },
       zip_code: { type: String, required: true, trim: true },
       // GeoJSON Point for geospatial queries (longitude, latitude)
