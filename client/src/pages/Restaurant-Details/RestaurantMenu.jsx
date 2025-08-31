@@ -25,13 +25,9 @@ const RestaurantMenuPage = () => {
   const [activeFilter, setActiveFilter] = useState('All');
 
   const { items } = useSelector(state => state.cart);
-  console.log(items);
-
   const cartCount = useSelector(selectCartTotalQuantity);
-  console.log('Quantity of the products in the cart', cartCount);
-
   const cartValue = useSelector(selectCartTotalValue);
-  console.log(cartValue);
+
   // useEffect for api calling
   useEffect(() => {
     const fetchRestaurantData = async () => {
@@ -39,9 +35,9 @@ const RestaurantMenuPage = () => {
       setError(null);
       try {
         const response = await axiosInstance.get(
-          `/api/v1/products/restaurantProducts/${restaurantID}`
+          `/api/v1/restaurants/${restaurantID}/products`
         );
-        console.log(response);
+        // console.log(response);
         if (response.status === 200 && response.data.success) {
           const { data: products, restaurantDetails: restaurant } =
             response.data;

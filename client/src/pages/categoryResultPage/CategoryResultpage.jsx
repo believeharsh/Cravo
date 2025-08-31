@@ -47,13 +47,13 @@ const CategoryResultPage = () => {
 
       const longitude = 75.86;
       const latitude = 22.72;
-      const limit = 20;
+      const limit = 50;
 
       // Construct the API URL using dynamic parameters from the URL and state
-      const apiUrl = `/api/v1/categories/category-result?categorySlug=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
+      const apiUrl = `/api/v1/restaurants?categoryName=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
 
       const response = await axiosInstance.get(apiUrl);
-      console.log('api response', response);
+      // console.log('api response', response);
       const { data, totalResults, currentPage, totalPages } = response.data;
 
       // Handle loading more pages or fetching the first page
