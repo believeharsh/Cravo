@@ -10,7 +10,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
     product.price + (product.promotionalDiscount?.value || 0);
 
   return (
-    <div className="flex items-center space-x-4 border-b border-gray-100 py-3 last:border-b-0 last:pb-0">
+    <div className="flex items-center space-x-4 border-b border-gray-100 py-2 px-1 last:border-b-0 last:pb-0">
       {/* Thumbnail */}
       <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden shadow-sm">
         <img
@@ -41,7 +41,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
           )}
 
           {/* Price and Total */}
-          <div className="flex items-center mt-2 space-x-4">
+          <div className="flex items-center mt-1 space-x-4">
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-gray-700">
                 ₹{product.price.toFixed(2)}
@@ -94,7 +94,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
       <button
         // Pass the full item object to the removeItem function
         onClick={() => removeItem(item)}
-        className="ml-2 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
+        className="ml-1 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
       >
         <Icon name="trash" size={18} />
       </button>

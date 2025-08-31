@@ -2,7 +2,6 @@ import React from 'react';
 import Icon from '../../../components/ui/Icon';
 
 const RestaurantCard = ({ restaurant }) => {
-  console.log('restaurants cards data', restaurant);
   const { name, rating, cuisine_type, images, address, min_order_value } =
     restaurant;
 

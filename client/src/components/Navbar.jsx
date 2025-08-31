@@ -90,7 +90,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   const isAuthenticated = false; // Mocking authentication state
 
   const cartCount = useSelector(selectCartTotalQuantity);
-  console.log('Quantity of the products in the cart', cartCount);
+  // console.log('Quantity of the products in the cart', cartCount);
 
   // Use useMemo to create the navItems array, so it only recomputes when dependencies change.
   const navItems = useMemo(() => {
