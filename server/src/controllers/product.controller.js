@@ -4,130 +4,81 @@ import Restaurant from '../models/restaurant.model.js';
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
 import { apiError } from '../services/ApiError.js';
+import City from '../models/city.model.js';
 
-const getAllProductByCategory = asyncHandler(async (req, res) => {
-  const { categoryName } = req.params; // Get category name from URL parameter
+/**
+ * @description Get products based on optional query filters (category, city, etc.)
+ * @route GET /api/v1/products
+ * @access Public
+ */
+const getProductsByQuery = asyncHandler(async (req, res) => {
+  const { categoryName, cityName } = req.query;
+  let filter = {};
 
-  if (!categoryName || categoryName.trim() === '') {
-    throw new apiError(400, 'Category name is required.');
+  // Category filter
+  if (categoryName) {
+    const category = await Category.findOne({
+      name: { $regex: new RegExp(categoryName, 'i') }, // partial match
+    });
+    console.log(category);
+
+    if (!category) {
+      return res
+        .status(404)
+        .json(
+          new apiResponse(404, [], `Category "${categoryName}" not found.`)
+        );
+    }
+    filter.category = category._id;
   }
 
-  // Finding the Category document by its name
+  // City filter
+  if (cityName) {
+    const city = await City.findOne({
+      name: { $regex: new RegExp(cityName, 'i') },
+    });
 
-  const category = await Category.findOne({
-    name: { $regex: new RegExp(`^${categoryName}$`, 'i') }, // Using $regex with $options: 'i' for case-insensitive matching
-  });
+    if (!city) {
+      return res
+        .status(404)
+        .json(new apiResponse(404, [], `City "${cityName}" not found.`));
+    }
 
-  if (!category) {
-    throw new apiError(404, `Category "${categoryName}" not found.`);
+    const restaurantsInCity = await Restaurant.find({
+      'address.city': city._id,
+    });
+    if (restaurantsInCity.length === 0) {
+      return res
+        .status(200)
+        .json(
+          new apiResponse(200, [], `No restaurants found in "${cityName}".`)
+        );
+    }
+
+    const restaurantIds = restaurantsInCity.map(r => r._id);
+    filter.restaurant = { $in: restaurantIds };
   }
 
-  // Using the found category's _id to query for food items
-  const foods = await Product.find({ category: category._id });
+  // Fetch products
+  const products = await Product.find(filter)
+    .populate('category')
+    .populate('restaurant');
 
-  if (!foods || foods.length === 0) {
+  if (!products || products.length === 0) {
     return res
       .status(200)
       .json(
         new apiResponse(
           200,
           [],
-          `No food items found in category "${categoryName}".`
+          'No products found matching the specified criteria.'
         )
       );
   }
 
   return res
     .status(200)
-    .json(
-      new apiResponse(
-        200,
-        foods,
-        `Food items fetched for category "${categoryName}" successfully.`
-      )
-    );
+    .json(new apiResponse(200, products, 'Products fetched successfully.'));
 });
 
-const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
-  try {
-    const { restaurantID } = req.params;
-
-    if (!restaurantID) {
-      return res.status(400).json({
-        success: false,
-        message: 'Restaurant ID is required.',
-      });
-    }
-
-    const restaurant = await Restaurant.findById(restaurantID);
-
-    // 3. If the restaurant is not found, return a 404 immediately.
-    if (!restaurant) {
-      return res.status(404).json({
-        success: false,
-        message: 'Restaurant not found.',
-      });
-    }
-
-    const products = await Product.find({ restaurant: restaurantID })
-      .populate('category')
-      .populate('restaurant');
-
-    res.status(200).json({
-      success: true,
-      message: `Fetched products and details for restaurant '${restaurant.name}' successfully.`,
-      data: products,
-      restaurantDetails: restaurant,
-    });
-  } catch (error) {
-    console.error('Error fetching products and restaurant details:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error.',
-      error: error.message,
-    });
-  }
-});
-
-const getRestaurantsWithNoProducts = asyncHandler(async (req, res) => {
-  try {
-    // 1. Find all unique restaurant IDs that have at least one product.
-    //    The .distinct() method is highly efficient for this.
-    const restaurantWithProducts = await Product.distinct('restaurant');
-
-    // 2. Find all restaurants whose IDs are NOT in the list of restaurants that have products.
-    //    The $nin (not in) operator is used here to perform the exclusion.
-    const restaurants = await Restaurant.find({
-      _id: { $nin: restaurantWithProducts },
-    });
-
-    // 3. Check if any restaurants were found with empty product lists.
-    if (!restaurants || restaurants.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'All restaurants have at least one product.',
-      });
-    }
-
-    // 4. Send a success response with the list of restaurants with no products.
-    res.status(200).json({
-      success: true,
-      message: `Found ${restaurants.length} restaurants with no products.`,
-      data: restaurants,
-    });
-  } catch (error) {
-    // 5. Handle any server-side errors that occur during the process.
-    console.error('Error fetching restaurants with no products:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error.',
-      error: error.message,
-    });
-  }
-});
-
-export {
-  getAllProductByCategory,
-  AllProductsOfTheRestaurant,
-  getRestaurantsWithNoProducts,
-};
+export { getProductsByQuery };
