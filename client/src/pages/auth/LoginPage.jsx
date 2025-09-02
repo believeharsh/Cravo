@@ -1,54 +1,98 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import { Link, useNavigate } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, clearAuthError } from '../../features/auth/authSlice';
+import {
+  loginUser,
+  clearAuthError,
+  setAuthState,
+} from '../../features/auth/authSlice';
 
-import Icon from '../../components/ui/Icon';
-import Button from '../../components/ui/Button';
-import Input from '../../components/ui/Input';
+// Set up axios to send cookies with every request
+axios.defaults.withCredentials = true;
+
+const MailIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-5 w-5 text-medium-gray"
+  >
+    <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.62 5.29a3 3 0 01-3.46 0L1.5 8.67z" />
+    <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.743 5.975a1.5 1.5 0 001.514 0L22.5 6.908z" />
+  </svg>
+);
+
+const LockClosedIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-5 w-5 text-medium-gray"
+  >
+    <path
+      fillRule="evenodd"
+      d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H4.875a3 3 0 00-3 3v6A3 3 0 004.875 21h14.25a3 3 0 003-3v-6a3 3 0 00-3-3H17.25V6.75A5.25 5.25 0 0012 1.5zm6 9H6v6a1.5 1.5 0 001.5 1.5h9a1.5 1.5 0 001.5-1.5v-6zm-3 0V6.75a3.75 3.75 0 10-7.5 0V10.5h7.5z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+const EyeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-5 w-5 text-medium-gray"
+  >
+    <path d="M12 9a3 3 0 100 6 3 3 0 000-6z" />
+    <path
+      fillRule="evenodd"
+      d="M1.643 11.071A11.493 11.493 0 0112 3.75c4.279 0 8.28 1.13 11.357 7.321-.373.916-.628 1.933-.787 3.256-.474 3.284-1.25 6.691-10.57 6.691-9.321 0-10.096-3.407-10.57-6.691a34.735 34.735 0 01-.787-3.256zM12 18.75a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+const EyeOffIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-5 w-5 text-medium-gray"
+  >
+    <path d="M3.528 2.653a.75.75 0 10-.943 1.144l4.316 3.551A.75.75 0 008 7.394V6.75a.75.75 0 011.5 0v.644l.872.639.873-.639v-.644a.75.75 0 011.5 0v.644l2.458 1.796c-.53.53-.997 1.054-1.4 1.547l3.636 2.996a.75.75 0 00.943-1.144L18.42 10.87a12.502 12.502 0 003.543 2.053.75.75 0 00.264-1.458A11.002 11.002 0 0112 3.75c-2.455 0-4.78 1.002-6.528 2.653zM12 18.75a7.5 7.5 0 007.037-5.071c-.26.543-.537 1.077-.828 1.6l1.325 1.09a.75.75 0 01-.943 1.144L18.23 16.4a11.497 11.497 0 01-12.872 0l-1.325 1.09a.75.75 0 11-.943-1.144L5.77 14.805c-.29-.523-.568-1.057-.828-1.6A7.501 7.501 0 0012 18.75z" />
+    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+  </svg>
+);
+
+const ArrowRightIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-4 w-4"
+  >
+    <path
+      fillRule="evenodd"
+      d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const authState = useSelector(state => state.auth);
-  const currentUser = useSelector(state => state.auth.user);
-  console.log(currentUser);
-  const { isLoading, error, isAuthenticated, role } = authState;
-
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleInputChange = e =>
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleLogin = async e => {
-    e.preventDefault();
-    dispatch(clearAuthError());
-
-    // IMPORTANT: Replace alert() with a custom message box UI for better UX
-    // Alerts are blocking and not user-friendly in React apps.
-    if (!formData.email.trim() || !formData.password.trim()) {
-      // You could set an error state in Redux or local component state here
-      // For example: setLocalError("Email and password are required.");
-      console.error('Email and password are required.'); // Log for now
-      return;
-    }
-
-    const resultAction = await dispatch(loginUser(formData));
-    console.log(resultAction);
-
-    if (loginUser.fulfilled.match(resultAction)) {
-      if (rememberMe && resultAction.payload?.role) {
-        localStorage.setItem('role', resultAction.payload.role);
-        // If your API sends an accessToken that needs to be persisted here, do it:
-        // localStorage.setItem("accessToken", resultAction.payload.token);
-      }
-      navigate('/restaurants'); // Navigate on successful login
-    }
-  };
+  const { isAuthenticated, isLoading, error } = useSelector(
+    state => state.auth
+  );
 
   // Redirect authenticated users
   useEffect(() => {
@@ -57,16 +101,45 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  // For logging state (can be removed in production)
+  // Clear previous errors when the component mounts or when navigating away
   useEffect(() => {
-    console.log('Current Redux Auth State:', authState);
-    console.log('Current Logged-in User:', currentUser);
+    return () => {
+      dispatch(clearAuthError());
+    };
+  }, [dispatch]);
 
-    if (isAuthenticated && currentUser) {
-      console.log('User logged in successfully:', currentUser);
-      console.log('User Role:', role);
+  const handleInputChange = e =>
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleLogin = async e => {
+    e.preventDefault();
+    dispatch(clearAuthError());
+    if (!formData.email.trim() || !formData.password.trim()) {
+      // Let the thunk's rejection handle the error display
+      return;
     }
-  }, [authState, currentUser, isAuthenticated, role]);
+
+    const resultAction = await dispatch(loginUser(formData));
+
+    if (loginUser.fulfilled.match(resultAction)) {
+      if (rememberMe && resultAction.payload?.role) {
+        localStorage.setItem('role', resultAction.payload.role);
+        // If your API sends an accessToken that needs to be persisted here, do it:
+        // localStorage.setItem("accessToken", resultAction.payload.token);
+      }
+      // Navigation is now handled by the `useEffect` hook watching `isAuthenticated`.
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    // The global listener in App.jsx will handle the post-login logic.
+    // This function's only job is to open the popup.
+    window.open(
+      'http://localhost:8000/api/v1/auth/google',
+      'google-login',
+      'width=500,height=600'
+    );
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -136,19 +209,15 @@ const LoginPage = () => {
                   Email Address
                 </label>
                 <div className="relative">
-                  <Icon
-                    name="mail"
-                    className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none"
-                    size={20}
-                  />
-                  <Input
+                  <MailIcon className="absolute inset-y-0 left-0 pl-3 top-1/2 -translate-y-1/2 h-5 w-5 text-medium-gray pointer-events-none" />
+                  <input
                     id="email"
                     name="email"
                     type="email"
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    // className="block w-full pl-10 pr-3 py-3 border border-cream rounded-lg focus:outline-none  focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
+                    className="block w-full pl-10 pr-3 py-3 border border-cream rounded-lg focus:outline-none focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -163,47 +232,35 @@ const LoginPage = () => {
                   Password
                 </label>
                 <div className="relative">
-                  <Icon
-                    name="lock"
-                    className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-medium-gray pointer-events-none"
-                    size={20}
-                  />
-                  <Input
+                  <LockClosedIcon className="absolute inset-y-0 left-0 pl-3 top-1/2 -translate-y-1/2 h-5 w-5 text-medium-gray pointer-events-none" />
+                  <input
                     id="password"
                     name="password"
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    // className="block w-full pl-10 pr-10 py-3 border border-cream rounded-lg focus:outline-none  focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
+                    className="block w-full pl-10 pr-10 py-3 border border-cream rounded-lg focus:outline-none focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
                     placeholder="Enter your password"
                   />
-                  <Button
+                  <button
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <Icon
-                        name="eye-off"
-                        className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200"
-                        size={20}
-                      />
+                      <EyeOffIcon className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" />
                     ) : (
-                      <Icon
-                        name="eye"
-                        className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200"
-                        size={20}
-                      />
+                      <EyeIcon className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" />
                     )}
-                  </Button>
+                  </button>
                 </div>
               </div>
 
               {/* Remember me & forgot */}
               <div className="flex items-center justify-between">
                 <label className="flex items-center">
-                  <Input
+                  <input
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
@@ -215,57 +272,71 @@ const LoginPage = () => {
                     Remember me
                   </span>
                 </label>
-                <Link
-                  to="/forgot-password"
+                <a
+                  href="#"
                   className="text-sm text-yellow-600 hover:text-yellow-700 font-medium transition-colors duration-200"
                 >
                   Forgot password?
-                </Link>
+                </a>
               </div>
 
               {/* Submit */}
-              <Button
+              <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none  focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 {isLoading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
                 ) : (
                   <>
                     Sign In
-                    <Icon
-                      name="arrow-right"
-                      className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200"
-                      size={16}
-                    />
+                    <ArrowRightIcon className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </>
                 )}
-              </Button>
+              </button>
             </form>
 
             {/* Divider */}
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-cream" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-medium-gray">
-                    New to our community?
-                  </span>
-                </div>
+            <div className="mt-6 relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-cream" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-medium-gray font-semibold">
+                  Or continue with
+                </span>
               </div>
             </div>
 
-            {/* Sign-up button */}
+            {/* Google Login Button */}
             <div className="mt-6 text-center">
-              <Link
-                to="/signup"
-                className="inline-flex justify-center py-3 px-4 border border-yellow-400 text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none  focus:ring-offset-2 transition-all duration-200"
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="inline-flex items-center justify-center py-3 px-4 border border-coffee text-sm font-medium rounded-lg text-coffee bg-white hover:bg-cream focus:outline-none focus:ring-offset-2 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                <img
+                  src="https://img.icons8.com/color/48/000000/google-logo.png"
+                  alt="Google"
+                  className="w-5 h-5 mr-3"
+                />
+                Sign in with Google
+              </button>
+            </div>
+
+            <div className="mt-6 text-center">
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-medium-gray">
+                  New to our community?
+                </span>
+              </div>
+              <a
+                href="#"
+                className="inline-flex justify-center py-3 px-4 border border-yellow-400 text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none focus:ring-offset-2 transition-all duration-200"
               >
                 Create New Account
-              </Link>
+              </a>
             </div>
           </div>
 

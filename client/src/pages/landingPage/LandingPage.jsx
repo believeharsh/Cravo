@@ -1,10 +1,11 @@
 import React from 'react';
 import CitiesSection from './sections/CitiesSection';
 import Footer from './sections/FooterSection';
-import Navbar from './sections/NavigationSection';
+import LandingNavigation from './sections/NavigationSection';
 import Hero from './sections/HeroSection';
 import CategoriesSlider from './sections/CategoriesSection';
 import RestaurantsSection from './sections/RestaurantsSection';
+import AuthSidebar from '../../components/auth/AuthSidebar';
 
 const LandingPage = () => {
   return (
@@ -12,7 +13,7 @@ const LandingPage = () => {
       <div className="min-h-screen bg-white font-helvetica">
         {/* Hero Section */}
         <section className="bg-yellow-400 min-h-screen">
-          <Navbar />
+          <LandingNavigation />
           <Hero />
         </section>
 
@@ -21,6 +22,7 @@ const LandingPage = () => {
         <RestaurantsSection />
         <CitiesSection />
         <Footer />
+        <AuthSidebar />
       </div>
     </div>
   );

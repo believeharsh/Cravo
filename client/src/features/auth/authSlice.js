@@ -5,7 +5,7 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser', // This is the action type prefix
   async (credentials, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post('/api/v1/auth/signin', credentials, {
+      const res = await axiosInstance.post('/api/v1/auth/login', credentials, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
@@ -26,12 +26,9 @@ export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.get('/api/v1/auth/verify-auth', {
+      const res = await axiosInstance.get('/api/v1/auth/profile', {
         withCredentials: true,
       });
-      // Assuming your backend returns { status: 'authenticated', user: { ... } }
-      console.log(res.data);
-
       return res.data.user; // Return the user object if authenticated
     } catch (err) {
       if (err.response) {

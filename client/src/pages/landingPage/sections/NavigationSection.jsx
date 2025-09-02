@@ -1,8 +1,16 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
+import { useDispatch, useSelector } from 'react-redux';
+import { openAuthModal } from '../../../features/authModal/authModelSlice';
 
-const Navbar = () => {
+const LandingNavigation = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector(state => state.auth);
+  const nevigate = useNavigate();
+  const navigateToProfile = () => {
+    nevigate('/profile');
+  };
   return (
     <nav className="px-4 sm:px-6 py-4 sm:py-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -58,16 +66,27 @@ const Navbar = () => {
 
           {/* Conditional rendering based on authentication */}
 
-          <NavLink to="/login">
-            <button className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200">
+          {isAuthenticated ? (
+            <button
+              onClick={navigateToProfile}
+              className="relative  cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
+            >
+              <Icon name={'profile'} size={18} />
+              <span className="hidden xl:block">Profile</span>
+            </button>
+          ) : (
+            <button
+              className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200"
+              onClick={() => dispatch(openAuthModal({ mode: 'login' }))} // ✅ function now
+            >
               <Icon name={'login'} size={16} className="text-blue-600" />
               <span className="font-medium text-gray-800 text-sm">Sign in</span>
             </button>
-          </NavLink>
+          )}
         </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default LandingNavigation;

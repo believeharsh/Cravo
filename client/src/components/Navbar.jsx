@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
 import Icon from './ui/Icon';
+import { openAuthModal } from '../features/authModal/authModelSlice';
+import { useDispatch } from 'react-redux';
 
 // Simple, self-contained Button component
 const Button = ({
@@ -86,8 +88,16 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [userLocation, setUserLocation] = useState('San Francisco, CA'); // Placeholder for user's location
-  const isAuthenticated = false; // Mocking authentication state
+  const [userLocation, setUserLocation] = useState('Indore, MP, India');
+
+  const dispatch = useDispatch();
+  const { isAuthenticated, user, role, token } = useSelector(
+    state => state.auth
+  );
+  // console.log(isAuthenticated);
+  console.log('user', user);
+  console.log('role', role);
+  console.log('token', token);
 
   const cartCount = useSelector(selectCartTotalQuantity);
   // console.log('Quantity of the products in the cart', cartCount);
@@ -141,7 +151,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
         id: 'signin',
         label: 'Sign In',
         Iconname: 'login',
-        path: '/auth/signin',
+        action: () => dispatch(openAuthModal('login')),
         showOnMobile: true,
       });
     }
@@ -242,34 +252,45 @@ const Navbar = ({ showSearch = true, visibilty }) => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
-              {navItems.map(item => (
-                <NavLink
-                  key={item.id}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
-                      isActive
-                        ? 'bg-yellow-50 text-yellow-600'
-                        : 'text-gray-700 hover:text-gray-900'
-                    }`
-                  }
-                >
-                  <Icon name={item.Iconname} size={18} />
-                  <span className="hidden xl:block">{item.label}</span>
-                  {/* Badge & Count */}
-                  {item.badge && (
-                    <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-0.5 rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
-                  {item.count && (
-                    <span className="absolute -top-0.5 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                      {/* {item.count > 99 ? '99+' : item.count} */}
-                      {cartCount > 99 ? '99+' : `  ${cartCount}`}
-                    </span>
-                  )}
-                </NavLink>
-              ))}
+              {navItems.map(item =>
+                item.action ? (
+                  <button
+                    key={item.id}
+                    onClick={item.action}
+                    className="relative  cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
+                  >
+                    <Icon name={item.Iconname} size={18} />
+                    <span className="hidden xl:block">{item.label}</span>
+                  </button>
+                ) : (
+                  <NavLink
+                    key={item.id}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
+                        isActive
+                          ? 'bg-yellow-50 text-yellow-600'
+                          : 'text-gray-700 hover:text-gray-900'
+                      }`
+                    }
+                  >
+                    <Icon name={item.Iconname} size={18} />
+                    <span className="hidden xl:block">{item.label}</span>
+                    {/* Badge & Count */}
+                    {item.badge && (
+                      <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-0.5 rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                    {item.count && (
+                      <span className="absolute -top-0.5 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                        {/* {item.count > 99 ? '99+' : item.count} */}
+                        {cartCount > 99 ? '99+' : `  ${cartCount}`}
+                      </span>
+                    )}
+                  </NavLink>
+                )
+              )}
             </div>
 
             {/* Mobile Menu Button & Search Icon */}
@@ -314,44 +335,51 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               </div>
               {navItems
                 .filter(item => item.showOnMobile)
-                .map(item => (
-                  <NavLink
-                    key={item.id}
-                    to={item.path}
-                    onClick={toggleMobileMenu}
-                    className={({ isActive }) =>
-                      `w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 ${
-                        isActive
-                          ? 'bg-yellow-50 text-yellow-600 border border-yellow-200'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`
-                    }
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Icon name={item.Iconname} size={20} />
-                      <span>{item.label}</span>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      {/* Badge & Count */}
-                      {item.badge && (
-                        <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-1 rounded-full">
-                          {item.badge}
-                        </span>
-                      )}
-                      {item.count && (
-                        <span className="bg-green-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
-                          {item.count > 99 ? '99+' : item.count}
-                        </span>
-                      )}
+                .map(item =>
+                  item.action ? (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        item.action();
+                        toggleMobileMenu();
+                      }}
+                      className="w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 text-gray-700 hover:bg-gray-50"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <Icon name={item.Iconname} size={20} />
+                        <span>{item.label}</span>
+                      </div>
                       <Icon
                         name="chevron-right"
                         size={16}
                         className="text-gray-400"
                       />
-                    </div>
-                  </NavLink>
-                ))}
+                    </button>
+                  ) : (
+                    <NavLink
+                      key={item.id}
+                      to={item.path}
+                      onClick={toggleMobileMenu}
+                      className={({ isActive }) =>
+                        `w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 ${
+                          isActive
+                            ? 'bg-yellow-50 text-yellow-600 border border-yellow-200'
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`
+                      }
+                    >
+                      <div className="flex items-center space-x-3">
+                        <Icon name={item.Iconname} size={20} />
+                        <span>{item.label}</span>
+                      </div>
+                      <Icon
+                        name="chevron-right"
+                        size={16}
+                        className="text-gray-400"
+                      />
+                    </NavLink>
+                  )
+                )}
             </div>
             <div className="p-4 bg-gray-50 border-t border-gray-200">
               <p className="text-sm text-gray-600 text-center">
