@@ -1,10 +1,5 @@
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 import CategoryResultPage from './pages/categoryResultPage/CategoryResultpage';
 import OffersPage from './pages/offersPage/OffersPage';
@@ -35,16 +30,131 @@ import UnauthorizedPage from './components/UnAuthorizedPage';
 import { initializeApplication } from './features/landing/landingSlice';
 import DeliveryLoader from './components/DeliveryLoader';
 import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
+import AuthSidebar from './components/auth/AuthSidebar';
+import { closeAuthModal } from './features/authModal/authModelSlice';
+import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
+
+function AppContent() {
+  const { isAuthenticated } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const handleMessage = async event => {
+  //     // Security check: ensure the message is from our app's origin
+  //     if (event.origin !== 'http://localhost:5173') return;
+
+  //     // Check for the correct message type and that it was successful
+  //     if (event.data?.type === 'authComplete' && event.data.success) {
+  //       console.log(
+  //         'Authentication complete message received with user data:',
+  //         event.data.user
+  //       );
+
+  //       // The user object is sent directly from the server, no need to fetch again.
+  //       const user = event.data.user;
+
+  //       // Dispatch the action to update Redux state with the received user data
+  //       dispatch(
+  //         setAuthState({
+  //           user: user,
+  //           role: user?.role || null,
+  //           token: null, // Using httpOnly cookies, so no token in Redux
+  //         })
+  //       );
+
+  //       // Close the modal now that login is complete
+  //       dispatch(closeAuthModal());
+
+  //       // Navigate the user to the main app page
+  //       navigate('/restaurants');
+  //     }
+  //   };
+
+  //   window.addEventListener('message', handleMessage);
+
+  //   // Cleanup function to remove the listener when the component unmounts
+  //   return () => window.removeEventListener('message', handleMessage);
+  // }, [navigate, dispatch]);
+
+  useEffect(() => {
+    const handleMessage = async event => {
+      console.log('Received message:', event);
+      const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000'];
+      if (!allowedOrigins.includes(event.origin)) return;
+
+      if (event.data?.type === 'authComplete' && event.data.success) {
+        console.log(
+          'Auth complete signal received, dispatching checkAuthStatus'
+        );
+
+        dispatch(checkAuthStatus())
+          .unwrap()
+          .then(user => {
+            console.log('checkAuthStatus user:', user);
+            dispatch(closeAuthModal());
+            navigate('/restaurants');
+          })
+          .catch(err => {
+            console.error('checkAuthStatus error:', err);
+          });
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [dispatch, navigate]);
+
+  return (
+    <Routes>
+      {/* Public Routes (accessible to both guests and authenticated users) */}
+      <Route path="restaurants" element={<RestaurantsOverviewPage />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
+      <Route
+        path="menu/:restaurantName/:restaurantID"
+        element={<RestaurantMenuPage />}
+      />
+      <Route path="offers" element={<OffersPage />} />
+      <Route path="cart" element={<CartPage />} />
+      <Route path="corporate" element={<CorporatePage />} />
+      <Route path="unauthorized" element={<UnauthorizedPage />} />
+
+      {/* Protected Routes (require authentication) */}
+      <Route element={<PrivateRoute />}>
+        <Route path="profile" element={<ProfileLayout />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="addresses" element={<Addresses />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="help-support" element={<HelpSupport />} />
+        </Route>
+      </Route>
+
+      {/* Role-based Protected Routes (example: only 'admin' role can access) */}
+      <Route element={<PrivateRoute allowedRoles={['admin']} />}>
+        <Route path="admin" element={<AdminPage />} />
+      </Route>
+
+      {/* Catch-all route for 404 Not Found */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 function App() {
   const dispatch = useDispatch();
   const hasAppInitializedRef = useRef(false);
-  const { isAuthenticated } = useSelector(state => state.auth);
   const { isAppFullyInitialized, appInitError } = useSelector(
     state => state.landingPage
   );
+  const { isOpen, mode } = useSelector(state => state.authModal);
+  const { user } = useSelector(state => state.auth);
 
-  console.log(isAuthenticated);
+  console.log('user state log', user);
 
   useEffect(() => {
     // The `hasAppInitializedRef.current` ensures it runs once even with StrictMode.
@@ -73,54 +183,11 @@ function App() {
 
   // Once authentication status is initialized, render the appropriate routes
   return (
-    <Routes>
-      <Route
-        index
-        element={
-          isAuthenticated ? (
-            <Navigate to="/restaurants" replace />
-          ) : (
-            <LandingPage />
-          )
-        }
-      />
+    <>
+      <AppContent />
 
-      {/* Public Routes (accessible to both guests and authenticated users) */}
-      <Route path="restaurants" element={<RestaurantsOverviewPage />} />
-      <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
-      <Route
-        path="menu/:restaurantName/:restaurantID"
-        element={<RestaurantMenuPage />}
-      />
-      <Route path="offers" element={<OffersPage />} />
-      <Route path="cart" element={<CartPage />} />
-      <Route path="corporate" element={<CorporatePage />} />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="signup" element={<SignupPage />} />
-      <Route path="unauthorized" element={<UnauthorizedPage />} />
-
-      {/* Protected Routes (require authentication) */}
-      <Route element={<PrivateRoute />}>
-        <Route path="profile" element={<ProfileLayout />}>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="favorites" element={<Favorites />} />
-          <Route path="payments" element={<Payments />} />
-          <Route path="addresses" element={<Addresses />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="help-support" element={<HelpSupport />} />
-        </Route>
-      </Route>
-
-      {/* Role-based Protected Routes (example: only 'admin' role can access) */}
-      <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-        <Route path="admin" element={<AdminPage />} />
-      </Route>
-
-      {/* Catch-all route for 404 Not Found */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+      {isOpen && <AuthSidebar isOpen={isOpen} />}
+    </>
   );
 }
 
