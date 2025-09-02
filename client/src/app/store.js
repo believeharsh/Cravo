@@ -3,6 +3,7 @@ import authReducer from '../features/auth/authSlice';
 import landingPageReducer from '../features/landing/landingSlice';
 import locationReducer from '../features/location/locationSlice';
 import cartReducer from '../features/cart/cartSlice';
+import authModalReducer from '../features/authModal/authModelSlice';
 
 // import userReducer from '../features/user/userSlice';
 // import postsReducer from '../features/posts/postsSlice';
@@ -13,6 +14,7 @@ const store = configureStore({
     landingPage: landingPageReducer,
     location: locationReducer,
     cart: cartReducer,
+    authModal: authModalReducer,
     // auth: authReducer,
     // user: userReducer,
     // posts: postsReducer,
