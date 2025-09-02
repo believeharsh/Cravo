@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import axiosInstance from '../../api/axiosInstance';
+import { API } from '../../config/api';
 
-// Importing the sectionc of this page
+// Importing the sections of this page
 import RestaurantHeader from './sections/RestaurantHeader';
 import MenuFilters from './sections/MenuFilters';
 import ProductList from './sections/ProductList';
@@ -35,7 +36,7 @@ const RestaurantMenuPage = () => {
       setError(null);
       try {
         const response = await axiosInstance.get(
-          `/api/v1/restaurants/${restaurantID}/products`
+          API.RESTAURANTS.PRODUCTS(restaurantID)
         );
         // console.log(response);
         if (response.status === 200 && response.data.success) {

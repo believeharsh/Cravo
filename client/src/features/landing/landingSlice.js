@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axiosInstance';
 import { checkAuthStatus } from '../auth/authSlice';
 import { fetchUserLocation } from '../location/locationSlice';
+import { API } from '../../config/api';
 
 // Async Thunk to fetch landing page data
 export const fetchLandingPageData = createAsyncThunk(
@@ -10,7 +11,7 @@ export const fetchLandingPageData = createAsyncThunk(
     try {
       // Making a GET api request to the server to get the initial landing data
       const response = await axiosInstance.get(
-        `/api/v1/landingResources/?longitude=${longitude}&latitude=${latitude}&maxDistanceKm=${maxDistanceKm}`
+        `${API.LANDING.LANDING_RESOURCES}/?longitude=${longitude}&latitude=${latitude}&maxDistanceKm=${maxDistanceKm}`
       );
       console.log(
         'fetchLandingPageData func: API call successful, response:',

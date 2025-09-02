@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import { loginUser, setAuthState } from '../../features/auth/authSlice';
 import { closeAuthModal } from '../../features/authModal/authModelSlice';
+import { API } from '../../config/api';
+import axiosInstance from '../../api/axiosInstance';
 
 const AuthSidebar = ({ isOpen }) => {
   const [mode, setMode] = useState('login');
@@ -26,13 +27,9 @@ const AuthSidebar = ({ isOpen }) => {
   const handleSignup = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        'http://localhost:8000/api/v1/auth/signup',
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axiosInstance.post(API.AUTH.SIGNUP, formData, {
+        withCredentials: true,
+      });
       dispatch(
         setAuthState({
           user: res.data.user,
@@ -49,7 +46,7 @@ const AuthSidebar = ({ isOpen }) => {
   const handleGoogleLogin = () => {
     // The global listener in App.jsx will handle the postMessage event.
     window.open(
-      'http://localhost:8000/api/v1/auth/google',
+      `${import.meta.env.VITE_API_URL}${API.AUTH.GOOGLE}`,
       'google-login',
       'width=500,height=600'
     );

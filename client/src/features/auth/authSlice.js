@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axiosInstance';
+import { API } from '../../config/api';
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser', // This is the action type prefix
   async (credentials, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post('/api/v1/auth/login', credentials, {
+      const res = await axiosInstance.post(API.AUTH.LOGIN, credentials, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
@@ -26,7 +27,7 @@ export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.get('/api/v1/auth/profile', {
+      const res = await axiosInstance.get(API.AUTH.STATUS, {
         withCredentials: true,
       });
       return res.data.user; // Return the user object if authenticated

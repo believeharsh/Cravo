@@ -6,6 +6,7 @@ import RestaurantList from './sections/RestaurantList';
 import ExploreMore from './sections/ExploreMore';
 import { useParams, useSearchParams } from 'react-router-dom';
 import axiosInstance from '../../api/axiosInstance';
+import { API } from '../../config/api';
 
 const CategoryResultPage = () => {
   const { categorySlug } = useParams();
@@ -49,11 +50,11 @@ const CategoryResultPage = () => {
       const latitude = 22.72;
       const limit = 50;
 
-      // Construct the API URL using dynamic parameters from the URL and state
-      const apiUrl = `/api/v1/restaurants?categoryName=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
+      // Constructing the API URL using dynamic parameters from the URL and state
+      const apiUrl = `${API.RESTAURANTS.LIST}?categoryName=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
 
       const response = await axiosInstance.get(apiUrl);
-      // console.log('api response', response);
+
       const { data, totalResults, currentPage, totalPages } = response.data;
 
       // Handle loading more pages or fetching the first page
