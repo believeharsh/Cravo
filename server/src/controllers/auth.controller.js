@@ -187,6 +187,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const getAuthStatus = asyncHandler(async (req, res) => {
   // Check if req.user exists. If it does, the user is authenticated.
+  console.log('yes the check auth is running');
   if (req.user) {
     res.status(200).json({
       status: 'authenticated',
