@@ -13,9 +13,8 @@ function createAccessToken(user) {
   return accessToken;
 }
 function createRefreshToken(userId) {
-  const payload = {
-    _id: userId,
-  };
+  console.log('userId is here in the CreateREfresh Token', userId);
+  const payload = { userId };
   const refreshToken = JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
   });
