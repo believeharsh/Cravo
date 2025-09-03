@@ -1,10 +1,12 @@
 export const API = {
   AUTH: {
     LOGIN: '/auth/login',
-    SIGNUP: '/auth/signup',
+    SIGNUP: '/auth/register',
     GOOGLE: '/auth/google',
     STATUS: '/auth/profile',
     LOGOUT: '/auth/logout',
+    REFRESH: '/auth/refresh',
+    VERIFY_OTP: '/auth/verify',
   },
   USERS: {
     PROFILE: '/users/profile',

@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import { loginUser, setAuthState } from '../../features/auth/authSlice';
-import { closeAuthModal } from '../../features/authModal/authModelSlice';
+import {
+  closeAuthModal,
+  openOTPModal,
+} from '../../features/authModal/authModelSlice';
 import { API } from '../../config/api';
 import axiosInstance from '../../api/axiosInstance';
 
 const AuthSidebar = ({ isOpen }) => {
   const [mode, setMode] = useState('login');
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    name: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
@@ -19,6 +26,7 @@ const AuthSidebar = ({ isOpen }) => {
   const handleLogin = async e => {
     e.preventDefault();
     const result = await dispatch(loginUser(formData));
+    console.log(result);
     if (loginUser.fulfilled.match(result)) {
       dispatch(closeAuthModal());
     }
@@ -30,14 +38,17 @@ const AuthSidebar = ({ isOpen }) => {
       const res = await axiosInstance.post(API.AUTH.SIGNUP, formData, {
         withCredentials: true,
       });
-      dispatch(
-        setAuthState({
-          user: res.data.user,
-          role: res.data.user?.role || null,
-          token: null,
-        })
-      );
-      dispatch(closeAuthModal());
+      if (res.data && res.data.success) {
+        dispatch(openOTPModal(formData.email));
+      }
+      // dispatch(
+      //   setAuthState({
+      //     user: res.data.user,
+      //     role: res.data.user?.role || null,
+      //     token: null,
+      //   })
+      // );
+      // dispatch(closeAuthModal());
     } catch (err) {
       console.error('Signup failed:', err);
     }
@@ -87,6 +98,15 @@ const AuthSidebar = ({ isOpen }) => {
             onSubmit={mode === 'login' ? handleLogin : handleSignup}
             className="space-y-6 flex-1"
           >
+            <input
+              type="text"
+              name="name" // Corrected this to 'name'
+              placeholder="Harsh Dahiya"
+              required
+              value={formData.name}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all duration-200"
+            />
             <input
               type="email"
               name="email"
