@@ -34,7 +34,9 @@ import {
   logoutUser,
   getAuthStatus,
   changePassword,
-  verifyUser,
+  // verifyUser,
+  verifyUserOTP,
+  refreshAccessToken,
 } from '../controllers/auth.controller.js';
 import {
   authorizeRoles,
@@ -114,7 +116,8 @@ authRoute.post('/login', loginUser);
 authRoute.post('/register', registerUser);
 authRoute.get('/logout', checkAuth, isLoggedIn, logoutUser);
 authRoute.get('/profile', checkAuth, getAuthStatus);
-authRoute.get('/verify', verifyUser);
+authRoute.post('/verify', verifyUserOTP);
+authRoute.post('/refresh', refreshAccessToken);
 
 // --- New Google Login Routes ---
 // This route starts the authentication process.
