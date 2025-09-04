@@ -2,54 +2,46 @@ import { validateToken } from '../services/userTokens.js';
 import { asyncHandler } from '../services/asyncHandler.js';
 import User from '../models/user.model.js';
 import { apiError } from '../services/ApiError.js';
-import jwt from 'jsonwebtoken';
 
 const checkAuth = asyncHandler(async (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+  console.log('Token is coming', token);
+  if (!token) {
+    // No token, so the user is a guest.
+    return next();
+  }
   try {
-    const userToken =
-      req.cookies?.accessToken ||
-      req.header('Authorization')?.replace('Bearer ', '');
-
-    if (!userToken) {
-      // No token found, so the user is a guest. We don't throw an error; we just proceed.
-      return next();
-    }
-
-    let decodedToken;
-    try {
-      decodedToken = validateToken(userToken);
-    } catch (jwtError) {
-      // Invalid token, but we still treat them as a guest.
-      console.log('Invalid access token:', jwtError.message);
-      return next();
-    }
-
-    // Token is valid, so find the user in the database.
+    const decodedToken = validateToken(token);
     const user = await User.findById(decodedToken?._id).select(
       '-password -refreshToken'
     );
 
+    // If a user is found, attach them to the request object.
     if (user) {
-      // User found, attaching the user object to the request.
       req.user = user;
     }
 
-    // User not found in DB or other issue, so treating as a guest and proceed.
+    // Continue to the next middleware.
     next();
   } catch (error) {
-    console.error('Error in checkAuth middleware:', error.message);
+    // If the token is invalid or expired, log the error but still proceed.
+    // This allows public routes to function correctly.
+    console.error('Error validating token:', error.message);
     next();
   }
 });
 
+// Middleware to enforce login for a route
 const isLoggedIn = (req, res, next) => {
   if (!req.user) {
+    // If req.user doesn't exist, it means checkAuth failed to validate a token.
     throw new apiError(401, 'Unauthorized request: You must be logged in.');
   }
   next();
 };
 
 const authorizeRoles = (...roles) => {
+  // ... (Your authorizeRoles middleware is already correct)
   return (req, res, next) => {
     if (!req.user || !req.user.role) {
       throw new apiError(
@@ -57,16 +49,13 @@ const authorizeRoles = (...roles) => {
         'Access Denied: User authentication or role information missing.'
       );
     }
-
     if (!roles.includes(req.user.role)) {
-      // User's role is not in the list of allowed roles for this route
       throw new apiError(
         403,
         `Access Denied: You do not have the required permission (${req.user.role}).`
       );
     }
-
-    next(); // User has an allowed role, proceed to the next middleware or controller
+    next();
   };
 };
 
