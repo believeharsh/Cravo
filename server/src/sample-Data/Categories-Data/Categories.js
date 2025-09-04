@@ -38,7 +38,7 @@ export const categoriesToUpload = [
     description:
       'Traditional and aromatic dosas, idlis, and curries from Southern India.',
     imagePath:
-      'https://img.freepik.com/premium-photo/masala-dosa-with-fresh-green-herbs_1114068-63079.jpg',
+      'https://media.istockphoto.com/id/909906350/photo/masala-dosa-south-indian-food.jpg?s=612x612&w=0&k=20&c=3CI-bw2NhYaX_t0-CZIXIIXsOygFcUaoGSmzbnVB-fU=',
   },
   {
     name: 'Chinese',
@@ -62,7 +62,7 @@ export const categoriesToUpload = [
     description:
       'Mouth-watering traditional Indian desserts and confectioneries.',
     imagePath:
-      'https://st4.depositphotos.com/17366968/20308/i/450/depositphotos_203083546-stock-photo-indian-traditional-bengali-sweet-food.jpg',
+      'https://img.freepik.com/premium-photo/photography-tasty-indian-gulab-jamun-plate_1288657-52108.jpg?semt=ais_incoming&w=740&q=80',
   },
   {
     name: 'Street-Food',
@@ -70,7 +70,7 @@ export const categoriesToUpload = [
     description:
       'Popular and tangy on-the-go snacks and dishes from the streets of India.',
     imagePath:
-      'https://img.freepik.com/premium-photo/cheese-vada-pav-grated-cheese-wada-pao-popular-bombay-snack-food_466689-69411.jpg',
+      'https://img.freepik.com/premium-photo/crunchy-aloo-poha-kachori-white-background-indian-traditional-food-kachori-picture_1020697-132734.jpg',
   },
 
   {
@@ -78,7 +78,7 @@ export const categoriesToUpload = [
     slug: 'pizza',
     description: 'Delicious Italian pizzas.',
     imagePath:
-      'https://media.istockphoto.com/id/1216143110/photo/delicious-freshly-made-pizza.jpg?s=612x612&w=0&k=20&c=tLtv6VfpyJX5waOnJyCtoNbOC9hhuhI1EXKObnSc-QI=',
+      'https://img.freepik.com/premium-photo/delicious-pizza-hawaiian-white-background_147493-1486.jpg',
   },
 
   {
@@ -134,7 +134,7 @@ export const categoriesToUpload = [
     slug: 'healthy',
     description: 'Nutritious and light meals.',
     imagePath:
-      'https://img.freepik.com/premium-photo/vegetarian-food-plate-white-background_227840-694.jpg',
+      'https://img.freepik.com/free-photo/salmon-avocado-salad-isolated-white-background_123827-20214.jpg?semt=ais_hybrid&w=740&q=80',
   },
 
   {
@@ -142,7 +142,7 @@ export const categoriesToUpload = [
     slug: 'fast-food',
     description: 'Quick and tasty options.',
     imagePath:
-      'https://media.istockphoto.com/id/1072958370/photo/indian-chilli-chicken-dry-served-in-a-plate-over-moody-background-selective-focus.jpg?s=612x612&w=0&k=20&c=18oVkqFScsxijz3dJyMkv01BUSjtrZDT1jnT-inA7TA=',
+      'https://media.istockphoto.com/id/181067209/photo/grilled-cheese-sandwich.jpg?s=612x612&w=0&k=20&c=ZJ9Jyu1Fi2YmI60dT54jDMOCj1djS1zMXGFCuaPWNgk=',
   },
 
   {
@@ -150,7 +150,7 @@ export const categoriesToUpload = [
     slug: 'mexican',
     description: 'Spicy tacos and burritos.',
     imagePath:
-      'https://media.istockphoto.com/id/459396345/photo/taco.jpg?s=612x612&w=0&k=20&c=_yCtd6OEb2L8xNal4kC1xvm8HoBp8sry6tcBwmxmPHw=',
+      'https://as1.ftcdn.net/jpg/02/57/64/44/1000_F_257644425_SAQSEyD21AFTr2KqMXNQDE7izKUAI4wa.jpg',
   },
 
   {
@@ -214,6 +214,6 @@ export const categoriesToUpload = [
     slug: 'lunch',
     description: 'Indian thali perfect for lunch. ',
     imagePath:
-      'https://www.shutterstock.com/image-photo/indian-traditional-special-thali-food-600nw-1477286186.jpg',
+      'https://img.freepik.com/premium-photo/indian-breakfast-dish-aloo-paratha-served-with-curd-white-background_55610-3088.jpg',
   },
 ];
