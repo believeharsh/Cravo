@@ -69,7 +69,6 @@ const loginUser = asyncHandler(async (req, res) => {
             isVerified: user.isVerified,
           },
           accessToken: accessToken,
-          refreshToken: refreshToken,
         },
         'User logged in successfully'
       )
@@ -93,23 +92,34 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const getAuthStatus = asyncHandler(async (req, res) => {
   // Check if req.user exists. If it does, the user is authenticated.
-  console.log('yes the check auth is running');
   if (req.user) {
-    res.status(200).json({
-      status: 'authenticated',
-      user: {
-        id: req.user._id,
-        email: req.user.email,
-        role: req.user.role,
-        name: req.user.name,
-      },
-    });
+    return res.status(200).json(
+      new apiResponse(
+        200,
+        {
+          isAuthenticated: true,
+          user: {
+            id: req.user._id,
+            email: req.user.email,
+            role: req.user.role,
+            name: req.user.name,
+          },
+        },
+        'User is authenticated.'
+      )
+    );
   } else {
     // If req.user doesn't exist, the user is not authenticated (guest access).
-    res.status(200).json({
-      status: 'unauthenticated',
-      user: null,
-    });
+    return res.status(200).json(
+      new apiResponse(
+        200,
+        {
+          isAuthenticated: false,
+          user: null,
+        },
+        'User is not authenticated.'
+      )
+    );
   }
 });
 
@@ -137,7 +147,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const generatedUsername = generateUsername(email);
 
-  // Generate OTP (6-digit numeric)
+  // Generating the OTP (6-digit numeric)
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
@@ -223,7 +233,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     throw new apiError(403, 'Invalid or expired refresh token');
   }
 
-  // Find the user and the specific refresh token in a single operation
+  // Finding the user and the specific refresh token in a single operation
   const user = await User.findOne({
     _id: decoded.userId,
     'refreshTokens.token': refreshToken,
@@ -236,18 +246,17 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     );
   }
 
-  // Generate new tokens
+  // Generating new tokens here
   const newRefreshToken = createRefreshToken(user._id);
   const accessToken = createAccessToken(user);
 
-  // Use two separate, atomic update operations
-  // Step 1: Atomically remove the old refresh token
+  // Step 1: Atomically removing the old refresh token
   await User.updateOne(
     { _id: user._id },
     { $pull: { refreshTokens: { token: refreshToken } } }
   );
 
-  // Step 2: Atomically add the new refresh token
+  // Step 2: Atomically adding the new refresh token
   await User.updateOne(
     { _id: user._id },
     {
@@ -259,6 +268,15 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       },
     }
   );
+
+  // Creating a safe and sanitized user object
+  const safeUser = {
+    _id: user._id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+    isVerified: user.isVerified,
+  };
 
   res.cookie('refreshToken', newRefreshToken, {
     httpOnly: true,
@@ -272,8 +290,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       200,
       {
         accessToken,
-        user: user, // <-- Add the user object here
-        role: user.role, // <-- Add the user's role here
+        user: safeUser,
       },
       'New access token issued'
     )

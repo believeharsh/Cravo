@@ -1,7 +1,6 @@
 import Category from '../models/category.model.js';
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
-import Restaurant from '../models/restaurant.model.js';
 
 const getAllCategories = asyncHandler(async (req, res) => {
   const categories = await Category.find({ isVisible: true })
