@@ -10,11 +10,6 @@ import RestaurantHeader from './sections/RestaurantHeader';
 import MenuFilters from './sections/MenuFilters';
 import ProductList from './sections/ProductList';
 import DealsSection from './sections/DealsSections';
-import { useSelector } from 'react-redux';
-import {
-  selectCartTotalQuantity,
-  selectCartTotalValue,
-} from '../../features/cart/cartSelectors';
 import CartStatusSection from './sections/CartStatusSection';
 
 const RestaurantMenuPage = () => {
@@ -24,10 +19,6 @@ const RestaurantMenuPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
-
-  const { items } = useSelector(state => state.cart);
-  const cartCount = useSelector(selectCartTotalQuantity);
-  const cartValue = useSelector(selectCartTotalValue);
 
   // useEffect for api calling
   useEffect(() => {
@@ -39,9 +30,10 @@ const RestaurantMenuPage = () => {
           API.RESTAURANTS.PRODUCTS(restaurantID)
         );
         // console.log(response);
+        console.log('resoponse in the restaurant Menu page', response);
         if (response.status === 200 && response.data.success) {
-          const { data: products, restaurantDetails: restaurant } =
-            response.data;
+          const { products: products, restaurantDetails: restaurant } =
+            response.data.data;
           setRestaurant(restaurant);
           setMenuItems(products);
         } else {
