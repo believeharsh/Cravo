@@ -41,14 +41,6 @@ const AuthSidebar = ({ isOpen }) => {
       if (res.data && res.data.success) {
         dispatch(openOTPModal(formData.email));
       }
-      // dispatch(
-      //   setAuthState({
-      //     user: res.data.user,
-      //     role: res.data.user?.role || null,
-      //     token: null,
-      //   })
-      // );
-      // dispatch(closeAuthModal());
     } catch (err) {
       console.error('Signup failed:', err);
     }

@@ -11,6 +11,8 @@ export const loginUser = createAsyncThunk(
         withCredentials: true,
       });
       // The value returned here will become the `action.payload` for `loginUser.fulfilled`
+      console.log(res);
+
       return res.data;
     } catch (err) {
       // Axios errors often have a `response` object
