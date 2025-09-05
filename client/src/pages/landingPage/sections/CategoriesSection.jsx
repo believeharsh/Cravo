@@ -33,15 +33,17 @@ const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
   const [foodCategories, setFoodCategories] = useState([]);
   const { data, isLoading, error } = useSelector(state => state.landingPage);
+  console.log('data is coming inside the landing/categoryslider', data);
   const { latitude, longitude } = useSelector(state => state.location);
+  const categoriesData = data.categories;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     let categories = [];
 
-    if (data?.data?.categories?.data?.categories) {
-      categories = [...data.data.categories.data.categories];
+    if (categoriesData) {
+      categories = [...categoriesData];
     }
 
     setFoodCategories(categories);

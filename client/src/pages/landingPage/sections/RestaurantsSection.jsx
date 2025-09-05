@@ -67,11 +67,12 @@ const RestaurantCard = ({ restaurant }) => (
 const RestaurantsSection = () => {
   const itemsPerView = { mobile: 1, tablet: 2, desktop: 3 };
   const { data, isLoading, error } = useSelector(state => state.landingPage);
+  const resturantsData = data.restaurants;
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    if (data?.data?.featuredRestaurants?.data?.restaurants) {
-      setRestaurants(data.data.featuredRestaurants.data.restaurants);
+    if (resturantsData) {
+      setRestaurants(resturantsData);
     }
   }, [data]);
 

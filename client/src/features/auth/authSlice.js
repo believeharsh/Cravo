@@ -29,10 +29,11 @@ export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.get(API.AUTH.STATUS, {
+      const res = await axiosInstance.post(API.AUTH.REFRESH, {
         withCredentials: true,
       });
-      return res.data.user; // Return the user object if authenticated
+      console.log(res.data.data);
+      return res.data.data; // Return the user object if authenticated
     } catch (err) {
       if (err.response) {
         const statusCode = err.response.status;
@@ -131,22 +132,14 @@ const authSlice = createSlice({
         state.isInitialized = true;
       })
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
+        console.log('action', action);
         state.isAuthChecking = false;
         state.isInitialized = true;
-
-        // Check if the user object exists in the payload
-        if (action.payload) {
-          state.isAuthenticated = true;
-          state.user = action.payload;
-          state.role = action.payload.role || null;
-          state.error = null;
-        } else {
-          // If payload is null, the user is not authenticated
-          state.isAuthenticated = false;
-          state.user = null;
-          state.role = null;
-          state.error = null;
-        }
+        state.isAuthenticated = true;
+        state.token = action.payload.accessToken;
+        state.user = action.payload.user;
+        state.role = action.payload.user.role || null;
+        state.error = null;
       })
       .addCase(checkAuthStatus.rejected, (state, action) => {
         state.isAuthChecking = false;
