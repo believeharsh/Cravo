@@ -6,9 +6,6 @@ import OffersPage from './pages/offersPage/OffersPage';
 import AdminPage from './pages/adminPage/AdminPage';
 import LandingPage from './pages/landingPage/LandingPage';
 
-import LoginPage from './pages/auth/LoginPage';
-import SignupPage from './pages/auth/SignupPage';
-
 import RestaurantsOverviewPage from './pages/restaurant-Overview-Page/RestaurantsOverviewPage';
 import CartPage from './pages/cartPage/CartPage';
 import Settings from './pages/profilePage/Settings';
@@ -32,7 +29,7 @@ import DeliveryLoader from './components/DeliveryLoader';
 import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 import AuthSidebar from './components/auth/AuthSidebar';
 import { closeAuthModal } from './features/authModal/authModelSlice';
-import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
+import { checkAuthStatus } from './features/auth/authSlice';
 import OTPVerificationModal from './components/auth/OTPVerificationModal';
 
 function AppContent() {
@@ -111,35 +108,38 @@ function AppContent() {
 function App() {
   const dispatch = useDispatch();
   const hasAppInitializedRef = useRef(false);
-  const { isAppFullyInitialized, appInitError } = useSelector(
-    state => state.landingPage
-  );
+  const { isLoading, appInitError } = useSelector(state => state.landingPage);
   // const { isOpen, mode } = useSelector(state => state.authModal);
   const { isOpen, showOTPModal, signupEmail } = useSelector(
     state => state.authModal
   );
-  const { user } = useSelector(state => state.auth);
+  const { user, isAuthenticated, role, token } = useSelector(
+    state => state.auth
+  );
 
   console.log('user state log', user);
+  console.log('isAuthenticated', isAuthenticated);
+  console.log('role', role);
+  console.log('usertoken', token);
 
   useEffect(() => {
-    // The `hasAppInitializedRef.current` ensures it runs once even with StrictMode.
+    // We've moved the IP location logic into the thunk itself.
+    // So, we just need to dispatch the thunk from here.
     if (!hasAppInitializedRef.current) {
       console.log(
-        'App.jsx: Dispatching initializeApplication on initial mount (first time, controlled by ref).'
+        'App.jsx: Dispatching initializeApplication on initial mount.'
       );
       dispatch(initializeApplication());
       hasAppInitializedRef.current = true;
     } else {
       console.log(
-        'App.jsx: initializeApplication has already been dispatched or is in progress (due to StrictMode re-run).'
+        'App.jsx: initializeApplication has already been dispatched.'
       );
     }
   }, [dispatch]); // Dependency array: run once on mount
 
   // Show a loading screen while the entire application initialization is pending
-  if (!isAppFullyInitialized) {
-    // console.log("App: Showing DeliveryLoader - App not fully initialized.");
+  if (isLoading) {
     return <DeliveryLoader />;
   }
 

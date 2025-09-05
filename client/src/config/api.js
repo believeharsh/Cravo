@@ -13,11 +13,14 @@ export const API = {
     UPDATE: '/users/update',
   },
   RESTAURANTS: {
-    LIST: '/restaurants',
+    RESTAURANTS_LIST: '/restaurants',
     DETAILS: id => `/restaurants/${id}`,
     PRODUCTS: restaurantId => `/restaurants/${restaurantId}/products`,
   },
-  LANDING: {
-    LANDING_RESOURCES: '/landingResources',
+  CITIES: {
+    GET_ALL_CITIES: '/cities',
+  },
+  CATEGORIES: {
+    GET_ALL_CATEGORIES: '/categories',
   },
 };
