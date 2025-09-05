@@ -67,6 +67,7 @@ const loginUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             isVerified: user.isVerified,
+            role: user.role,
           },
           accessToken: accessToken,
         },
@@ -272,6 +273,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   // Creating a safe and sanitized user object
   const safeUser = {
     _id: user._id,
+    username: user.username,
     email: user.email,
     name: user.name,
     role: user.role,
