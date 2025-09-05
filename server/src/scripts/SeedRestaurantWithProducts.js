@@ -511,7 +511,7 @@ const seedDatabase = async () => {
           );
           continue;
         }
-        const subset = getRandomSubset(pool, Math.min(1, pool.length));
+        const subset = getRandomSubset(pool, Math.min(4, pool.length));
         console.log(
           `    🍽️ Adding ${subset.length} products for category: ${category.name}`
         );
@@ -524,14 +524,18 @@ const seedDatabase = async () => {
             400,
             400
           );
+          const uniqueSku = `${restaurant.name
+            .replace(/\s+/g, '')
+            .toUpperCase()}-${restaurant._id}-${category.name.toUpperCase()}-${i + 1}`;
           allProducts.push({
             ...poolProduct,
             images: imgUrl ? [imgUrl] : [],
             restaurant: restaurant._id,
             category: category._id,
-            sku: `${restaurant.name
-              .replace(/\s+/g, '')
-              .toUpperCase()}-${category.name.toUpperCase()}-${i + 1}`,
+            // sku: `${restaurant.name
+            //   .replace(/\s+/g, '')
+            //   .toUpperCase()}-${category.name.toUpperCase()}-${i + 1}`,
+            sku: uniqueSku,
             availabilityStatus: 'In Stock',
             barcode: getBarCode(),
           });
