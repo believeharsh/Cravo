@@ -51,17 +51,12 @@ const CategoryResultPage = () => {
       const limit = 50;
 
       // Constructing the API URL using dynamic parameters from the URL and state
-      const apiUrl = `${API.RESTAURANTS.LIST}?categoryName=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
+      const apiUrl = `${API.RESTAURANTS.RESTAURANTS_LIST}?categoryName=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
 
       const response = await axiosInstance.get(apiUrl);
       console.log('response in the category Result page', response);
       const { restaurants, totalResults, currentPage, totalPages } =
         response.data.data;
-      console.log('data', restaurants);
-      console.log('totalResults', totalResults);
-      console.log('currentPage', currentPage);
-      console.log('totalPages', totalPages);
-
       // Handle loading more pages or fetching the first page
       setRestaurants(prevRestaurants =>
         pageToFetch === 1 ? restaurants : [...prevRestaurants, ...data]
