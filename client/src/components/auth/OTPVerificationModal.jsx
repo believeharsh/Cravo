@@ -33,8 +33,10 @@ const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
       console.log('res after otp verification', res);
       if (res.data.success) {
         // Assuming your backend sends back user data on successful verification
+        const { user, accessToken } = res.data.data;
+
         dispatch(
-          setAuthState({ user: res.data.data.user, token: res.data.data.token })
+          setAuthState({ user: user, token: accessToken, role: user.role })
         );
         onVerificationSuccess(); // Callback to handle closing modals or navigation
       } else {

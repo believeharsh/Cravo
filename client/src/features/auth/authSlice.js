@@ -81,10 +81,6 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.isAuthenticated = false;
-      // With HTTP-only cookies, you typically don't clear localStorage for auth data.
-      // If you stored 'role' for display, you might clear it here.
-      // localStorage.removeItem("role");
-      // You'd typically also hit a backend logout endpoint to invalidate the cookie on the server.
     },
     clearAuthError: state => {
       state.error = null;
@@ -97,6 +93,10 @@ const authSlice = createSlice({
       state.role = role || null;
       state.token = token || null;
       state.isAuthenticated = !!user;
+      state.isLoading = false;
+      state.error = null;
+      state.isAuthChecking = false;
+      state.isInitialized = true;
     },
     // Reducer to explicitly mark initialization (used if checkAuthStatus isn't the only init path)
     setAuthInitialized: state => {
