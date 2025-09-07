@@ -71,6 +71,85 @@ const getRestaurantsWithNoProducts = asyncHandler(async (req, res) => {
     );
 });
 
+// const getRestaurantsByQuery = asyncHandler(async (req, res) => {
+//   const { categoryName, longitude, latitude, limit = 10, page = 1 } = req.query;
+
+//   const userLongitude = parseFloat(longitude);
+//   const userLatitude = parseFloat(latitude);
+
+//   const MAX_DISTANCE_METERS = 10000;
+//   const skipAmount = (parseInt(page) - 1) * parseInt(limit);
+//   const parsedLimit = parseInt(limit);
+
+//   const isLocationBasedQuery = !isNaN(userLongitude) && !isNaN(userLatitude);
+
+//   // Start building the pipeline
+//   const pipeline = [];
+
+//   // 1. $geoNear must be the first stage if location provided
+//   if (isLocationBasedQuery) {
+//     pipeline.push({
+//       $geoNear: {
+//         near: {
+//           type: 'Point',
+//           coordinates: [userLongitude, userLatitude],
+//         },
+//         distanceField: 'distance',
+//         spherical: true,
+//         maxDistance: MAX_DISTANCE_METERS,
+//         key: 'address.location',
+//       },
+//     });
+//   }
+
+//   // 2. Match by cuisine type (case-insensitive)
+//   if (categoryName) {
+//     pipeline.push({
+//       $match: {
+//         cuisine_type: {
+//           $regex: new RegExp(`^${categoryName}$`, 'i'), // matches ignoring case
+//         },
+//       },
+//     });
+//   }
+
+//   // 3. Use $facet for pagination + count
+//   pipeline.push({
+//     $facet: {
+//       restaurants: [{ $skip: skipAmount }, { $limit: parsedLimit }],
+//       totalCount: [{ $count: 'total' }],
+//     },
+//   });
+
+//   const result = await Restaurant.aggregate(pipeline)
+
+//   const restaurants = result[0].restaurants;
+//   const totalCount =
+//     result[0].totalCount.length > 0 ? result[0].totalCount[0].total : 0;
+//   const totalPages = Math.ceil(totalCount / parsedLimit);
+
+//   if (totalCount === 0) {
+//     return res
+//       .status(200)
+//       .json(
+//         new apiResponse(200, [], 'No restaurants found matching the criteria.')
+//       );
+//   }
+
+//   res.status(200).json(
+//     new apiResponse(
+//       200,
+//       {
+//         restaurants,
+//         totalResults: totalCount,
+//         currentPage: page,
+//         totalPages: totalPages,
+//       },
+//       'Restaurants fetched successfully.'
+//     )
+//   );
+// });
+
 const getRestaurantsByQuery = asyncHandler(async (req, res) => {
   const { categoryName, longitude, latitude, limit = 10, page = 1 } = req.query;
 
@@ -83,7 +162,6 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
 
   const isLocationBasedQuery = !isNaN(userLongitude) && !isNaN(userLatitude);
 
-  // Start building the pipeline
   const pipeline = [];
 
   // 1. $geoNear must be the first stage if location provided
@@ -107,13 +185,30 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
     pipeline.push({
       $match: {
         cuisine_type: {
-          $regex: new RegExp(`^${categoryName}$`, 'i'), // matches ignoring case
+          $regex: new RegExp(`^${categoryName}$`, 'i'),
         },
       },
     });
   }
 
-  // 3. Use $facet for pagination + count
+  // 3. Add $lookup and $unwind to populate city details
+  pipeline.push({
+    $lookup: {
+      from: 'cities', // Your cities collection name
+      localField: 'address.city',
+      foreignField: '_id',
+      as: 'address.cityDetails',
+    },
+  });
+
+  pipeline.push({
+    $unwind: {
+      path: '$address.cityDetails',
+      preserveNullAndEmptyArrays: true,
+    },
+  });
+
+  // 4. Use $facet for pagination + count
   pipeline.push({
     $facet: {
       restaurants: [{ $skip: skipAmount }, { $limit: parsedLimit }],
@@ -121,6 +216,7 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
     },
   });
 
+  // Execute the aggregation pipeline
   const result = await Restaurant.aggregate(pipeline);
 
   const restaurants = result[0].restaurants;
