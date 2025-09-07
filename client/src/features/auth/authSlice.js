@@ -16,6 +16,7 @@ export const loginUser = createAsyncThunk(
       return res.data;
     } catch (err) {
       // Axios errors often have a `response` object
+      console.log(err);
       const errorMessage =
         err.response?.data?.message ||
         'Something went wrong. Please try again.';
@@ -122,12 +123,15 @@ const authSlice = createSlice({
         state.isInitialized = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        console.log('SLICE REJECTED FIRED:', action);
         state.isLoading = false;
         state.user = null;
         state.role = null;
         state.token = null;
         state.isAuthenticated = false;
         state.error = action.payload;
+        console.error('Login rejected with payload:', action.payload);
+
         state.isAuthChecking = false;
         state.isInitialized = true;
       })

@@ -29,7 +29,7 @@ import DeliveryLoader from './components/DeliveryLoader';
 import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 import AuthSidebar from './components/auth/AuthSidebar';
 import { closeAuthModal } from './features/authModal/authModelSlice';
-import { checkAuthStatus } from './features/auth/authSlice';
+import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 import OTPVerificationModal from './components/auth/OTPVerificationModal';
 
 function AppContent() {
@@ -48,16 +48,28 @@ function AppContent() {
           'Auth complete signal received, dispatching checkAuthStatus'
         );
 
-        dispatch(checkAuthStatus())
-          .unwrap()
-          .then(user => {
-            console.log('checkAuthStatus user:', user);
-            dispatch(closeAuthModal());
-            navigate('/restaurants');
+        dispatch(
+          setAuthState({
+            user: event.data.data.user,
+            token: event.data.data.accessToken,
+            role: event.data.data.user.role,
           })
-          .catch(err => {
-            console.error('checkAuthStatus error:', err);
-          });
+        );
+
+        // Close the modal and navigate
+        dispatch(closeAuthModal());
+        navigate('/restaurants');
+
+        // dispatch(checkAuthStatus())
+        //   .unwrap()
+        //   .then(user => {
+        //     console.log('checkAuthStatus user:', user);
+        //     dispatch(closeAuthModal());
+        //     navigate('/restaurants');
+        //   })
+        //   .catch(err => {
+        //     console.error('checkAuthStatus error:', err);
+        //   });
       }
     };
 

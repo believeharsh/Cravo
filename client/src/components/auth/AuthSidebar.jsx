@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, setAuthState } from '../../features/auth/authSlice';
 import {
   closeAuthModal,
@@ -17,6 +17,8 @@ const AuthSidebar = ({ isOpen }) => {
     name: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const { error } = useSelector(state => state.auth);
+  console.log('error', error);
 
   const dispatch = useDispatch();
 
@@ -29,6 +31,8 @@ const AuthSidebar = ({ isOpen }) => {
     console.log(result);
     if (loginUser.fulfilled.match(result)) {
       dispatch(closeAuthModal());
+    } else if (loginUser.rejected.match(result)) {
+      console.error(result.payload); // <- this is the rejectWithValue message
     }
   };
 
@@ -84,6 +88,12 @@ const AuthSidebar = ({ isOpen }) => {
                 : 'Join us and discover more.'}
             </p>
           </div>
+
+          {error && (
+            <div className="text-red-500 text-center mb-4 p-2 rounded-md bg-red-100 border border-red-200">
+              {error}
+            </div>
+          )}
 
           {/* Form */}
           <form
