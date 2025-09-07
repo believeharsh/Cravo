@@ -42,12 +42,12 @@ const CategoryResultPage = () => {
 
     try {
       // Get values from URL parameters, providing a default if they are missing
-      // const longitude = searchParams.get('lng') || 75.86;
-      // const latitude = searchParams.get('lat') || 22.72;
+      const longitude = searchParams.get('lng') || 75.86;
+      const latitude = searchParams.get('lat') || 22.72;
       // const limit = searchParams.get('limit') || 5;
 
-      const longitude = 75.86;
-      const latitude = 22.72;
+      // const longitude = 75.86;
+      // const latitude = 22.72;
       const limit = 50;
 
       // Constructing the API URL using dynamic parameters from the URL and state
@@ -131,7 +131,7 @@ const CategoryResultPage = () => {
         />
 
         {restaurants.length > 0 ? (
-          <RestaurantList restaurants={restaurants} />
+          <RestaurantList restaurants={restaurants} isLoading={loading} />
         ) : (
           <p className="text-center text-gray-600 text-lg mt-8">
             No restaurants found for "{categorySlug}" in this area.
