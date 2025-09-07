@@ -33,9 +33,11 @@ const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
   const [foodCategories, setFoodCategories] = useState([]);
   const { data, isLoading, error } = useSelector(state => state.landingPage);
-  console.log('data is coming inside the landing/categoryslider', data);
-  const { latitude, longitude } = useSelector(state => state.location);
   const categoriesData = data.categories;
+
+  const Statelocation = useSelector(state => state.location);
+
+  const { city, latitude, longitude } = Statelocation;
 
   const navigate = useNavigate();
 

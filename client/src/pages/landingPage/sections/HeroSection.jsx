@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
+import { useSelector } from 'react-redux';
 
 // Utility function to debounce API calls
 const debounce = (func, delay) => {
@@ -25,6 +26,10 @@ const Hero = () => {
 
   // State for food input (not implemented in this version, but kept for consistency)
   const [foodFocused, setFoodFocused] = useState(false);
+
+  const { city, region, country } = useSelector(state => state.location);
+
+  const location_placehoder = `${city}, ${region}, ${country}`;
 
   // Reference for the location search container to handle clicks outside
   const locationRef = useRef(null);
@@ -178,7 +183,8 @@ const Hero = () => {
                     />
                     <input
                       type="text"
-                      placeholder="Indore, MP, India"
+                      // placeholder="Indore, MP, India"
+                      placeholder={location_placehoder}
                       className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium text-sm sm:text-base"
                       value={searchTerm}
                       onChange={handleLocationChange}

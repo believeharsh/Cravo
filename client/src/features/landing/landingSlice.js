@@ -3,6 +3,9 @@ import axiosInstance from '../../api/axiosInstance';
 import { checkAuthStatus } from '../auth/authSlice';
 import { API } from '../../config/api';
 import axios from 'axios';
+import { setUserLocation } from '../location/locationSlice';
+
+console.log(setUserLocation);
 
 // New Async Thunk to handle all API calls concurrently
 export const initializeApplication = createAsyncThunk(
@@ -23,14 +26,29 @@ export const initializeApplication = createAsyncThunk(
 
       const cities = citiesRes.data.data.cities;
       const categories = categoriesRes.data.data.categories;
-      const { lat, lon } = ipLocationRes.data;
+      console.log('api location res', ipLocationRes);
+      const { lat, lon, city, country, countryCode, region, regionName, zip } =
+        ipLocationRes.data;
 
+      dispatch(
+        setUserLocation({
+          lat: lat,
+          lon: lon,
+          city: city,
+          country: country,
+          countryCode: countryCode,
+          region: region,
+          regionName: regionName,
+          zip: zip,
+        })
+      );
       // Make the final, dependent call for restaurants using the fetched location
       const restaurantsRes = await axiosInstance.get(
         `${API.RESTAURANTS.RESTAURANTS_LIST}/?longitude=${lon}&latitude=${lat}&sort=rating&limit=15`
       );
 
       const restaurants = restaurantsRes.data.data.restaurants;
+
       // Return the combined payload for the fulfilled action
       return {
         cities,

@@ -1,16 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-/**
- * @description An asynchronous thunk to fetch the user's current location.
- * It uses the browser's Geolocation API and returns a payload with
- * latitude and longitude on success, or an error message on failure.
- *
- * The thunk is set up to handle three lifecycle actions:
- * - pending: When the request starts.
- * - fulfilled: When the request succeeds.
- * - rejected: When the request fails (e.g., user denies permission).
- */
-
 export const fetchUserLocation = createAsyncThunk(
   'location/fetchUserLocation',
   async (_, { rejectWithValue }) => {
@@ -46,13 +35,32 @@ export const fetchUserLocation = createAsyncThunk(
 const locationSlice = createSlice({
   name: 'location',
   initialState: {
+    city: '',
     latitude: null,
     longitude: null,
+    country: '',
+    countryCode: '',
+    region: '',
+    regionName: '',
+    zip: '',
     isLoading: false,
     error: null,
   },
   reducers: {
-    // Reducers for synchronous actions can go here if needed
+    setUserLocation: (state, action) => {
+      console.log('setUserLocation is firing now');
+      state.city = action.payload.city;
+      state.latitude = action.payload.lat;
+      state.longitude = action.payload.lon;
+      state.country = action.payload.country;
+      state.countryCode = action.payload.countryCode;
+      state.region = action.payload.region;
+      state.regionName = action.payload.regionName;
+      state.zip = action.payload.zip;
+      state.source = action.payload.source || 'manual';
+      state.error = null;
+      console.log(location);
+    },
   },
   extraReducers: builder => {
     builder
@@ -73,10 +81,11 @@ const locationSlice = createSlice({
         state.isLoading = false;
         state.latitude = null;
         state.longitude = null;
-        state.error = action.payload; // The error message from rejectWithValue
+        state.error = action.payload;
       });
   },
 });
 
-// Export the reducer so it can be combined with other reducers in the store
+export const { setUserLocation } = locationSlice.actions;
+
 export default locationSlice.reducer;

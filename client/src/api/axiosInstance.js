@@ -86,7 +86,7 @@ axiosInstance.interceptors.response.use(
         setAuthHeader(newAccessToken);
 
         // Update Redux state with the new token
-        store.dispatch(
+        dispatch(
           setAuthState({ role: role, user: user, token: newAccessToken })
         );
 
