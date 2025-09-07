@@ -70,7 +70,7 @@ export const categoriesToUpload = [
     description:
       'Popular and tangy on-the-go snacks and dishes from the streets of India.',
     imagePath:
-      'https://img.freepik.com/premium-photo/crunchy-aloo-poha-kachori-white-background-indian-traditional-food-kachori-picture_1020697-132734.jpg',
+      'https://img.freepik.com/premium-photo/delicious-dhokla-white-plate-with-white-background_894067-16685.jpg',
   },
 
   {
