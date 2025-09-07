@@ -3,31 +3,45 @@ import { useSelector } from 'react-redux';
 import Icon from '../../../components/ui/Icon';
 import { useNavigate } from 'react-router-dom';
 
-const CategoryCard = ({ c, width, onClick }) => (
-  <div
-    className="flex-shrink-0 sm:px-1"
-    style={{ width }}
-    onClick={() => onClick(c.name || c.slug)}
-  >
+// This component can render either a real category card or a skeleton loader
+const CategoryCard = ({ c, width, onClick, isLoading }) => {
+  if (isLoading) {
+    return (
+      <div className="flex-shrink-0 sm:px-1" style={{ width }}>
+        <div className="flex flex-col items-center justify-center">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-100 rounded-full animate-pulse"></div>
+          <div className="mt-2 w-20 h-4 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
     <div
-      className="flex flex-col items-center
+      className="flex-shrink-0 sm:px-1"
+      style={{ width }}
+      onClick={() => onClick(c.name || c.slug)}
+    >
+      <div
+        className="flex flex-col items-center
                    justify-center hover:-translate-y-1
                    transition-transform duration-200 ease-out cursor-pointer"
-    >
-      <img
-        src={c.image}
-        alt={c.name}
-        className="w-24 h-24 sm:w-28 sm:h-28 object-cover "
-        onError={e => {
-          e.target.src = '/placeholder-category.png';
-        }}
-      />
-      <span className="mt-2 font-semibold text-gray-700 text-md text-center">
-        {c.name}
-      </span>
+      >
+        <img
+          src={c.image}
+          alt={c.name}
+          className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-full"
+          onError={e => {
+            e.target.src = '/placeholder-category.png';
+          }}
+        />
+        <span className="mt-2 font-semibold text-gray-700 text-md text-center">
+          {c.name}
+        </span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
@@ -36,22 +50,24 @@ const CategoriesSlider = () => {
   const categoriesData = data.categories;
 
   const Statelocation = useSelector(state => state.location);
-
-  const { city, latitude, longitude } = Statelocation;
+  const { latitude, longitude } = Statelocation;
 
   const navigate = useNavigate();
 
+  // Add a small delay to the data display for a smoother transition
   useEffect(() => {
-    let categories = [];
-
+    let timer;
     if (categoriesData) {
-      categories = [...categoriesData];
+      timer = setTimeout(() => {
+        setFoodCategories([...categoriesData]);
+      }, 300); // 300ms delay
     }
 
-    setFoodCategories(categories);
-  }, [data]);
+    // Cleanup the timer to prevent memory leaks
+    return () => clearTimeout(timer);
+  }, [categoriesData]);
 
-  /* SSR-safe "items per view" */
+  // SSR-safe "items per view"
   const getItemsPerView = () => {
     if (typeof window === 'undefined') return itemsPerView.mobile;
     if (window.innerWidth >= 1024) return itemsPerView.desktop;
@@ -62,10 +78,9 @@ const CategoriesSlider = () => {
   const [itemsToShow, setItemsToShow] = useState(getItemsPerView());
   const [index, setIndex] = useState(0);
 
-  /* update on resize */
+  // Update on resize
   useEffect(() => {
     const update = () => setItemsToShow(getItemsPerView());
-    update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
@@ -76,7 +91,7 @@ const CategoriesSlider = () => {
   const firstRowCategories = foodCategories.slice(0, categoriesPerRow);
   const secondRowCategories = foodCategories.slice(categoriesPerRow);
 
-  /* keep index in range when viewport shrinks */
+  // Keep index in range when viewport shrinks
   const maxIndex = Math.max(0, categoriesPerRow - itemsToShow);
   useEffect(
     () => setIndex(i => Math.min(i, maxIndex)),
@@ -86,50 +101,36 @@ const CategoriesSlider = () => {
   const cardWidthPct = 100 / itemsToShow;
   const translatePct = -index * cardWidthPct;
 
-  const handleNavigateToCategoryResultPage = categorySlug => {
-    // Check if location data exists before navigating
+  const handleNavigateToCategoryResultPage = categoryName => {
     if (latitude && longitude) {
-      navigate(`/categories/${categorySlug}?lat=${latitude}&lng=${longitude}`);
+      navigate(`/categories/${categoryName}?lat=${latitude}&lng=${longitude}`);
     } else {
-      // Fallback: navigate without location if it's not available
-      navigate(`/categories/${categorySlug}`);
+      navigate(`/categories/${categoryName}`);
     }
   };
 
-  // Show loading state
-  if (isLoading) {
-    return (
-      <section className="py-5 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-800">
-              What's on your mind
-            </h2>
-          </div>
-          <div className="space-y-4">
-            {/* First row skeleton */}
-            <div className="flex gap-4">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex-1">
-                  <div className="bg-gray-200 rounded-xl h-36 animate-pulse"></div>
-                </div>
-              ))}
-            </div>
-            {/* Second row skeleton */}
-            <div className="flex gap-4">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex-1">
-                  <div className="bg-gray-200 rounded-xl h-36 animate-pulse"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const renderContent = categories => {
+    // If loading, render skeleton cards
+    if (isLoading) {
+      return [...Array(itemsToShow * 2)].map((_, i) => (
+        <CategoryCard
+          key={`skeleton-${i}`}
+          isLoading={true}
+          width={`${cardWidthPct}%`}
+        />
+      ));
+    }
+    // If not loading, render real category cards
+    return categories.map(c => (
+      <CategoryCard
+        key={c._id || c.name} // Use a more stable key if available
+        c={c}
+        width={`${cardWidthPct}%`}
+        onClick={handleNavigateToCategoryResultPage}
+      />
+    ));
+  };
 
-  // Show error state
   if (error) {
     return (
       <section className="py-5 bg-white">
@@ -142,20 +143,14 @@ const CategoriesSlider = () => {
     );
   }
 
-  // Don't render if no categories (this shouldn't happen now due to dummy data)
-  if (!foodCategories.length) {
-    return null;
-  }
-
   return (
     <section className="py-5 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* header + arrows */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-3xl font-semibold text-gray-800">
             What's on your mind
           </h2>
-          {categoriesPerRow > itemsToShow && (
+          {categoriesPerRow > itemsToShow && !isLoading && (
             <div className="flex gap-2">
               <button
                 onClick={() => setIndex(i => Math.max(0, i - 1))}
@@ -183,39 +178,21 @@ const CategoriesSlider = () => {
           )}
         </div>
 
-        {/* Two-row slider container */}
         <div className="space-y-4">
-          {/* First Row */}
           <div className="relative overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(${translatePct}%)` }}
             >
-              {firstRowCategories.map(c => (
-                <CategoryCard
-                  key={`row1-${c._id}`}
-                  c={c}
-                  width={`${cardWidthPct}%`}
-                  onClick={() => handleNavigateToCategoryResultPage(c.name)}
-                />
-              ))}
+              {renderContent(firstRowCategories)}
             </div>
           </div>
-
-          {/* Second Row */}
           <div className="relative overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(${translatePct}%)` }}
             >
-              {secondRowCategories.map(c => (
-                <CategoryCard
-                  key={`row2-${c._id}`}
-                  c={c}
-                  width={`${cardWidthPct}%`}
-                  onClick={() => handleNavigateToCategoryResultPage(c.name)}
-                />
-              ))}
+              {renderContent(secondRowCategories)}
             </div>
           </div>
         </div>
