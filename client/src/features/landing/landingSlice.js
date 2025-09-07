@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axiosInstance';
 import { checkAuthStatus } from '../auth/authSlice';
-import { fetchUserLocation } from '../location/locationSlice';
 import { API } from '../../config/api';
 import axios from 'axios';
 
@@ -28,7 +27,7 @@ export const initializeApplication = createAsyncThunk(
 
       // Make the final, dependent call for restaurants using the fetched location
       const restaurantsRes = await axiosInstance.get(
-        `${API.RESTAURANTS.RESTAURANTS_LIST}/?longitude=${lon}&latitude=${lat}&sort=rating&limit=50`
+        `${API.RESTAURANTS.RESTAURANTS_LIST}/?longitude=${lon}&latitude=${lat}&sort=rating&limit=15`
       );
 
       const restaurants = restaurantsRes.data.data.restaurants;
