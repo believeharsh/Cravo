@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import passport from 'passport'; // New Import
+import passport from 'passport';
+import errorHandler from './middlewares/error.middleware.js';
 import authRoute from './routes/auth.route.js';
 import categoryRoute from './routes/category.route.js';
 import path from 'path';
@@ -10,6 +11,7 @@ import productRoute from './routes/product.route.js';
 import restaurantRoute from './routes/restaurant.route.js';
 import landingRoute from './routes/landing.route.js';
 import cityRoute from './routes/city.route.js';
+import configurePassport from './config/passport.config.js';
 
 dotenv.config();
 
@@ -28,8 +30,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(cookieParser());
 
-// Initialize Passport middleware
 app.use(passport.initialize());
+configurePassport();
 
 app.use(express.static(path.resolve('./public')));
 
@@ -43,5 +45,7 @@ app.use('/api/v1/cities', cityRoute);
 app.get('/', (req, res) => {
   res.json('Hello, from server');
 });
+
+app.use(errorHandler);
 
 export { app };
