@@ -55,21 +55,9 @@ function AppContent() {
             role: event.data.data.user.role,
           })
         );
-
         // Close the modal and navigate
         dispatch(closeAuthModal());
         navigate('/restaurants');
-
-        // dispatch(checkAuthStatus())
-        //   .unwrap()
-        //   .then(user => {
-        //     console.log('checkAuthStatus user:', user);
-        //     dispatch(closeAuthModal());
-        //     navigate('/restaurants');
-        //   })
-        //   .catch(err => {
-        //     console.error('checkAuthStatus error:', err);
-        //   });
       }
     };
 
@@ -121,7 +109,6 @@ function App() {
   const dispatch = useDispatch();
   const hasAppInitializedRef = useRef(false);
   const { isLoading, appInitError } = useSelector(state => state.landingPage);
-  // const { isOpen, mode } = useSelector(state => state.authModal);
   const { isOpen, showOTPModal, signupEmail } = useSelector(
     state => state.authModal
   );
@@ -135,8 +122,6 @@ function App() {
   console.log('usertoken', token);
 
   useEffect(() => {
-    // We've moved the IP location logic into the thunk itself.
-    // So, we just need to dispatch the thunk from here.
     if (!hasAppInitializedRef.current) {
       console.log(
         'App.jsx: Dispatching initializeApplication on initial mount.'
@@ -150,11 +135,6 @@ function App() {
     }
   }, [dispatch]); // Dependency array: run once on mount
 
-  // Show a loading screen while the entire application initialization is pending
-  if (isLoading) {
-    return <DeliveryLoader />;
-  }
-
   if (appInitError) {
     console.error('App Initialization Error:', appInitError);
   }
@@ -163,8 +143,6 @@ function App() {
   return (
     <>
       <AppContent />
-
-      {/* {isOpen && <AuthSidebar isOpen={isOpen} />}*/}
       {isOpen && !showOTPModal && <AuthSidebar isOpen={true} />}
       {showOTPModal && (
         <OTPVerificationModal
