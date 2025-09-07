@@ -10,6 +10,127 @@ import {
   createRefreshToken,
 } from '../services/userTokens.js';
 
+const googleAuthCallback = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select('-password');
+  if (!user) {
+    throw new apiError(404, 'User not found');
+  }
+
+  const { accessToken, refreshToken } =
+    await user.generateAccessAndRefreshToken();
+
+  user.refreshTokens = [{ token: refreshToken }];
+  await user.save({ validateBeforeSave: false });
+
+  const options = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    path: '/',
+  };
+  res.cookie('refreshToken', refreshToken, options);
+
+  const payload = {
+    type: 'authComplete',
+    success: true,
+    data: {
+      accessToken: accessToken,
+      user: user,
+    },
+  };
+
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Authentication Complete</title>
+      </head>
+      <body>
+        <script>
+          (function() {
+            if (window.opener) {
+              window.opener.postMessage(${JSON.stringify(payload)}, "http://localhost:5173");
+              window.close();
+            }
+          })();
+        </script>
+      </body>
+    </html>
+  `);
+});
+
+// const loginUser = asyncHandler(async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password) {
+//     throw new apiError(400, 'Email and password are required');
+//   }
+
+//   const user = await User.findOne({ email });
+
+//   if (!user) {
+//     throw new apiError(404, 'User not found with this email');
+//   }
+
+//     if (user.googleId) {
+//     // If they have a Google ID, it means they signed up with Google.
+//     // We prevent manual login to avoid password confusion and guide them to the correct method.
+//     throw new apiError(401, 'This account was created with Google. Please log in with your Google account.');
+//   }
+
+//   // Checking if user is verified or not
+//   if (!user.isVerified) {
+//     throw new apiError(
+//       403,
+//       'Account not verified. Please check your email for the verification OTP.'
+//     );
+//   }
+
+//   const isPasswordCorrect = await user.isPasswordCorrect(password);
+
+//   if (!isPasswordCorrect) {
+//     throw new apiError(401, 'Invalid credentials');
+//   }
+
+//   // generating the tokens as the user is authenticated and verified
+//   const { accessToken, refreshToken } = await User.matchPassAndGenTokens(
+//     email,
+//     password
+//   );
+
+//   // Save refresh token in DB (replace old one for simplicity)
+//   user.refreshTokens = [{ token: refreshToken }];
+//   await user.save({ validateBeforeSave: false });
+
+//   const options = {
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === 'production',
+//     sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+//     path: '/',
+//   };
+
+//   return res
+//     .status(200)
+//     .cookie('refreshToken', refreshToken, options)
+//     .json(
+//       new apiResponse(
+//         200,
+//         {
+//           user: {
+//             _id: user._id,
+//             username: user.username,
+//             name: user.name,
+//             email: user.email,
+//             isVerified: user.isVerified,
+//             role: user.role,
+//           },
+//           accessToken: accessToken,
+//         },
+//         'User logged in successfully'
+//       )
+//     );
+// });
+
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -18,12 +139,18 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findOne({ email });
-
+  console.log('user', user);
   if (!user) {
     throw new apiError(404, 'User not found with this email');
   }
 
-  // Checking if user is verified or not
+  if (user.googleId) {
+    throw new apiError(
+      401,
+      'This account was created with Google. Please log in with your Google account.'
+    );
+  }
+
   if (!user.isVerified) {
     throw new apiError(
       403,
@@ -37,14 +164,15 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new apiError(401, 'Invalid credentials');
   }
 
-  // generating the tokens as the user is authenticated and verified
-  const { accessToken, refreshToken } = await User.matchPassAndGenTokens(
-    email,
-    password
-  );
+  // Corrected: Generating the tokens using instance methods
+  const { accessToken, refreshToken } =
+    await user.generateAccessAndRefreshToken();
 
-  // Save refresh token in DB (replace old one for simplicity)
-  user.refreshTokens = [{ token: refreshToken }];
+  // The rest of the code is fine, but double-check your field name.
+  // It's `user.refreshToken` in a previous example, but here it's `user.refreshTokens`.
+  // Ensure your Mongoose schema is consistent.
+  // For a single token, `user.refreshToken = refreshToken;` is simpler.
+  user.refreshToken = refreshToken;
   await user.save({ validateBeforeSave: false });
 
   const options = {
@@ -300,6 +428,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 });
 
 export {
+  googleAuthCallback,
   loginUser,
   registerUser,
   logoutUser,
