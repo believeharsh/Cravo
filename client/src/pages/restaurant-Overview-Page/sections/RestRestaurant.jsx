@@ -92,7 +92,9 @@ const RestaurantCard = ({ data }) => (
         <span className="text-gray-600 font-medium">
           {data.delivery_time_mins} mins
         </span>
-        <span className="text-emerald-600 font-semibold">Free delivery</span>
+        <span className="text-emerald-600 font-semibold">
+          {data.is_veg ? 'veg' : ''}
+        </span>
       </div>
     </div>
   </div>
@@ -188,7 +190,6 @@ const RestaurantGrid = () => {
                 key={r._id}
                 to={`/menu/${restaurant_slug}/${r._id}`}
                 className="flex-shrink-0 px-2 sm:px-3"
-                // style={{ width: `${cardWidthPct}%` }}
               >
                 <RestaurantCard data={r} />
               </Link>

@@ -105,15 +105,23 @@ const RestaurantCard = ({ data }) => (
       </div>
 
       {/* Cuisine tags - improved spacing */}
-      <div className="flex flex-wrap gap-1">
-        {data.cuisine_type.slice(0, 3).map(cuisine => (
-          <span
-            key={cuisine}
-            className="text-xs text-gray-600 font-medium transition-colors"
-          >
-            {`${cuisine},`}
+      <div className="flex items-center gap-1 overflow-hidden">
+        <div className="flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
+          {data.cuisine_type.slice(0, 3).map((cuisine, index) => (
+            <span
+              key={cuisine}
+              className="text-xs text-gray-600 font-medium transition-colors"
+            >
+              {cuisine}
+              {index < data.cuisine_type.slice(0, 3).length - 1 ? ',' : ''}
+            </span>
+          ))}
+        </div>
+        {data.cuisine_type.length > 3 && (
+          <span className="text-xs text-gray-600 font-medium flex-shrink-0">
+            ...
           </span>
-        ))}
+        )}
       </div>
 
       {/* Footer - simplified */}
@@ -121,7 +129,9 @@ const RestaurantCard = ({ data }) => (
         <span className="text-gray-600 font-medium">
           {data.delivery_time_mins} mins
         </span>
-        <span className="text-emerald-600 font-semibold">Free delivery</span>
+        <span className="text-emerald-600 font-semibold">
+          {data.is_veg ? 'veg' : ''}
+        </span>
       </div>
     </div>
   </div>
@@ -129,8 +139,10 @@ const RestaurantCard = ({ data }) => (
 
 const TopRestaurants = () => {
   const { data, loading, error } = useSelector(state => state.landingPage);
+  const { city } = useSelector(state => state.location);
   const restaurants = data?.restaurants || [];
 
+  console.log(restaurants);
   const itemsPerView = { mobile: 1.2, tablet: 2.5, desktop: 5 };
 
   const getItemsPerView = () => {
@@ -219,8 +231,8 @@ const TopRestaurants = () => {
         {/* Enhanced Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex-1">
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-1">
-              Top Restaurants Near You
+            <h2 className="text-xl font-bold text-gray-800 mb-1">
+              Top Restaurants Chain In {city}
             </h2>
             <p className="text-gray-600 text-sm lg:text-base">
               Discover {restaurants.length} popular restaurants loved by our
