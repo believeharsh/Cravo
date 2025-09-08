@@ -60,7 +60,7 @@ const RestaurantsOverviewPage = () => {
       </div>
 
       {/* Always add padding top since navbar is always fixed */}
-      <div className="pt-16 mt-15">
+      <div className="mt-20">
         <RestaurantCategoriesSlider />
         {/* Add ref to TopRestaurants to track its position */}
         <div ref={topRestaurantsRef}>
