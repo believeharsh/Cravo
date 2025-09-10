@@ -408,8 +408,8 @@ export const bhopalRestaurants = [
   //   delivery_time_mins: 32,
   // },
   // {
-  //   name: 'The Chocolate Room',
-  //   description: 'A paradise for chocolate lovers with a variety of desserts.',
+  //   name: 'The ChocobaseLate Room',
+  //   description: 'A paradise for chocobaseLate lovers with a variety of desserts.',
   //   address: {
   //     street: 'Aura Mall, Gulmohar',
   //     city: 'Bhopal',
@@ -420,7 +420,7 @@ export const bhopalRestaurants = [
   //       coordinates: [baseLon + 0.025, baseLat + 0.055],
   //     },
   //   },
-  //   contact: { phone: '9876510013', email: 'chocolateroom.bpl@example.com' },
+  //   contact: { phone: '9876510013', email: 'chocobaseLateroom.bpl@example.com' },
   //   cuisine_type: [
   //     'Desserts',
   //     'Beverages',
@@ -692,7 +692,7 @@ export const bhopalRestaurants = [
   //   cost_for_two: 900,
   //   delivery_time_mins: 40,
   // },
-  // // Specialty (Healthy, Vegan, Mexican)
+  // Specialty (Healthy, Vegan, Mexican)
   // {
   //   name: 'Greenr Cafe',
   //   description:
@@ -1053,135 +1053,133 @@ export const bhopalRestaurants = [
   //   delivery_time_mins: 30,
   // },
   // --- Start of 64 additional restaurants ---
-
-  {
-    name: 'Manohar Dairy & Restaurant',
-    description:
-      'A legendary destination in Bhopal for sweets, snacks, and full-course vegetarian meals.',
-    address: {
-      street: '6, Hamidia Road',
-      city: 'Bhopal',
-      state: 'Madhya Pradesh',
-      zip_code: '462001',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.008, baseLat - 0.013],
-      },
-    },
-    contact: { phone: '9876510038', email: 'manohar@example.com' },
-    cuisine_type: [
-      'Indian',
-      'North-Indian',
-      'South-Indian',
-      'Street-Food',
-      'Indian-Sweets',
-      'Desserts',
-      'Breakfast',
-      'Lunch',
-      'Dinner',
-    ],
-    rating: 4.5,
-    numberOfReviews: 8500,
-    opening_hours: [{ day: 'Monday', open: '08:00', close: '23:00' }],
-    is_active: true,
-    min_order_value: 150,
-    delivery_radius_km: 7,
-    is_veg: true,
-    cost_for_two: 600,
-    delivery_time_mins: 35,
-  },
-  {
-    name: "Domino's Pizza",
-    description:
-      'Well-known chain for a wide range of pizzas and a variety of other dishes & sides.',
-    address: {
-      street: 'Kolar Road, Danish Kunj',
-      city: 'Bhopal',
-      state: 'Madhya Pradesh',
-      zip_code: '462042',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.078, baseLat - 0.088],
-      },
-    },
-    contact: { phone: '9876510039', email: 'dominos.kolar@example.com' },
-    cuisine_type: ['Pizza', 'Italian', 'Fast-Food', 'Desserts', 'Beverages'],
-    rating: 4.0,
-    numberOfReviews: 2800,
-    opening_hours: [{ day: 'Monday', open: '11:00', close: '01:00' }],
-    is_active: true,
-    min_order_value: 200,
-    delivery_radius_km: 8,
-    is_veg: false,
-    cost_for_two: 500,
-    delivery_time_mins: 30,
-  },
-  {
-    name: 'The Good Bowl',
-    description:
-      'Serving wholesome and delicious bowls that are a fusion of global and Indian flavors.',
-    address: {
-      street: 'Saket Nagar',
-      city: 'Bhopal',
-      state: 'Madhya Pradesh',
-      zip_code: '462024',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.045, baseLat - 0.035],
-      },
-    },
-    contact: { phone: '9876510040', email: 'goodbowl.bpl@example.com' },
-    cuisine_type: [
-      'Healthy',
-      'Salads',
-      'North-Indian',
-      'Indian',
-      'Lunch',
-      'Dinner',
-    ],
-    rating: 4.3,
-    numberOfReviews: 750,
-    opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
-    is_active: true,
-    min_order_value: 180,
-    delivery_radius_km: 7,
-    is_veg: false,
-    cost_for_two: 550,
-    delivery_time_mins: 32,
-  },
-  {
-    name: 'Faasos - Wraps & Rolls',
-    description:
-      'A leading name in wraps, serving a variety of exciting flavors.',
-    address: {
-      street: 'Ayodhya Bypass Road',
-      city: 'Bhopal',
-      state: 'Madhya Pradesh',
-      zip_code: '462041',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.09, baseLat + 0.01],
-      },
-    },
-    contact: { phone: '9876510041', email: 'faasos.bpl@example.com' },
-    cuisine_type: [
-      'Street-Food',
-      'Fast-Food',
-      'North-Indian',
-      'Lunch',
-      'Dinner',
-    ],
-    rating: 4.0,
-    numberOfReviews: 1150,
-    opening_hours: [{ day: 'Monday', open: '10:00', close: '00:00' }],
-    is_active: true,
-    min_order_value: 120,
-    delivery_radius_km: 8,
-    is_veg: false,
-    cost_for_two: 350,
-    delivery_time_mins: 28,
-  },
-
+  // {
+  //   name: 'Manohar Dairy & Restaurant',
+  //   description:
+  //     'A legendary destination in Bhopal for sweets, snacks, and full-course vegetarian meals.',
+  //   address: {
+  //     street: '6, Hamidia Road',
+  //     city: 'Bhopal',
+  //     state: 'Madhya Pradesh',
+  //     zip_code: '462001',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.008, baseLat - 0.013],
+  //     },
+  //   },
+  //   contact: { phone: '9876510038', email: 'manohar@example.com' },
+  //   cuisine_type: [
+  //     'Indian',
+  //     'North-Indian',
+  //     'South-Indian',
+  //     'Street-Food',
+  //     'Indian-Sweets',
+  //     'Desserts',
+  //     'Breakfast',
+  //     'Lunch',
+  //     'Dinner',
+  //   ],
+  //   rating: 4.5,
+  //   numberOfReviews: 8500,
+  //   opening_hours: [{ day: 'Monday', open: '08:00', close: '23:00' }],
+  //   is_active: true,
+  //   min_order_value: 150,
+  //   delivery_radius_km: 7,
+  //   is_veg: true,
+  //   cost_for_two: 600,
+  //   delivery_time_mins: 35,
+  // },
+  // {
+  //   name: "Domino's Pizza",
+  //   description:
+  //     'Well-known chain for a wide range of pizzas and a variety of other dishes & sides.',
+  //   address: {
+  //     street: 'Kolar Road, Danish Kunj',
+  //     city: 'Bhopal',
+  //     state: 'Madhya Pradesh',
+  //     zip_code: '462042',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.078, baseLat - 0.088],
+  //     },
+  //   },
+  //   contact: { phone: '9876510039', email: 'dominos.kolar@example.com' },
+  //   cuisine_type: ['Pizza', 'Italian', 'Fast-Food', 'Desserts', 'Beverages'],
+  //   rating: 4.0,
+  //   numberOfReviews: 2800,
+  //   opening_hours: [{ day: 'Monday', open: '11:00', close: '01:00' }],
+  //   is_active: true,
+  //   min_order_value: 200,
+  //   delivery_radius_km: 8,
+  //   is_veg: false,
+  //   cost_for_two: 500,
+  //   delivery_time_mins: 30,
+  // },
+  // {
+  //   name: 'The Good Bowl',
+  //   description:
+  //     'Serving wholesome and delicious bowls that are a fusion of global and Indian flavors.',
+  //   address: {
+  //     street: 'Saket Nagar',
+  //     city: 'Bhopal',
+  //     state: 'Madhya Pradesh',
+  //     zip_code: '462024',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.045, baseLat - 0.035],
+  //     },
+  //   },
+  //   contact: { phone: '9876510040', email: 'goodbowl.bpl@example.com' },
+  //   cuisine_type: [
+  //     'Healthy',
+  //     'Salads',
+  //     'North-Indian',
+  //     'Indian',
+  //     'Lunch',
+  //     'Dinner',
+  //   ],
+  //   rating: 4.3,
+  //   numberOfReviews: 750,
+  //   opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
+  //   is_active: true,
+  //   min_order_value: 180,
+  //   delivery_radius_km: 7,
+  //   is_veg: false,
+  //   cost_for_two: 550,
+  //   delivery_time_mins: 32,
+  // },
+  // {
+  //   name: 'Faasos - Wraps & Rolls',
+  //   description:
+  //     'A leading name in wraps, serving a variety of exciting flavors.',
+  //   address: {
+  //     street: 'Ayodhya Bypass Road',
+  //     city: 'Bhopal',
+  //     state: 'Madhya Pradesh',
+  //     zip_code: '462041',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.09, baseLat + 0.01],
+  //     },
+  //   },
+  //   contact: { phone: '9876510041', email: 'faasos.bpl@example.com' },
+  //   cuisine_type: [
+  //     'Street-Food',
+  //     'Fast-Food',
+  //     'North-Indian',
+  //     'Lunch',
+  //     'Dinner',
+  //   ],
+  //   rating: 4.0,
+  //   numberOfReviews: 1150,
+  //   opening_hours: [{ day: 'Monday', open: '10:00', close: '00:00' }],
+  //   is_active: true,
+  //   min_order_value: 120,
+  //   delivery_radius_km: 8,
+  //   is_veg: false,
+  //   cost_for_two: 350,
+  //   delivery_time_mins: 28,
+  // },
   // {
   //   name: 'Ovenstory Pizza',
   //   description: 'Pizzas with exciting toppings and a standout cheese base.',
@@ -1267,7 +1265,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462022',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.062, lat - 0.028],
+  //       coordinates: [baseLon + 0.062, baseLat - 0.028],
   //     },
   //   },
   //   contact: { phone: '9876510045', email: 'pizzahut.bpl@example.com' },
@@ -1292,7 +1290,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.032, lat - 0.018],
+  //       coordinates: [baseLon + 0.032, baseLat - 0.018],
   //     },
   //   },
   //   contact: { phone: '9876510046', email: 'burgersingh.bpl@example.com' },
@@ -1317,7 +1315,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.04, lat + 0.021],
+  //       coordinates: [baseLon + 0.04, baseLat + 0.021],
   //     },
   //   },
   //   contact: { phone: '9876510047', email: 'mcd.dbcity@example.com' },
@@ -1342,7 +1340,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462026',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.051, lat - 0.041],
+  //       coordinates: [baseLon + 0.051, baseLat - 0.041],
   //     },
   //   },
   //   contact: { phone: '9876510048', email: 'kfc.hbpl@example.com' },
@@ -1367,7 +1365,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462021',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.07, lat - 0.01],
+  //       coordinates: [baseLon + 0.07, baseLat - 0.01],
   //     },
   //   },
   //   contact: { phone: '9876510049', email: 'teafactory.bpl@example.com' },
@@ -1392,7 +1390,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462030',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.07, lat + 0.04],
+  //       coordinates: [baseLon - 0.07, baseLat + 0.04],
   //     },
   //   },
   //   contact: { phone: '9876510050', email: 'pohacenter.bpl@example.com' },
@@ -1417,7 +1415,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462001',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.02, lat + 0.04],
+  //       coordinates: [baseLon - 0.02, baseLat + 0.04],
   //     },
   //   },
   //   contact: { phone: '9876510051', email: 'albeik.bpl@example.com' },
@@ -1442,7 +1440,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462038',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.02, lat - 0.05],
+  //       coordinates: [baseLon + 0.02, baseLat - 0.05],
   //     },
   //   },
   //   contact: { phone: '9876510052', email: 'newinn.bpl@example.com' },
@@ -1467,7 +1465,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462024',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.048, lat - 0.03],
+  //       coordinates: [baseLon + 0.048, baseLat - 0.03],
   //     },
   //   },
   //   contact: { phone: '9876510053', email: 'ricebowl.bpl@example.com' },
@@ -1492,7 +1490,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462022',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.08, lat - 0.02],
+  //       coordinates: [baseLon + 0.08, baseLat - 0.02],
   //     },
   //   },
   //   contact: { phone: '9876510054', email: 'pastahouse.bpl@example.com' },
@@ -1517,7 +1515,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462039',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.015, lat + 0.05],
+  //       coordinates: [baseLon + 0.015, baseLat + 0.05],
   //     },
   //   },
   //   contact: { phone: '9876510055', email: 'saladbar.bpl@example.com' },
@@ -1542,7 +1540,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.03, lat - 0.015],
+  //       coordinates: [baseLon + 0.03, baseLat - 0.015],
   //     },
   //   },
   //   contact: { phone: '9876510056', email: 'freshmenu.bpl@example.com' },
@@ -1567,7 +1565,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.045, lat + 0.032],
+  //       coordinates: [baseLon - 0.045, baseLat + 0.032],
   //     },
   //   },
   //   contact: { phone: '9876510057', email: 'eatfit.bpl@example.com' },
@@ -1592,7 +1590,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.041, lat + 0.021],
+  //       coordinates: [baseLon + 0.041, baseLat + 0.021],
   //     },
   //   },
   //   contact: { phone: '9876510058', email: 'mod.bpl@example.com' },
@@ -1617,7 +1615,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.042, lat + 0.022],
+  //       coordinates: [baseLon + 0.042, baseLat + 0.022],
   //     },
   //   },
   //   contact: { phone: '9876510059', email: 'starbucks.db@example.com' },
@@ -1642,7 +1640,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462026',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.051, lat - 0.042],
+  //       coordinates: [baseLon + 0.051, baseLat - 0.042],
   //     },
   //   },
   //   contact: { phone: '9876510060', email: 'tacobell.bpl@example.com' },
@@ -1667,7 +1665,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462022',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.065, lat - 0.026],
+  //       coordinates: [baseLon + 0.065, baseLat - 0.026],
   //     },
   //   },
   //   contact: { phone: '9876510061', email: 'firangibake.bpl@example.com' },
@@ -1692,7 +1690,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462042',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.082, lat - 0.092],
+  //       coordinates: [baseLon + 0.082, baseLat - 0.092],
   //     },
   //   },
   //   contact: { phone: '9876510062', email: 'sweettruth.bpl@example.com' },
@@ -1717,7 +1715,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.051, lat + 0.032],
+  //       coordinates: [baseLon - 0.051, baseLat + 0.032],
   //     },
   //   },
   //   contact: { phone: '9876510063', email: 'csb.bpl@example.com' },
@@ -1742,7 +1740,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.046, lat + 0.037],
+  //       coordinates: [baseLon - 0.046, baseLat + 0.037],
   //     },
   //   },
   //   contact: { phone: '9876510064', email: 'gianis.bpl@example.com' },
@@ -1767,7 +1765,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462003',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.013, lat - 0.006],
+  //       coordinates: [baseLon - 0.013, baseLat - 0.006],
   //     },
   //   },
   //   contact: { phone: '9876510065', email: 'baskinrobbins.bpl@example.com' },
@@ -1792,7 +1790,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.04, lat + 0.025],
+  //       coordinates: [baseLon + 0.04, baseLat + 0.025],
   //     },
   //   },
   //   contact: { phone: '9876510066', email: 'haldirams.bpl@example.com' },
@@ -1817,7 +1815,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.034, lat - 0.013],
+  //       coordinates: [baseLon + 0.034, baseLat - 0.013],
   //     },
   //   },
   //   contact: { phone: '9876510067', email: 'chinesewok.bpl@example.com' },
@@ -1842,7 +1840,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462002',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.031, lat + 0.021],
+  //       coordinates: [baseLon - 0.031, baseLat + 0.021],
   //     },
   //   },
   //   contact: { phone: '9876510068', email: 'mainlandchina.bpl@example.com' },
@@ -1867,7 +1865,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.044, lat + 0.023],
+  //       coordinates: [baseLon + 0.044, baseLat + 0.023],
   //     },
   //   },
   //   contact: { phone: '9876510069', email: 'punjabgrill.bpl@example.com' },
@@ -1892,7 +1890,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462030',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.062, lat + 0.052],
+  //       coordinates: [baseLon - 0.062, baseLat + 0.052],
   //     },
   //   },
   //   contact: { phone: '9876510070', email: 'biryanihouse.bpl@example.com' },
@@ -1917,7 +1915,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.035, lat - 0.012],
+  //       coordinates: [baseLon + 0.035, baseLat - 0.012],
   //     },
   //   },
   //   contact: { phone: '9876510071', email: 'paradise.bpl@example.com' },
@@ -1942,7 +1940,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462038',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.01, lat - 0.06],
+  //       coordinates: [baseLon - 0.01, baseLat - 0.06],
   //     },
   //   },
   //   contact: { phone: '9876510072', email: 'sardarg.bpl@example.com' },
@@ -1967,7 +1965,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.053, lat + 0.033],
+  //       coordinates: [baseLon - 0.053, baseLat + 0.033],
   //     },
   //   },
   //   contact: { phone: '9876510073', email: 'dilliwale.bpl@example.com' },
@@ -1992,7 +1990,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462039',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.026, lat + 0.056],
+  //       coordinates: [baseLon + 0.026, baseLat + 0.056],
   //     },
   //   },
   //   contact: { phone: '9876510074', email: 'bombaychowpatty.bpl@example.com' },
@@ -2017,7 +2015,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462030',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.08, lat + 0.06],
+  //       coordinates: [baseLon - 0.08, baseLat + 0.06],
   //     },
   //   },
   //   contact: { phone: '9876510075', email: 'vrindavan.bpl@example.com' },
@@ -2042,7 +2040,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.047, lat + 0.029],
+  //       coordinates: [baseLon - 0.047, baseLat + 0.029],
   //     },
   //   },
   //   contact: { phone: '9876510076', email: 'healthpantry.bpl@example.com' },
@@ -2067,7 +2065,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462024',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.049, lat - 0.031],
+  //       coordinates: [baseLon + 0.049, baseLat - 0.031],
   //     },
   //   },
   //   contact: { phone: '9876510077', email: 'veganvibes.bpl@example.com' },
@@ -2092,7 +2090,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462003',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.016, lat + 0.004],
+  //       coordinates: [baseLon - 0.016, baseLat + 0.004],
   //     },
   //   },
   //   contact: { phone: '9876510078', email: 'sushicentral.bpl@example.com' },
@@ -2117,7 +2115,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462008',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.002, lat - 0.02],
+  //       coordinates: [baseLon + 0.002, baseLat - 0.02],
   //     },
   //   },
   //   contact: { phone: '9876510079', email: 'tandoorinights.bpl@example.com' },
@@ -2142,7 +2140,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462002',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.038, lat + 0.018],
+  //       coordinates: [baseLon - 0.038, baseLat + 0.018],
   //     },
   //   },
   //   contact: { phone: '9876510080', email: 'kebabsville.bpl@example.com' },
@@ -2167,7 +2165,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462022',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.061, lat - 0.031],
+  //       coordinates: [baseLon + 0.061, baseLat - 0.031],
   //     },
   //   },
   //   contact: { phone: '9876510081', email: 'curryleaf.bpl@example.com' },
@@ -2192,7 +2190,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462042',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.076, lat - 0.086],
+  //       coordinates: [baseLon + 0.076, baseLat - 0.086],
   //     },
   //   },
   //   contact: { phone: '9876510082', email: 'idlico.bpl@example.com' },
@@ -2217,7 +2215,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.031, lat - 0.016],
+  //       coordinates: [baseLon + 0.031, baseLat - 0.016],
   //     },
   //   },
   //   contact: { phone: '9876510083', email: 'sandwichshop.bpl@example.com' },
@@ -2242,7 +2240,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.052, lat + 0.03],
+  //       coordinates: [baseLon - 0.052, baseLat + 0.03],
   //     },
   //   },
   //   contact: { phone: '9876510084', email: 'juicelounge.bpl@example.com' },
@@ -2267,7 +2265,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.041, lat + 0.036],
+  //       coordinates: [baseLon - 0.041, baseLat + 0.036],
   //     },
   //   },
   //   contact: { phone: '9876510085', email: 'shakeitoff.bpl@example.com' },
@@ -2292,7 +2290,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462003',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.011, lat - 0.004],
+  //       coordinates: [baseLon - 0.011, baseLat - 0.004],
   //     },
   //   },
   //   contact: { phone: '9876510086', email: 'bakehouse.bpl@example.com' },
@@ -2317,7 +2315,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462042',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.079, lat - 0.089],
+  //       coordinates: [baseLon + 0.079, baseLat - 0.089],
   //     },
   //   },
   //   contact: { phone: '9876510087', email: 'cakesncraft.bpl@example.com' },
@@ -2333,8 +2331,8 @@ export const bhopalRestaurants = [
   //   delivery_time_mins: 35,
   // },
   // {
-  //   name: 'The Chocolate Heaven',
-  //   description: 'A cafe dedicated to all things chocolate, from shakes to fondues.',
+  //   name: 'The ChocobaseLate Heaven',
+  //   description: 'A cafe dedicated to all things chocobaseLate, from shakes to fondues.',
   //   address: {
   //     street: 'Aashima Mall',
   //     city: 'Bhopal',
@@ -2342,10 +2340,10 @@ export const bhopalRestaurants = [
   //     zip_code: '462026',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.053, lat - 0.043],
+  //       coordinates: [baseLon + 0.053, baseLat - 0.043],
   //     },
   //   },
-  //   contact: { phone: '9876510088', email: 'chocolateheaven.bpl@example.com' },
+  //   contact: { phone: '9876510088', email: 'chocobaseLateheaven.bpl@example.com' },
   //   cuisine_type: ['Desserts', 'Beverages', 'Fast-Food', 'Italian'],
   //   rating: 4.3,
   //   numberOfReviews: 1100,
@@ -2367,7 +2365,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462022',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.063, lat - 0.027],
+  //       coordinates: [baseLon + 0.063, baseLat - 0.027],
   //     },
   //   },
   //   contact: { phone: '9876510089', email: 'grillmasters.bpl@example.com' },
@@ -2392,7 +2390,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.044, lat + 0.039],
+  //       coordinates: [baseLon - 0.044, baseLat + 0.039],
   //     },
   //   },
   //   contact: { phone: '9876510090', email: 'smokinjoes.bpl@example.com' },
@@ -2417,7 +2415,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462023',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.05, lat - 0.02],
+  //       coordinates: [baseLon + 0.05, baseLat - 0.02],
   //     },
   //   },
   //   contact: { phone: '9876510091', email: 'royalcafe.bpl@example.com' },
@@ -2442,7 +2440,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462001',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.022, lat + 0.042],
+  //       coordinates: [baseLon - 0.022, baseLat + 0.042],
   //     },
   //   },
   //   contact: { phone: '9876510092', email: 'filfora.bpl@example.com' },
@@ -2467,7 +2465,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.03, lat - 0.011],
+  //       coordinates: [baseLon + 0.03, baseLat - 0.011],
   //     },
   //   },
   //   contact: { phone: '9876510093', email: 'ccd.bpl@example.com' },
@@ -2492,7 +2490,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.042, lat + 0.034],
+  //       coordinates: [baseLon - 0.042, baseLat + 0.034],
   //     },
   //   },
   //   contact: { phone: '9876510094', email: 'natural.bpl@example.com' },
@@ -2517,7 +2515,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462016',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.048, lat + 0.035],
+  //       coordinates: [baseLon - 0.048, baseLat + 0.035],
   //     },
   //   },
   //   contact: { phone: '9876510095', email: 'goila.bpl@example.com' },
@@ -2542,7 +2540,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462010',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.015, lat - 0.025],
+  //       coordinates: [baseLon + 0.015, baseLat - 0.025],
   //     },
   //   },
   //   contact: { phone: '9876510096', email: 'guptajuice.bpl@example.com' },
@@ -2567,7 +2565,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462001',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.006, lat - 0.018],
+  //       coordinates: [baseLon + 0.006, baseLat - 0.018],
   //     },
   //   },
   //   contact: { phone: '9876510097', email: 'bhopalizaika@example.com' },
@@ -2592,7 +2590,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462003',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.015, lat - 0.009],
+  //       coordinates: [baseLon - 0.015, baseLat - 0.009],
   //     },
   //   },
   //   contact: { phone: '9876510098', email: 'pappuchai@example.com' },
@@ -2617,7 +2615,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462011',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.037, lat - 0.011],
+  //       coordinates: [baseLon + 0.037, baseLat - 0.011],
   //     },
   //   },
   //   contact: { phone: '9876510099', email: 'wendys.bpl@example.com' },
@@ -2642,7 +2640,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462026',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon + 0.055, lat - 0.045],
+  //       coordinates: [baseLon + 0.055, baseLat - 0.045],
   //     },
   //   },
   //   contact: { phone: '9876510100', email: 'bikanervala.bpl@example.com' },
@@ -2667,7 +2665,7 @@ export const bhopalRestaurants = [
   //     zip_code: '462013',
   //     location: {
   //       type: 'Point',
-  //       coordinates: [baseLon - 0.036, lat + 0.016],
+  //       coordinates: [baseLon - 0.036, baseLat + 0.016],
   //     },
   //   },
   //   contact: { phone: '9876510101', email: 'ohcalcutta.bpl@example.com' },
