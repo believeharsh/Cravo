@@ -4,6 +4,7 @@ import { apiError } from '../services/ApiError.js';
 
 import List from '../models/list.modal.js';
 import User from '../models/user.model.js';
+import Product from '../models/product.model.js';
 
 const createNewList = asyncHandler(async (req, res) => {
   // 1. Get the list name from the request body
@@ -119,7 +120,54 @@ const getListById = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, list, 'List retrieved successfully'));
 });
 
-const addProductToTheList = asyncHandler(async (req, res) => {});
+const addProductToTheList = asyncHandler(async (req, res) => {
+  // 1. Get the list ID from the URL parameters
+  const listId = req.params.id;
+  // 2. Get the product ID from the request body
+  const { productId } = req.body;
+  // 3. Get the authenticated user's ID for security
+  const userId = req.user._id;
+
+  // 4. Basic validation
+  if (!productId) {
+    throw new apiError(400, 'Product ID is required');
+  }
+
+  // 5. Verify the list exists and belongs to the user
+  const list = await List.findOne({ _id: listId, owner: userId });
+  if (!list) {
+    throw new apiError(
+      404,
+      'List not found or you do not have permission to access it'
+    );
+  }
+
+  // 6. Check if the product is already in the list to prevent duplicates
+  if (list.products.includes(productId)) {
+    throw new apiError(409, 'Product is already in this list');
+  }
+
+  // 7. (Optional but recommended) Verify that the product ID is valid
+  const productExists = await Product.findById(productId);
+  if (!productExists) {
+    throw new apiError(404, 'Product not found');
+  }
+
+  // 8. Add the product to the list using $push to atomically update the array
+  const updatedList = await List.findByIdAndUpdate(
+    listId,
+    { $push: { products: productId } },
+    { new: true, runValidators: true } // 'new: true' returns the updated document
+  );
+
+  // 9. Send a success response
+  res
+    .status(200)
+    .json(
+      new apiResponse(200, updatedList, 'Product added to list successfully')
+    );
+});
+
 const removeProductFromList = asyncHandler(async (req, res) => {});
 const deleteTheList = asyncHandler(async (req, res) => {});
 
