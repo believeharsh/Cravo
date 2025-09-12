@@ -317,7 +317,8 @@ import City from '../models/city.model.js';
 
 // Sample Data
 // import { bhopalRestaurants } from '../sample-Data/Restaurants-Data/BhopalRestaurant.js';
-import { IndoreRestaurants } from '../sample-Data/Restaurants-Data/IndoreRestaurant.js';
+// import { IndoreRestaurants } from '../sample-Data/Restaurants-Data/IndoreRestaurant.js';
+import { ahmedabadRestaurants } from '../sample-Data/Restaurants-Data/AhamadabRestaurant.js';
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
 
@@ -495,7 +496,7 @@ const seedDatabase = async () => {
     }, {});
 
     const insertedRestaurants = [];
-    for (const restaurant of IndoreRestaurants) {
+    for (const restaurant of ahmedabadRestaurants) {
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {
@@ -539,7 +540,7 @@ const seedDatabase = async () => {
 
       for (const category of restaurantCategories) {
         const pool = productPools[category.name.toLowerCase()] || [];
-        const subset = getRandomSubset(pool, Math.min(4, pool.length));
+        const subset = getRandomSubset(pool, Math.min(6, pool.length));
         for (let i = 0; i < subset.length; i++) {
           const poolProduct = subset[i];
           const productImageUrl = poolProduct.image;

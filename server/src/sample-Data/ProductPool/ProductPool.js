@@ -2,40 +2,6 @@ export const productPools = {
   //complete
   indian: [
     {
-      name: 'Dal Tadka',
-      category: 'Indian',
-      price: 199,
-      description: 'Yellow lentils tempered with ghee, cumin, and spices.',
-      image:
-        'https://media.istockphoto.com/id/605786196/photo/dal-tadka-north-indian-food-yellow-dal-fry.jpg?s=612x612&w=0&k=20&c=AvBLn0v4kcYeFfc7cYP-YgQuvrujeupXkpaguPnv1Kw=',
-    },
-    {
-      name: 'Paneer Butter Masala',
-      category: 'Indian',
-      price: 249,
-      description: 'Rich and creamy tomato-based curry with paneer cubes.',
-      image:
-        'https://media.istockphoto.com/id/2160229218/photo/paneer-butter-masala-in-a-bowl-on-white-background.jpg?s=612x612&w=0&k=20&c=swm0paacVCzV7Xf_cg1rEdJibxzaDSIvHXF6H1tEU8Q=',
-    },
-    {
-      name: 'Chicken Curry',
-      category: 'Indian',
-      price: 299,
-      description:
-        'Traditional Indian chicken curry cooked with spices and herbs.',
-      image:
-        'https://media.istockphoto.com/id/1170729895/photo/indian-butter-chicken-horizontal-photo.jpg?s=612x612&w=0&k=20&c=4bZViynoVnP1HaWHIY1k5FvW-dj9DM2EOMHbKnAqYZ4=',
-    },
-    {
-      name: 'Aloo Paratha',
-      category: 'Indian',
-      price: 149,
-      description:
-        'Stuffed flatbread with spiced mashed potatoes, served with butter.',
-      image:
-        'https://media.istockphoto.com/id/1874400722/photo/indian-food-aloo-paratha-or-indian-potato-stuffed-flatbread-served-with-butter-ghee-yogurt-or.jpg?s=612x612&w=0&k=20&c=PzX9ASWZgEvf8NpD1aP_k_ra0LOtdvdN7FqTf6m9_j0=',
-    },
-    {
       name: 'Vegetable Biryani',
       category: 'Indian',
       price: 229,
@@ -76,6 +42,40 @@ export const productPools = {
       description: 'Spicy chickpea curry served with deep-fried fluffy bread.',
       image:
         'https://media.istockphoto.com/id/1257751693/photo/chole-bhature.jpg?s=612x612&w=0&k=20&c=WUxdVE-gre6GlyGUNtMYqWO555fUOgFT64gRvGuR-Hs=',
+    },
+    {
+      name: 'Dal Tadka',
+      category: 'Indian',
+      price: 199,
+      description: 'Yellow lentils tempered with ghee, cumin, and spices.',
+      image:
+        'https://media.istockphoto.com/id/605786196/photo/dal-tadka-north-indian-food-yellow-dal-fry.jpg?s=612x612&w=0&k=20&c=AvBLn0v4kcYeFfc7cYP-YgQuvrujeupXkpaguPnv1Kw=',
+    },
+    {
+      name: 'Paneer Butter Masala',
+      category: 'Indian',
+      price: 249,
+      description: 'Rich and creamy tomato-based curry with paneer cubes.',
+      image:
+        'https://media.istockphoto.com/id/2160229218/photo/paneer-butter-masala-in-a-bowl-on-white-background.jpg?s=612x612&w=0&k=20&c=swm0paacVCzV7Xf_cg1rEdJibxzaDSIvHXF6H1tEU8Q=',
+    },
+    {
+      name: 'Chicken Curry',
+      category: 'Indian',
+      price: 299,
+      description:
+        'Traditional Indian chicken curry cooked with spices and herbs.',
+      image:
+        'https://media.istockphoto.com/id/1170729895/photo/indian-butter-chicken-horizontal-photo.jpg?s=612x612&w=0&k=20&c=4bZViynoVnP1HaWHIY1k5FvW-dj9DM2EOMHbKnAqYZ4=',
+    },
+    {
+      name: 'Aloo Paratha',
+      category: 'Indian',
+      price: 149,
+      description:
+        'Stuffed flatbread with spiced mashed potatoes, served with butter.',
+      image:
+        'https://media.istockphoto.com/id/1874400722/photo/indian-food-aloo-paratha-or-indian-potato-stuffed-flatbread-served-with-butter-ghee-yogurt-or.jpg?s=612x612&w=0&k=20&c=PzX9ASWZgEvf8NpD1aP_k_ra0LOtdvdN7FqTf6m9_j0=',
     },
     {
       name: 'Masoor Dal',
@@ -1755,42 +1755,6 @@ export const productPools = {
         'https://media.istockphoto.com/id/909906350/photo/masala-dosa-south-indian-food.jpg?s=612x612&w=0&k=20&c=3CI-bw2NhYaX_t0-CZIXIIXsOygFcUaoGSmzbnVB-fU=',
     },
     {
-      name: 'Idli Sambar',
-      category: 'south-indian',
-      description:
-        'Soft, fluffy steamed rice cakes served with a flavorful vegetable lentil stew.',
-      price: 90,
-      image:
-        'https://media.istockphoto.com/id/2159618247/photo/idli-vada-with-sambar.jpg?s=612x612&w=0&k=20&c=0HNP26WxESqfA3i3Xr1uTxxpKKYc69d9NRn9Dai4xok=',
-    },
-    {
-      name: 'Uttapam',
-      category: 'south-indian',
-      description:
-        'Thick, savory pancake made from fermented rice and lentil batter, topped with vegetables.',
-      price: 130,
-      image:
-        'https://media.istockphoto.com/id/609810694/photo/south-indian-food-uttapam-or-ooththappam-or-uthappa.jpg?s=612x612&w=0&k=20&c=_mtTfde4xDTMpADWHoIp6bNhcurQvewzlhDT3q8_5bE=',
-    },
-    {
-      name: 'Medu Vada',
-      category: 'south-indian',
-      description:
-        'Fluffy and crispy deep-fried savory doughnuts made from lentil batter.',
-      price: 80,
-      image:
-        'https://media.istockphoto.com/id/1450442520/photo/south-indian-food-served-in-a-white-plate.jpg?s=612x612&w=0&k=20&c=vXWNKl9x_A5w0KpGGx98LZLkZQszeSoxft9dPaUELjc=',
-    },
-    {
-      name: 'Onion Rava Dosa',
-      category: 'south-indian',
-      description:
-        'Thin and crispy crepe made from semolina, flour, and topped with onions.',
-      price: 140,
-      image:
-        'https://media.istockphoto.com/id/478442100/photo/dosa-south-indian-snack.jpg?s=612x612&w=0&k=20&c=9-4H3mf-NnEZVuVGC9PTX9vEKku4el04Q18-CBHPSn0=',
-    },
-    {
       name: 'Appam with Stew',
       category: 'south-indian',
       description:
@@ -1825,6 +1789,42 @@ export const productPools = {
       price: 150,
       image:
         'https://t4.ftcdn.net/jpg/04/95/70/55/360_F_495705544_ObX9gPTiuW7acVcqxP35OngV4s6oxeyL.jpg',
+    },
+    {
+      name: 'Idli Sambar',
+      category: 'south-indian',
+      description:
+        'Soft, fluffy steamed rice cakes served with a flavorful vegetable lentil stew.',
+      price: 90,
+      image:
+        'https://media.istockphoto.com/id/2159618247/photo/idli-vada-with-sambar.jpg?s=612x612&w=0&k=20&c=0HNP26WxESqfA3i3Xr1uTxxpKKYc69d9NRn9Dai4xok=',
+    },
+    {
+      name: 'Uttapam',
+      category: 'south-indian',
+      description:
+        'Thick, savory pancake made from fermented rice and lentil batter, topped with vegetables.',
+      price: 130,
+      image:
+        'https://media.istockphoto.com/id/609810694/photo/south-indian-food-uttapam-or-ooththappam-or-uthappa.jpg?s=612x612&w=0&k=20&c=_mtTfde4xDTMpADWHoIp6bNhcurQvewzlhDT3q8_5bE=',
+    },
+    {
+      name: 'Medu Vada',
+      category: 'south-indian',
+      description:
+        'Fluffy and crispy deep-fried savory doughnuts made from lentil batter.',
+      price: 80,
+      image:
+        'https://media.istockphoto.com/id/1450442520/photo/south-indian-food-served-in-a-white-plate.jpg?s=612x612&w=0&k=20&c=vXWNKl9x_A5w0KpGGx98LZLkZQszeSoxft9dPaUELjc=',
+    },
+    {
+      name: 'Onion Rava Dosa',
+      category: 'south-indian',
+      description:
+        'Thin and crispy crepe made from semolina, flour, and topped with onions.',
+      price: 140,
+      image:
+        'https://media.istockphoto.com/id/478442100/photo/dosa-south-indian-snack.jpg?s=612x612&w=0&k=20&c=9-4H3mf-NnEZVuVGC9PTX9vEKku4el04Q18-CBHPSn0=',
     },
     {
       name: 'Coconut Chutney',
@@ -1974,6 +1974,33 @@ export const productPools = {
   // completed
   'north-indian': [
     {
+      name: 'Malai Kofta',
+      category: 'north-indian',
+      description:
+        'Soft vegetable and paneer dumplings in a rich, creamy, and mildly spiced gravy.',
+      price: 280,
+      image:
+        'https://media.istockphoto.com/id/701208898/photo/malai-kofta-indian-cottage-cheese-balls-curry-on-white-background-selective-focus.jpg?s=612x612&w=0&k=20&c=doai4Kcep8LaezLHwmsf8x0u43LqmCA0X8Cy2vS_YEs=',
+    },
+    {
+      name: 'Chicken Biryani',
+      category: 'north-indian',
+      description:
+        'Aromatic basmati rice layered with marinated chicken and flavorful spices.',
+      price: 250,
+      image:
+        'https://media.istockphoto.com/id/1215605081/photo/delicious-spicy-chicken-biryani-in-traditional-bowl-on-white-background-indian-or-pakistani.jpg?s=612x612&w=0&k=20&c=8_EnVHaxaPnj-Ubqp7BXiR-euuacb-EnWI_2kfl3Xug=',
+    },
+    {
+      name: 'Palak Paneer',
+      category: 'north-indian',
+      description:
+        'Cottage cheese cubes cooked in a vibrant and healthy spinach-based gravy.',
+      price: 210,
+      image:
+        'https://img.freepik.com/premium-photo/indian-healthy-cuisine-palak-paneer-white-background_55610-743.jpg',
+    },
+    {
       name: 'Butter Chicken',
       category: 'north-indian',
       description:
@@ -2017,33 +2044,6 @@ export const productPools = {
       price: 160,
       image:
         'https://media.istockphoto.com/id/979910978/photo/chole-bhature-or-chick-pea-curry-and-fried-puri-served-in-terracotta-crockery-over-white.jpg?s=612x612&w=0&k=20&c=iN0YrW5qx2mW7DXgXlMnfiNMK18unjSfRnupHoBPAVQ=',
-    },
-    {
-      name: 'Malai Kofta',
-      category: 'north-indian',
-      description:
-        'Soft vegetable and paneer dumplings in a rich, creamy, and mildly spiced gravy.',
-      price: 280,
-      image:
-        'https://media.istockphoto.com/id/701208898/photo/malai-kofta-indian-cottage-cheese-balls-curry-on-white-background-selective-focus.jpg?s=612x612&w=0&k=20&c=doai4Kcep8LaezLHwmsf8x0u43LqmCA0X8Cy2vS_YEs=',
-    },
-    {
-      name: 'Chicken Biryani',
-      category: 'north-indian',
-      description:
-        'Aromatic basmati rice layered with marinated chicken and flavorful spices.',
-      price: 250,
-      image:
-        'https://media.istockphoto.com/id/1215605081/photo/delicious-spicy-chicken-biryani-in-traditional-bowl-on-white-background-indian-or-pakistani.jpg?s=612x612&w=0&k=20&c=8_EnVHaxaPnj-Ubqp7BXiR-euuacb-EnWI_2kfl3Xug=',
-    },
-    {
-      name: 'Palak Paneer',
-      category: 'north-indian',
-      description:
-        'Cottage cheese cubes cooked in a vibrant and healthy spinach-based gravy.',
-      price: 210,
-      image:
-        'https://img.freepik.com/premium-photo/indian-healthy-cuisine-palak-paneer-white-background_55610-743.jpg',
     },
     {
       name: 'Kadhai Paneer',
