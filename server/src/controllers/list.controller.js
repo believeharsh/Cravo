@@ -2,7 +2,7 @@ import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
 import { apiError } from '../services/ApiError.js';
 
-import List from '../models/list.modal.js';
+import List from '../models/list.model.js';
 import User from '../models/user.model.js';
 import Product from '../models/product.model.js';
 
