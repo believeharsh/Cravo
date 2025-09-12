@@ -12,6 +12,7 @@ import restaurantRoute from './routes/restaurant.route.js';
 import landingRoute from './routes/landing.route.js';
 import cityRoute from './routes/city.route.js';
 import configurePassport from './config/passport.config.js';
+import listRoute from './routes/list.route.js';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use('/api/v1/products', productRoute);
 app.use('/api/v1/restaurants', restaurantRoute);
 app.use('/api/v1/landingResources', landingRoute);
 app.use('/api/v1/cities', cityRoute);
+app.use('/api/v1/lists', listRoute);
 
 app.get('/', (req, res) => {
   res.json('Hello, from server');

@@ -53,7 +53,13 @@ const UserSchema = new Schema(
         isDefault: { type: Boolean, default: false },
       },
     ],
-    wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+    // wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+    lists: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'List', // This links the user to their lists
+      },
+    ],
 
     recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 
