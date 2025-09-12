@@ -49,7 +49,39 @@ const createNewList = asyncHandler(async (req, res) => {
     .json(new apiResponse(201, newList, 'List created successfully'));
 });
 
-const getAllListOfUser = asyncHandler(async (req, res) => {});
+const getAllListOfUser = asyncHandler(async (req, res) => {
+  // Get the authenticated user's ID from the request object
+  const userId = req.user._id;
+
+  // Find all lists owned by the user
+  const userListsQuery = List.find({ owner: userId });
+
+  // Check if the client requested populated data
+  if (req.query.populate === 'true') {
+    // Populate the 'products' array, and then populate the 'restaurant' field within each product
+    userListsQuery.populate({
+      path: 'products',
+      populate: {
+        path: 'restaurant',
+      },
+    });
+  }
+
+  // Execute the query
+  const userLists = await userListsQuery.exec();
+
+  // If no lists are found, it's a success with an empty array.
+  // No need to throw an error here.
+  if (!userLists) {
+    throw new apiError(404, 'User lists not found');
+  }
+
+  // Send a successful response with the retrieved lists
+  res
+    .status(200)
+    .json(new apiResponse(200, userLists, 'User lists retrieved successfully'));
+});
+
 const getListById = asyncHandler(async (req, res) => {});
 const addProductToTheList = asyncHandler(async (req, res) => {});
 const removeProductFromList = asyncHandler(async (req, res) => {});
