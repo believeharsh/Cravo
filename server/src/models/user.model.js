@@ -61,6 +61,13 @@ const UserSchema = new Schema(
       },
     ],
 
+    restaurantLists: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'RestaurantList',
+      },
+    ],
+
     recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 
     // Account Status
