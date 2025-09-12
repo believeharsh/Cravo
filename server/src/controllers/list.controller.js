@@ -168,8 +168,88 @@ const addProductToTheList = asyncHandler(async (req, res) => {
     );
 });
 
-const removeProductFromList = asyncHandler(async (req, res) => {});
-const deleteTheList = asyncHandler(async (req, res) => {});
+const removeProductFromList = asyncHandler(async (req, res) => {
+  // 1. Get the list ID from the URL parameters
+  const listId = req.params.id;
+  // 2. Get the product ID to remove from the request body
+  const { productId } = req.body;
+  // 3. Get the authenticated user's ID for a security check
+  const userId = req.user._id;
+
+  // 4. Basic validation
+  if (!productId) {
+    throw new apiError(400, 'Product ID is required');
+  }
+
+  // 5. Find the list and remove the product from it
+  // We use findOneAndUpdate to atomically find and update the document.
+  const updatedList = await List.findOneAndUpdate(
+    { _id: listId, owner: userId }, // Find the list by its ID and verify ownership
+    { $pull: { products: productId } }, // Use the $pull operator to remove the productId from the array
+    { new: true } // Returns the updated document
+  );
+
+  // 6. Handle the case where the list is not found
+  if (!updatedList) {
+    throw new apiError(
+      404,
+      'List not found or you do not have permission to access it'
+    );
+  }
+
+  // 7. Send a success response
+  res
+    .status(200)
+    .json(
+      new apiResponse(
+        200,
+        updatedList,
+        'Product removed from list successfully'
+      )
+    );
+});
+
+const deleteTheList = asyncHandler(async (req, res) => {
+  // 1. Get the list ID from the URL parameters
+  const listId = req.params.id;
+  // 2. Get the authenticated user's ID for a security check
+  const userId = req.user._id;
+
+  // 3. Find the list to be deleted and verify its ownership
+  const listToDelete = await List.findOne({ _id: listId, owner: userId });
+
+  // 4. Handle the case where the list is not found
+  if (!listToDelete) {
+    throw new apiError(
+      404,
+      'List not found or you do not have permission to access it'
+    );
+  }
+
+  // 5. IMPORTANT: Prevent deletion of the default list
+  if (listToDelete.isDefault) {
+    throw new apiError(403, 'Cannot delete the default list');
+  }
+
+  // 6. Delete the list document from the database
+  await List.deleteOne({ _id: listId });
+
+  // 7. Remove the list reference from the user's document to maintain data integrity
+  await User.findByIdAndUpdate(
+    userId,
+    { $pull: { lists: listId } },
+    { new: true }
+  );
+
+  // 8. Send a success response
+  res.status(200).json(
+    new apiResponse(
+      200,
+      null, // No data to return, just a confirmation
+      'List deleted successfully'
+    )
+  );
+});
 
 export {
   createNewList,
