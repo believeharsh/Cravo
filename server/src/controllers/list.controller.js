@@ -82,7 +82,43 @@ const getAllListOfUser = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, userLists, 'User lists retrieved successfully'));
 });
 
-const getListById = asyncHandler(async (req, res) => {});
+const getListById = asyncHandler(async (req, res) => {
+  // 1. Get the list ID from the request parameters and the user ID from the request object
+  const listId = req.params.id;
+  const userId = req.user._id;
+
+  // 2. Build the query to find the list.
+  // We check for both the list ID and the owner ID for security.
+  const listQuery = List.findOne({ _id: listId, owner: userId });
+
+  // 3. Check for the optional 'populate' query parameter
+  if (req.query.populate === 'true') {
+    // Populate the 'products' array and then the 'restaurant' field within each product
+    listQuery.populate({
+      path: 'products',
+      populate: {
+        path: 'restaurant',
+      },
+    });
+  }
+
+  // 4. Execute the query
+  const list = await listQuery.exec();
+
+  // 5. Handle the case where the list is not found
+  if (!list) {
+    throw new apiError(
+      404,
+      'List not found or you do not have permission to access it'
+    );
+  }
+
+  // 6. Send a successful response
+  res
+    .status(200)
+    .json(new apiResponse(200, list, 'List retrieved successfully'));
+});
+
 const addProductToTheList = asyncHandler(async (req, res) => {});
 const removeProductFromList = asyncHandler(async (req, res) => {});
 const deleteTheList = asyncHandler(async (req, res) => {});
