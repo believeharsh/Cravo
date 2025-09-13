@@ -14,6 +14,7 @@ import cityRoute from './routes/city.route.js';
 import configurePassport from './config/passport.config.js';
 import listRoute from './routes/list.route.js';
 import restaurantListRoute from './routes/restaurantList.route.js';
+import cartRoute from './routes/cart.route.js';
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use(express.static(path.resolve('./public')));
 
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/categories', categoryRoute);
+app.use('/api/v1/cart', cartRoute);
 app.use('/api/v1/products', productRoute);
 app.use('/api/v1/restaurants', restaurantRoute);
 app.use('/api/v1/landingResources', landingRoute);

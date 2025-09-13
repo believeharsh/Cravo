@@ -68,6 +68,6 @@ const ProductSchema = new Schema(
 
 ProductSchema.index({ name: 'text', description: 'text' });
 
-const Product = model('product', ProductSchema);
+const Product = model('Product', ProductSchema);
 
 export default Product;
