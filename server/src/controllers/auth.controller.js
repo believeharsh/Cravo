@@ -59,78 +59,6 @@ const googleAuthCallback = asyncHandler(async (req, res) => {
   `);
 });
 
-// const loginUser = asyncHandler(async (req, res) => {
-//   const { email, password } = req.body;
-
-//   if (!email || !password) {
-//     throw new apiError(400, 'Email and password are required');
-//   }
-
-//   const user = await User.findOne({ email });
-
-//   if (!user) {
-//     throw new apiError(404, 'User not found with this email');
-//   }
-
-//     if (user.googleId) {
-//     // If they have a Google ID, it means they signed up with Google.
-//     // We prevent manual login to avoid password confusion and guide them to the correct method.
-//     throw new apiError(401, 'This account was created with Google. Please log in with your Google account.');
-//   }
-
-//   // Checking if user is verified or not
-//   if (!user.isVerified) {
-//     throw new apiError(
-//       403,
-//       'Account not verified. Please check your email for the verification OTP.'
-//     );
-//   }
-
-//   const isPasswordCorrect = await user.isPasswordCorrect(password);
-
-//   if (!isPasswordCorrect) {
-//     throw new apiError(401, 'Invalid credentials');
-//   }
-
-//   // generating the tokens as the user is authenticated and verified
-//   const { accessToken, refreshToken } = await User.matchPassAndGenTokens(
-//     email,
-//     password
-//   );
-
-//   // Save refresh token in DB (replace old one for simplicity)
-//   user.refreshTokens = [{ token: refreshToken }];
-//   await user.save({ validateBeforeSave: false });
-
-//   const options = {
-//     httpOnly: true,
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-//     path: '/',
-//   };
-
-//   return res
-//     .status(200)
-//     .cookie('refreshToken', refreshToken, options)
-//     .json(
-//       new apiResponse(
-//         200,
-//         {
-//           user: {
-//             _id: user._id,
-//             username: user.username,
-//             name: user.name,
-//             email: user.email,
-//             isVerified: user.isVerified,
-//             role: user.role,
-//           },
-//           accessToken: accessToken,
-//         },
-//         'User logged in successfully'
-//       )
-//     );
-// });
-
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -172,7 +100,8 @@ const loginUser = asyncHandler(async (req, res) => {
   // It's `user.refreshToken` in a previous example, but here it's `user.refreshTokens`.
   // Ensure your Mongoose schema is consistent.
   // For a single token, `user.refreshToken = refreshToken;` is simpler.
-  user.refreshToken = refreshToken;
+  // user.refreshToken = refreshToken;
+  user.refreshTokens = [{ token: refreshToken }];
   await user.save({ validateBeforeSave: false });
 
   const options = {
