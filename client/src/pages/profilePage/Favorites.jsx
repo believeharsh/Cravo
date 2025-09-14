@@ -1,410 +1,293 @@
-import React, { useState } from 'react';
-import Icon from '../../components/ui/Icon';
+// import React, { useState, useEffect } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import Icon from '../../components/ui/Icon';
+// import { fetchAllWishlists } from '../../features/wishList/wishListSlice';
 
-const Favorites = () => {
-  const [viewMode, setViewMode] = useState('grid');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('all');
+// // components of this page imports
+// import RestaurantGridCard from './favorites/components/RestaurantGridCard';
+// import ProductGridCard from './favorites/components/ProductGridCard';
+// import RestaurantListCard from './favorites/components/RestaurantListCard';
+// import ProductListCard from './favorites/components/ProductListCard';
 
-  const [favorites, setFavorites] = useState([
-    {
-      id: '1',
-      name: 'Margherita Pizza',
-      description: 'Classic pizza with tomato, mozzarella, and fresh basil.',
-      restaurant: 'Pizza Palace',
-      category: 'Pizza',
-      price: 12.99,
-      rating: 4.8,
-      reviews: 256,
-      cookTime: '25-30 min',
-      image:
-        'https://via.placeholder.com/400x250/FFD700/FFFFFF?text=MargheritaPizza',
-      isAvailable: true,
-      addedDate: '2024-01-15',
-    },
-    {
-      id: '2',
-      name: 'Butter Chicken',
-      description: 'Creamy tomato-based curry with tender chicken pieces.',
-      restaurant: 'Spice Route',
-      category: 'Indian',
-      price: 15.5,
-      rating: 4.6,
-      reviews: 180,
-      cookTime: '35-45 min',
-      image:
-        'https://via.placeholder.com/400x250/FFA500/FFFFFF?text=ButterChicken',
-      isAvailable: true,
-      addedDate: '2023-11-20',
-    },
-    {
-      id: '3',
-      name: 'Caesar Salad',
-      description:
-        'Crisp romaine lettuce, croutons, parmesan, and Caesar dressing.',
-      restaurant: 'Green Garden',
-      category: 'Salads',
-      price: 9.75,
-      rating: 4.4,
-      reviews: 95,
-      cookTime: '15-20 min',
-      image:
-        'https://via.placeholder.com/400x250/90EE90/FFFFFF?text=CaesarSalad',
-      isAvailable: false,
-      addedDate: '2024-02-01',
-    },
-    {
-      id: '4',
-      name: 'Classic Cheeseburger',
-      description: 'Juicy beef patty with cheese, lettuce, tomato, and onion.',
-      restaurant: 'Burger Barn',
-      category: 'Burgers',
-      price: 11.25,
-      rating: 4.7,
-      reviews: 310,
-      cookTime: '20-25 min',
-      image:
-        'https://via.placeholder.com/400x250/ADD8E6/FFFFFF?text=Cheeseburger',
-      isAvailable: true,
-      addedDate: '2023-10-05',
-    },
-    {
-      id: '5',
-      name: 'Chocolate Lava Cake',
-      description: 'Warm chocolate cake with a molten chocolate center.',
-      restaurant: 'Sweet Surrender',
-      category: 'Desserts',
-      price: 7.0,
-      rating: 4.9,
-      reviews: 120,
-      cookTime: '10-15 min',
-      image: 'https://via.placeholder.com/400x250/DDA0DD/FFFFFF?text=LavaCake',
-      isAvailable: true,
-      addedDate: '2024-03-10',
-    },
-    {
-      id: '6',
-      name: 'Pad Thai',
-      description:
-        'Stir-fried rice noodles with shrimp, tofu, peanuts, and bean sprouts.',
-      restaurant: 'Thai Temptations',
-      category: 'Thai',
-      price: 14.0,
-      rating: 4.5,
-      reviews: 150,
-      cookTime: '30-40 min',
-      image: 'https://via.placeholder.com/400x250/F0E68C/FFFFFF?text=PadThai',
-      isAvailable: true,
-      addedDate: '2024-01-28',
-    },
-  ]);
+// const Favorites = () => {
+//   const [viewMode, setViewMode] = useState('grid');
+//   const [selectedListId, setSelectedListId] = useState(null);
+//   const { lists, loading } = useSelector(state => state.wishlist);
+//   const dispatch = useDispatch();
 
-  const categories = [
-    'all',
-    'Pizza',
-    'Indian',
-    'Salads',
-    'Burgers',
-    'Desserts',
-    'Thai',
-  ];
+//   useEffect(() => {
+//     if (lists.length === 0 && loading === 'idle') {
+//       dispatch(fetchAllWishlists());
+//     }
+//   }, [dispatch, lists.length, loading]);
 
-  /* ── Derived Lists ───────────────────────────────────────────────────────── */
-  const filteredFavorites = favorites.filter(item => {
-    const matchesSearch =
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.restaurant.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      filterCategory === 'all' || item.category === filterCategory;
-    return matchesSearch && matchesCategory;
-  });
+//   const selectedList = lists.find(list => list._id === selectedListId);
 
-  /* ── Actions ─────────────────────────────────────────────────────────────── */
-  const handleRemoveFromFavorites = id => {
-    if (window.confirm('Remove this item from your favorites?')) {
-      setFavorites(favorites.filter(item => item.id !== id));
-    }
-  };
+//   const handleRemoveFromFavorites = itemId => console.log(`Removing item with ID: ${itemId}`);
+//   const handleAddToCart = item => console.log(`Adding ${item.name} to cart`);
 
-  const handleAddToCart = item => {
-    console.log('Added to cart:', item.name);
-  };
+//   // Renders the list of available wishlists for the user to select
+//   const WishlistSelectionView = () => (
+//     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+//       {lists.map(list => (
+//         <div
+//           key={list._id}
+//           onClick={() => setSelectedListId(list._id)}
+//           className="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+//         >
+//           <div className="flex items-center gap-4 mb-2">
+//             <span className="w-12 h-12 flex-shrink-0 rounded-full bg-mint-green/20 flex items-center justify-center">
+//               <Icon name={list.list_type === 'productList' ? 'shopping-bag' : 'restaurant'} className="w-6 h-6 text-mint-green" />
+//             </span>
+//             <div className="min-w-0">
+//               <h3 className="text-xl font-bold text-charcoal line-clamp-1">{list.name}</h3>
+//               <p className="text-sm text-medium-gray mt-1 capitalize">{list.list_type.replace('List', '')} Wishlist</p>
+//             </div>
+//           </div>
+//           <p className="text-sm text-coffee mt-3 font-medium">{list.items?.length || 0} items</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
 
-  /* ── Grid Card ───────────────────────────────────────────────────────────── */
-  const GridView = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {filteredFavorites.map(item => (
-        <div
-          key={item.id}
-          className="bg-white rounded-2xl shadow-lg border border-cream overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-        >
-          {/* Image */}
-          <div className="relative h-48 bg-gray-200">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover"
-            />
-            <button
-              onClick={() => handleRemoveFromFavorites(item.id)}
-              className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 transition-colors"
-            >
-              <Icon
-                name="heart"
-                className="w-5 h-5 text-red-500 fill-current"
-              />
-            </button>
-            {!item.isAvailable && (
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Currently Unavailable
-                </span>
-              </div>
-            )}
-          </div>
+//   // Renders the items of the selected list
+//   const renderItemsView = () => {
+//     if (!selectedList) {
+//       return <div>Please select a list.</div>;
+//     }
 
-          {/* Content */}
-          <div className="p-5">
-            <div className="flex items-start justify-between mb-2">
-              <h3 className="text-lg font-bold text-charcoal line-clamp-1">
-                {item.name}
-              </h3>
-              <span className="text-lg font-bold text-mint-green">
-                ${item.price}
-              </span>
-            </div>
+//     const items = selectedList.items;
 
-            <p className="text-sm text-medium-gray mb-3 line-clamp-2">
-              {item.description}
-            </p>
+//     if (!items || items.length === 0) {
+//       return <div className="text-center text-gray-500 font-medium p-8">This list is currently empty.</div>;
+//     }
 
-            <div className="flex items-center gap-4 mb-3 text-sm text-medium-gray">
-              <div className="flex items-center gap-1">
-                <Icon
-                  name="star"
-                  className="w-4 h-4 text-yellow-400 fill-current"
-                />
-                <span>{item.rating}</span>
-                <span>({item.reviews})</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Icon name="clock" className="w-4 h-4" />
-                <span>{item.cookTime}</span>
-              </div>
-            </div>
+//     let CardComponent;
+//     if (viewMode === 'grid') {
+//       CardComponent = selectedList.list_type === 'productList' ? ProductGridCard : RestaurantGridCard;
+//     } else {
+//       CardComponent = selectedList.list_type === 'productList' ? ProductListCard : RestaurantListCard;
+//     }
 
-            <p className="text-sm text-coffee font-medium mb-4">
-              {item.restaurant}
-            </p>
+//     const listContainerClass = viewMode === 'grid'
+//       ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+//       : 'space-y-4';
 
-            <button
-              onClick={() => handleAddToCart(item)}
-              disabled={!item.isAvailable}
-              className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all ${
-                item.isAvailable
-                  ? 'bg-yellow-400 hover:bg-yellow-500 text-white shadow-lg hover:shadow-xl'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
-            >
-              <Icon name="shopping-cart" className="w-5 h-5" />
-              {item.isAvailable ? 'Add to Cart' : 'Unavailable'}
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+//     return (
+//       <div className={listContainerClass}>
+//         {items.map(item => (
+//           <CardComponent
+//             key={item._id}
+//             item={item}
+//             handleRemoveFromFavorites={handleRemoveFromFavorites}
+//             handleAddToCart={handleAddToCart}
+//           />
+//         ))}
+//       </div>
+//     );
+//   };
 
-  /* ── List Card ───────────────────────────────────────────────────────────── */
-  const ListView = () => (
-    <div className="space-y-4">
-      {filteredFavorites.map(item => (
-        <div
-          key={item.id}
-          className="bg-white rounded-2xl shadow-lg border border-cream p-6 hover:shadow-xl transition-all"
-        >
-          <div className="flex items-center gap-6">
-            {/* Image */}
-            <div className="relative w-24 h-24 rounded-xl overflow-hidden bg-gray-200 flex-shrink-0">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-full object-cover"
-              />
-              {!item.isAvailable && (
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <span className="text-white text-xs font-medium">N/A</span>
-                </div>
-              )}
-            </div>
+//   return (
+//     <div className="bg-cream min-h-screen py-10">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+//         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+//           <div className="flex items-center gap-4">
+//             <div className="w-16 h-16 rounded-full bg-mint-green/20 flex items-center justify-center">
+//               <Icon name="heart" className="w-8 h-8 text-mint-green" />
+//             </div>
+//             <div>
+//               <h1 className="text-3xl font-extrabold text-charcoal tracking-tight">
+//                 {selectedList ? `Items in "${selectedList.name}"` : 'My Favorites'}
+//               </h1>
+//               <p className="text-sm text-medium-gray mt-1">Organize and manage your favorite items and restaurants.</p>
+//             </div>
+//           </div>
+//           {selectedListId && (
+//             <button
+//               onClick={() => setSelectedListId(null)}
+//               className="flex items-center gap-2 text-charcoal hover:text-yellow-400 transition-colors font-medium"
+//             >
+//               <Icon name="arrow-left" className="w-5 h-5" /> Back to lists
+//             </button>
+//           )}
+//         </header>
 
-            {/* Content */}
-            <div className="flex-1">
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <h3 className="text-xl font-bold text-charcoal">
-                    {item.name}
-                  </h3>
-                  <p className="text-coffee font-medium">{item.restaurant}</p>
-                </div>
-                <span className="text-xl font-bold text-mint-green">
-                  ${item.price}
-                </span>
-              </div>
+//         {selectedListId ? (
+//           <>
+//             <div className="flex items-center justify-between bg-white rounded-2xl shadow-lg border border-cream p-4">
+//               <p className="text-sm text-medium-gray">
+//                 Showing {selectedList.items?.length || 0} {selectedList.list_type === 'productList' ? 'products' : 'restaurants'}
+//               </p>
+//               <div className="flex gap-2">
+//                 <button
+//                   onClick={() => setViewMode('grid')}
+//                   className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-mint-green text-white' : 'bg-gray-100 text-charcoal hover:bg-gray-200'}`}
+//                 >
+//                   <Icon name="grid" className="w-5 h-5" />
+//                 </button>
+//                 <button
+//                   onClick={() => setViewMode('list')}
+//                   className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-mint-green text-white' : 'bg-gray-100 text-charcoal hover:bg-gray-200'}`}
+//                 >
+//                   <Icon name="list-view" className="w-5 h-5" />
+//                 </button>
+//               </div>
+//             </div>
+//             {renderItemsView()}
+//           </>
+//         ) : (
+//           <WishlistSelectionView />
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
 
-              <p className="text-medium-gray mb-3">{item.description}</p>
+// export default Favorites;
 
-              <div className="flex items-center gap-6 text-sm text-medium-gray mb-4">
-                <div className="flex items-center gap-1">
-                  <Icon
-                    name="star"
-                    className="w-4 h-4 text-yellow-400 fill-current"
-                  />
-                  <span>
-                    {item.rating} ({item.reviews} reviews)
-                  </span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Icon name="clock" className="w-4 h-4" />
-                  <span>{item.cookTime}</span>
-                </div>
-                <span className="px-2 py-1 bg-cream text-coffee rounded-full text-xs">
-                  {item.category}
-                </span>
-              </div>
+// import React, { useState, useEffect } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import Icon from '../../components/ui/Icon';
+// import { fetchAllWishlists } from '../../features/wishList/wishListSlice';
 
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-medium-gray">
-                  Added on {new Date(item.addedDate).toLocaleDateString()}
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => handleRemoveFromFavorites(item.id)}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    <Icon name="lucide-trash-2" className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => handleAddToCart(item)}
-                    disabled={!item.isAvailable}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
-                      item.isAvailable
-                        ? 'bg-yellow-400 hover:bg-yellow-500 text-white'
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    }`}
-                  >
-                    <Icon name="shopping-cart" className="w-4 h-4" />
-                    {item.isAvailable ? 'Add to Cart' : 'Unavailable'}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+// // components of this page imports
+// import RestaurantGridCard from './favorites/components/RestaurantGridCard';
+// import ProductGridCard from './favorites/components/ProductGridCard';
+// import RestaurantListCard from './favorites/components/RestaurantListCard';
+// import ProductListCard from './favorites/components/ProductListCard';
 
-  /* ── Main Render ─────────────────────────────────────────────────────────── */
-  return (
-    <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-charcoal">My Favorites</h1>
-          <p className="text-medium-gray mt-1">
-            {favorites.length} favorite{' '}
-            {favorites.length === 1 ? 'item' : 'items'}
-          </p>
-        </div>
+// const Favorites = () => {
+//   const [viewMode, setViewMode] = useState('grid');
+//   const [selectedListId, setSelectedListId] = useState(null);
+//   const { lists, loading } = useSelector(state => state.wishlist);
+//   const dispatch = useDispatch();
 
-        {/* View Toggle */}
-        <div className="flex items-center gap-2 bg-white rounded-lg p-1 border border-cream">
-          <button
-            onClick={() => setViewMode('grid')}
-            className={`p-2 rounded-md transition-colors ${
-              viewMode === 'grid'
-                ? 'bg-yellow-400 text-white'
-                : 'text-medium-gray hover:bg-gray-100'
-            }`}
-          >
-            <Icon name="grid-3x3" className="w-5 h-5" />
-          </button>
-          <button
-            onClick={() => setViewMode('list')}
-            className={`p-2 rounded-md transition-colors ${
-              viewMode === 'list'
-                ? 'bg-yellow-400 text-white'
-                : 'text-medium-gray hover:bg-gray-100'
-            }`}
-          >
-            <Icon name="list" className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
+//   useEffect(() => {
+//     if (lists.length === 0 && loading === 'idle') {
+//       dispatch(fetchAllWishlists());
+//     }
+//   }, [dispatch, lists.length, loading]);
 
-      {/* Search & Filter */}
-      <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
-        <div className="flex flex-col md:flex-row gap-4">
-          {/* Search */}
-          <div className="flex-1 relative">
-            <Icon
-              name="search"
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5"
-            />
-            <input
-              type="text"
-              placeholder="Search favorites..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-            />
-          </div>
+//   const selectedList = lists.find(list => list._id === selectedListId);
 
-          {/* Category Filter */}
-          <div className="relative">
-            <Icon
-              name="filter"
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-medium-gray w-5 h-5"
-            />
-            <select
-              value={filterCategory}
-              onChange={e => setFilterCategory(e.target.value)}
-              className="pl-10 pr-8 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent bg-white min-w-[150px]"
-            >
-              {categories.map(category => (
-                <option key={category} value={category}>
-                  {category === 'all' ? 'All Categories' : category}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
+//   const handleRemoveFromFavorites = itemId => console.log(`Removing item with ID: ${itemId}`);
+//   const handleAddToCart = item => console.log(`Adding ${item.name} to cart`);
 
-      {/* Content */}
-      {filteredFavorites.length === 0 ? (
-        <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-          <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto">
-            <Icon
-              name="heart"
-              className="w-10 h-10 text-yellow-400 fill-current"
-            />
-          </div>
-          <h3 className="mt-6 text-xl font-semibold text-charcoal">
-            No favorites found
-          </h3>
-          <p className="text-medium-gray">
-            Try adjusting your search or filter to see items here.
-          </p>
-        </div>
-      ) : viewMode === 'grid' ? (
-        <GridView />
-      ) : (
-        <ListView />
-      )}
-    </div>
-  );
-};
+//   // Renders the list of available wishlists for the user to select
+//   const WishlistSelectionView = () => (
+//     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+//       {lists.map(list => (
+//         <div
+//           key={list._id}
+//           onClick={() => setSelectedListId(list._id)}
+//           className="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+//         >
+//           <div className="flex items-center gap-4 mb-2">
+//             <span className="w-12 h-12 flex-shrink-0 rounded-full bg-mint-green/20 flex items-center justify-center">
+//               <Icon name={list.list_type === 'productList' ? 'shopping-bag' : 'restaurant'} className="w-6 h-6 text-mint-green" />
+//             </span>
+//             <div className="min-w-0">
+//               <h3 className="text-xl font-bold text-charcoal line-clamp-1">{list.name}</h3>
+//               <p className="text-sm text-medium-gray mt-1 capitalize">{list.list_type.replace('List', '')} Wishlist</p>
+//             </div>
+//           </div>
+//           <p className="text-sm text-coffee mt-3 font-medium">{list.items?.length || 0} items</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
 
-export default Favorites;
+//   // Renders the items of the selected list
+//   const renderItemsView = () => {
+//     if (!selectedList) {
+//       return <div>Please select a list.</div>;
+//     }
+
+//     const items = selectedList.items;
+
+//     if (!items || items.length === 0) {
+//       return <div className="text-center text-gray-500 font-medium p-8">This list is currently empty.</div>;
+//     }
+
+//     let CardComponent;
+//     if (viewMode === 'grid') {
+//       CardComponent = selectedList.list_type === 'productList' ? ProductGridCard : RestaurantGridCard;
+//     } else {
+//       CardComponent = selectedList.list_type === 'productList' ? ProductListCard : RestaurantListCard;
+//     }
+
+//     const listContainerClass = viewMode === 'grid'
+//       ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+//       : 'space-y-4';
+
+//     return (
+//       <div className={listContainerClass}>
+//         {items.map(item => (
+//           <CardComponent
+//             key={item._id}
+//             item={item}
+//             handleRemoveFromFavorites={handleRemoveFromFavorites}
+//             handleAddToCart={handleAddToCart}
+//           />
+//         ))}
+//       </div>
+//     );
+//   };
+
+//   return (
+//     <div className="bg-cream min-h-screen py-10">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+//         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+//           <div className="flex items-center gap-4">
+//             <div className="w-16 h-16 rounded-full bg-mint-green/20 flex items-center justify-center">
+//               <Icon name="heart" className="w-8 h-8 text-mint-green" />
+//             </div>
+//             <div>
+//               <h1 className="text-3xl font-extrabold text-charcoal tracking-tight">
+//                 {selectedList ? `Items in "${selectedList.name}"` : 'My Favorites'}
+//               </h1>
+//               <p className="text-sm text-medium-gray mt-1">Organize and manage your favorite items and restaurants.</p>
+//             </div>
+//           </div>
+//           {selectedListId && (
+//             <button
+//               onClick={() => setSelectedListId(null)}
+//               className="flex items-center gap-2 text-charcoal hover:text-yellow-400 transition-colors font-medium"
+//             >
+//               <Icon name="arrow-left" className="w-5 h-5" /> Back to lists
+//             </button>
+//           )}
+//         </header>
+
+//         {selectedListId ? (
+//           <>
+//             <div className="flex items-center justify-between bg-white rounded-2xl shadow-lg border border-cream p-4">
+//               <p className="text-sm text-medium-gray">
+//                 Showing {selectedList.items?.length || 0} {selectedList.list_type === 'productList' ? 'products' : 'restaurants'}
+//               </p>
+//               <div className="flex gap-2">
+//                 <button
+//                   onClick={() => setViewMode('grid')}
+//                   className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-mint-green text-white' : 'bg-gray-100 text-charcoal hover:bg-gray-200'}`}
+//                 >
+//                   <Icon name="grid" className="w-5 h-5" />
+//                 </button>
+//                 <button
+//                   onClick={() => setViewMode('list')}
+//                   className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-mint-green text-white' : 'bg-gray-100 text-charcoal hover:bg-gray-200'}`}
+//                 >
+//                   <Icon name="list-view" className="w-5 h-5" />
+//                 </button>
+//               </div>
+//             </div>
+//             {renderItemsView()}
+//           </>
+//         ) : (
+//           <WishlistSelectionView />
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Favorites;

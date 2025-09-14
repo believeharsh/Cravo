@@ -101,6 +101,9 @@ import {
   IndianRupee,
   Trash,
   Banknote,
+  BetweenHorizontalEnd,
+  ChefHat,
+  Grid3x2,
 } from 'lucide-react';
 
 // creating a map with icons names properties and adding actual Lucide React Icon to them
@@ -210,6 +213,9 @@ const iconMap = {
   pizza: Pizza,
   'indian-rupee': IndianRupee,
   trash: Trash,
+  'between-horizontal-end': BetweenHorizontalEnd,
+  'chef-hat': ChefHat,
+  grid3x2: Grid3x2,
 };
 
 // Main Icon component that renders the correct icon based on props.
