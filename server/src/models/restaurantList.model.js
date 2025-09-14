@@ -12,7 +12,7 @@ const RestaurantListSchema = new Schema(
 
     list_type: {
       type: String,
-      default: 'productList',
+      default: 'restaurantList',
       immutable: true, // Prevents it from being changed later
     },
 
