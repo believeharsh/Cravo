@@ -9,7 +9,11 @@ const ListSchema = new Schema(
       required: true,
       index: true, // Index for fast lookups by user
     },
-
+    list_type: {
+      type: String,
+      default: 'productList',
+      immutable: true, // Prevents it from being changed later
+    },
     // The name given by the user, e.g., "Lunch Items"
     name: {
       type: String,

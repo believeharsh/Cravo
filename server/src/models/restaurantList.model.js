@@ -10,6 +10,12 @@ const RestaurantListSchema = new Schema(
       index: true,
     },
 
+    list_type: {
+      type: String,
+      default: 'productList',
+      immutable: true, // Prevents it from being changed later
+    },
+
     // The name given by the user, e.g., "My Favorite Spots"
     name: {
       type: String,
