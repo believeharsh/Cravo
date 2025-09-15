@@ -1,13 +1,8 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
 import ProductCard from './ProductCard';
-// Reusable Product Card Component (you can move this to its own file later)
 
 const ProductList = ({ menuItems, activeFilter }) => {
-  const handleAddToCart = item => {
-    console.log('Adding to cart:', item.name);
-  };
-
   const filteredMenuItems = menuItems.filter(item => {
     if (activeFilter === 'All') return true;
     if (activeFilter === 'Veg') return item.isVeg;
@@ -40,11 +35,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {bestsellers.map(item => (
-              <ProductCard
-                key={item._id}
-                item={item}
-                handleAddToCart={handleAddToCart}
-              />
+              <ProductCard key={item._id} item={item} />
             ))}
           </div>
         </div>

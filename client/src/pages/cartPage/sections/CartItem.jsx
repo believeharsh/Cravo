@@ -1,9 +1,20 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
+import { useCartActions } from '../../../hooks/useCartActions';
+import { useSelector } from 'react-redux';
 
-const CartItem = ({ item, updateQuantity, removeItem }) => {
-  // Use the nested 'product' object to access item details
+const CartItem = ({ item }) => {
   const product = item.product;
+
+  const {
+    handleDeleteItemFromCart,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+  } = useCartActions();
+
+  const existingItem = useSelector(state =>
+    state.cart.items.find(cartItem => cartItem.product._id === product._id)
+  );
 
   // Calculate the original price based on the product's price and promotional discount
   const originalPrice =
@@ -14,7 +25,6 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
       {/* Thumbnail */}
       <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden shadow-sm">
         <img
-          // Access the image from the 'product' object
           src={
             product.images && product.images.length > 0
               ? product.images[0]
@@ -31,14 +41,18 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
           <h3 className="text-base font-semibold text-gray-900 truncate">
             {product.name}
           </h3>
-          <p className="text-sm text-gray-500 truncate mt-0.5">
-            Restaurant: {product.restaurant.name}
-          </p>
-          {item.customizations.length > 0 && (
-            <p className="text-xs text-gray-400 truncate">
-              {item.customizations.join(', ')}
+          {product.restaurant?.name && (
+            <p className="text-sm text-gray-500 truncate mt-0.5">
+              Restaurant: {product.restaurant.name}
             </p>
           )}
+
+          {Array.isArray(item.customizations) &&
+            item.customizations.length > 0 && (
+              <p className="text-xs text-gray-400 truncate">
+                {item.customizations.join(', ')}
+              </p>
+            )}
 
           {/* Price and Total */}
           <div className="flex items-center mt-1 space-x-4">
@@ -70,8 +84,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
         {/* Quantity Controls */}
         <div className="flex items-center space-x-1 flex-shrink-0">
           <button
-            // Passing the full item object to the updateQuantity function
-            onClick={() => updateQuantity(item, item.quantity - 1)}
+            onClick={() => handleDecreaseQuantity(product, existingItem)}
             className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors cursor-pointer"
             disabled={item.quantity <= 1}
           >
@@ -81,8 +94,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
             {item.quantity}
           </span>
           <button
-            // Passing the full item object to the updateQuantity function
-            onClick={() => updateQuantity(item, item.quantity + 1)}
+            onClick={() => handleIncreaseQuantity(product)}
             className="w-7 h-7 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors cursor-pointer"
           >
             <Icon name="plus" size={14} className="text-white" />
@@ -92,8 +104,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
 
       {/* Remove */}
       <button
-        // Pass the full item object to the removeItem function
-        onClick={() => removeItem(item)}
+        onClick={() => handleDeleteItemFromCart(item)}
         className="ml-1 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
       >
         <Icon name="trash" size={18} />

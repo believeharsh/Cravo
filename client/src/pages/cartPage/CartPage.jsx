@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartTotalValue } from '../../features/cart/cartSelectors';
-import { updateQuantity, removeFromCart } from '../../features/cart/cartSlice';
 import Icon from '../../components/ui/Icon';
 
 import CartNavigation from './sections/CartNavigation';
@@ -14,6 +13,7 @@ import OrderSummarySection from './sections/OrderSummarySection';
 const CartPage = () => {
   // Use useSelector to get the actual cart items from the Redux store
   const { items: cartItems } = useSelector(state => state.cart);
+  console.log('cartItem in the cartPage ( parent ) ', cartItems);
   const dispatch = useDispatch();
 
   // Hardcoded data for addresses, payment methods, and promo codes for now
@@ -129,26 +129,6 @@ const CartPage = () => {
 
   const finalTotal = subtotal + deliveryFee + serviceFee + gst - promoDiscount;
 
-  // Functions now dispatch Redux actions
-  const updateItemQuantity = (item, newQuantity) => {
-    dispatch(
-      updateQuantity({
-        product: item.product,
-        quantity: newQuantity,
-        customizations: item.customizations,
-      })
-    );
-  };
-
-  const removeItem = item => {
-    dispatch(
-      removeFromCart({
-        product: item.product,
-        customizations: item.customizations,
-      })
-    );
-  };
-
   const applyPromoCode = () => {
     const promo = promoCodes.find(p => p.code === promoCode.toUpperCase());
     setPromoMessage('');
@@ -202,11 +182,7 @@ const CartPage = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left Column (Items, Delivery & Payment) */}
           <div className="lg:col-span-2 space-y-4">
-            <CartItemsSection
-              cartItems={cartItems}
-              updateQuantity={updateItemQuantity}
-              removeItem={removeItem}
-            />
+            <CartItemsSection cartItems={cartItems} />
             <DeliveryAddressSection
               addresses={addresses}
               selectedAddress={selectedAddress}

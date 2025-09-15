@@ -1,46 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from '../../../components/ui/Icon';
-import { addToCart, updateQuantity } from '../../../features/cart/cartSlice';
+import { useCartActions } from '../../../hooks/useCartActions';
 
 const ProductCard = ({ item }) => {
-  const dispatch = useDispatch();
+  const { handleAddToCart, handleDecreaseQuantity, handleIncreaseQuantity } =
+    useCartActions();
 
-  // Use a selector to find the current item in the cart, if it exists.
+  // finding the current item in the cart, if it exists.
   // We're assuming no customizations are selected here.
   const existingItem = useSelector(state =>
     state.cart.items.find(cartItem => cartItem.product._id === item._id)
   );
-
-  const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        product: item,
-        quantity: 1,
-        customizations: [],
-      })
-    );
-  };
-
-  const handleIncreaseQuantity = () => {
-    dispatch(
-      addToCart({
-        product: item,
-        quantity: 1,
-        customizations: [],
-      })
-    );
-  };
-
-  const handleDecreaseQuantity = () => {
-    dispatch(
-      updateQuantity({
-        product: item,
-        quantity: existingItem.quantity - 1,
-        customizations: [],
-      })
-    );
-  };
 
   return (
     <div className="bg-white rounded-3xl shadow-md p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
@@ -82,7 +53,7 @@ const ProductCard = ({ item }) => {
         {existingItem ? (
           <div className="flex items-center space-x-3 bg-white border-1 border-yellow-200 rounded-sm p-3">
             <button
-              onClick={handleDecreaseQuantity}
+              onClick={() => handleDecreaseQuantity(item, existingItem)}
               className="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 shadow-md"
             >
               <span className="w-5 h-5 flex items-center justify-center">
@@ -93,7 +64,7 @@ const ProductCard = ({ item }) => {
               {existingItem.quantity}
             </span>
             <button
-              onClick={handleIncreaseQuantity}
+              onClick={() => handleIncreaseQuantity(item)}
               className="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 shadow-md"
             >
               <span className="w-5 h-5 flex items-center justify-center">
@@ -103,7 +74,7 @@ const ProductCard = ({ item }) => {
           </div>
         ) : (
           <button
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart(item)}
             className="flex items-center px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md"
           >
             <Icon name="shopping-cart" className="w-4 h-4 mr-2" /> Add
