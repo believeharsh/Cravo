@@ -53,11 +53,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {items.map(item => (
-                <ProductCard
-                  key={item._id}
-                  item={item}
-                  handleAddToCart={handleAddToCart}
-                />
+                <ProductCard key={item._id} item={item} />
               ))}
             </div>
           </div>
