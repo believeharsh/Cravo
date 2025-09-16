@@ -187,7 +187,12 @@ const removeProductFromList = asyncHandler(async (req, res) => {
     { _id: listId, owner: userId }, // Find the list by its ID and verify ownership
     { $pull: { products: productId } }, // Use the $pull operator to remove the productId from the array
     { new: true } // Returns the updated document
-  );
+  ).populate({
+    path: 'products',
+    populate: {
+      path: 'restaurant',
+    },
+  });
 
   // 6. Handle the case where the list is not found
   if (!updatedList) {
