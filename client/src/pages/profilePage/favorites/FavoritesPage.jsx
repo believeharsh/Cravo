@@ -6,21 +6,16 @@ import Icon from '../../../components/ui/Icon';
 // Import the new section components
 import WishlistSelectionView from './sections/WishlistSelectionView';
 import ItemsView from './sections/ItemsView';
+import { useFavoriteActions } from '../../../hooks/useWishlistActions';
 
 const FavoritesPage = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [selectedListId, setSelectedListId] = useState(null);
-  const { lists, loading } = useSelector(state => state.wishlist);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (lists.length === 0 && loading === 'idle') {
-      dispatch(fetchAllWishlists());
-    }
-  }, [dispatch, lists.length, loading]);
+  const { lists, loading } = useFavoriteActions();
 
   const selectedList = lists.find(list => list._id === selectedListId);
-
+  console.log(selectedList);
   const handleRemoveFromFavorites = itemId =>
     console.log(`Removing item with ID: ${itemId}`);
   const handleAddToCart = item => console.log(`Adding ${item.name} to cart`);

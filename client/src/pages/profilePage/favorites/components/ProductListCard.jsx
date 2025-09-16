@@ -1,10 +1,26 @@
 import Icon from '../../../../components/ui/Icon';
+import { useFavoriteActions } from '../../../../hooks/useWishlistActions';
 
 const ProductListCard = ({
   item,
-  handleRemoveFromFavorites,
+  list,
+  // handleRemoveFromFavorites,
   handleAddToCart,
 }) => {
+  const { handleRemoveItemFromWishlist } = useFavoriteActions();
+  console.log('list is coming inside the ProductListCart', list);
+
+  const handleRemoveClick = () => {
+    // Collect the data needed for the function
+    const payload = {
+      listId: list._id,
+      itemId: item._id,
+      itemType: list.list_type === 'productList' ? 'product' : 'restaurant',
+    };
+
+    handleRemoveItemFromWishlist(payload);
+  };
+
   return (
     <div className="flex items-center bg-white rounded-2xl shadow-md border border-cream p-4 hover:shadow-lg transition-all">
       <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 mr-4">
@@ -31,8 +47,8 @@ const ProductListCard = ({
           <Icon name="shopping-cart" className="w-5 h-5" />
         </button>
         <button
-          onClick={() => handleRemoveFromFavorites(item._id)}
-          className="p-2 rounded-full bg-white border border-red-200 text-red-500 hover:bg-red-50 transition-colors"
+          onClick={handleRemoveClick}
+          className="p-2 rounded-full bg-white border border-red-200 text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
         >
           <Icon name="heart" className="w-5 h-5 fill-current" />
         </button>

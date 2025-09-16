@@ -72,7 +72,7 @@ export const removeItemFromWishlist = createAsyncThunk(
       if (itemType === 'product') {
         response = await axiosInstance.delete(
           API.WISHLIST.REMOVE_ITEM_FROM_PRODUCT_LIST(listId),
-          { data: { itemId } }
+          { data: { productId: itemId } }
         );
       } else if (itemType === 'restaurant') {
         response = await axiosInstance.delete(

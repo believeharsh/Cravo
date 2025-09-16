@@ -30,7 +30,6 @@ import AuthSidebar from './components/auth/AuthSidebar';
 import { closeAuthModal } from './features/authModal/authModelSlice';
 import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 import OTPVerificationModal from './components/auth/OTPVerificationModal';
-import WishlistPage from './pages/wishList/whisList';
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 
 function AppContent() {
@@ -80,7 +79,6 @@ function AppContent() {
       <Route path="cart" element={<CartPage />} />
       <Route path="corporate" element={<CorporatePage />} />
       <Route path="unauthorized" element={<UnauthorizedPage />} />
-      <Route path="wishlist" element={<WishlistPage />} />
 
       {/* Protected Routes (require authentication) */}
       <Route element={<PrivateRoute />}>

@@ -1,10 +1,23 @@
 import Icon from '../../../../components/ui/Icon';
+import { useFavoriteActions } from '../../../../hooks/useWishlistActions';
 
 const ProductGridCard = ({
   item,
+  list,
   handleRemoveFromFavorites,
   handleAddToCart,
 }) => {
+  const { handleRemoveItemFromWishlist } = useFavoriteActions();
+  const handleRemoveClick = () => {
+    // Collect the data needed for the function
+    const payload = {
+      listId: list._id,
+      itemId: item._id,
+      itemType: list.list_type === 'productList' ? 'product' : 'restaurant',
+    };
+
+    handleRemoveItemFromWishlist(payload);
+  };
   return (
     <div className="relative bg-white rounded-2xl shadow-lg border border-cream overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
       <div className="relative h-48 bg-gray-200">
@@ -14,8 +27,8 @@ const ProductGridCard = ({
           className="w-full h-full object-cover"
         />
         <button
-          onClick={() => handleRemoveFromFavorites(item._id)}
-          className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 transition-colors"
+          onClick={handleRemoveClick}
+          className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 transition-colors cursor-pointer"
         >
           <Icon name="heart" className="w-5 h-5 text-red-500 fill-current" />
         </button>
@@ -33,7 +46,7 @@ const ProductGridCard = ({
           </span>
           <button
             onClick={() => handleAddToCart(item)}
-            className="flex items-center gap-2 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-white font-medium transition-colors"
+            className="flex items-center gap-2 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-white font-medium transition-colors cursor-pointer"
           >
             <Icon name="shopping-cart" className="w-4 h-4" /> Add
           </button>
