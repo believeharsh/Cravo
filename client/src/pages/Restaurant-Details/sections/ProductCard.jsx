@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../../components/ui/Icon';
 import { useCartActions } from '../../../hooks/useCartActions';
+import { useFavoriteActions } from '../../../hooks/useWishlistActions';
+import {
+  selectDefaultProductListId,
+  selectDefaultProductListType,
+} from '../../../features/wishList/wishListSelectors';
 
 const ProductCard = ({ item }) => {
+  console.log('items in the productcard', item);
   const [isHovered, setIsHovered] = useState(false);
   const { handleAddToCart, handleDecreaseQuantity, handleIncreaseQuantity } =
     useCartActions();
@@ -12,11 +18,24 @@ const ProductCard = ({ item }) => {
     state.cart.items.find(cartItem => cartItem.product._id === item._id)
   );
 
-  const handleAddClick = () => {
-    // const payload = {
-    //   itemId : item._id,
-    //   itemType :
-    // }
+  const { handleAddItemToWishlist, handleRemoveItemFromWishlist } =
+    useFavoriteActions();
+  const { lists } = useSelector(state => state.wishlist);
+  console.log('user wishlists data', lists);
+
+  const defaultProductListId = useSelector(selectDefaultProductListId);
+  const list_type = useSelector(selectDefaultProductListType);
+
+  console.log(defaultProductListId);
+  console.log(list_type);
+
+  const addWishListClick = () => {
+    const payload = {
+      listId: defaultProductListId,
+      itemId: item._id,
+      itemType: list_type === 'productList' ? 'product' : '',
+    };
+    handleAddItemToWishlist(payload);
   };
 
   return (
@@ -36,7 +55,7 @@ const ProductCard = ({ item }) => {
         )}
         {isHovered && (
           <button
-            onClick={handleAddToWishlist}
+            onClick={addWishListClick}
             className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-lg text-gray-400 hover:text-red-500 transition-colors duration-200 cursor-pointer"
           >
             <Icon name="heart" className="w-5 h-5" />
