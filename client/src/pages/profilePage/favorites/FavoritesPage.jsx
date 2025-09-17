@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllWishlists } from '../../../features/wishList/wishListSlice';
 import Icon from '../../../components/ui/Icon';
 
-// Import the new section components
+// Imports of the section components
 import WishlistSelectionView from './sections/WishlistSelectionView';
 import ItemsView from './sections/ItemsView';
 import { useFavoriteActions } from '../../../hooks/useWishlistActions';
@@ -15,10 +13,6 @@ const FavoritesPage = () => {
   const { lists, loading } = useFavoriteActions();
 
   const selectedList = lists.find(list => list._id === selectedListId);
-  console.log(selectedList);
-  const handleRemoveFromFavorites = itemId =>
-    console.log(`Removing item with ID: ${itemId}`);
-  const handleAddToCart = item => console.log(`Adding ${item.name} to cart`);
 
   return (
     <div className="bg-cream min-h-screen py-10">
@@ -54,8 +48,6 @@ const FavoritesPage = () => {
             selectedList={selectedList}
             viewMode={viewMode}
             setViewMode={setViewMode}
-            handleRemoveFromFavorites={handleRemoveFromFavorites}
-            handleAddToCart={handleAddToCart}
           />
         ) : (
           <WishlistSelectionView

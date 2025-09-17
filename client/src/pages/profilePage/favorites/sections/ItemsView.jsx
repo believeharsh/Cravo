@@ -71,8 +71,7 @@ const ItemsView = ({
             key={item._id}
             item={item}
             list={selectedList}
-            handleRemoveFromFavorites={handleRemoveFromFavorites}
-            handleAddToCart={handleAddToCart}
+            listId={selectedList._id}
           />
         ))}
       </div>

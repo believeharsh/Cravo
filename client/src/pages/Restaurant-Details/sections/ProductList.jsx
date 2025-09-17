@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
-import ProductCard from './ProductCard';
+import ProductCard from '../../../components/shared/ProductCard';
 
 const ProductList = ({ menuItems, activeFilter }) => {
   const filteredMenuItems = menuItems.filter(item => {
