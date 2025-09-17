@@ -48,12 +48,12 @@ export const addItemToWishlist = createAsyncThunk(
       if (itemType === 'product') {
         response = await axiosInstance.post(
           API.WISHLIST.ADD_ITEM_TO_PRODUCT_LIST(listId),
-          { itemId }
+          { productId: itemId }
         );
       } else if (itemType === 'restaurant') {
         response = await axiosInstance.post(
           API.WISHLIST.ADD_ITEM_TO_RESTAURANT_LIST(listId),
-          { itemId }
+          { productId: itemId }
         );
       }
       return response.data; // The API returns the updated list
@@ -77,7 +77,7 @@ export const removeItemFromWishlist = createAsyncThunk(
       } else if (itemType === 'restaurant') {
         response = await axiosInstance.delete(
           API.WISHLIST.REMOVE_ITEM_FROM_RESTAURANT_LIST(listId),
-          { data: { itemId } }
+          { data: { productId: itemId } }
         );
       }
       return response.data; // The API returns the updated list
