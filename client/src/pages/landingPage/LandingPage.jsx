@@ -5,7 +5,7 @@ import LandingNavigation from './sections/NavigationSection';
 import Hero from './sections/HeroSection';
 import CategoriesSlider from './sections/CategoriesSection';
 import RestaurantsSection from './sections/RestaurantsSection';
-import AuthSidebar from '../../components/auth/AuthSidebar';
+import AuthSidebar from '../../components/modules/auth/AuthSidebar';
 
 const LandingPage = () => {
   return (

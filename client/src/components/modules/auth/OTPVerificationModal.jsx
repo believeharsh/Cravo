@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import { closeAuthModal } from '../../features/authModal/authModelSlice';
-import { setAuthState } from '../../features/auth/authSlice';
-import { API } from '../../config/api';
-import axiosInstance from '../../api/axiosInstance';
+import { closeAuthModal } from '../../../features/authModal/authModelSlice';
+import { setAuthState } from '../../../features/auth/authSlice';
+import { API } from '../../../config/api';
+import axiosInstance from '../../../api/axiosInstance';
 
 const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
   const [otp, setOtp] = useState('');

@@ -26,10 +26,14 @@ import UnauthorizedPage from './components/UnAuthorizedPage';
 import { initializeApplication } from './features/landing/landingSlice';
 import DeliveryLoader from './components/DeliveryLoader';
 import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
-import AuthSidebar from './components/auth/AuthSidebar';
+
+// modules import
+// import AuthSidebar from './components/auth/AuthSidebar';
+import AuthSidebar from './components/modules/auth/AuthSidebar';
+import OTPVerificationModal from './components/modules/auth/OTPVerificationModal';
 import { closeAuthModal } from './features/authModal/authModelSlice';
 import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
-import OTPVerificationModal from './components/auth/OTPVerificationModal';
+
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 
 function AppContent() {

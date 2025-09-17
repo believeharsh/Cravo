@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, setAuthState } from '../../features/auth/authSlice';
+import { loginUser, setAuthState } from '../../../features/auth/authSlice';
 import {
   closeAuthModal,
   openOTPModal,
-} from '../../features/authModal/authModelSlice';
-import { API } from '../../config/api';
-import axiosInstance from '../../api/axiosInstance';
+} from '../../../features/authModal/authModelSlice';
+import { API } from '../../../config/api';
+import axiosInstance from '../../../api/axiosInstance';
 
 const AuthSidebar = ({ isOpen }) => {
   const [mode, setMode] = useState('login');
