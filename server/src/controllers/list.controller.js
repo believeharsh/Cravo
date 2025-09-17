@@ -158,7 +158,12 @@ const addProductToTheList = asyncHandler(async (req, res) => {
     listId,
     { $push: { products: productId } },
     { new: true, runValidators: true } // 'new: true' returns the updated document
-  );
+  ).populate({
+    path: 'products',
+    populate: {
+      path: 'restaurant',
+    },
+  });
 
   // 9. Send a success response
   res
