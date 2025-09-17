@@ -11,13 +11,6 @@ export const useFavoriteActions = () => {
   const dispatch = useDispatch();
 
   const { lists, loading } = useSelector(state => state.wishlist);
-
-  useEffect(() => {
-    if (lists.length === 0 && loading === 'idle') {
-      dispatch(fetchAllWishlists());
-    }
-  }, [dispatch, lists.length, loading]);
-
   const handleAddItemToWishlist = ({ listId, itemId, itemType }) => {
     dispatch(addItemToWishlist({ listId, itemId, itemType }));
   };

@@ -9,10 +9,6 @@ const initialState = {
   error: null,
 };
 
-// -----------------------------------------------------------
-// Async Thunks for API Calls
-// -----------------------------------------------------------
-
 // A thunk to fetch all wishlists (products and restaurants) at once
 export const fetchAllWishlists = createAsyncThunk(
   'wishlist/fetchAll',
@@ -32,6 +28,7 @@ export const fetchAllWishlists = createAsyncThunk(
         productsResponse.data.data,
         restaurantsResponse.data.data
       );
+      console.log('the combinedLists', combinedLists);
       return combinedLists;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -87,54 +84,36 @@ export const removeItemFromWishlist = createAsyncThunk(
   }
 );
 
-// -----------------------------------------------------------
 // Helper Function to Normalize API Responses
-// -----------------------------------------------------------
-
 const normalizeAndCombineLists = (productLists, restaurantLists) => {
   const combinedLists = {};
 
-  // Process all product lists and store them in the map
+  // Process all product lists and standardize to 'items' key
   productLists.forEach(list => {
     combinedLists[list._id] = {
-      ...list, // Spread the entire list object to keep list_type and other properties
-      items: list.products, // Use the correct property name from the API response
+      ...list,
+      items: list.products || [], // Use 'items' as the standard key
+      // The original 'products' key is now implicitly discarded
     };
-    // Delete the original 'products' property to avoid redundancy
-    delete combinedLists[list._id].products;
   });
 
-  // Process all restaurant lists and merge them with existing entries or create new ones
+  // Process all restaurant lists and standardize to 'items' key
   restaurantLists.forEach(list => {
-    if (combinedLists[list._id]) {
-      // This part seems unlikely to be used with your current backend structure
-      // as product and restaurant lists have different list_types and IDs.
-      // But it's good to keep it for robustness.
-      combinedLists[list._id].items.push(...list.restaurants);
-    } else {
-      combinedLists[list._id] = {
-        ...list, // Spread the entire list object
-        items: list.restaurants,
-      };
-      // Delete the original 'restaurants' property
-      delete combinedLists[list._id].restaurants;
-    }
+    // This part should not try to 'merge' lists with the same ID, as product and restaurant lists
+    // have different IDs. It should just create a new entry.
+    combinedLists[list._id] = {
+      ...list,
+      items: list.restaurants || [], // Use 'items' as the standard key
+    };
   });
 
-  // Convert the object back to an array for the Redux state
   return Object.values(combinedLists);
 };
-
-// -----------------------------------------------------------
-// The Redux Slice
-// -----------------------------------------------------------
 
 const wishlistSlice = createSlice({
   name: 'wishlist',
   initialState,
-  reducers: {
-    // Synchronous reducers for local state updates (e.g., clearing the state)
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       // Handle fetching all lists
@@ -143,36 +122,40 @@ const wishlistSlice = createSlice({
       })
       .addCase(fetchAllWishlists.fulfilled, (state, action) => {
         state.loading = 'succeeded';
-        state.lists = action.payload; // The normalized lists are correctly set
+        state.lists = action.payload; // Correctly sets the normalized lists
       })
       .addCase(fetchAllWishlists.rejected, (state, action) => {
         state.loading = 'failed';
         state.error = action.payload;
       })
 
-      // Handle adding an item to a list
+      // Handle adding and removing items
       .addCase(addItemToWishlist.fulfilled, (state, action) => {
-        const updatedList = action.payload.data; // Assuming the API returns an object with a 'data' key
-        // Find and replace the updated list in the state
+        const updatedList = action.payload.data;
         state.lists = state.lists.map(list =>
           list._id === updatedList._id
             ? {
                 ...updatedList,
-                items: updatedList.products || updatedList.restaurants,
+                // Check the list type from the API response and map it to the 'items' key
+                items:
+                  updatedList.list_type === 'productList'
+                    ? updatedList.products
+                    : updatedList.restaurants,
               }
             : list
         );
       })
-
-      // Handle removing an item from a list
       .addCase(removeItemFromWishlist.fulfilled, (state, action) => {
         const updatedList = action.payload.data;
-        // Find and replace the updated list in the state
         state.lists = state.lists.map(list =>
           list._id === updatedList._id
             ? {
                 ...updatedList,
-                items: updatedList.products || updatedList.restaurants,
+                // Check the list type from the API response and map it to the 'items' key
+                items:
+                  updatedList.list_type === 'productList'
+                    ? updatedList.products
+                    : updatedList.restaurants,
               }
             : list
         );

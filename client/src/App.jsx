@@ -28,30 +28,26 @@ import DeliveryLoader from './components/DeliveryLoader';
 import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 
 // modules import
-// import AuthSidebar from './components/auth/AuthSidebar';
 import AuthSidebar from './components/modules/auth/AuthSidebar';
 import OTPVerificationModal from './components/modules/auth/OTPVerificationModal';
 import { closeAuthModal } from './features/authModal/authModelSlice';
 import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
+import { fetchAllWishlists } from './features/wishList/wishListSlice';
 
 function AppContent() {
-  const { isAuthenticated } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleMessage = async event => {
+    const handleMessage = event => {
       console.log('Received message:', event);
       const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000'];
       if (!allowedOrigins.includes(event.origin)) return;
 
       if (event.data?.type === 'authComplete' && event.data.success) {
-        console.log(
-          'Auth complete signal received, dispatching checkAuthStatus'
-        );
-
+        console.log('Auth complete signal received, dispatching setAuthState');
         dispatch(
           setAuthState({
             user: event.data.data.user,
@@ -59,7 +55,6 @@ function AppContent() {
             role: event.data.data.user.role,
           })
         );
-        // Close the modal and navigate
         dispatch(closeAuthModal());
         navigate('/restaurants');
       }
@@ -71,40 +66,39 @@ function AppContent() {
 
   return (
     <Routes>
-      {/* Public Routes (accessible to both guests and authenticated users) */}
-      <Route path="restaurants" element={<RestaurantsOverviewPage />} />
-      <Route path="/" element={<LandingPage />} />
+            <Route path="restaurants" element={<RestaurantsOverviewPage />} />
+            <Route path="/" element={<LandingPage />} />     {' '}
       <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
+           {' '}
       <Route
         path="menu/:restaurantName/:restaurantID"
         element={<RestaurantMenuPage />}
       />
-      <Route path="offers" element={<OffersPage />} />
-      <Route path="cart" element={<CartPage />} />
-      <Route path="corporate" element={<CorporatePage />} />
-      <Route path="unauthorized" element={<UnauthorizedPage />} />
-
-      {/* Protected Routes (require authentication) */}
+            <Route path="offers" element={<OffersPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="corporate" element={<CorporatePage />} />
+            <Route path="unauthorized" element={<UnauthorizedPage />} />     {' '}
       <Route element={<PrivateRoute />}>
+               {' '}
         <Route path="profile" element={<ProfileLayout />}>
+                   {' '}
           <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="favorites" element={<FavoritesPage />} />
-          <Route path="payments" element={<Payments />} />
-          <Route path="addresses" element={<Addresses />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="help-support" element={<HelpSupport />} />
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="orders" element={<Orders />} />
+                    <Route path="favorites" element={<FavoritesPage />} />
+                    <Route path="payments" element={<Payments />} />
+                    <Route path="addresses" element={<Addresses />} />
+                    <Route path="settings" element={<Settings />} />
+                    <Route path="help-support" element={<HelpSupport />} />     
+           {' '}
         </Route>
+             {' '}
       </Route>
-
-      {/* Role-based Protected Routes (example: only 'admin' role can access) */}
+           {' '}
       <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-        <Route path="admin" element={<AdminPage />} />
+                <Route path="admin" element={<AdminPage />} />     {' '}
       </Route>
-
-      {/* Catch-all route for 404 Not Found */}
-      <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />   {' '}
     </Routes>
   );
 }
@@ -112,18 +106,11 @@ function AppContent() {
 function App() {
   const dispatch = useDispatch();
   const hasAppInitializedRef = useRef(false);
-  const { isLoading, appInitError } = useSelector(state => state.landingPage);
+  const { appInitError } = useSelector(state => state.landingPage);
   const { isOpen, showOTPModal, signupEmail } = useSelector(
     state => state.authModal
   );
-  const { user, isAuthenticated, role, token } = useSelector(
-    state => state.auth
-  );
-
-  console.log('user state log', user);
-  console.log('isAuthenticated', isAuthenticated);
-  console.log('role', role);
-  console.log('usertoken', token);
+  const { isAuthenticated } = useSelector(state => state.auth); // 1. Initial app data fetch (e.g., categories, global configs)
 
   useEffect(() => {
     if (!hasAppInitializedRef.current) {
@@ -132,22 +119,26 @@ function App() {
       );
       dispatch(initializeApplication());
       hasAppInitializedRef.current = true;
-    } else {
-      console.log(
-        'App.jsx: initializeApplication has already been dispatched.'
-      );
     }
-  }, [dispatch]); // Dependency array: run once on mount
+  }, [dispatch]); // 2. Fetch user-specific data *only after* authentication is confirmed
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('User is authenticated, fetching wishlists.');
+      dispatch(fetchAllWishlists());
+    } else {
+      console.log('User is not authenticated, skipping wishlist fetch.'); // Optionally, you could clear wishlist data here if the user logs out
+    }
+  }, [isAuthenticated, dispatch]);
 
   if (appInitError) {
     console.error('App Initialization Error:', appInitError);
   }
 
-  // Once authentication status is initialized, render the appropriate routes
   return (
     <>
-      <AppContent />
-      {isOpen && !showOTPModal && <AuthSidebar isOpen={true} />}
+            <AppContent />     {' '}
+      {isOpen && !showOTPModal && <AuthSidebar isOpen={true} />}     {' '}
       {showOTPModal && (
         <OTPVerificationModal
           isOpen={true}
@@ -155,6 +146,7 @@ function App() {
           onVerificationSuccess={() => dispatch(closeAuthModal())}
         />
       )}
+         {' '}
     </>
   );
 }
