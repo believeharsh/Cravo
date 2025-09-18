@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
 import { useDispatch, useSelector } from 'react-redux';
-import { openAuthModal } from '../../../features/authModal/authModelSlice';
+// import { openAuthModal } from '../../../features/authModal/authModelSlice';
+import { openAuthSidebar } from '../../../features/ui/uiSlice';
 
 const LandingNavigation = () => {
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const LandingNavigation = () => {
           ) : (
             <button
               className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-colors duration-200 border border-gray-200"
-              onClick={() => dispatch(openAuthModal({ mode: 'login' }))} // ✅ function now
+              onClick={() => dispatch(openAuthSidebar({ mode: 'login' }))} // ✅ function now
             >
               <Icon name={'login'} size={16} className="text-blue-600" />
               <span className="font-medium text-gray-800 text-sm">Sign in</span>

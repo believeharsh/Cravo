@@ -29,7 +29,6 @@ import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 
 // modules import
 import AuthSidebar from './components/modules/auth/AuthSidebar';
-import OTPVerificationModal from './components/modules/auth/OTPVerificationModal';
 import { closeAuthModal } from './features/authModal/authModelSlice';
 import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 
@@ -66,50 +65,50 @@ function AppContent() {
 
   return (
     <Routes>
-            <Route path="restaurants" element={<RestaurantsOverviewPage />} />
-            <Route path="/" element={<LandingPage />} />     {' '}
-      <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
-           {' '}
+      <Route path="restaurants" element={<RestaurantsOverviewPage />} />
+      <Route path="/" element={<LandingPage />} />     {' '}
+      <Route path="categories/:categorySlug" element={<CategoryResultPage />} />{' '}
       <Route
         path="menu/:restaurantName/:restaurantID"
         element={<RestaurantMenuPage />}
       />
-            <Route path="offers" element={<OffersPage />} />
-            <Route path="cart" element={<CartPage />} />
-            <Route path="corporate" element={<CorporatePage />} />
-            <Route path="unauthorized" element={<UnauthorizedPage />} />     {' '}
+      <Route path="offers" element={<OffersPage />} />
+      <Route path="cart" element={<CartPage />} />
+      <Route path="corporate" element={<CorporatePage />} />
+      <Route path="unauthorized" element={<UnauthorizedPage />} />     {' '}
       <Route element={<PrivateRoute />}>
-               {' '}
+        {' '}
         <Route path="profile" element={<ProfileLayout />}>
-                   {' '}
+          {' '}
           <Route index element={<Navigate to="dashboard" replace />} />
-                    <Route path="dashboard" element={<Dashboard />} />
-                    <Route path="orders" element={<Orders />} />
-                    <Route path="favorites" element={<FavoritesPage />} />
-                    <Route path="payments" element={<Payments />} />
-                    <Route path="addresses" element={<Addresses />} />
-                    <Route path="settings" element={<Settings />} />
-                    <Route path="help-support" element={<HelpSupport />} />     
-           {' '}
-        </Route>
-             {' '}
-      </Route>
-           {' '}
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="favorites" element={<FavoritesPage />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="addresses" element={<Addresses />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="help-support" element={<HelpSupport />} />{' '}
+        </Route>{' '}
+      </Route>{' '}
       <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-                <Route path="admin" element={<AdminPage />} />     {' '}
+        <Route path="admin" element={<AdminPage />} />     {' '}
       </Route>
-            <Route path="*" element={<NotFound />} />   {' '}
+      <Route path="*" element={<NotFound />} />   {' '}
     </Routes>
   );
 }
 
 function App() {
   const dispatch = useDispatch();
+
   const hasAppInitializedRef = useRef(false);
+
   const { appInitError } = useSelector(state => state.landingPage);
-  const { isOpen, showOTPModal, signupEmail } = useSelector(
-    state => state.authModal
+
+  const { isAuthSidebarOpen, showOTPModal, signupEmail } = useSelector(
+    state => state.ui.auth
   );
+
   const { isAuthenticated } = useSelector(state => state.auth); // 1. Initial app data fetch (e.g., categories, global configs)
 
   useEffect(() => {
@@ -137,16 +136,8 @@ function App() {
 
   return (
     <>
-            <AppContent />     {' '}
-      {isOpen && !showOTPModal && <AuthSidebar isOpen={true} />}     {' '}
-      {showOTPModal && (
-        <OTPVerificationModal
-          isOpen={true}
-          email={signupEmail}
-          onVerificationSuccess={() => dispatch(closeAuthModal())}
-        />
-      )}
-         {' '}
+      <AppContent />
+      {isAuthSidebarOpen && !showOTPModal && <AuthSidebar isOpen={true} />}
     </>
   );
 }

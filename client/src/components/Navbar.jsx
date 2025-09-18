@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
 import Icon from './ui/Icon';
-import { openAuthModal } from '../features/authModal/authModelSlice';
+// import { openAuthModal } from '../features/authModal/authModelSlice';
+import { openAuthSidebar } from '../features/ui/uiSlice';
 import { useDispatch } from 'react-redux';
 
 // Simple, self-contained Button component
@@ -151,7 +152,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
         id: 'signin',
         label: 'Sign In',
         Iconname: 'login',
-        action: () => dispatch(openAuthModal('login')),
+        action: () => dispatch(openAuthSidebar()),
         showOnMobile: true,
       });
     }
