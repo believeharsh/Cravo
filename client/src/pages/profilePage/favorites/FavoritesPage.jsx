@@ -15,22 +15,20 @@ const FavoritesPage = () => {
   const selectedList = lists.find(list => list._id === selectedListId);
 
   return (
-    <div className="bg-cream min-h-screen py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="bg-cream min-h-screen py-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-mint-green/20 flex items-center justify-center">
               <Icon name="heart" className="w-8 h-8 text-mint-green" />
             </div>
             <div>
-              <h1 className="text-3xl font-extrabold text-charcoal tracking-tight">
-                {selectedList
-                  ? `Items in "${selectedList.name}"`
-                  : 'My Favorites'}
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                {selectedList && `Items in "${selectedList.name}"`}
               </h1>
-              <p className="text-sm text-medium-gray mt-1">
+              {/* <p className="text-sm text-medium-gray mt-1">
                 Organize and manage your favorite items and restaurants.
-              </p>
+              </p> */}
             </div>
           </div>
           {selectedListId && (

@@ -1,18 +1,11 @@
 import React from 'react';
 import Icon from '../../../../components/ui/Icon';
-
 import ProductGridCard from '../components/ProductGridCard';
 import RestaurantGridCard from '../components/RestaurantGridCard';
 import ProductListCard from '../components/ProductListCard';
 import RestaurantListCard from '../components/RestaurantListCard';
 
-const ItemsView = ({
-  selectedList,
-  viewMode,
-  setViewMode,
-  handleRemoveFromFavorites,
-  handleAddToCart,
-}) => {
+const ItemsView = ({ selectedList, viewMode, setViewMode }) => {
   const items = selectedList.items;
 
   if (!items || items.length === 0) {
@@ -39,7 +32,7 @@ const ItemsView = ({
   const listContainerClass =
     viewMode === 'grid'
       ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
-      : 'space-y-4';
+      : 'space-y-10';
 
   return (
     <>

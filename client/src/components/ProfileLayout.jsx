@@ -166,7 +166,7 @@ const ProfileLayout = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col">
-          <header className="lg:hidden sticky top-0 bg-white p-4 flex items-center justify-between border-b border-gray-200 z-20">
+          <header className="lg:hidden sticky top-0 p-4 flex items-center justify-between border-b border-gray-200 z-20">
             <Button onClick={() => setIsSidebarOpen(true)}>
               <Icon name={'menu'} size={24} />
             </Button>
