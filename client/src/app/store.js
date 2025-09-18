@@ -5,12 +5,13 @@ import locationReducer from '../features/location/locationSlice';
 import cartReducer from '../features/cart/cartSlice';
 import authModalReducer from '../features/authModal/authModelSlice';
 import wishlistReducer from '../features/wishList/wishListSlice';
-
+import uiReducer from '../features/ui/uiSlice';
 // import userReducer from '../features/user/userSlice';
 // import postsReducer from '../features/posts/postsSlice';
 
 const store = configureStore({
   reducer: {
+    ui: uiReducer,
     auth: authReducer,
     landingPage: landingPageReducer,
     location: locationReducer,
