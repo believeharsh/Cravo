@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import {
-  fetchAllWishlists,
   removeItemFromWishlist,
   addItemToWishlist,
+  createNewProductList,
 } from '../features/wishList/wishListSlice';
 import CustomToast from '../components/CustomToast';
 import toast from 'react-hot-toast';
@@ -58,7 +56,7 @@ export const useFavoriteActions = () => {
   }) => {
     try {
       const response = await dispatch(
-        removeItemFromWishlist({ listId, itemId, itemType })
+        removeItemFromWishlist({ listId, itemId, itemType, itemName })
       ).unwrap();
 
       toast.custom(
@@ -79,10 +77,15 @@ export const useFavoriteActions = () => {
     } catch (error) {}
   };
 
+  const handleCreateNewProductList = async ({ listName }) => {
+    dispatch(createNewProductList({ listName }));
+  };
+
   return {
     lists,
     loading,
     handleAddItemToWishlist,
     handleRemoveItemFromWishlist,
+    handleCreateNewProductList,
   };
 };

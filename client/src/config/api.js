@@ -44,5 +44,7 @@ export const API = {
 
     REMOVE_ITEM_FROM_RESTAURANT_LIST: restaurant_list_id =>
       `/restaurantList/${restaurant_list_id}/remove`,
+
+    CREATE_NEW_PRODUCT_LIST: '/lists',
   },
 };

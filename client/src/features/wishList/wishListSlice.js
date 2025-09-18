@@ -84,6 +84,24 @@ export const removeItemFromWishlist = createAsyncThunk(
   }
 );
 
+// Thunk for creating the new wishlist
+export const createNewProductList = createAsyncThunk(
+  'wishList/newProductList',
+  async ({ listName }, thunkAPI) => {
+    try {
+      let response;
+      response = await axiosInstance.post(
+        API.WISHLIST.CREATE_NEW_PRODUCT_LIST,
+        { name: listName }
+      );
+      console.log('response of the createNewProductList', response);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 // Helper Function to Normalize API Responses
 const normalizeAndCombineLists = (productLists, restaurantLists) => {
   const combinedLists = {};
@@ -159,6 +177,15 @@ const wishlistSlice = createSlice({
               }
             : list
         );
+      })
+
+      // Handle creating new Product and Restaurants List
+      .addCase(createNewProductList.fulfilled, (state, action) => {
+        // Extract the new list object from the payload.
+        const newList = action.payload.data;
+
+        // Create a new array by copying the existing lists and adding the new one.
+        state.lists.push(newList);
       });
   },
 });
