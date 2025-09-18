@@ -29,11 +29,14 @@ import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 
 // modules import
 import AuthSidebar from './components/modules/auth/AuthSidebar';
+import WishlistModal from './components/modules/wishList/WishListSelectionModal';
+
 import { closeAuthModal } from './features/authModal/authModelSlice';
 import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 import { fetchAllWishlists } from './features/wishList/wishListSlice';
+import { useFavoriteActions } from './hooks/useWishlistActions';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -108,6 +111,11 @@ function App() {
   const { isAuthSidebarOpen, showOTPModal, signupEmail } = useSelector(
     state => state.ui.auth
   );
+  const { isWishlistModalOpen } = useSelector(state => state.ui.wishlist);
+  console.log(isWishlistModalOpen);
+
+  const { lists } = useFavoriteActions();
+  console.log('the user lists are here', lists);
 
   const { isAuthenticated } = useSelector(state => state.auth); // 1. Initial app data fetch (e.g., categories, global configs)
 
@@ -137,7 +145,8 @@ function App() {
   return (
     <>
       <AppContent />
-      {isAuthSidebarOpen && !showOTPModal && <AuthSidebar isOpen={true} />}
+      {isAuthSidebarOpen && <AuthSidebar isOpen={true} />}
+      {isWishlistModalOpen && <WishlistModal />}
     </>
   );
 }
