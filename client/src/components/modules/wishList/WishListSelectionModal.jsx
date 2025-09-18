@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../ui/Icon';
-// import { selectAllWishlists } from '../../../features/wishlist/wishlistSelectors';
 import { useFavoriteActions } from '../../../hooks/useWishlistActions';
 
 const WishlistModal = ({ isOpen, onClose, onListSelect, onNewListCreate }) => {
@@ -19,7 +18,7 @@ const WishlistModal = ({ isOpen, onClose, onListSelect, onNewListCreate }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 transition-all duration-500 ease-in-out transform ${
+      className={`fixed inset-0 z-10 transition-all duration-500 ease-in-out transform ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
@@ -48,7 +47,7 @@ const WishlistModal = ({ isOpen, onClose, onListSelect, onNewListCreate }) => {
             Select a list
           </h3>
           <div className="space-y-3">
-            {allWishlists.map(list => (
+            {lists.map(list => (
               <button
                 key={list._id}
                 onClick={() => onListSelect(list._id)}
