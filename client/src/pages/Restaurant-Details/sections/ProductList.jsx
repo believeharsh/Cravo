@@ -11,6 +11,35 @@ const ProductList = ({ menuItems, activeFilter }) => {
     return true;
   });
 
+  // Handle the "Bestseller" filter as a special case
+  if (activeFilter === 'Bestseller') {
+    return (
+      <div className="mt-8">
+        {filteredMenuItems.length > 0 ? (
+          <div id="bestsellers-section" className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+              <Icon
+                name="star"
+                className="w-6 h-6 mr-2 fill-current text-amber-500"
+              />{' '}
+              Bestsellers
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredMenuItems.map(item => (
+                <ProductCard key={item._id} item={item} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-center text-gray-600 text-lg col-span-full mt-8">
+            No bestseller items available at the moment.
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  // For all other filters, group by category
   const categorizedItems = filteredMenuItems.reduce((acc, item) => {
     const categoryName = item.category?.name || 'Uncategorized';
     if (!acc[categoryName]) {
@@ -20,27 +49,8 @@ const ProductList = ({ menuItems, activeFilter }) => {
     return acc;
   }, {});
 
-  const bestsellers = filteredMenuItems.filter(item => item.isBestseller);
-
   return (
     <div className="mt-8">
-      {bestsellers.length > 0 && (
-        <div id="bestsellers-section" className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-            <Icon
-              name="star"
-              className="w-6 h-6 mr-2 fill-current text-amber-500"
-            />{' '}
-            Bestsellers
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {bestsellers.map(item => (
-              <ProductCard key={item._id} item={item} />
-            ))}
-          </div>
-        </div>
-      )}
-
       {Object.entries(categorizedItems).length > 0 ? (
         Object.entries(categorizedItems).map(([category, items]) => (
           <div

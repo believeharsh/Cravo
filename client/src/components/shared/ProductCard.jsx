@@ -11,12 +11,12 @@ import {
 
 const ProductCard = ({ item, listId }) => {
   const [isHovered, setIsHovered] = useState(false);
+
   const { handleAddToCart, handleDecreaseQuantity, handleIncreaseQuantity } =
     useCartActions();
   const { lists, handleAddItemToWishlist, handleRemoveItemFromWishlist } =
     useFavoriteActions();
 
-  // Use the selector correctly.
   const isProductInWishlist = useSelector(state =>
     selectIsProductInAnyProductList(state, item._id)
   );
@@ -27,45 +27,43 @@ const ProductCard = ({ item, listId }) => {
 
   const defaultProductListId = useSelector(selectDefaultProductListId);
 
-  // This function now handles both adding and removing based on the state.
-  // const handleWishlistClick = () => {
-  //   if (!defaultProductListId) {
-  //     console.error('Default product list not found. Cannot add/remove item.');
-  //     return;
-  //   }
-
-  //   if (isProductInWishlist) {
-  //     // Product is in ANY list, so we will remove it from the DEFAULT list
-  //     handleRemoveItemFromWishlist({
-  //       listId: defaultProductListId,
-  //       itemId: item._id,
-  //       itemType: 'product',
-  //     });
-  //   } else {
-  //     // Product is not in any list, so we will add it to the DEFAULT list
-  //     handleAddItemToWishlist({
-  //       listId: defaultProductListId,
-  //       itemId: item._id,
-  //       itemType: 'product',
-  //     });
-  //   }
-  // };
-
   const handleWishlistClick = () => {
-    // If a listId is provided (meaning we are on the favorites page),
-    // we assume the user wants to remove the item.
+    // Find the list where this item exists
+    const listWithItem = lists.find(list =>
+      list.items.some(productItem => productItem._id === item._id)
+    );
+
+    // Find the default list object to get its name
+    const defaultList = lists.find(list => list._id === defaultProductListId);
+
     if (listId) {
+      // Scenario 1: On a specific wishlist page (listId is provided).
+      const listName =
+        lists.find(list => list._id === listId)?.name || 'Wishlist';
+
       handleRemoveItemFromWishlist({
         listId: listId,
         itemId: item._id,
         itemType: 'product',
+        listName: listName, // Pass the list name
+      });
+    } else if (isProductInWishlist && listWithItem) {
+      // Scenario 2: On other pages where the item is ALREADY in a wishlist.
+      handleRemoveItemFromWishlist({
+        listId: listWithItem._id,
+        itemId: item._id,
+        itemType: 'product',
+        listName: listWithItem.name,
+        itemName: item.name,
       });
     } else {
-      // Otherwise, use the default list logic
+      // Scenario 3: On other pages where the item is NOT in a wishlist.
       handleAddItemToWishlist({
         listId: defaultProductListId,
         itemId: item._id,
         itemType: 'product',
+        itemName: item.name,
+        listName: defaultList?.name || 'My Favorites',
       });
     }
   };
