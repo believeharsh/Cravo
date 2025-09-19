@@ -1,108 +1,3 @@
-// import React, { useState } from 'react';
-// import Icon from '../../../../components/ui/Icon';
-// import { useFavoriteActions } from '../../../../hooks/useWishlistActions';
-
-// const WishlistSelectionView = ({ wishlists, onSaveNewList, setSelectedListId }) => {
-//   const [showNewListInput, setShowNewListInput] = useState(false);
-//   const [newListName, setNewListName] = useState('');
-
-//   const {handleCreateNewProductList} = useFavoriteActions() ;
-
-//   const handleSave = () => {
-//     if (newListName.trim()) {
-//       handleCreateNewProductList({ listName: newListName });
-//       setNewListName('');
-//       setShowNewListInput(false);
-//     }
-//   };
-
-//   if (!wishlists || wishlists.length === 0) {
-//     return (
-//       <div className="text-center text-gray-500 font-medium p-8">
-//         <p>You don't have any wishlists yet.</p>
-//         <button
-//           onClick={() => setShowNewListInput(true)}
-//           className="mt-4 px-6 py-2 bg-charcoal text-white rounded-full font-bold hover:bg-slate-800 transition-colors"
-//         >
-//           Create Your First List
-//         </button>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div>
-//       <div className="flex justify-between items-center mb-6">
-//         <h2 className="text-2xl font-extrabold text-charcoal">My Wishlists</h2>
-//         {!showNewListInput && (
-//           <button
-//             onClick={() => setShowNewListInput(true)}
-//             className="flex items-center gap-2 px-4 py-2 bg-charcoal text-black rounded-full font-bold text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
-//           >
-//             <Icon name="plus" className="w-4 h-4" /> Create New
-//           </button>
-//         )}
-//       </div>
-
-//       {showNewListInput && (
-//         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 flex items-center gap-4 transition-all duration-300 animate-slide-in">
-//           <input
-//             type="text"
-//             value={newListName}
-//             onChange={(e) => setNewListName(e.target.value)}
-//             placeholder="Enter new list name..."
-//             className="flex-grow px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-mint-green transition-shadow"
-//           />
-//           <button
-//             onClick={handleSave}
-//             className="px-6 py-2 bg-mint-green text-charcoal font-bold rounded-full hover:bg-mint-green/80 transition-colors duration-200"
-//           >
-//             Save
-//           </button>
-//           <button
-//             onClick={() => setShowNewListInput(false)}
-//             className="px-4 py-2 bg-gray-200 text-charcoal rounded-full font-bold hover:bg-gray-300 transition-colors duration-200"
-//           >
-//             Cancel
-//           </button>
-//         </div>
-//       )}
-
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//         {wishlists.map(list => (
-//           <div
-//             key={list._id}
-//             onClick={() => setSelectedListId(list._id)}
-//             className="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-//           >
-//             <div className="flex items-center gap-4 mb-2">
-//               <span className="w-12 h-12 flex-shrink-0 rounded-full bg-mint-green/20 flex items-center justify-center">
-//                 <Icon
-//                   name={list.list_type === 'productList' ? 'shopping-bag' : 'restaurant'}
-//                   className="w-6 h-6 text-mint-green"
-//                 />
-//               </span>
-//               <div className="min-w-0">
-//                 <h3 className="text-xl font-bold text-charcoal line-clamp-1">
-//                   {list.name}
-//                 </h3>
-//                 <p className="text-sm text-medium-gray mt-1 capitalize">
-//                   {list.list_type.replace('List', '')} Wishlist
-//                 </p>
-//               </div>
-//             </div>
-//             <p className="text-sm text-coffee mt-3 font-medium">
-//               {list.items?.length || 0} items
-//             </p>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default WishlistSelectionView;
-
 import React, { useState } from 'react';
 import {
   Plus,
@@ -112,20 +7,12 @@ import {
   Star,
   ChevronRight,
 } from 'lucide-react';
+import { useFavoriteActions } from '../../../../hooks/useWishlistActions';
 
-const WishlistSelectionView = ({
-  wishlists,
-  onSaveNewList,
-  setSelectedListId,
-}) => {
+const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
   const [showNewListInput, setShowNewListInput] = useState(false);
   const [newListName, setNewListName] = useState('');
-
-  // Mock function for demo - replace with your actual hook
-  const handleCreateNewProductList = ({ listName }) => {
-    console.log('Creating new list:', listName);
-    // Your actual implementation here
-  };
+  const { handleCreateNewProductList } = useFavoriteActions();
 
   const handleSave = () => {
     if (newListName.trim()) {

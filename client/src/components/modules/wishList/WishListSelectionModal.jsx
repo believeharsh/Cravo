@@ -1,110 +1,190 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { motion, AnimatePresence } from 'framer-motion';
 import Icon from '../../ui/Icon';
 import { useFavoriteActions } from '../../../hooks/useWishlistActions';
+import { closeWishlistModal } from '../../../features/ui/uiSlice';
+import { selectDefaultProductListId } from '../../../features/wishList/wishListSelectors';
 
-const WishlistModal = ({ isOpen, onClose, onListSelect, onNewListCreate }) => {
-  const { lists } = useFavoriteActions();
+const WishlistModal = ({ productId }) => {
+  const dispatch = useDispatch();
+  const { lists, handleCreateNewProductList, handleTransferProductFromList } =
+    useFavoriteActions();
+  console.log('lists is here', lists);
+  const { isWishlistModalOpen: isOpen, modalProps } = useSelector(
+    state => state.ui.wishlist
+  );
+  console.log('modalProps is this', modalProps);
+  const defaultListId = useSelector(selectDefaultProductListId);
+
   const [isCreatingNewList, setIsCreatingNewList] = useState(false);
   const [newListName, setNewListName] = useState('');
+  const [selectedListId, setSelectedListId] = useState(defaultListId);
 
-  const handleCreateList = () => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      // Set the initial selected list ID from the payload, if it exists
+      if (modalProps && modalProps.sourceListId) {
+        setSelectedListId(modalProps.sourceListId);
+      }
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, defaultListId, modalProps]);
+
+  const handleCreateListClick = () => {
     if (newListName.trim()) {
-      onNewListCreate(newListName);
+      handleCreateNewProductList({ listName: newListName });
       setNewListName('');
       setIsCreatingNewList(false);
     }
   };
 
-  return (
-    <div
-      className={`fixed inset-0 z-10 transition-all duration-500 ease-in-out transform ${
-        isOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}
-    >
-      {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-black bg-opacity-40"
-        onClick={onClose}
-      />
+  const handleMoveProductClick = () => {
+    if (selectedListId && selectedListId !== defaultListId) {
+      handleTransferProductFromList({
+        productId: modalProps?.productId,
+        sourceListId: modalProps?.sourceListId,
+        destinationListId: selectedListId,
+      });
+      // dispatch(closeWishlistModal());
+    } else {
+      // dispatch(closeWishlistModal());
+    }
+  };
 
-      {/* Modal Content */}
-      <div className="absolute right-0 top-0 h-full w-full sm:w-96 bg-gray-100 shadow-2xl flex flex-col p-6">
+  const renderContent = () => {
+    return (
+      <>
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-charcoal">Your Wishlists</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-gray-800">Your Wishlists</h2>
           <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-charcoal transition-colors"
+            onClick={() => dispatch(closeWishlistModal())}
+            className="text-gray-400 hover:text-gray-800 transition-colors duration-200 cursor-pointer"
+            aria-label="Close"
           >
-            <Icon name="x-circle" className="w-6 h-6" />
+            <Icon name="x-circle" className="w-5 h-5" />
           </button>
         </div>
 
         {/* Existing Lists */}
-        <div className="flex-grow overflow-y-auto mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">
-            Select a list
+        <div className="flex-grow overflow-y-auto mb-4 custom-scrollbar">
+          <h3 className="text-sm font-semibold text-gray-800 mb-2">
+            Select a list to move the product to
           </h3>
-          <div className="space-y-3">
-            {lists.map(list => (
-              <button
-                key={list._id}
-                onClick={() => onListSelect(list._id)}
-                className="w-full text-left flex items-center justify-between p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200"
-              >
-                <div className="flex items-center space-x-3">
-                  <Icon
-                    name={
-                      list.list_type === 'productList' ? 'box' : 'restaurant'
-                    }
-                    className="w-5 h-5 text-gray-600"
-                  />
-                  <span className="text-base font-medium text-gray-900 line-clamp-1">
-                    {list.name}
-                  </span>
-                </div>
-                <span className="text-sm text-gray-500">
-                  {list.items.length} items
-                </span>
-              </button>
-            ))}
+          <div className="space-y-2">
+            {lists.map(
+              list =>
+                list.list_type === 'productList' && (
+                  <button
+                    key={list._id}
+                    onClick={() => setSelectedListId(list._id)}
+                    className={`w-full text-left flex items-center justify-between py-2 px-3 rounded-lg shadow-sm transition-all duration-200 cursor-pointer
+                  ${
+                    selectedListId === list._id
+                      ? 'bg-yellow-400 text-gray-800 shadow-md'
+                      : 'bg-white hover:bg-gray-50'
+                  }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <Icon
+                        name={
+                          list.list_type === 'productList'
+                            ? 'shopping-bag'
+                            : 'coffee'
+                        }
+                        className="w-4 h-4"
+                      />
+                      <span className="text-sm font-medium line-clamp-1">
+                        {list.name}
+                      </span>
+                    </div>
+                    <span className="text-xs">{list.items?.length}</span>
+                  </button>
+                )
+            )}
           </div>
         </div>
 
         {/* Create New List Section */}
-        <div className="border-t border-gray-200 pt-6">
+        <div className="border-t border-gray-200 pt-4">
           {!isCreatingNewList ? (
             <button
               onClick={() => setIsCreatingNewList(true)}
-              className="w-full flex items-center justify-center space-x-2 py-3 bg-yellow-400 text-charcoal font-semibold rounded-xl hover:bg-yellow-500 transition-colors"
+              className="w-full cursor-pointer flex items-center justify-center space-x-2 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors text-sm"
             >
-              <Icon name="plus" className="w-5 h-5" />
+              <Icon name="plus" className="w-4 h-4" />
               <span>Create New List</span>
             </button>
           ) : (
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
               <input
                 type="text"
                 value={newListName}
                 onChange={e => setNewListName(e.target.value)}
                 placeholder="New list name"
-                className="flex-grow p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base"
+                className="flex-grow py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm"
                 onKeyDown={e => {
-                  if (e.key === 'Enter') handleCreateList();
+                  if (e.key === 'Enter') handleCreateListClick();
                 }}
               />
               <button
-                onClick={handleCreateList}
-                className="bg-charcoal text-white rounded-full p-3 hover:bg-gray-800 transition-colors"
+                disabled={newListName == ''}
+                onClick={handleCreateListClick}
+                className="bg-yellow-400 text-gray-800 rounded-full p-2 hover:bg-yellow-500 transition-colors"
               >
-                <Icon name="check" className="w-5 h-5" />
+                <Icon name="check" className="w-4 h-4" />
               </button>
             </div>
           )}
         </div>
-      </div>
-    </div>
+        <button
+          onClick={handleMoveProductClick}
+          className={`w-full py-2 mt-4 text-center rounded-lg font-semibold transition-colors text-sm cursor-pointer
+            ${
+              selectedListId === defaultListId
+                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                : 'bg-yellow-400 text-gray-800 hover:bg-yellow-500'
+            }`}
+          disabled={selectedListId === defaultListId}
+        >
+          Move to Selected List
+        </button>
+      </>
+    );
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-end p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-gray-200 opacity-20"
+            onClick={() => dispatch(closeWishlistModal())}
+          />
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.4 }}
+            className="relative h-full w-full max-w-sm bg-white rounded-2xl shadow-2xl flex flex-col p-6"
+          >
+            {renderContent()}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

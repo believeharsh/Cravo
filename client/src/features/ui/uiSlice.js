@@ -13,6 +13,7 @@ const initialState = {
   wishlist: {
     isWishlistModalOpen: false,
     modalProductData: null,
+    modalProps: null,
   },
 };
 
@@ -57,7 +58,9 @@ const uiSlice = createSlice({
     // Actions for the Wishlist Modal
     openWishlistModal: (state, action) => {
       state.wishlist.isWishlistModalOpen = true;
-      state.wishlist.modalProductData = action.payload;
+      // state.wishlist.modalProductData = action.payload;
+      state.wishlist.modalProps = action.payload;
+      console.log('action payload', action.payload);
     },
     closeWishlistModal: state => {
       state.wishlist.isWishlistModalOpen = false;
