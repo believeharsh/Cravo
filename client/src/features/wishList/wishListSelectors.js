@@ -38,7 +38,7 @@ export const selectIsProductInAnyProductList = createSelector(
     const isProductPresent = wishlistState.lists.some(
       list =>
         list.list_type === 'productList' &&
-        list.items.some(item => String(item._id) === targetProductId)
+        list.items?.some(item => String(item._id) === targetProductId)
     );
 
     return isProductPresent;

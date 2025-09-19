@@ -20,15 +20,12 @@ export const fetchAllWishlists = createAsyncThunk(
         axiosInstance.get(API.WISHLIST.GET_ALL_RESTAURANTS_LIST),
       ]);
 
-      console.log('productResponse', productsResponse);
-      console.log('restaurantResponse', restaurantsResponse);
-
       // Use a utility function to combine the responses into a single, clean format
       const combinedLists = normalizeAndCombineLists(
         productsResponse.data.data,
         restaurantsResponse.data.data
       );
-      console.log('the combinedLists', combinedLists);
+
       return combinedLists;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -96,6 +93,25 @@ export const createNewProductList = createAsyncThunk(
       );
       console.log('response of the createNewProductList', response);
       return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+// A thunk for tranfering prduct from one list to another list
+
+export const TransferProductFromList = createAsyncThunk(
+  'wishList/transferProduct',
+  async ({ productId, sourceListId, destinationListId }, thunkAPI) => {
+    try {
+      let response;
+      response = await axiosInstance.post(
+        API.WISHLIST.TRANSFER_PRODUCT_FROM_LIST,
+        { productId, sourceListId, destinationListId }
+      );
+      console.log('response of the TransferProductFromList', response);
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -186,6 +202,20 @@ const wishlistSlice = createSlice({
 
         // Create a new array by copying the existing lists and adding the new one.
         state.lists.push(newList);
+      })
+
+      // Handle transfering the product from list to antother list
+      .addCase(TransferProductFromList.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(TransferProductFromList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.lists = action.payload;
+      })
+      .addCase(TransferProductFromList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
