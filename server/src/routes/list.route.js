@@ -7,6 +7,7 @@ import {
   addProductToTheList,
   removeProductFromList,
   deleteTheList,
+  transferProductToList,
 } from '../controllers/list.controller.js';
 
 const listRoute = Router();
@@ -22,5 +23,7 @@ listRoute.post('/:id/add', checkAuth, isLoggedIn, addProductToTheList); // for A
 listRoute.delete('/:id/remove', checkAuth, isLoggedIn, removeProductFromList); // for Removing a product from a specific list
 
 listRoute.delete('/:id', checkAuth, isLoggedIn, deleteTheList); // for Deleting an entire list
+
+listRoute.post('/transfer', checkAuth, isLoggedIn, transferProductToList); // for transfer a item from one list to another list
 
 export default listRoute;

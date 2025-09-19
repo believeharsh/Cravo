@@ -261,6 +261,71 @@ const deleteTheList = asyncHandler(async (req, res) => {
   );
 });
 
+const transferProductToList = asyncHandler(async (req, res) => {
+  // 1. Get the required data from the request body
+  const { productId, sourceListId, destinationListId } = req.body;
+  const userId = req.user._id;
+
+  // 2. Validation
+  if (!productId || !sourceListId || !destinationListId) {
+    throw new apiError(
+      400,
+      'Product ID, source list ID, and destination list ID are all required.'
+    );
+  }
+
+  // 3. Find both the source and destination lists to verify ownership and existence
+  const [sourceList, destinationList] = await Promise.all([
+    List.findOne({ _id: sourceListId, owner: userId }),
+    List.findOne({ _id: destinationListId, owner: userId }),
+  ]);
+
+  // 4. Handle cases where lists are not found or don't belong to the user
+  if (!sourceList || !destinationList) {
+    throw new apiError(
+      404,
+      'One or both lists not found or you do not have permission to access them.'
+    );
+  }
+
+  // 5. Check if the product is in the source list and not in the destination
+  const isProductInSource = sourceList.products.some(
+    id => id.toString() === productId
+  );
+  const isProductInDestination = destinationList.products.some(
+    id => id.toString() === productId
+  );
+
+  if (!isProductInSource) {
+    throw new apiError(404, 'Product not found in the source list.');
+  }
+
+  if (isProductInDestination) {
+    throw new apiError(409, 'Product is already in the destination list.');
+  }
+
+  // 6. Perform the atomic updates to transfer the product concurrently
+  await Promise.all([
+    List.findByIdAndUpdate(sourceListId, { $pull: { products: productId } }),
+    List.findByIdAndUpdate(destinationListId, {
+      $push: { products: productId },
+    }),
+  ]);
+
+  // 7. Re-fetch all user lists to ensure a complete, updated state is returned
+  const userLists = await List.find({ owner: userId }).populate({
+    path: 'products',
+    populate: {
+      path: 'restaurant',
+    },
+  });
+
+  // 8. Send the successful response with the updated lists
+  res
+    .status(200)
+    .json(new apiResponse(200, userLists, 'Product transferred successfully.'));
+});
+
 export {
   createNewList,
   getAllListOfUser,
@@ -268,4 +333,5 @@ export {
   addProductToTheList,
   removeProductFromList,
   deleteTheList,
+  transferProductToList,
 };
