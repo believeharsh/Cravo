@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../../components/ui/Icon';
 import { Link } from 'react-router-dom';
 
-// Skeleton Component for the loading state
+// Skeleton Component for the loading state (No changes needed)
 const RestaurantCardSkeleton = ({ width }) => (
   <div
     className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col p-4 animate-pulse"
@@ -33,11 +33,11 @@ const RestaurantCardSkeleton = ({ width }) => (
   </div>
 );
 
-// Actual Restaurant Card Component
+// Actual Restaurant Card Component (No changes needed)
 const RestaurantCard = ({ restaurant }) => (
   <div
     className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out
-                   transform hover:-translate-y-1 cursor-pointer overflow-hidden flex flex-col"
+               transform hover:-translate-y-1 cursor-pointer overflow-hidden flex flex-col"
   >
     {/* Restaurant Image */}
     <div className="relative h-34 sm:36 overflow-hidden">
@@ -100,8 +100,8 @@ const RestaurantCard = ({ restaurant }) => (
 const RestaurantsSection = () => {
   const itemsPerView = { mobile: 1, tablet: 2, desktop: 4 };
   const { data, isLoading, error } = useSelector(state => state.landingPage);
+  console.log('data is this', data);
   const restaurantsData = data?.restaurants || [];
-  const [restaurants, setRestaurants] = useState([]);
 
   // SSR-safe "items per view"
   const getItemsPerView = () => {
@@ -114,41 +114,30 @@ const RestaurantsSection = () => {
   const [itemsToShow, setItemsToShow] = useState(getItemsPerView());
   const [index, setIndex] = useState(0);
 
-  // Add a delay to the data display for a smoother transition
-  useEffect(() => {
-    let timer;
-    if (!isLoading && restaurantsData.length > 0) {
-      timer = setTimeout(() => {
-        setRestaurants(restaurantsData);
-      }, 300); // 300ms delay for a smoother transition
-    } else if (!isLoading && restaurantsData.length === 0) {
-      // Handle no data case
-      setRestaurants([]);
-    }
-
-    return () => clearTimeout(timer);
-  }, [restaurantsData, isLoading]);
-
   // Update on resize
   useEffect(() => {
     const update = () => setItemsToShow(getItemsPerView());
-    update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  // Keep index in range when viewport shrinks
-  const maxIndex = Math.max(0, restaurants.length - itemsToShow);
-  useEffect(
-    () => setIndex(i => Math.min(i, maxIndex)),
-    [itemsToShow, maxIndex]
+  // Use useMemo to prevent re-computation on every render
+  const maxIndex = useMemo(
+    () => Math.max(0, restaurantsData.length - itemsToShow),
+    [restaurantsData.length, itemsToShow]
   );
+
+  // Keep index in range when viewport shrinks
+  useEffect(() => {
+    setIndex(i => Math.min(i, maxIndex));
+  }, [itemsToShow, maxIndex]);
 
   const cardWidthPct = 100 / itemsToShow;
   const translatePct = -index * cardWidthPct;
 
   const renderContent = () => {
     if (isLoading) {
+      // Render skeletons
       return [...Array(itemsToShow)].map((_, i) => (
         <div
           key={`skeleton-${i}`}
@@ -168,7 +157,7 @@ const RestaurantsSection = () => {
       );
     }
 
-    if (restaurants.length === 0) {
+    if (restaurantsData.length === 0) {
       return (
         <p className="text-gray-500 text-center w-full">
           No popular restaurants found.
@@ -176,7 +165,7 @@ const RestaurantsSection = () => {
       );
     }
 
-    return restaurants.map(restaurant => {
+    return restaurantsData.map(restaurant => {
       const restaurant_slug = restaurant.name
         .toLowerCase()
         .replace(/\s+/g, '-');
@@ -206,7 +195,7 @@ const RestaurantsSection = () => {
               Discover top-rated restaurants near you
             </p>
           </div>
-          {restaurants.length > itemsToShow && !isLoading && (
+          {restaurantsData.length > itemsToShow && !isLoading && (
             <div className="flex gap-2">
               <button
                 onClick={() => setIndex(i => Math.max(0, i - 1))}

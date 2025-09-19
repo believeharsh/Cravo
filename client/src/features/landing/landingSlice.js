@@ -27,8 +27,13 @@ export const initializeApplication = createAsyncThunk(
       const cities = citiesRes.data.data.cities;
       const categories = categoriesRes.data.data.categories;
       console.log('api location res', ipLocationRes);
-      const { lat, lon, city, country, countryCode, region, regionName, zip } =
+      // const { lat, lon, city, country, countryCode, region, regionName, zip } =
+      //   ipLocationRes.data;
+      const { city, country, countryCode, region, regionName, zip } =
         ipLocationRes.data;
+      const lat = 23.2599;
+      const lon = 77.4126;
+      console.log(lat, lon, city, country, countryCode);
 
       dispatch(
         setUserLocation({
@@ -46,7 +51,7 @@ export const initializeApplication = createAsyncThunk(
       const restaurantsRes = await axiosInstance.get(
         `${API.RESTAURANTS.RESTAURANTS_LIST}/?longitude=${lon}&latitude=${lat}&sort=rating&limit=15`
       );
-
+      console.log('restaurants after the api call', restaurantsRes);
       const restaurants = restaurantsRes.data.data.restaurants;
 
       // Return the combined payload for the fulfilled action
