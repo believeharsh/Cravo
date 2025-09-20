@@ -1,12 +1,18 @@
 import { useDispatch } from 'react-redux';
 import {
-  addToCart,
-  removeFromCart,
+  fetchUserCart,
+  addItemToCart,
+  removeItemFromCart,
   updateQuantity,
 } from '../features/cart/cartSlice';
 
 export const useCartActions = () => {
   const dispatch = useDispatch();
+
+  const handleGetUserCart = async () => {
+    const response = await dispatch(fetchUserCart()).unwrap();
+    console.log(response);
+  };
 
   const handleAddToCart = item => {
     dispatch(
@@ -39,20 +45,25 @@ export const useCartActions = () => {
     );
   };
 
-  const handleDeleteItemFromCart = item => {
-    console.log('the item inside teh removeItemFromcart', item);
+  const handleUpdateQuantity = ({ itemId, quantity }) => {
+    dispatch(updateQuantity({ itemId, quantity }));
+  };
+
+  const handleDeleteItemFromCart = ({ itemId }) => {
+    // console.log('the item inside teh removeItemFromcart', item);
     dispatch(
-      removeFromCart({
-        product: item.product,
-        customizations: item.customizations,
+      removeItemFromCart({
+        itemId: itemId,
       })
     );
   };
 
   return {
+    handleGetUserCart,
     handleAddToCart,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleDeleteItemFromCart,
+    handleUpdateQuantity,
   };
 };
