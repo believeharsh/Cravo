@@ -5,12 +5,16 @@ import Cart from '../models/cart.model.js';
 import Product from '../models/product.model.js';
 
 // A utility function to recalculate cart totals.
+// This function remains the same as it handles internal logic.
 const recalculateCartTotals = cart => {
   let newTotalPrice = 0;
   let newTotalQuantity = 0;
 
+  // The 'item' object here will have 'price' and 'quantity' directly.
   for (const item of cart.items) {
-    newTotalPrice += item.price * item.quantity;
+    // We check if the price is coming from the populated product or the stored price.
+    const price = item.product?.price || item.price;
+    newTotalPrice += price * item.quantity;
     newTotalQuantity += item.quantity;
   }
 
@@ -18,21 +22,18 @@ const recalculateCartTotals = cart => {
   cart.totalQuantity = newTotalQuantity;
 };
 
+// This controller remains perfect and unchanged.
 const getAllCartItems = asyncHandler(async (req, res) => {
-  // Get the authenticated user's ID
   const userId = req.user._id;
 
-  // Find the cart for the current user and populate the product details
   const cart = await Cart.findOne({ user: userId }).populate({
     path: 'items.product',
     populate: {
       path: 'restaurant',
-      select: 'name', // Only retrieve the restaurant name to avoid clutter
+      select: 'name',
     },
   });
 
-  // If no cart is found, return a successful response with an empty data object.
-  // This is better than a 404 error, as a new user won't have a cart initially.
   if (!cart) {
     return res.status(200).json(
       new apiResponse(
@@ -47,12 +48,12 @@ const getAllCartItems = asyncHandler(async (req, res) => {
     );
   }
 
-  // Send a successful response with the cart data
   res
     .status(200)
     .json(new apiResponse(200, cart, 'Cart items retrieved successfully'));
 });
 
+// Refactored to return the fully populated cart.
 const addItemToTheCart = asyncHandler(async (req, res) => {
   // 1. Get user ID and item details from the request
   const userId = req.user._id;
@@ -105,14 +106,28 @@ const addItemToTheCart = asyncHandler(async (req, res) => {
   recalculateCartTotals(cart);
   await cart.save();
 
-  // 7. Send a successful response with the updated cart
+  // 7. Get the updated cart and populate it before sending.
+  const populatedCart = await Cart.findById(cart._id).populate({
+    path: 'items.product',
+    populate: {
+      path: 'restaurant',
+      select: 'name',
+    },
+  });
+
+  // 8. Send a successful response with the updated, populated cart.
   res
     .status(200)
     .json(
-      new apiResponse(200, cart, 'Item added/updated in cart successfully')
+      new apiResponse(
+        200,
+        populatedCart,
+        'Item added/updated in cart successfully'
+      )
     );
 });
 
+// Refactored to return the fully populated cart.
 const updateItemQuantityInCart = asyncHandler(async (req, res) => {
   // 1. Get user and item IDs, and the new quantity from the request
   const userId = req.user._id;
@@ -149,12 +164,24 @@ const updateItemQuantityInCart = asyncHandler(async (req, res) => {
   recalculateCartTotals(cart);
   await cart.save();
 
-  // 7. Send the updated cart in the response
+  // 7. Get the updated cart and populate it before sending.
+  const populatedCart = await Cart.findById(cart._id).populate({
+    path: 'items.product',
+    populate: {
+      path: 'restaurant',
+      select: 'name',
+    },
+  });
+
+  // 8. Send the updated, populated cart in the response.
   res
     .status(200)
-    .json(new apiResponse(200, cart, 'Item quantity updated successfully'));
+    .json(
+      new apiResponse(200, populatedCart, 'Item quantity updated successfully')
+    );
 });
 
+// Refactored to return the fully populated cart.
 const removeItemFromCart = asyncHandler(async (req, res) => {
   // 1. Get user ID and item ID from the request
   const userId = req.user._id;
@@ -183,12 +210,24 @@ const removeItemFromCart = asyncHandler(async (req, res) => {
   recalculateCartTotals(cart);
   await cart.save();
 
-  // 6. Send a successful response
+  // 6. Get the updated cart and populate it before sending.
+  const populatedCart = await Cart.findById(cart._id).populate({
+    path: 'items.product',
+    populate: {
+      path: 'restaurant',
+      select: 'name',
+    },
+  });
+
+  // 7. Send a successful response with the updated, populated cart.
   res
     .status(200)
-    .json(new apiResponse(200, cart, 'Item removed from cart successfully'));
+    .json(
+      new apiResponse(200, populatedCart, 'Item removed from cart successfully')
+    );
 });
 
+// Refactored to return the fully populated cart.
 const clearTheEntireCart = asyncHandler(async (req, res) => {
   // 1. Get the user ID
   const userId = req.user._id;
@@ -198,7 +237,14 @@ const clearTheEntireCart = asyncHandler(async (req, res) => {
     { user: userId },
     { $set: { items: [], totalPrice: 0, totalQuantity: 0 } },
     { new: true } // Return the updated document
-  );
+  ).populate({
+    // Populate the updated document before returning it.
+    path: 'items.product',
+    populate: {
+      path: 'restaurant',
+      select: 'name',
+    },
+  });
 
   // 3. Handle case where cart doesn't exist
   if (!updatedCart) {
