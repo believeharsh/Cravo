@@ -3,22 +3,44 @@ import Icon from '../../../components/ui/Icon';
 import { useCartActions } from '../../../hooks/useCartActions';
 import { useSelector } from 'react-redux';
 
+/**
+ * A component to display a single cart item with controls for quantity and removal.
+ * @param {{item: object}} { item } The cart item object, containing product details and quantity.
+ */
 const CartItem = ({ item }) => {
   const product = item.product;
 
-  const {
-    handleDeleteItemFromCart,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-  } = useCartActions();
+  const { handleDeleteItemFromCart, handleUpdateQuantity } = useCartActions();
 
-  const existingItem = useSelector(state =>
-    state.cart.items.find(cartItem => cartItem.product._id === product._id)
-  );
+  // The state is already being passed as a prop from the parent, so this useSelector is not necessary.
+  // We can directly use the 'item' prop for all logic.
+  // const existingItem = useSelector(state =>
+  //   state.cart.items.find(cartItem => cartItem.product._id === product._id)
+  // );
 
   // Calculate the original price based on the product's price and promotional discount
-  const originalPrice =
-    product.price + (product.promotionalDiscount?.value || 0);
+  const originalPrice = product.promotionalDiscount?.value
+    ? product.price + product.promotionalDiscount.value
+    : product.price;
+
+  // Function to handle increasing the quantity
+  const handleIncrement = () => {
+    // We get the current quantity from the item prop and add 1.
+    const newQuantity = item.quantity + 1;
+    // We call the handleUpdateQuantity action with the item's _id and the new quantity.
+    handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
+  };
+
+  // Function to handle decreasing the quantity
+  const handleDecrement = () => {
+    // We check if the quantity is greater than 1 before decrementing.
+    if (item.quantity > 1) {
+      // We get the current quantity from the item prop and subtract 1.
+      const newQuantity = item.quantity - 1;
+      // We call the handleUpdateQuantity action with the item's _id and the new quantity.
+      handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
+    }
+  };
 
   return (
     <div className="flex items-center space-x-4 border-b border-gray-100 py-2 px-1 last:border-b-0 last:pb-0">
@@ -84,7 +106,7 @@ const CartItem = ({ item }) => {
         {/* Quantity Controls */}
         <div className="flex items-center space-x-1 flex-shrink-0">
           <button
-            onClick={() => handleDecreaseQuantity(product, existingItem)}
+            onClick={handleDecrement}
             className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors cursor-pointer"
             disabled={item.quantity <= 1}
           >
@@ -94,7 +116,7 @@ const CartItem = ({ item }) => {
             {item.quantity}
           </span>
           <button
-            onClick={() => handleIncreaseQuantity(product)}
+            onClick={handleIncrement}
             className="w-7 h-7 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors cursor-pointer"
           >
             <Icon name="plus" size={14} className="text-white" />
@@ -104,7 +126,7 @@ const CartItem = ({ item }) => {
 
       {/* Remove */}
       <button
-        onClick={() => handleDeleteItemFromCart(item)}
+        onClick={() => handleDeleteItemFromCart({ itemId: item._id })}
         className="ml-1 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
       >
         <Icon name="trash" size={18} />

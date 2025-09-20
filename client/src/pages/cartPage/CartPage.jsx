@@ -11,10 +11,10 @@ import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection'
 import OrderSummarySection from './sections/OrderSummarySection';
 
 const CartPage = () => {
-  // Use useSelector to get the actual cart items from the Redux store
-  const { items: cartItems } = useSelector(state => state.cart);
-  console.log('cartItem in the cartPage ( parent ) ', cartItems);
-  const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart);
+  const cartItems = cart.items;
+  const totalPrice = cart.totalPrice;
+  const totalQuantity = cart.totalQuantity;
 
   // Hardcoded data for addresses, payment methods, and promo codes for now
   const addresses = [
