@@ -28,7 +28,7 @@ const createNewList = asyncHandler(async (req, res) => {
   const newList = await List.create({
     name: name.trim(),
     owner: userId,
-    products: [], // Initialize with an empty array
+    items: [], // Initialize with an empty array
     isDefault: false, // It's a custom list, not the default
   });
 
@@ -59,9 +59,9 @@ const getAllListOfUser = asyncHandler(async (req, res) => {
 
   // Check if the client requested populated data
   if (req.query.populate === 'true') {
-    // Populate the 'products' array, and then populate the 'restaurant' field within each product
+    // Populate the 'items' array, and then populate the 'restaurant' field within each product
     userListsQuery.populate({
-      path: 'products',
+      path: 'items',
       populate: {
         path: 'restaurant',
       },
@@ -94,9 +94,9 @@ const getListById = asyncHandler(async (req, res) => {
 
   // 3. Check for the optional 'populate' query parameter
   if (req.query.populate === 'true') {
-    // Populate the 'products' array and then the 'restaurant' field within each product
+    // Populate the 'items' array and then the 'restaurant' field within each product
     listQuery.populate({
-      path: 'products',
+      path: 'items',
       populate: {
         path: 'restaurant',
       },
@@ -143,7 +143,7 @@ const addProductToTheList = asyncHandler(async (req, res) => {
   }
 
   // 6. Check if the product is already in the list to prevent duplicates
-  if (list.products.includes(productId)) {
+  if (list.items.includes(productId)) {
     throw new apiError(409, 'Product is already in this list');
   }
 
@@ -156,10 +156,10 @@ const addProductToTheList = asyncHandler(async (req, res) => {
   // 8. Add the product to the list using $push to atomically update the array
   const updatedList = await List.findByIdAndUpdate(
     listId,
-    { $push: { products: productId } },
+    { $push: { items: productId } },
     { new: true, runValidators: true } // 'new: true' returns the updated document
   ).populate({
-    path: 'products',
+    path: 'items',
     populate: {
       path: 'restaurant',
     },
@@ -190,10 +190,10 @@ const removeProductFromList = asyncHandler(async (req, res) => {
   // We use findOneAndUpdate to atomically find and update the document.
   const updatedList = await List.findOneAndUpdate(
     { _id: listId, owner: userId }, // Find the list by its ID and verify ownership
-    { $pull: { products: productId } }, // Use the $pull operator to remove the productId from the array
+    { $pull: { items: productId } }, // Use the $pull operator to remove the productId from the array
     { new: true } // Returns the updated document
   ).populate({
-    path: 'products',
+    path: 'items',
     populate: {
       path: 'restaurant',
     },
@@ -289,10 +289,10 @@ const transferProductToList = asyncHandler(async (req, res) => {
   }
 
   // 5. Check if the product is in the source list and not in the destination
-  const isProductInSource = sourceList.products.some(
+  const isProductInSource = sourceList.items.some(
     id => id.toString() === productId
   );
-  const isProductInDestination = destinationList.products.some(
+  const isProductInDestination = destinationList.items.some(
     id => id.toString() === productId
   );
 
@@ -306,15 +306,15 @@ const transferProductToList = asyncHandler(async (req, res) => {
 
   // 6. Perform the atomic updates to transfer the product concurrently
   await Promise.all([
-    List.findByIdAndUpdate(sourceListId, { $pull: { products: productId } }),
+    List.findByIdAndUpdate(sourceListId, { $pull: { items: productId } }),
     List.findByIdAndUpdate(destinationListId, {
-      $push: { products: productId },
+      $push: { items: productId },
     }),
   ]);
 
   // 7. Re-fetch all user lists to ensure a complete, updated state is returned
   const userLists = await List.find({ owner: userId }).populate({
-    path: 'products',
+    path: 'items',
     populate: {
       path: 'restaurant',
     },

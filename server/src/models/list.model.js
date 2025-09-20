@@ -22,7 +22,7 @@ const ListSchema = new Schema(
     },
 
     // An array of product IDs in this list
-    products: [
+    items: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Product',
