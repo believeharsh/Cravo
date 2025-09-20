@@ -126,7 +126,7 @@ const normalizeAndCombineLists = (productLists, restaurantLists) => {
   productLists.forEach(list => {
     combinedLists[list._id] = {
       ...list,
-      items: list.products || [], // Use 'items' as the standard key
+      // items: list.products || [], // Use 'items' as the standard key
       // The original 'products' key is now implicitly discarded
     };
   });
@@ -173,7 +173,7 @@ const wishlistSlice = createSlice({
                 // Check the list type from the API response and map it to the 'items' key
                 items:
                   updatedList.list_type === 'productList'
-                    ? updatedList.products
+                    ? updatedList.items
                     : updatedList.restaurants,
               }
             : list
@@ -188,7 +188,7 @@ const wishlistSlice = createSlice({
                 // Check the list type from the API response and map it to the 'items' key
                 items:
                   updatedList.list_type === 'productList'
-                    ? updatedList.products
+                    ? updatedList.items
                     : updatedList.restaurants,
               }
             : list

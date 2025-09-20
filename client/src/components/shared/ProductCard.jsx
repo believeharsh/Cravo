@@ -30,7 +30,7 @@ const ProductCard = ({ item, listId }) => {
   const handleWishlistClick = () => {
     // Find the list where this item exists
     const listWithItem = lists.find(list =>
-      list.items.some(productItem => productItem._id === item._id)
+      list.items?.some(productItem => productItem._id === item._id)
     );
 
     // Find the default list object to get its name
@@ -45,7 +45,8 @@ const ProductCard = ({ item, listId }) => {
         listId: listId,
         itemId: item._id,
         itemType: 'product',
-        listName: listName, // Pass the list name
+        listName: listName,
+        itemName: item.name,
       });
     } else if (isProductInWishlist && listWithItem) {
       // Scenario 2: On other pages where the item is ALREADY in a wishlist.
@@ -70,87 +71,86 @@ const ProductCard = ({ item, listId }) => {
 
   return (
     <div
-      className="relative bg-white rounded-3xl shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:scale-105"
+      className="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Product Image and Wishlist Icon */}
-      <div className="relative overflow-hidden rounded-t-3xl">
+      {/* Image Section */}
+      <div className="relative overflow-hidden rounded-t-2xl">
         {item.images && item.images.length > 0 && (
           <img
             src={item.images[0]}
             alt={item.name}
-            className="w-full h-42 object-cover rounded-t-3xl"
+            className="w-full h-28 object-cover rounded-t-2xl"
           />
         )}
-        {/* {isHovered && ( */}
+
+        {/* Wishlist */}
         <button
           onClick={handleWishlistClick}
-          className={`absolute top-4 right-4 p-2 bg-white rounded-full shadow-lg transition-colors duration-200 cursor-pointer ${
+          className={`absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-md transition-colors duration-200 cursor-pointer ${
             isProductInWishlist
-              ? 'text-red-500' // Heart is red if product is in the wishlist
-              : 'text-gray-400 hover:text-red-500' // Heart is gray if not in the wishlist
+              ? 'text-red-500'
+              : 'text-gray-400 hover:text-red-500'
           }`}
         >
-          <Icon name="heart" className="w-5 h-5 fill-current" />
+          <Icon name="heart" className="w-4 h-4 fill-current" />
         </button>
-        {/* // )} */}
       </div>
 
-      {/* Product Details and Actions */}
-      <div className="p-4 flex flex-col flex-grow justify-between">
-        <div>
+      {/* Content */}
+      <div className="p-3 flex flex-col flex-grow">
+        {/* Top Section */}
+        <div className="mb-2">
           {item.isBestseller && (
-            <div className="flex items-center text-sm font-semibold text-amber-500 mb-1">
-              <Icon name="star" className="w-4 h-4 mr-1 fill-current" />{' '}
+            <span className="inline-flex items-center text-xs font-semibold text-amber-500 mb-1">
+              <Icon name="star" className="w-3.5 h-3.5 mr-1 fill-current" />{' '}
               Bestseller
-            </div>
+            </span>
           )}
-          <h3 className="text-xl font-bold text-gray-900 mb-1 line-clamp-1">
+          <h3 className="text-base font-bold text-gray-900 line-clamp-1">
             {item.name}
           </h3>
-          <p className="text-sm text-gray-500 mb-2 line-clamp-2">
+          <p className="text-xs text-gray-500 line-clamp-2">
             {item.description}
           </p>
         </div>
 
-        <div className="mt-auto flex justify-between items-center">
+        {/* Bottom Section (Price + Actions) */}
+        <div className="mt-auto flex justify-between items-center pt-2 border-t border-gray-100">
+          {/* Price */}
           <div className="flex items-center">
             <Icon name="indian-rupee" className="text-gray-800 w-4 h-4 mr-1" />
-            <span className="text-xl font-extrabold text-gray-800">
+            <span className="text-base font-extrabold text-gray-800">
               {item.price}
             </span>
           </div>
 
-          {/* Add to Cart / Quantity Control */}
+          {/* Add to Cart / Quantity */}
           {existingCartItem ? (
-            <div className="flex items-center space-x-2 bg-white border border-yellow-200 rounded-full py-1 px-2">
+            <div className="flex items-center space-x-1.5 bg-white border border-yellow-200 rounded-full py-0.5 px-2">
               <button
                 onClick={() => handleDecreaseQuantity(item, existingCartItem)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 cursor-pointer"
               >
-                <span className="w-4 h-4 flex items-center justify-center">
-                  -
-                </span>
+                -
               </button>
               <span className="text-sm font-bold text-gray-800">
                 {existingCartItem.quantity}
               </span>
               <button
                 onClick={() => handleIncreaseQuantity(item)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 cursor-pointer"
               >
-                <span className="w-4 h-4 flex items-center justify-center">
-                  +
-                </span>
+                +
               </button>
             </div>
           ) : (
             <button
               onClick={() => handleAddToCart(item)}
-              className="flex items-center px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md text-sm"
+              className="flex items-center px-3 py-1.5 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md text-sm cursor-pointer"
             >
-              <Icon name="shopping-cart" className="w-4 h-4 mr-2" /> Add
+              <Icon name="shopping-cart" className="w-4 h-4 mr-1" /> Add
             </button>
           )}
         </div>

@@ -84,7 +84,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
         {!showNewListInput && (
           <button
             onClick={() => setShowNewListInput(true)}
-            className="group inline-flex items-center gap-3 px-6 py-3 bg-yellow-400 text-gray-800 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 self-start hover:bg-yellow-300"
+            className=" cursor-pointer group inline-flex items-center gap-3 px-6 py-3 bg-yellow-400 text-gray-800 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 self-start hover:bg-yellow-300"
           >
             <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
             Create New List

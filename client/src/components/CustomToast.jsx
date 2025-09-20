@@ -9,7 +9,7 @@ const CustomToast = ({
   t,
   stackIndex = 0,
 }) => {
-  const offset = stackIndex * 50; // Each toast will be offset by 50px
+  const offset = stackIndex * 20; // Each toast will be offset by 20px
 
   return (
     <div
@@ -17,7 +17,7 @@ const CustomToast = ({
         t.visible ? 'animate-enter' : 'animate-leave'
       } max-w-sm w-full bg-white text-charcoal rounded-2xl border border-gray-200 shadow-xl flex items-center justify-between p-4 space-x-4`}
       style={{
-        transform: `translateY(${-offset}px)`,
+        transform: `translateX(${-offset}px)`,
         transition: 'transform 0.3s ease-in-out',
       }}
     >

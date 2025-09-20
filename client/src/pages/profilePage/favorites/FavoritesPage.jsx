@@ -34,7 +34,7 @@ const FavoritesPage = () => {
           {selectedListId && (
             <button
               onClick={() => setSelectedListId(null)}
-              className="flex items-center gap-2 text-charcoal hover:text-yellow-400 transition-colors font-medium"
+              className="flex items-center gap-2 cursor-pointer text-charcoal hover:text-yellow-400 transition-colors font-medium"
             >
               <Icon name="arrow-left" className="w-5 h-5" /> Back to lists
             </button>

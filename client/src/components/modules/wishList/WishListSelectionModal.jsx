@@ -10,16 +10,17 @@ const WishlistModal = ({ productId }) => {
   const dispatch = useDispatch();
   const { lists, handleCreateNewProductList, handleTransferProductFromList } =
     useFavoriteActions();
-  console.log('lists is here', lists);
+
   const { isWishlistModalOpen: isOpen, modalProps } = useSelector(
     state => state.ui.wishlist
   );
-  console.log('modalProps is this', modalProps);
+
   const defaultListId = useSelector(selectDefaultProductListId);
 
   const [isCreatingNewList, setIsCreatingNewList] = useState(false);
   const [newListName, setNewListName] = useState('');
   const [selectedListId, setSelectedListId] = useState(defaultListId);
+  const [isTranfering, setIsTransfering] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -45,16 +46,20 @@ const WishlistModal = ({ productId }) => {
     }
   };
 
-  const handleMoveProductClick = () => {
+  const handleMoveProductClick = async () => {
+    setIsTransfering(true);
     if (selectedListId && selectedListId !== defaultListId) {
-      handleTransferProductFromList({
-        productId: modalProps?.productId,
-        sourceListId: modalProps?.sourceListId,
-        destinationListId: selectedListId,
-      });
-      // dispatch(closeWishlistModal());
+      try {
+        await handleTransferProductFromList({
+          productId: modalProps?.productId,
+          sourceListId: modalProps?.sourceListId,
+          destinationListId: selectedListId,
+        });
+      } finally {
+        setIsTransfering(false);
+      }
     } else {
-      // dispatch(closeWishlistModal());
+      setIsTransfering(false);
     }
   };
 
@@ -144,17 +149,20 @@ const WishlistModal = ({ productId }) => {
             </div>
           )}
         </div>
+
         <button
           onClick={handleMoveProductClick}
           className={`w-full py-2 mt-4 text-center rounded-lg font-semibold transition-colors text-sm cursor-pointer
-            ${
-              selectedListId === defaultListId
-                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                : 'bg-yellow-400 text-gray-800 hover:bg-yellow-500'
-            }`}
-          disabled={selectedListId === defaultListId}
+    ${
+      selectedListId === defaultListId
+        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+        : 'bg-yellow-400 text-gray-800 hover:bg-yellow-500'
+    }`}
+          disabled={selectedListId === defaultListId || isTranfering}
         >
-          Move to Selected List
+          {isTranfering
+            ? 'Adding product in selected list...'
+            : 'Move to Selected List'}
         </button>
       </>
     );

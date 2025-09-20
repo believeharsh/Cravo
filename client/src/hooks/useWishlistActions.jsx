@@ -7,7 +7,7 @@ import {
 } from '../features/wishList/wishListSlice';
 import CustomToast from '../components/CustomToast';
 import toast from 'react-hot-toast';
-import { openWishlistModal } from '../features/ui/uiSlice';
+import { closeWishlistModal, openWishlistModal } from '../features/ui/uiSlice';
 import { useToastStack } from './useStackToasts';
 
 export const useFavoriteActions = () => {
@@ -85,9 +85,21 @@ export const useFavoriteActions = () => {
     sourceListId,
     destinationListId,
   }) => {
-    dispatch(
-      TransferProductFromList({ productId, sourceListId, destinationListId })
-    );
+    try {
+      await dispatch(
+        TransferProductFromList({ productId, sourceListId, destinationListId })
+      ).unwrap();
+      dispatch(closeWishlistModal());
+      showStackedToast(
+        CustomToast,
+        {
+          message: `Item has moved`,
+          actionText: '',
+          onActionClick: () => {},
+        },
+        { duration: 3000 }
+      );
+    } catch (error) {}
   };
 
   return {
