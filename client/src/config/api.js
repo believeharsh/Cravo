@@ -48,4 +48,12 @@ export const API = {
     CREATE_NEW_PRODUCT_LIST: '/lists',
     TRANSFER_PRODUCT_FROM_LIST: '/lists/transfer',
   },
+
+  CART: {
+    ADD_ITEM_TO_CART: '/cart/items',
+    REMOVE_ITEM_FROM_CART: itemId => `/cart/items/${itemId}`,
+    DELETE_ENTIRE_CART: `/cart`,
+    GET_USER_CART: '/cart',
+    UPDATE_ITEM_QUANTITY: itemId => `/cart/items/${itemId}`,
+  },
 };
