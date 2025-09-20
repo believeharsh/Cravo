@@ -36,7 +36,7 @@ import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 import { fetchAllWishlists } from './features/wishList/wishListSlice';
-import { useFavoriteActions } from './hooks/useWishlistActions';
+import { fetchUserCart } from './features/cart/cartSlice';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -103,21 +103,14 @@ function AppContent() {
 
 function App() {
   const dispatch = useDispatch();
-
   const hasAppInitializedRef = useRef(false);
-
   const { appInitError } = useSelector(state => state.landingPage);
-
-  const { isAuthSidebarOpen, showOTPModal, signupEmail } = useSelector(
-    state => state.ui.auth
-  );
+  const { isAuthSidebarOpen } = useSelector(state => state.ui.auth);
   const { isWishlistModalOpen } = useSelector(state => state.ui.wishlist);
-  console.log(isWishlistModalOpen);
+  const { isAuthenticated } = useSelector(state => state.auth);
 
-  const { lists } = useFavoriteActions();
-  console.log('the user lists are here', lists);
-
-  const { isAuthenticated } = useSelector(state => state.auth); // 1. Initial app data fetch (e.g., categories, global configs)
+  const cart = useSelector(state => state.cart);
+  const { user } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (!hasAppInitializedRef.current) {
@@ -131,10 +124,28 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('User is authenticated, fetching wishlists.');
-      dispatch(fetchAllWishlists());
+      console.log('User is authenticated, fetching initial data.');
+
+      // Create an array of thunk dispatches
+      const fetches = [
+        dispatch(fetchAllWishlists()),
+        dispatch(fetchUserCart()),
+        // dispatch(fetchUserAddresses()),
+        // dispatch(fetchPaymentMethods()),
+      ];
+
+      // Use Promise.all to run them concurrently
+      Promise.all(fetches)
+        .then(() => {
+          console.log('All initial data fetched successfully!');
+        })
+        .catch(error => {
+          console.error('Failed to fetch some initial data:', error);
+          // Handle errors here, such as showing a notification to the user
+        });
     } else {
-      console.log('User is not authenticated, skipping wishlist fetch.'); // Optionally, you could clear wishlist data here if the user logs out
+      console.log('User is not authenticated, skipping data fetch.');
+      // Optional: Dispatch actions to clear the state for all these slices on logout.
     }
   }, [isAuthenticated, dispatch]);
 
