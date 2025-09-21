@@ -51,10 +51,10 @@ export const fetchUserCart = createAsyncThunk(
 // The backend should ideally return the complete updated cart after the operation.
 export const addItemToCart = createAsyncThunk(
   'cart/addItemToCart',
-  async ({ product, quantity, customizations }, thunkAPI) => {
+  async ({ productId, quantity, customizations }, thunkAPI) => {
     try {
       const response = await axiosInstance.post(API.CART.ADD_ITEM_TO_CART, {
-        productId: product._id,
+        productId: productId,
         quantity,
         customizations,
       });
