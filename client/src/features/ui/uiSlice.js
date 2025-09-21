@@ -15,6 +15,12 @@ const initialState = {
     modalProductData: null,
     modalProps: null,
   },
+
+  // state for the cart modal
+  cart: {
+    isDeleteModalOpen: false,
+    modalProps: null,
+  },
 };
 
 const uiSlice = createSlice({
@@ -33,6 +39,7 @@ const uiSlice = createSlice({
         state.auth.mode = 'login';
       }
     },
+
     closeAuthSidebar: state => {
       state.auth.isAuthSidebarOpen = false;
       // Reset nested auth states on close
@@ -51,6 +58,7 @@ const uiSlice = createSlice({
       state.auth.showOTPModal = true;
       state.auth.signupEmail = action.payload;
     },
+
     closeOTPModal: state => {
       state.auth.showOTPModal = false;
     },
@@ -58,13 +66,26 @@ const uiSlice = createSlice({
     // Actions for the Wishlist Modal
     openWishlistModal: (state, action) => {
       state.wishlist.isWishlistModalOpen = true;
-      // state.wishlist.modalProductData = action.payload;
       state.wishlist.modalProps = action.payload;
       console.log('action payload', action.payload);
     },
+
     closeWishlistModal: state => {
       state.wishlist.isWishlistModalOpen = false;
       state.wishlist.modalProductData = null;
+    },
+
+    // Actions for the Cart Modal
+    openDeleteModal: (state, action) => {
+      state.cart.isDeleteModalOpen = true;
+      state.cart.modalProps = action.payload;
+      console.log('modal props for the openDeleteModal is ', action.payload);
+      console.log('modap prop state', state.isDeleteModalOpen);
+    },
+
+    closeDeleteModal: state => {
+      state.cart.isDeleteModalOpen = false;
+      state.cart.modalProps = null;
     },
   },
 });
@@ -77,6 +98,8 @@ export const {
   closeOTPModal,
   openWishlistModal,
   closeWishlistModal,
+  openDeleteModal,
+  closeDeleteModal,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;
