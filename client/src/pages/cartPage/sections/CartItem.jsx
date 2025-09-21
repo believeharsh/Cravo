@@ -1,22 +1,11 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
 import { useCartActions } from '../../../hooks/useCartActions';
-import { useSelector } from 'react-redux';
 
-/**
- * A component to display a single cart item with controls for quantity and removal.
- * @param {{item: object}} { item } The cart item object, containing product details and quantity.
- */
 const CartItem = ({ item }) => {
   const product = item.product;
 
-  const { handleDeleteItemFromCart, handleUpdateQuantity } = useCartActions();
-
-  // The state is already being passed as a prop from the parent, so this useSelector is not necessary.
-  // We can directly use the 'item' prop for all logic.
-  // const existingItem = useSelector(state =>
-  //   state.cart.items.find(cartItem => cartItem.product._id === product._id)
-  // );
+  const { handleUpdateQuantity, handleOpenDeleteModal } = useCartActions();
 
   // Calculate the original price based on the product's price and promotional discount
   const originalPrice = product.promotionalDiscount?.value
@@ -25,19 +14,14 @@ const CartItem = ({ item }) => {
 
   // Function to handle increasing the quantity
   const handleIncrement = () => {
-    // We get the current quantity from the item prop and add 1.
     const newQuantity = item.quantity + 1;
-    // We call the handleUpdateQuantity action with the item's _id and the new quantity.
     handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
   };
 
   // Function to handle decreasing the quantity
   const handleDecrement = () => {
-    // We check if the quantity is greater than 1 before decrementing.
     if (item.quantity > 1) {
-      // We get the current quantity from the item prop and subtract 1.
       const newQuantity = item.quantity - 1;
-      // We call the handleUpdateQuantity action with the item's _id and the new quantity.
       handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
     }
   };
@@ -126,7 +110,7 @@ const CartItem = ({ item }) => {
 
       {/* Remove */}
       <button
-        onClick={() => handleDeleteItemFromCart({ itemId: item._id })}
+        onClick={() => handleOpenDeleteModal(product.name, item._id)}
         className="ml-1 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
       >
         <Icon name="trash" size={18} />

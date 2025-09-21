@@ -12,8 +12,7 @@ import {
 const ProductCard = ({ item, listId }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const { handleAddToCart, handleDecreaseQuantity, handleIncreaseQuantity } =
-    useCartActions();
+  const { handleAddToCart, handleUpdateQuantity } = useCartActions();
   const { lists, handleAddItemToWishlist, handleRemoveItemFromWishlist } =
     useFavoriteActions();
 
@@ -66,6 +65,19 @@ const ProductCard = ({ item, listId }) => {
         itemName: item.name,
         listName: defaultList?.name || 'My Favorites',
       });
+    }
+  };
+
+  const handleIncrement = () => {
+    const newQuantity = item.quantity + 1;
+    handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
+  };
+
+  // Function to handle decreasing the quantity
+  const handleDecrement = () => {
+    if (item.quantity > 1) {
+      const newQuantity = item.quantity - 1;
+      handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
     }
   };
 
@@ -130,7 +142,7 @@ const ProductCard = ({ item, listId }) => {
           {existingCartItem ? (
             <div className="flex items-center space-x-1.5 bg-white border border-yellow-200 rounded-full py-0.5 px-2">
               <button
-                onClick={() => handleDecreaseQuantity(item, existingCartItem)}
+                onClick={handleDecrement}
                 className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 cursor-pointer"
               >
                 -
@@ -139,7 +151,7 @@ const ProductCard = ({ item, listId }) => {
                 {existingCartItem.quantity}
               </span>
               <button
-                onClick={() => handleIncreaseQuantity(item)}
+                onClick={handleIncrement}
                 className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 cursor-pointer"
               >
                 +
@@ -147,7 +159,7 @@ const ProductCard = ({ item, listId }) => {
             </div>
           ) : (
             <button
-              onClick={() => handleAddToCart(item)}
+              onClick={() => handleAddToCart(item._id)}
               className="flex items-center px-3 py-1.5 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md text-sm cursor-pointer"
             >
               <Icon name="shopping-cart" className="w-4 h-4 mr-1" /> Add

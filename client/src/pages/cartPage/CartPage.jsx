@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartTotalValue } from '../../features/cart/cartSelectors';
 import Icon from '../../components/ui/Icon';
@@ -9,12 +9,16 @@ import DeliveryAddressSection from './sections/DeliveryAddressSection';
 import PaymentMethodSection from './sections/PaymentMethodSection';
 import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection';
 import OrderSummarySection from './sections/OrderSummarySection';
+import ItemDeleteConfirmation from '../../components/modules/cart/ItemDeleteConfirmModal';
+import { useCartActions } from '../../hooks/useCartActions';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
   const cartItems = cart.items;
   const totalPrice = cart.totalPrice;
   const totalQuantity = cart.totalQuantity;
+
+  const { isDeleteModalOpen, modalProps } = useSelector(state => state.ui.cart);
 
   // Hardcoded data for addresses, payment methods, and promo codes for now
   const addresses = [
@@ -176,51 +180,54 @@ const CartPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      <CartNavigation />
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left Column (Items, Delivery & Payment) */}
-          <div className="lg:col-span-2 space-y-4">
-            <CartItemsSection cartItems={cartItems} />
-            <DeliveryAddressSection
-              addresses={addresses}
-              selectedAddress={selectedAddress}
-              setSelectedAddress={setSelectedAddress}
-            />
-            <PaymentMethodSection
-              paymentMethods={paymentMethods}
-              selectedPayment={selectedPayment}
-              setSelectedPayment={setSelectedPayment}
-            />
-            <DeliveryInstructionsSection
-              deliveryInstructions={deliveryInstructions}
-              setDeliveryInstructions={setDeliveryInstructions}
-            />
-          </div>
+    <>
+      <div className="min-h-screen bg-gray-50 font-sans">
+        <CartNavigation />
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Left Column (Items, Delivery & Payment) */}
+            <div className="lg:col-span-2 space-y-4">
+              <CartItemsSection cartItems={cartItems} />
+              <DeliveryAddressSection
+                addresses={addresses}
+                selectedAddress={selectedAddress}
+                setSelectedAddress={setSelectedAddress}
+              />
+              <PaymentMethodSection
+                paymentMethods={paymentMethods}
+                selectedPayment={selectedPayment}
+                setSelectedPayment={setSelectedPayment}
+              />
+              <DeliveryInstructionsSection
+                deliveryInstructions={deliveryInstructions}
+                setDeliveryInstructions={setDeliveryInstructions}
+              />
+            </div>
 
-          {/* Right Column (Order Summary) */}
-          <div className="lg:col-span-1">
-            <OrderSummarySection
-              promoCode={promoCode}
-              setPromoCode={setPromoCode}
-              appliedPromo={appliedPromo}
-              applyPromoCode={applyPromoCode}
-              removePromoCode={removePromoCode}
-              promoMessage={promoMessage}
-              subtotal={subtotal}
-              itemDiscount={itemDiscount}
-              promoDiscount={promoDiscount}
-              deliveryFee={deliveryFee}
-              serviceFee={serviceFee}
-              gst={gst}
-              finalTotal={finalTotal}
-              handleCheckout={handleCheckout}
-            />
+            {/* Right Column (Order Summary) */}
+            <div className="lg:col-span-1">
+              <OrderSummarySection
+                promoCode={promoCode}
+                setPromoCode={setPromoCode}
+                appliedPromo={appliedPromo}
+                applyPromoCode={applyPromoCode}
+                removePromoCode={removePromoCode}
+                promoMessage={promoMessage}
+                subtotal={subtotal}
+                itemDiscount={itemDiscount}
+                promoDiscount={promoDiscount}
+                deliveryFee={deliveryFee}
+                serviceFee={serviceFee}
+                gst={gst}
+                finalTotal={finalTotal}
+                handleCheckout={handleCheckout}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {isDeleteModalOpen && <ItemDeleteConfirmation />}
+    </>
   );
 };
 
