@@ -158,13 +158,15 @@ const Hero = () => {
   // --- JSX ---
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 sm:pt-7 pb-12 sm:pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12 sm:pb-20">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center">
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4 sm:space-y-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-black leading-tight">
-                Satisfy Your Cravings Instantly <br />
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800 leading-tight">
+                Satisfy Your <br />
+                <span className="text-whitess">Cravings</span> <br />
+                <span className="block sm:inline">Instantly</span>
               </h2>
             </div>
 
