@@ -10,7 +10,7 @@ import AuthSidebar from '../../components/modules/auth/AuthSidebar';
 const LandingPage = () => {
   return (
     <div className="">
-      <div className="min-h-screen bg-white font-helvetica">
+      <div className=" bg-white font-helvetica">
         {/* Hero Section */}
         <section className="bg-yellow-400 min-h-screen">
           <LandingNavigation />

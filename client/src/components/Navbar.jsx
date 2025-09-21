@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
 import Icon from './ui/Icon';
-// import { openAuthModal } from '../features/authModal/authModelSlice';
 import { openAuthSidebar } from '../features/ui/uiSlice';
 import { useDispatch } from 'react-redux';
 
-// Simple, self-contained Button component
+// The Button component is self-contained and doesn't need changes.
 const Button = ({
   children,
   onClick,
@@ -33,7 +32,7 @@ const Button = ({
   );
 };
 
-// SearchModal component will be rendered as a pop-up
+// The SearchModal component is also well-structured and doesn't need changes.
 const SearchModal = ({
   isOpen,
   onClose,
@@ -41,13 +40,11 @@ const SearchModal = ({
   onSearchChange,
   onSearchSubmit,
 }) => {
-  // Return null if the modal is not open
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300">
       <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 transition-transform duration-300 transform scale-100 opacity-100">
-        {/* Close button */}
         <Button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -60,7 +57,7 @@ const SearchModal = ({
           <div className="relative">
             <Icon
               name="search"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
               size={20}
             />
             <input
@@ -69,11 +66,10 @@ const SearchModal = ({
               value={searchQuery}
               onChange={onSearchChange}
               className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-800 font-medium transition-colors duration-200"
-              autoFocus // Automatically focus the input when the modal opens
+              autoFocus
             />
           </div>
         </form>
-        {/* You can add recent searches or popular suggestions here */}
         <div className="mt-6">
           <p className="text-sm text-gray-500">
             Start typing to explore options...
@@ -85,7 +81,6 @@ const SearchModal = ({
 };
 
 const Navbar = ({ showSearch = true, visibilty }) => {
-  // State for mobile menu and search modal
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,15 +90,9 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   const { isAuthenticated, user, role, token } = useSelector(
     state => state.auth
   );
-  // console.log(isAuthenticated);
-  console.log('user', user);
-  console.log('role', role);
-  console.log('token', token);
 
   const cartCount = useSelector(selectCartTotalQuantity);
-  // console.log('Quantity of the products in the cart', cartCount);
 
-  // Use useMemo to create the navItems array, so it only recomputes when dependencies change.
   const navItems = useMemo(() => {
     const baseNavItems = [
       {
@@ -130,7 +119,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
       },
       {
         id: 'cart',
-        label: 'Cart',
+        label: 'Cart ',
         Iconname: 'shopping-cart',
         path: '/cart',
         count: cartCount,
@@ -147,7 +136,6 @@ const Navbar = ({ showSearch = true, visibilty }) => {
         showOnMobile: true,
       });
     } else {
-      // If not authenticated, add a "Sign In" button item
       baseNavItems.push({
         id: 'signin',
         label: 'Sign In',
@@ -160,12 +148,9 @@ const Navbar = ({ showSearch = true, visibilty }) => {
     return baseNavItems;
   }, [isAuthenticated, cartCount]);
 
-  // Handle the search submission
   const handleSearchSubmit = e => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
-    // In a real app, you'd navigate here, e.g., navigate(`/search?query=${searchQuery}`);
-    setIsSearchModalOpen(false); // Close modal after search
+    setIsSearchModalOpen(false);
   };
 
   const openSearchModal = () => {
@@ -185,19 +170,17 @@ const Navbar = ({ showSearch = true, visibilty }) => {
       <nav
         className={`bg-white border-b border-gray-200 top-0 z-50 shadow-sm ${visibilty}`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-3">
-          {/* Top Row: Logo, Location, Search (Desktop), Desktop Nav, Mobile Toggle */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo Section */}
             <Link
               to="/"
-              className="flex items-center space-x-3 cursor-pointer flex-shrink-0"
+              className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0"
             >
-              <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl border-2 border-white flex items-center justify-center">
-                {/* Fallback to simple icon if image is not found */}
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-2 border-white flex items-center justify-center">
                 <img
                   src={`/assets/Cravo_logo.png`}
                   alt="Cravo Logo"
+                  className="rounded-xl"
                   onError={e => {
                     e.target.onerror = null;
                     e.target.src =
@@ -205,7 +188,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   }}
                 />
               </div>
-              <div className="w-10 sm:w-32 hidden sm:block">
+              <div className="w-20 sm:w-32  sm:block">
                 <img
                   src={`/assets/Cravo_text_black_logo_without_bg.png`}
                   alt="Cravo Text Logo"
@@ -218,9 +201,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               </div>
             </Link>
 
-            {/* Location & Search section (Desktop & Mobile) */}
             <div className="hidden sm:flex flex-1 items-center space-x-4 ml-6 mr-auto">
-              {/* Location display */}
               <div className="flex items-center space-x-2 text-gray-700 hover:text-yellow-600 transition-colors cursor-pointer group">
                 <Icon
                   name="map-pin"
@@ -237,10 +218,9 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                 />
               </div>
 
-              {/* Smaller Search field that opens modal */}
               {showSearch && (
                 <div
-                  className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors max-w-xs"
+                  className="hidden lg:flex items-center space-x-2 px-4 py-2 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors max-w-xs"
                   onClick={openSearchModal}
                 >
                   <Icon name="search" size={18} className="text-gray-500" />
@@ -251,14 +231,13 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               )}
             </div>
 
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
               {navItems.map(item =>
                 item.action ? (
                   <button
                     key={item.id}
                     onClick={item.action}
-                    className="relative  cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
+                    className="relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
                   >
                     <Icon name={item.Iconname} size={18} />
                     <span className="hidden xl:block">{item.label}</span>
@@ -277,7 +256,6 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   >
                     <Icon name={item.Iconname} size={18} />
                     <span className="hidden xl:block">{item.label}</span>
-                    {/* Badge & Count */}
                     {item.badge && (
                       <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-0.5 rounded-full">
                         {item.badge}
@@ -285,8 +263,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     )}
                     {item.count && (
                       <span className="absolute -top-0.5 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                        {/* {item.count > 99 ? '99+' : item.count} */}
-                        {cartCount > 99 ? '99+' : `  ${cartCount}`}
+                        {cartCount > 99 ? '99+' : `${cartCount}`}
                       </span>
                     )}
                   </NavLink>
@@ -294,12 +271,12 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               )}
             </div>
 
-            {/* Mobile Menu Button & Search Icon */}
             <div className="sm:hidden flex items-center space-x-2 flex-shrink-0">
               {showSearch && (
                 <Button
                   onClick={openSearchModal}
-                  className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
+                  className="p-2 rounded-xl"
+                  variant="ghost"
                   aria-label="Open search"
                 >
                   <Icon name={'search'} size={24} className="text-gray-600" />
@@ -307,7 +284,8 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               )}
               <Button
                 onClick={toggleMobileMenu}
-                className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
+                className="p-2 rounded-xl"
+                variant="ghost"
                 aria-label={
                   isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'
                 }
@@ -318,10 +296,26 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   <Icon name={'menu'} size={24} className="text-gray-600" />
                 )}
               </Button>
+              <div className="flex items-center">
+                <NavLink
+                  to="/cart"
+                  className="relative p-2 rounded-xl transition-colors hover:bg-gray-100"
+                >
+                  <Icon
+                    name={'shopping-cart'}
+                    size={24}
+                    className="text-gray-600"
+                  />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      {cartCount > 99 ? '99+' : cartCount}
+                    </span>
+                  )}
+                </NavLink>
+              </div>
             </div>
           </div>
 
-          {/* Mobile Navigation Menu (expands downwards) */}
           <div
             className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
               isMobileMenuOpen
@@ -384,13 +378,12 @@ const Navbar = ({ showSearch = true, visibilty }) => {
             </div>
             <div className="p-4 bg-gray-50 border-t border-gray-200">
               <p className="text-sm text-gray-600 text-center">
-                CravingCart - Satisfy Your Cravings
+                Cravo - Satisfy Your Cravings
               </p>
             </div>
           </div>
         </div>
       </nav>
-      {/* Render the search modal */}
       <SearchModal
         isOpen={isSearchModalOpen}
         onClose={closeSearchModal}

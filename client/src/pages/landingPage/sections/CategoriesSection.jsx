@@ -47,6 +47,11 @@ const CategoriesSlider = () => {
   const itemsPerView = { mobile: 2, tablet: 4, desktop: 6 };
   const [foodCategories, setFoodCategories] = useState([]);
   const { data, isLoading, error } = useSelector(state => state.landingPage);
+  const { user } = useSelector(state => state.auth);
+  console.log(user);
+  const userName = user?.name;
+  const UserFirstName = userName?.split(' ')[0];
+
   const categoriesData = data.categories;
 
   const Statelocation = useSelector(state => state.location);
@@ -147,9 +152,9 @@ const CategoriesSlider = () => {
     <section className="py-5 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-semibold text-gray-800">
-            What's on your mind
-          </h2>
+          <p className="text-xl font-semibold text-gray-800">
+            What's on your mind <span>{UserFirstName}</span> ?
+          </p>
           {categoriesPerRow > itemsToShow && !isLoading && (
             <div className="flex gap-2">
               <button

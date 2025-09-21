@@ -10,7 +10,7 @@ import PaymentMethodSection from './sections/PaymentMethodSection';
 import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection';
 import OrderSummarySection from './sections/OrderSummarySection';
 import ItemDeleteConfirmation from '../../components/modules/cart/ItemDeleteConfirmModal';
-import { useCartActions } from '../../hooks/useCartActions';
+import { Link } from 'react-router-dom';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
@@ -171,9 +171,11 @@ const CartPage = () => {
           <p className="text-gray-600 mb-8">
             Start adding delicious items to your order!
           </p>
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
-            Browse Restaurants
-          </button>
+          <Link to={'/restaurants'}>
+            <button className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+              Browse Restaurants
+            </button>
+          </Link>
         </div>
       </div>
     );
