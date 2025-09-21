@@ -6,40 +6,23 @@ import {
   updateQuantity,
 } from '../features/cart/cartSlice';
 
+import { openDeleteModal, closeDeleteModal } from '../features/ui/uiSlice';
+import { useToastStack } from './useStackToasts';
+import CustomToast from '../components/CustomToast';
+
 export const useCartActions = () => {
   const dispatch = useDispatch();
+  const { showStackedToast } = useToastStack();
 
-  const handleGetUserCart = async () => {
-    const response = await dispatch(fetchUserCart()).unwrap();
-    console.log(response);
+  const handleGetUserCart = () => {
+    dispatch(fetchUserCart());
   };
 
-  const handleAddToCart = item => {
+  const handleAddToCart = itemId => {
     dispatch(
-      addToCart({
-        product: item,
+      addItemToCart({
+        productId: itemId,
         quantity: 1,
-        customizations: [],
-      })
-    );
-  };
-
-  const handleIncreaseQuantity = item => {
-    dispatch(
-      addToCart({
-        product: item,
-        quantity: 1,
-        customizations: [],
-      })
-    );
-  };
-
-  const handleDecreaseQuantity = (item, existingItem) => {
-    console.log('existingItem in the handleDecreaseQuantity ', existingItem);
-    dispatch(
-      updateQuantity({
-        product: item,
-        quantity: existingItem.quantity - 1,
         customizations: [],
       })
     );
@@ -49,21 +32,41 @@ export const useCartActions = () => {
     dispatch(updateQuantity({ itemId, quantity }));
   };
 
-  const handleDeleteItemFromCart = ({ itemId }) => {
-    // console.log('the item inside teh removeItemFromcart', item);
+  const handleDeleteItemFromCart = async ({ itemId, itemName }) => {
+    try {
+      await dispatch(removeItemFromCart({ itemId: itemId })).unwrap();
+      dispatch(closeDeleteModal());
+      showStackedToast(
+        CustomToast,
+        {
+          message: `${itemName} has been removed from your cart`,
+          actionText: '',
+          onActionClick: () => {},
+        },
+        { duration: 3000 }
+      );
+    } catch (error) {}
+  };
+
+  const handleOpenDeleteModal = (itemName, itemId) => {
     dispatch(
-      removeItemFromCart({
+      openDeleteModal({
+        itemName: itemName,
         itemId: itemId,
       })
     );
   };
 
+  const handleCloseDeleteModal = () => {
+    dispatch(closeDeleteModal());
+  };
+
   return {
     handleGetUserCart,
     handleAddToCart,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
     handleDeleteItemFromCart,
     handleUpdateQuantity,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
   };
 };
