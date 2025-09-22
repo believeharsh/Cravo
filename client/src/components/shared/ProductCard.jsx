@@ -69,15 +69,21 @@ const ProductCard = ({ item, listId }) => {
   };
 
   const handleIncrement = () => {
-    const newQuantity = item.quantity + 1;
-    handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
+    const newQuantity = existingCartItem.quantity + 1;
+    handleUpdateQuantity({
+      itemId: existingCartItem._id,
+      quantity: newQuantity,
+    });
   };
 
   // Function to handle decreasing the quantity
   const handleDecrement = () => {
-    if (item.quantity > 1) {
-      const newQuantity = item.quantity - 1;
-      handleUpdateQuantity({ itemId: item._id, quantity: newQuantity });
+    if (existingCartItem.quantity > 1) {
+      const newQuantity = existingCartItem.quantity - 1;
+      handleUpdateQuantity({
+        itemId: existingCartItem._id,
+        quantity: newQuantity,
+      });
     }
   };
 
