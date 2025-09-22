@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import { closeAuthModal } from '../../../features/authModal/authModelSlice';
 import { setAuthState } from '../../../features/auth/authSlice';
 import { API } from '../../../config/api';
 import axiosInstance from '../../../api/axiosInstance';
+import { closeAuthSidebar } from '../../../features/ui/uiSlice';
 
 const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
   const [otp, setOtp] = useState('');
@@ -88,7 +88,7 @@ const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
             className="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full mx-4"
           >
             <button
-              onClick={() => dispatch(closeAuthModal())}
+              onClick={() => dispatch(closeAuthSidebar())}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors text-3xl"
             >
               &times;

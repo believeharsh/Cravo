@@ -31,12 +31,12 @@ import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 import AuthSidebar from './components/modules/auth/AuthSidebar';
 import WishlistModal from './components/modules/wishList/WishListSelectionModal';
 
-import { closeAuthModal } from './features/authModal/authModelSlice';
 import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
 
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 import { fetchAllWishlists } from './features/wishList/wishListSlice';
 import { fetchUserCart } from './features/cart/cartSlice';
+import { closeAuthSidebar } from './features/ui/uiSlice';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ function AppContent() {
             role: event.data.data.user.role,
           })
         );
-        dispatch(closeAuthModal());
+        dispatch(closeAuthSidebar());
         navigate('/restaurants');
       }
     };
