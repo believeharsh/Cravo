@@ -12,7 +12,7 @@ import Settings from './pages/profilePage/Settings';
 import HelpSupport from './pages/profilePage/Help-Support';
 import Orders from './pages/profilePage/Orders';
 import Payments from './pages/profilePage/Payment';
-import Addresses from './pages/profilePage/Address';
+import AddressPage from './pages/profilePage/Address/Address';
 import Dashboard from './pages/profilePage/Dashboard';
 
 import ProfileLayout from './components/ProfileLayout';
@@ -37,6 +37,7 @@ import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 import { fetchAllWishlists } from './features/wishList/wishListSlice';
 import { fetchUserCart } from './features/cart/cartSlice';
 import { closeAuthSidebar } from './features/ui/uiSlice';
+import { fetchAllAddresses } from './features/address/addressSlice';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -69,8 +70,8 @@ function AppContent() {
   return (
     <Routes>
       <Route path="restaurants" element={<RestaurantsOverviewPage />} />
-      <Route path="/" element={<LandingPage />} />     {' '}
-      <Route path="categories/:categorySlug" element={<CategoryResultPage />} />{' '}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
       <Route
         path="menu/:restaurantName/:restaurantID"
         element={<RestaurantMenuPage />}
@@ -78,25 +79,23 @@ function AppContent() {
       <Route path="offers" element={<OffersPage />} />
       <Route path="cart" element={<CartPage />} />
       <Route path="corporate" element={<CorporatePage />} />
-      <Route path="unauthorized" element={<UnauthorizedPage />} />     {' '}
+      <Route path="unauthorized" element={<UnauthorizedPage />} />
       <Route element={<PrivateRoute />}>
-        {' '}
         <Route path="profile" element={<ProfileLayout />}>
-          {' '}
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="orders" element={<Orders />} />
           <Route path="favorites" element={<FavoritesPage />} />
           <Route path="payments" element={<Payments />} />
-          <Route path="addresses" element={<Addresses />} />
+          <Route path="addresses" element={<AddressPage />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="help-support" element={<HelpSupport />} />{' '}
-        </Route>{' '}
-      </Route>{' '}
-      <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-        <Route path="admin" element={<AdminPage />} />     {' '}
+          <Route path="help-support" element={<HelpSupport />} />
+        </Route>
       </Route>
-      <Route path="*" element={<NotFound />} />   {' '}
+      <Route element={<PrivateRoute allowedRoles={['admin']} />}>
+        <Route path="admin" element={<AdminPage />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
@@ -108,9 +107,6 @@ function App() {
   const { isAuthSidebarOpen } = useSelector(state => state.ui.auth);
   const { isWishlistModalOpen } = useSelector(state => state.ui.wishlist);
   const { isAuthenticated } = useSelector(state => state.auth);
-
-  const cart = useSelector(state => state.cart);
-  const { user } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (!hasAppInitializedRef.current) {
@@ -130,7 +126,7 @@ function App() {
       const fetches = [
         dispatch(fetchAllWishlists()),
         dispatch(fetchUserCart()),
-        // dispatch(fetchUserAddresses()),
+        dispatch(fetchAllAddresses()),
         // dispatch(fetchPaymentMethods()),
       ];
 
