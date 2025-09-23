@@ -56,4 +56,12 @@ export const API = {
     GET_USER_CART: '/cart',
     UPDATE_ITEM_QUANTITY: itemId => `/cart/items/${itemId}`,
   },
+
+  ADDRESS: {
+    CREATE_NEW_ADDRESS: '/address',
+    GET_ALL_ADDRESSES: '/address',
+    GET_ADDRESS: addressId => `/address/${addressId}`,
+    UPDATE_ADDRESS: addressId => `/address/${addressId}`,
+    DELETE_ADDRESS: addressId => `/address/${addressId}`,
+  },
 };
