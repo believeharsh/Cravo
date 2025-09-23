@@ -21,6 +21,14 @@ const initialState = {
     isDeleteModalOpen: false,
     modalProps: null,
   },
+
+  // State for the Address Modal
+  address: {
+    isAddressModalOpen: false, // For the Create/Edit Address Modal
+    modalProps: null,
+    isDeleteAddressModalOpen: false, // For the Delete Confirmation Modal
+    deleteAddressID: null,
+  },
 };
 
 const uiSlice = createSlice({
@@ -87,6 +95,28 @@ const uiSlice = createSlice({
       state.cart.isDeleteModalOpen = false;
       state.cart.modalProps = null;
     },
+
+    // Actions for the Address Create/Edit Modal
+    openAddressModal: (state, action) => {
+      state.address.isAddressModalOpen = true;
+      state.address.modalProps = action.payload;
+    },
+
+    closeAddressModal: state => {
+      state.address.isAddressModalOpen = false;
+      state.address.modalProps = null;
+    },
+    // Actions for the Address Delete Confirmation Modal
+    openDeleteAddressModal: (state, action) => {
+      state.address.isDeleteAddressModalOpen = true;
+      state.address.deleteAddressID = action.payload;
+      console.log(action.payload);
+    },
+
+    closeDeleteAddressModal: state => {
+      state.address.isDeleteAddressModalOpen = false;
+      state.address.deleteModalProps = null;
+    },
   },
 });
 
@@ -100,6 +130,10 @@ export const {
   closeWishlistModal,
   openDeleteModal,
   closeDeleteModal,
+  openAddressModal,
+  closeAddressModal,
+  openDeleteAddressModal,
+  closeDeleteAddressModal,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

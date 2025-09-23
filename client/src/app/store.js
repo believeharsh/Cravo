@@ -5,6 +5,7 @@ import locationReducer from '../features/location/locationSlice';
 import cartReducer from '../features/cart/cartSlice';
 import wishlistReducer from '../features/wishList/wishListSlice';
 import uiReducer from '../features/ui/uiSlice';
+import addressReducer from '../features/address/addressSlice';
 // import userReducer from '../features/user/userSlice';
 // import postsReducer from '../features/posts/postsSlice';
 
@@ -16,6 +17,7 @@ const store = configureStore({
     location: locationReducer,
     cart: cartReducer,
     wishlist: wishlistReducer,
+    address: addressReducer,
     // auth: authReducer,
     // user: userReducer,
     // posts: postsReducer,
