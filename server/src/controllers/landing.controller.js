@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
-import { apiError } from '../services/ApiError.js';
+import { apiError } from '../services/apiError.js';
 
 dotenv.config();
 

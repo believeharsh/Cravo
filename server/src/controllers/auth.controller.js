@@ -1,8 +1,8 @@
 import User from '../models/user.model.js';
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
+import { apiError } from '../services/apiError.js';
 import { generateUsername } from '../services/generateUserName.js';
-import { apiError } from '../services/ApiError.js';
 import JWT from 'jsonwebtoken';
 import { sendVerificationOTP } from '../services/emailService.js';
 import {

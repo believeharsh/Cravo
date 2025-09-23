@@ -1,11 +1,10 @@
 import { validateToken } from '../services/userTokens.js';
 import { asyncHandler } from '../services/asyncHandler.js';
 import User from '../models/user.model.js';
-import { apiError } from '../services/ApiError.js';
+import { apiError } from '../services/apiError.js';
 
 const checkAuth = asyncHandler(async (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
-  console.log('Token is coming', token);
   if (!token) {
     // No token, so the user is a guest.
     return next();
