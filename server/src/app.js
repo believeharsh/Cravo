@@ -16,6 +16,7 @@ import listRoute from './routes/list.route.js';
 import restaurantListRoute from './routes/restaurantList.route.js';
 import cartRoute from './routes/cart.route.js';
 import orderRoute from './routes/order.route.js';
+import addressRoute from './routes/address.route.js';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use('/api/v1/landingResources', landingRoute);
 app.use('/api/v1/cities', cityRoute);
 app.use('/api/v1/lists', listRoute);
 app.use('/api/v1/restaurantList', restaurantListRoute);
+app.use('/api/v1/address', addressRoute);
 
 app.get('/', (req, res) => {
   res.json('Hello, from server');
