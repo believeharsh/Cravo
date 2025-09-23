@@ -1,6 +1,6 @@
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
-import { apiError } from '../services/ApiError.js';
+import { apiError } from '../services/apiError.js';
 import Cart from '../models/cart.model.js';
 import Product from '../models/product.model.js';
 
