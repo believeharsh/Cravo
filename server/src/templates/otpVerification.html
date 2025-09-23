@@ -1,87 +1,257 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{COMPANY_NAME}} - OTP Verification</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f6f9fc;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #ffffff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
-    .header {
-      background: #4CAF50;
-      padding: 20px;
-      text-align: center;
-    }
-    .header img {
-      max-width: 180px;
-      height: auto;
-    }
-    .content {
-      padding: 30px;
-      text-align: center;
-    }
-    .otp-box {
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 6px;
-      margin: 20px 0;
-      padding: 15px;
-      background: #f2f2f2;
-      border-radius: 6px;
-      display: inline-block;
-    }
-    .footer {
-      font-size: 12px;
-      color: #777;
-      text-align: center;
-      padding: 20px;
-    }
-    a {
-      color: #4CAF50;
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <img src="{{COMPANY_LOGO_URL}}" alt="{{COMPANY_NAME}} Logo" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>Cravo - OTP Verification</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #fdf9ef;
+        color: #2c3e50;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .email-wrapper {
+        width: 100%;
+        padding: 15px;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #fce8a5;
+      }
+      /* Header */
+      .header {
+        background: linear-gradient(135deg, #ffd700, #ffc107);
+        padding: 5px 5px;
+        text-align: center;
+      }
+      .logo-main {
+        max-width: 200px;
+        height: auto;
+      }
+      /* Content */
+      .content {
+        padding: 30px 20px;
+        text-align: center;
+      }
+      .verification-icon {
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, #ffd700, #ffc107);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff;
+        margin: 0 auto 20px;
+      }
+      .content h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .content p {
+        font-size: 15px;
+        color: #5a6c7d;
+        margin-bottom: 18px;
+        line-height: 1.5;
+      }
+      /* OTP Box */
+      .otp-section {
+        background: #fffdf5;
+        border: 2px dashed #ffd700;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 25px 0;
+      }
+      .otp-label {
+        font-size: 13px;
+        color: #8b7355;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .otp-code {
+        font-size: 26px;
+        font-weight: 700;
+        color: #b8860b;
+        letter-spacing: 6px;
+        font-family: 'Courier New', monospace;
+        background: #fff;
+        padding: 12px 18px;
+        border-radius: 6px;
+        display: inline-block;
+        border: 1px solid #ffe082;
+        box-shadow: 0 2px 6px rgba(255, 193, 7, 0.15);
+        max-width: 100%;
+        word-break: break-word;
+      }
+      /* Info box */
+      .info-box {
+        background: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 6px;
+        text-align: left;
+        font-size: 14px;
+        color: #e65100;
+      }
+      /* Security Notice */
+      .security-notice {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 18px;
+        text-align: left;
+        font-size: 14px;
+        margin: 20px 0;
+      }
+      .security-notice h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+      }
+      .security-list {
+        padding-left: 18px;
+      }
+      .security-list li {
+        margin-bottom: 6px;
+        color: #6c757d;
+      }
+      /* CTA */
+      .cta-section {
+        background: linear-gradient(135deg, #ffd700, #ffc107);
+        padding: 25px 20px;
+        text-align: center;
+      }
+      .cta-text {
+        color: #fff;
+        margin-bottom: 15px;
+        font-size: 15px;
+      }
+      .cta-button {
+        background: #fff;
+        color: #b8860b;
+        padding: 10px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        display: inline-block;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+      }
+      /* Footer */
+      .footer {
+        background: #2c3e50;
+        color: #bdc3c7;
+        padding: 25px 20px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .footer-links a {
+        color: #ffd700;
+        margin: 0 8px;
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .social-links {
+        margin-top: 12px;
+      }
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: #34495e;
+        color: #ffd700;
+        border-radius: 50%;
+        margin: 0 3px;
+        text-decoration: none;
+        font-size: 12px;
+      }
+      /* Mobile */
+      @media only screen and (max-width: 480px) {
+        .content {
+          padding: 20px 15px;
+        }
+        .content h1 {
+          font-size: 20px;
+        }
+        .otp-code {
+          font-size: 22px;
+          letter-spacing: 4px;
+          padding: 10px 14px;
+        }
+        .footer-links a {
+          display: block;
+          margin: 6px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+          <img
+            src="https://drive.google.com/uc?export=view&id=1iPsp1sXKVTmYEv6WVSEH-hr6yjxqUDwg"
+            alt="Cravo Logo"
+            class="logo-main"
+          />
+        </div>
+        <!-- Content -->
+        <div class="content">
+          <h1>Verify Your Email Address</h1>
+          <p>
+            Welcome to <strong>Cravo</strong>! Please use the code below to
+            complete your registration:
+          </p>
+          <div class="otp-section">
+            <span class="otp-label">Your Verification Code</span>
+            <div class="otp-code">{{OTP_CODE}}</div>
+          </div>
+          <div class="info-box">
+            ⏰ This code will expire in <strong>10 minutes</strong>.
+          </div>
+          <div class="security-notice">
+            <h3>🔒 Security Notice</h3>
+            <ul class="security-list">
+              <li>Never share this code with anyone</li>
+              <li>We will never ask for your OTP via phone or email</li>
+              <li>If you didn’t request this, ignore the email</li>
+            </ul>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="cta-section">
+          <div class="cta-text">Ready to continue?</div>
+          <a href="#" class="cta-button">Complete Verification →</a>
+        </div>
+        <!-- Footer -->
+        <div class="footer">
+          <div class="footer-links">
+            <a href="#">Terms</a> | <a href="#">Privacy</a> |
+            <a href="#">Support</a>
+          </div>
+          <p>&copy; 2025 Cravo. All rights reserved.</p>
+        </div>
+      </div>
     </div>
-
-    <!-- Body -->
-    <div class="content">
-      <h2>Verify Your Email Address</h2>
-      <p>Thank you for signing up with <strong>{{COMPANY_NAME}}</strong>.</p>
-      <p>Please use the OTP below to verify your account:</p>
-
-      <div class="otp-box">{{OTP_CODE}}</div>
-
-      <p>This OTP is valid for the next <strong>10 minutes</strong>.</p>
-      <p>If you did not request this, you can safely ignore this email.</p>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>
-        By continuing, you agree to our 
-        <a href="[Link to your terms of service]">Terms of Service</a> and 
-        <a href="[Link to your privacy policy]">Privacy Policy</a>.
-      </p>
-      <p>&copy; {{COMPANY_NAME}}, All rights reserved.</p>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
