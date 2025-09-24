@@ -176,7 +176,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               to="/"
               className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-2 border-white flex items-center justify-center">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl border-2 border-white flex items-center justify-center">
                 <img
                   src={`/assets/Cravo_logo.png`}
                   alt="Cravo Logo"
@@ -185,17 +185,6 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     e.target.onerror = null;
                     e.target.src =
                       'https://placehold.co/60x60/fde047/6b7280?text=C';
-                  }}
-                />
-              </div>
-              <div className="w-20 sm:w-32  sm:block">
-                <img
-                  src={`/assets/Cravo_text_black_logo_without_bg.png`}
-                  alt="Cravo Text Logo"
-                  onError={e => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      'https://placehold.co/128x38/fde047/6b7280?text=Cravo';
                   }}
                 />
               </div>
