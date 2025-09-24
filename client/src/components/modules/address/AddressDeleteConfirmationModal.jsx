@@ -27,7 +27,7 @@ const AddressDeleteConfirmationModal = () => {
           </button>
           <button
             onClick={() => handleDeleteAddress(deleteAddressID)}
-            className="px-6 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"
+            className="cursor-pointer px-6 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"
           >
             Delete
           </button>

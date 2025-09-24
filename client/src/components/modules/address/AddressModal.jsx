@@ -1,142 +1,3 @@
-// import { useState } from "react";
-// import { useSelector } from "react-redux";
-// import { useAddressActions } from "../../../hooks/useAddressActions";
-
-//  const AddressModal = ({initialData }) => {
-//     const [formData, setFormData] = useState(initialData || {
-//       addressLine1: '', addressLine2: '', city: '', state: '', zipCode: '', country: '', addressType: 'Home', isDefault: false
-//     });
-//     const { handleCloseAddressModal } = useAddressActions() ;
-
-//     const isAddressModalOpen = useSelector(state => state.ui.address) ;
-//     const handleChange = (e) => {
-//       const { name, value, type, checked } = e.target;
-//       setFormData(prev => ({
-//         ...prev,
-//         [name]: type === 'checkbox' ? checked : value,
-//       }));
-//     };
-
-//     const handleSubmit = (e) => {
-//       e.preventDefault();
-//       onSubmit(formData);
-//       onClose();
-//     };
-
-//     if (!isAddressModalOpen) return null;
-
-//     return (
-//       <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-//         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-lg">
-//           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-//             {initialData ? 'Edit Address' : 'Add New Address'}
-//           </h2>
-//           <form onSubmit={handleSubmit}>
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//               <input
-//                 type="text"
-//                 name="addressLine1"
-//                 placeholder="Address Line 1"
-//                 value={formData.addressLine1}
-//                 onChange={handleChange}
-//                 required
-//                 className="col-span-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//               />
-//               <input
-//                 type="text"
-//                 name="addressLine2"
-//                 placeholder="Address Line 2 (Apt, Suite, etc.)"
-//                 value={formData.addressLine2}
-//                 onChange={handleChange}
-//                 className="col-span-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//               />
-//               <input
-//                 type="text"
-//                 name="city"
-//                 placeholder="City"
-//                 value={formData.city}
-//                 onChange={handleChange}
-//                 required
-//                 className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//               />
-//               <input
-//                 type="text"
-//                 name="state"
-//                 placeholder="State"
-//                 value={formData.state}
-//                 onChange={handleChange}
-//                 required
-//                 className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//               />
-//               <input
-//                 type="text"
-//                 name="zipCode"
-//                 placeholder="ZIP Code"
-//                 value={formData.zipCode}
-//                 onChange={handleChange}
-//                 required
-//                 className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//               />
-//               <input
-//                 type="text"
-//                 name="country"
-//                 placeholder="Country"
-//                 value={formData.country}
-//                 onChange={handleChange}
-//                 required
-//                 className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//               />
-//               <div className="col-span-2 flex items-center gap-4">
-//                 <label htmlFor="addressType" className="text-gray-700 dark:text-gray-300">Type:</label>
-//                 <select
-//                   name="addressType"
-//                   id="addressType"
-//                   value={formData.addressType}
-//                   onChange={handleChange}
-//                   className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white"
-//                 >
-//                   <option value="Home">Home</option>
-//                   <option value="Work">Work</option>
-//                   <option value="Other">Other</option>
-//                 </select>
-//               </div>
-//               <div className="col-span-2 flex items-center gap-2">
-//                 <input
-//                   type="checkbox"
-//                   name="isDefault"
-//                   id="isDefault"
-//                   checked={formData.isDefault}
-//                   onChange={handleChange}
-//                   className="w-4 h-4 text-yellow-500 bg-gray-100 border-gray-300 rounded focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-//                 />
-//                 <label htmlFor="isDefault" className="text-gray-700 dark:text-gray-300 select-none">
-//                   Set as default address
-//                 </label>
-//               </div>
-//             </div>
-//             <div className="mt-6 flex justify-end gap-3">
-//               <button
-//                 type="button"
-//                 onClick={() => handleCloseAddressModal()}
-//                 className="px-6 py-3 text-gray-800 dark:text-white dark:bg-gray-600 rounded-lg hover:bg-gray-300 transition-colors"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 type="submit"
-//                 className="px-6 py-3 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors"
-//               >
-//                 Save Address
-//               </button>
-//             </div>
-//           </form>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   export default AddressModal ;
-
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAddressActions } from '../../../hooks/useAddressActions';
@@ -287,14 +148,14 @@ const AddressModal = ({ initialData }) => {
             <button
               type="button"
               onClick={handleCloseAddressModal}
-              className="px-6 py-3 text-gray-800 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+              className="cursor-pointer px-6 py-3 text-gray-800 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="px-6 py-3 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors"
+              className="cursor-pointer px-6 py-3 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors"
             >
               Save Address
             </button>

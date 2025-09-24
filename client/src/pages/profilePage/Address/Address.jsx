@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAddressActions } from '../../../hooks/useAddressActions';
 import AddressModal from '../../../components/modules/address/AddressModal';
-import AddressCard from './components/AddressCart';
+import AddressCard from './components/AddressCard';
 import AddressDeleteConfirmationModal from '../../../components/modules/address/AddressDeleteConfirmationModal';
 
 const AddressPage = () => {
@@ -29,11 +29,10 @@ const AddressPage = () => {
   if (loading === 'pending') {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
-               {' '}
+        {' '}
         <p className="text-xl text-gray-700">
-                    Loading addresses...        {' '}
-        </p>
-             {' '}
+          Loading addresses...        {' '}
+        </p>{' '}
       </div>
     );
   }
@@ -41,45 +40,38 @@ const AddressPage = () => {
   if (loading === 'failed' && error) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
-                <p className="text-xl text-red-500">Error: {error}</p>     {' '}
+        <p className="text-xl text-red-500">Error: {error}</p>     {' '}
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 p-8 sm:p-12">
-           {' '}
-      <div className="max-w-4xl mx-auto">
-               {' '}
+    <div className="min-h-screen bg-gray-50 text-gray-800 py-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
         <div className="flex justify-between items-center mb-6">
-                   {' '}
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-                        Your Addresses          {' '}
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+            Your Addresses
           </h1>
-                   {' '}
+
           <button
             onClick={() => {
               setCurrentAddress(null); // Clear current address for 'Add' flow
               handleOpenAddressModal();
             }}
-            className="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition-colors"
+            className="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition-colors cursor-pointer"
           >
-                        Add New Address          {' '}
+            Add New Address
           </button>
-                 {' '}
         </div>
-               {' '}
+
         {userAddresses.length === 0 ? (
           <div className="text-center p-8 bg-white rounded-xl shadow-md">
-                       {' '}
             <p className="text-xl text-gray-500">
-                            You have no saved addresses yet.            {' '}
+              You have no saved addresses yet.
             </p>
-                     {' '}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                       {' '}
             {userAddresses.map(address => (
               <AddressCard
                 key={address._id}
@@ -87,14 +79,12 @@ const AddressPage = () => {
                 onEdit={handleOpenEditModal}
               />
             ))}
-                     {' '}
           </div>
         )}
-             {' '}
       </div>
-           {' '}
+
       {isAddressModalOpen && <AddressModal initialData={currentAddress} />}
-      {isDeleteAddressModalOpen && <AddressDeleteConfirmationModal />}   {' '}
+      {isDeleteAddressModalOpen && <AddressDeleteConfirmationModal />}
     </div>
   );
 };
