@@ -10,8 +10,8 @@ const ProfileLayout = () => {
   const sidebarOptions = [
     {
       id: 'profile',
-      path: 'dashboard',
-      title: 'Profile',
+      path: 'account',
+      title: 'Account',
       icon: 'user',
       color: 'text-yellow-400',
     },
