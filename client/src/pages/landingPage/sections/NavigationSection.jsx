@@ -19,7 +19,7 @@ const LandingNavigation = () => {
   };
 
   const profileMenuItems = [
-    { label: 'My Profile', path: '/profile', icon: 'user' },
+    { label: 'Account', path: '/profile/account', icon: 'user' },
     { label: 'Account Settings', path: '/profile/settings', icon: 'settings' },
     { label: 'My Orders', path: '/profile/orders', icon: 'package' },
     { label: 'Favorites', path: '/profile/favorites', icon: 'heart' },
