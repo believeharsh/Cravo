@@ -13,7 +13,7 @@ import HelpSupport from './pages/profilePage/Help-Support';
 import Orders from './pages/profilePage/Orders';
 import Payments from './pages/profilePage/Payment';
 import AddressPage from './pages/profilePage/Address/Address';
-import Dashboard from './pages/profilePage/Dashboard';
+import AccountPage from './pages/profilePage/Account/AccountPage';
 
 import ProfileLayout from './components/ProfileLayout';
 import NotFound from './components/NotFound';
@@ -83,7 +83,7 @@ function AppContent() {
       <Route element={<PrivateRoute />}>
         <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="account" element={<AccountPage />} />
           <Route path="orders" element={<Orders />} />
           <Route path="favorites" element={<FavoritesPage />} />
           <Route path="payments" element={<Payments />} />
