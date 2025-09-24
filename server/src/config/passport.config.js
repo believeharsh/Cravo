@@ -2,6 +2,7 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/user.model.js';
 import { createRefreshToken } from '../services/userTokens.js';
+import { createDefaultLists } from '../services/user.service.js';
 
 const configurePassport = () => {
   // --- Passport Configuration for Google OAuth ---
@@ -34,6 +35,10 @@ const configurePassport = () => {
             email: profile.emails[0].value,
             isVerified: true,
           }).save();
+
+          const listResult = await createDefaultLists(newUser._id);
+          newUser.isNewUser = true;
+          console.log(listResult);
 
           done(null, newUser);
         } catch (error) {

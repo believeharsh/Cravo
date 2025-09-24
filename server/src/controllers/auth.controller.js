@@ -9,8 +9,8 @@ import {
   createAccessToken,
   createRefreshToken,
 } from '../services/userTokens.js';
-import List from '../models/list.model.js';
-import RestaurantList from '../models/restaurantList.model.js';
+
+import { createDefaultLists } from '../services/user.service.js';
 
 const googleAuthCallback = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select('-password');
@@ -221,17 +221,7 @@ const registerUser = asyncHandler(async (req, res) => {
     verificationOTPExpires: otpExpires,
   });
 
-  const productList = await List.create({
-    owner: newUser._id,
-    name: 'My Products',
-    isDefault: true,
-  });
-
-  const restaurantList = await RestaurantList.create({
-    owner: newUser._id,
-    name: 'My Restaurants',
-    isDefault: true,
-  });
+  createDefaultLists(newUser._id);
 
   await sendVerificationOTP(email, `Your verification code is ${otp}`);
 
