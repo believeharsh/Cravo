@@ -1,145 +1,188 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Icon from './ui/Icon';
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
+} from 'lucide-react';
 
 const InternalLinkItem = ({ to, children }) => (
-  <Link
-    to={to}
-    className="block text-sm text-gray-500 hover:text-gray-800 transition"
+  <a
+    href={to}
+    className="text-gray-400 hover:text-yellow-500 transition-colors duration-200 text-sm font-medium"
   >
     {children}
-  </Link>
+  </a>
+);
+
+const ExternalLinkItem = ({ href, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-400 hover:text-yellow-500 transition-colors duration-200 text-sm font-medium"
+  >
+    {children}
+  </a>
+);
+
+const SocialIcon = ({ Icon, href, label }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center text-gray-300 hover:text-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-200"
+    aria-label={label}
+  >
+    <Icon size={18} />
+  </a>
 );
 
 const Footer = () => (
-  <footer className="bg-gray-900 text-gray-200 pt-14">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6">
-      {/* top grid */}
-      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-        {/* logo & tagline */}
-        <div className="col-span-2">
-          {/* swap the SVG/emoji with your real logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 sm:w-15 sm:h-15 rounded-2xl flex items-center justify-center">
-              <img src={`/assets/Cravo_logo.png`} alt="Cravo Logo" />{' '}
-              {/* Added alt text */}
+  <footer className="bg-gray-800 border-t border-gray-200">
+    {/* Main Footer Content */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+        {/* Brand Section */}
+        <div className="col-span-2 lg:col-span-2">
+          <div className="flex items-center space-x-1 mb-4">
+            <div className="w-18 h-18 rounded-xl  cursor-pointer">
+              <img src="/assets/Cravo_logo.png" alt="Cravo Logo" />
             </div>
-            <div className="w-10 sm:w-32 ">
+            <div className="w-32">
               <img
-                src={`/assets/Cravo_white_text_logo.png`}
+                src="/assets/Cravo_white_text_logo.png"
                 alt="Cravo Text Logo"
-              />{' '}
-              {/* Added alt text */}
+                className="h-10"
+              />
             </div>
           </div>
-          <p className="mt-4 text-sm text-gray-400 leading-relaxed">
+          <p className="text-gray-300 text-sm leading-relaxed mb-4 max-w-sm">
             Bringing your favourite dishes from the best restaurants straight to
             your doorstep.
           </p>
+
+          {/* Contact Info */}
+          <div className="space-y-2 text-sm text-gray-300">
+            <div className="flex items-center space-x-2">
+              <Phone size={14} className="text-yellow-500" />
+              <span>+1 (555) 123-4567</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Mail size={14} className="text-yellow-500" />
+              <span>my@cravoindia.com</span>
+            </div>
+            {/* <div className="flex items-center space-x-2">
+              <MapPin size={14} className="text-yellow-500" />
+              <span>, Your City</span>
+            </div> */}
+          </div>
         </div>
 
-        {/* link columns */}
-        <div>
-          <h4 className="font-semibold mb-3">Company</h4>
-          <InternalLinkItem to="/about-us">About Us</InternalLinkItem>
-          <InternalLinkItem to="/careers">Careers</InternalLinkItem>
-          <InternalLinkItem to="/blog">Blog</InternalLinkItem>
-          <InternalLinkItem to="/press">Press</InternalLinkItem>
+        {/* Company Links */}
+        <div className="space-y-3">
+          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+            Company
+          </h4>
+          <div className="space-y-2 flex flex-col text-300">
+            <InternalLinkItem to="/about-us">About Us</InternalLinkItem>
+            <InternalLinkItem to="/careers">Careers</InternalLinkItem>
+            <InternalLinkItem to="/team">Team</InternalLinkItem>
+            <InternalLinkItem to="/press">Press</InternalLinkItem>
+          </div>
         </div>
 
-        <div>
-          <h4 className="font-semibold mb-3">Legal</h4>
-          <InternalLinkItem to="/terms-of-service">
-            Terms&nbsp;of&nbsp;Service
-          </InternalLinkItem>
-          <InternalLinkItem to="/privacy-policy">
-            Privacy&nbsp;Policy
-          </InternalLinkItem>
-          <InternalLinkItem to="/cookie-policy">
-            Cookie&nbsp;Policy
-          </InternalLinkItem>
-          <InternalLinkItem to="/refund-policy">
-            Refund&nbsp;Policy
-          </InternalLinkItem>
+        {/* Services Links */}
+        <div className="space-y-3">
+          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+            Services
+          </h4>
+          <div className="space-y-2 flex flex-col">
+            <InternalLinkItem to="/cravo-one">Cravo One</InternalLinkItem>
+            <InternalLinkItem to="/cravo-instamart">Instamart</InternalLinkItem>
+            <InternalLinkItem to="/cravo-dineout">Dineout</InternalLinkItem>
+            <InternalLinkItem to="/cravo-genie">Genie</InternalLinkItem>
+          </div>
         </div>
 
-        <div>
-          <h4 className="font-semibold mb-3">Available</h4>
-          <a
-            href="https://apps.apple.com/us/app/cravo-ios" // Replace with actual app store links
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-sm text-gray-500 hover:text-gray-800 transition"
-          >
-            iOS&nbsp;App
-          </a>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.cravo.android"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-sm text-gray-500 hover:text-gray-800 transition"
-          >
-            Android&nbsp;App
-          </a>
-          <InternalLinkItem to="/">Web&nbsp;Ordering</InternalLinkItem>
+        {/* Partners Links */}
+        <div className="space-y-3">
+          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+            Partners
+          </h4>
+          <div className="space-y-2 flex flex-col">
+            <InternalLinkItem to="/partner-with-us">
+              Restaurants
+            </InternalLinkItem>
+            <InternalLinkItem to="/for-riders">
+              Delivery Partners
+            </InternalLinkItem>
+            <InternalLinkItem to="/for-businesses">Businesses</InternalLinkItem>
+            <InternalLinkItem to="/cravo-corporate">Corporate</InternalLinkItem>
+          </div>
+        </div>
+
+        {/* Support & Apps */}
+        <div className="space-y-3">
+          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+            Support
+          </h4>
+          <div className="space-y-2 flex flex-col">
+            <InternalLinkItem to="/contact-us">Help Center</InternalLinkItem>
+            <InternalLinkItem to="/privacy-policy">Privacy</InternalLinkItem>
+            <InternalLinkItem to="/terms-of-service">Terms</InternalLinkItem>
+            <ExternalLinkItem href="https://apps.apple.com/us/app/cravo-ios">
+              iOS App
+            </ExternalLinkItem>
+            <ExternalLinkItem href="https://play.google.com/store/apps/details?id=com.cravo.android">
+              Android App
+            </ExternalLinkItem>
+          </div>
         </div>
       </div>
+    </div>
 
-      {/* divider */}
-      <div className="border-t border-gray-800 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between">
-        {/* social icons */}
-        <div className="flex space-x-4 mb-6 sm:mb-0">
-          <a
-            href="https://www.facebook.com/yourcravoapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
-            aria-label="Facebook"
-          >
-            <Icon name={'facebook'} size={18} />
-          </a>
-          <a
-            href="https://www.instagram.com/yourcravoapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
-            aria-label="Instagram"
-          >
-            <Icon name={'instagram'} size={18} />
-          </a>
-          <a
-            href="https://twitter.com/yourcravoapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
-            aria-label="Twitter"
-          >
-            <Icon name={'twitter'} size={18} />
-          </a>
-          <a
-            href="https://www.linkedin.com/company/yourcravoapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
-            aria-label="LinkedIn"
-          >
-            <Icon name={'linkedin'} size={18} />
-          </a>
-          <a
-            href="https://www.youtube.com/yourcravoapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
-            aria-label="YouTube"
-          >
-            <Icon name={'youtube'} size={18} />
-          </a>
+    {/* Bottom Bar */}
+    <div className="border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+          {/* Social Icons */}
+          <div className="flex items-center space-x-3">
+            <span className="text-sm text-gray-300 mr-2">Follow us:</span>
+            <SocialIcon
+              Icon={Facebook}
+              href="https://facebook.com/cravo"
+              label="Facebook"
+            />
+            <SocialIcon
+              Icon={Twitter}
+              href="https://twitter.com/cravo"
+              label="Twitter"
+            />
+            <SocialIcon
+              Icon={Instagram}
+              href="https://instagram.com/cravo"
+              label="Instagram"
+            />
+            <SocialIcon
+              Icon={Linkedin}
+              href="https://linkedin.com/company/cravo"
+              label="LinkedIn"
+            />
+          </div>
+
+          {/* Copyright */}
+          <div className="flex items-center space-x-4 text-sm text-gray-300">
+            <span>© {new Date().getFullYear()} Cravo Limited</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline">
+              Made with ❤️ for food lovers
+            </span>
+          </div>
         </div>
-
-        {/* copyright */}
-        <p className="text-xs text-gray-500">
-          © {new Date().getFullYear()} FoodZone Inc. All rights reserved.
-        </p>
       </div>
     </div>
   </footer>
