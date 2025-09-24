@@ -63,7 +63,7 @@ const LandingNavigation = () => {
           to="/"
           className="flex items-center space-x-3 sm:space-x-4 flex-shrink-0"
         >
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl border-2 border-white flex items-center justify-center overflow-hidden">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl border-2 border-white flex items-center justify-center overflow-hidden">
             <img
               src="/assets/Cravo_logo.png"
               alt="Cravo Logo"
