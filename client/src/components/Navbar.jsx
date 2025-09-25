@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
-import Icon from './ui/Icon';
 import { openAuthSidebar } from '../features/ui/uiSlice';
-import { useDispatch } from 'react-redux';
+import Icon from './ui/Icon';
 
 // The Button component is self-contained and doesn't need changes.
 const Button = ({
@@ -85,13 +84,32 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [userLocation, setUserLocation] = useState('Indore, MP, India');
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const profileDropdownRef = useRef(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated, user, role, token } = useSelector(
     state => state.auth
   );
 
   const cartCount = useSelector(selectCartTotalQuantity);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target)
+      ) {
+        setIsProfileDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [profileDropdownRef]);
 
   const navItems = useMemo(() => {
     const baseNavItems = [
@@ -132,7 +150,8 @@ const Navbar = ({ showSearch = true, visibilty }) => {
         id: 'profile',
         label: 'Profile',
         Iconname: 'user',
-        path: '/profile',
+        path: '/profile/account', // Path for mobile
+        action: () => setIsProfileDropdownOpen(prev => !prev), // Action for desktop
         showOnMobile: true,
       });
     } else {
@@ -146,7 +165,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
     }
 
     return baseNavItems;
-  }, [isAuthenticated, cartCount]);
+  }, [isAuthenticated, cartCount, dispatch]);
 
   const handleSearchSubmit = e => {
     e.preventDefault();
@@ -221,17 +240,134 @@ const Navbar = ({ showSearch = true, visibilty }) => {
             </div>
 
             <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
-              {navItems.map(item =>
-                item.action ? (
-                  <button
-                    key={item.id}
-                    onClick={item.action}
-                    className="relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
-                  >
-                    <Icon name={item.Iconname} size={18} />
-                    <span className="hidden xl:block">{item.label}</span>
-                  </button>
-                ) : (
+              {navItems.map(item => {
+                // Special case for profile with dropdown
+                if (item.id === 'profile') {
+                  return (
+                    <div
+                      key={item.id}
+                      className="relative"
+                      ref={profileDropdownRef}
+                    >
+                      <button
+                        onClick={item.action}
+                        className={`relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
+                          isProfileDropdownOpen
+                            ? 'bg-yellow-50 text-yellow-600'
+                            : 'text-gray-700 hover:text-gray-900'
+                        }`}
+                      >
+                        <Icon name={item.Iconname} size={18} />
+                        <span className="hidden xl:block">{item.label}</span>
+                        <Icon
+                          name="chevron-down"
+                          size={18}
+                          className={`transition-transform duration-200 ${
+                            isProfileDropdownOpen ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      {isProfileDropdownOpen && (
+                        <div className="absolute top-full mt-2 right-0 w-56 bg-white rounded-sm shadow-lg z-50">
+                          <div className="py-1">
+                            {/* Account */}
+                            <Link
+                              to="/profile/account"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsProfileDropdownOpen(false)}
+                            >
+                              <Icon name="user" size={16} className="mr-2" />
+                              Account
+                            </Link>
+
+                            {/* Settings */}
+                            <Link
+                              to="/profile/settings"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsProfileDropdownOpen(false)}
+                            >
+                              <Icon
+                                name="settings"
+                                size={16}
+                                className="mr-2"
+                              />
+                              Settings
+                            </Link>
+
+                            {/* Favorites */}
+                            <Link
+                              to="/profile/favorites"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsProfileDropdownOpen(false)}
+                            >
+                              <Icon name="heart" size={16} className="mr-2" />
+                              Favorites
+                            </Link>
+
+                            {/* Orders */}
+                            <Link
+                              to="/profile/orders"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsProfileDropdownOpen(false)}
+                            >
+                              <Icon
+                                name="shopping-bag"
+                                size={16}
+                                className="mr-2"
+                              />
+                              Orders
+                            </Link>
+
+                            {/* Help & Support */}
+                            <Link
+                              to="/help"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsProfileDropdownOpen(false)}
+                            >
+                              <Icon
+                                name="help-circle"
+                                size={16}
+                                className="mr-2"
+                              />
+                              Help & Support
+                            </Link>
+
+                            {/* Logout */}
+                            <button
+                              onClick={() => {
+                                setIsProfileDropdownOpen(false);
+                                // 🔴 Replace with your actual logout function
+                                dispatch({ type: 'auth/logout' });
+                                navigate('/');
+                              }}
+                              className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                            >
+                              <Icon name="log-out" size={16} className="mr-2" />
+                              Logout
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                // Normal button for sign-in
+                if (item.action) {
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={item.action}
+                      className="relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
+                    >
+                      <Icon name={item.Iconname} size={18} />
+                      <span className="hidden xl:block">{item.label}</span>
+                    </button>
+                  );
+                }
+
+                // Normal NavLink
+                return (
                   <NavLink
                     key={item.id}
                     to={item.path}
@@ -256,8 +392,8 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                       </span>
                     )}
                   </NavLink>
-                )
-              )}
+                );
+              })}
             </div>
 
             <div className="sm:hidden flex items-center space-x-2 flex-shrink-0">
@@ -320,7 +456,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               {navItems
                 .filter(item => item.showOnMobile)
                 .map(item =>
-                  item.action ? (
+                  item.action && item.id !== 'profile' ? (
                     <button
                       key={item.id}
                       onClick={() => {
