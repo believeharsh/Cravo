@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import CategoryHeader from './sections/CategoryHeader';
 import FilterAndSortBar from './sections/FilterAndSortBar';
 import RestaurantList from './sections/RestaurantList';
@@ -7,11 +8,14 @@ import ExploreMore from './sections/ExploreMore';
 import { useParams, useSearchParams } from 'react-router-dom';
 import axiosInstance from '../../api/axiosInstance';
 import { API } from '../../config/api';
+import { useSelector } from 'react-redux';
 
 const CategoryResultPage = () => {
   const { categorySlug } = useParams();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const data = useSelector(state => state.location);
+  const cityName = data.city;
 
   // State for API data
   const [restaurants, setRestaurants] = useState([]);
@@ -59,7 +63,7 @@ const CategoryResultPage = () => {
       const apiUrl = `${API.RESTAURANTS.RESTAURANTS_LIST}?categoryName=${categorySlug}&longitude=${longitude}&latitude=${latitude}&limit=${limit}&page=${pageToFetch}`;
 
       const response = await axiosInstance.get(apiUrl);
-      console.log('response in the category Result page', response);
+
       const { restaurants, totalResults, currentPage, totalPages } =
         response.data.data;
       // Handle loading more pages or fetching the first page
@@ -123,7 +127,8 @@ const CategoryResultPage = () => {
           categoryName={categorySlug}
           categoryDescription={`Showing restaurants for ${categorySlug}`}
           restaurantCount={totalResults}
-          userLocation={`Lat: ${userLat}, Lng: ${userLng}`}
+          // userLocation={`Lat: ${userLat}, Lng: ${userLng}`}
+          cityName={cityName}
         />
 
         <FilterAndSortBar
@@ -161,6 +166,7 @@ const CategoryResultPage = () => {
 
         <ExploreMore />
       </div>
+      <Footer />
     </div>
   );
 };
