@@ -1,8 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Icon from '../../../components/ui/Icon';
+
+// Mock Icon component for demo
+const Icon = ({ name, size = 16, className = '' }) => {
+  const icons = {
+    zap: '⚡',
+    award: '🏆',
+    'trending-up': '📈',
+    'chevron-down': '▼',
+    filter: '🔽',
+    check: '✓',
+  };
+  return (
+    <span className={className} style={{ fontSize: size }}>
+      {icons[name] || '?'}
+    </span>
+  );
+};
 
 const FilterAndSortBar = ({
-  // These props are what the parent CategoryResultPage will manage and pass down
   selectedSortBy,
   setSelectedSortBy,
   quickFilters,
@@ -117,12 +132,200 @@ const FilterAndSortBar = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 mb-6">
-      <div className="flex flex-wrap items-center gap-3">
+    <div className="bg-white rounded-2xl p-3 md:p-4 shadow-sm border border-gray-200 mb-6">
+      {/* Mobile Layout */}
+      <div className="block md:hidden">
+        {/* Top Row - Sort and Filter buttons */}
+        <div className="flex items-center justify-between mb-3">
+          {/* Sort By Dropdown */}
+          <div className="relative flex-1 mr-2" ref={sortByRef}>
+            <button
+              onClick={() => setIsSortByOpen(!isSortByOpen)}
+              className="cursor-pointer w-full flex items-center justify-between px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium text-gray-700 transition-colors duration-200 text-sm"
+            >
+              <span>Sort By</span>
+              <Icon
+                name="chevron-down"
+                size={14}
+                className={`transform transition-transform ${
+                  isSortByOpen ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {isSortByOpen && (
+              <div className="absolute left-0 top-full  w-full bg-white border border-gray-200 rounded-xl z-20 ">
+                <div className="p-1 border-b border-gray-100">
+                  <h3 className="font-bold text-gray-800 text-sm">Sort By</h3>
+                </div>
+                <div className="">
+                  {sortOptions.map(option => (
+                    <button
+                      key={option.id}
+                      onClick={() => {
+                        setSelectedSortBy(option.id);
+                        setIsSortByOpen(false);
+                      }}
+                      className="w-full flex items-center justify-between hover:bg-gray-50 rounded-lg transition-colors text-left cursor-pointer"
+                    >
+                      <div>
+                        <p className="font-medium text-gray-800 text-xs">
+                          {option.label}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {option.description}
+                        </p>
+                      </div>
+                      {selectedSortBy === option.id && (
+                        <Icon
+                          name="check"
+                          size={14}
+                          className="text-yellow-400"
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Filter Dropdown */}
+          <div className="relative flex-1 ml-2" ref={filterRef}>
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium text-gray-700 transition-colors duration-200 text-sm"
+            >
+              <Icon name="filter" size={14} />
+              <span>Filter</span>
+              {getActiveFiltersCount() > 0 && (
+                <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                  {getActiveFiltersCount()}
+                </span>
+              )}
+            </button>
+
+            {isFilterOpen && (
+              <div
+                className="absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-lg z-20"
+                style={{ maxWidth: '90vw' }}
+              >
+                <div className="flex items-center justify-between p-3 border-b border-gray-100">
+                  <h3 className="font-bold text-gray-800 text-sm">Filters</h3>
+                  <button
+                    onClick={clearAllFilters}
+                    className="text-yellow-400 hover:text-yellow-500 font-medium text-xs"
+                  >
+                    Clear All
+                  </button>
+                </div>
+
+                <div className="max-h-72 overflow-y-auto">
+                  {Object.entries(filterOptions).map(([category, options]) => (
+                    <div
+                      key={category}
+                      className="p-3 border-b border-gray-100 last:border-b-0"
+                    >
+                      <h4 className="font-semibold text-gray-800 mb-1 capitalize text-sm">
+                        {category === 'deliveryTime'
+                          ? 'Delivery Time'
+                          : category}
+                      </h4>
+                      <div className="">
+                        {options.map(option => (
+                          <label
+                            key={option.id}
+                            className="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-1 rounded-lg"
+                          >
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                checked={selectedFilters[category].includes(
+                                  option.id
+                                )}
+                                onChange={() =>
+                                  handleFilterChange(category, option.id)
+                                }
+                                className="w-3 h-3 text-yellow-400 border-gray-300 rounded focus:ring-yellow-400"
+                              />
+                              <span className="text-gray-700 text-sm">
+                                {option.label}
+                              </span>
+                            </div>
+                            <span className="text-xs text-gray-500">
+                              ({option.count})
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="p-3 border-t border-gray-100">
+                  <button
+                    onClick={() => setIsFilterOpen(false)}
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-2 rounded-lg transition-colors duration-200 text-sm"
+                  >
+                    Apply Filters
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Bottom Row - Quick Filter buttons (scrollable) */}
+        <div className="overflow-x-auto">
+          <div
+            className="flex space-x-2 pb-1"
+            style={{ minWidth: 'max-content' }}
+          >
+            <button
+              onClick={() => handleQuickFilter('tenMinDelivery')}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-200 text-sm whitespace-nowrap ${
+                quickFilters.tenMinDelivery
+                  ? 'bg-yellow-400 text-gray-800'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Icon name="zap" size={14} />
+              <span>10 Min</span>
+            </button>
+
+            <button
+              onClick={() => handleQuickFilter('topRated')}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-200 text-sm whitespace-nowrap ${
+                quickFilters.topRated
+                  ? 'bg-yellow-400 text-gray-800'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Icon name="award" size={14} />
+              <span>Top Rated</span>
+            </button>
+
+            <button
+              onClick={() => handleQuickFilter('offers')}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-200 text-sm whitespace-nowrap ${
+                quickFilters.offers
+                  ? 'bg-yellow-400 text-gray-800'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Icon name="trending-up" size={14} />
+              <span>Offers</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout (md and above) */}
+      <div className="hidden md:flex flex-wrap items-center gap-3">
         {/* Quick Filter Buttons */}
         <button
           onClick={() => handleQuickFilter('tenMinDelivery')}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+          className={`cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
             quickFilters.tenMinDelivery
               ? 'bg-yellow-400 text-gray-800'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -134,7 +337,7 @@ const FilterAndSortBar = ({
 
         <button
           onClick={() => handleQuickFilter('topRated')}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+          className={`cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
             quickFilters.topRated
               ? 'bg-yellow-400 text-gray-800'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -146,7 +349,7 @@ const FilterAndSortBar = ({
 
         <button
           onClick={() => handleQuickFilter('offers')}
-          className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+          className={`cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
             quickFilters.offers
               ? 'bg-yellow-400 text-gray-800'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -162,7 +365,7 @@ const FilterAndSortBar = ({
         <div className="relative" ref={sortByRef}>
           <button
             onClick={() => setIsSortByOpen(!isSortByOpen)}
-            className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-700 transition-colors duration-200"
+            className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-700 transition-colors duration-200"
           >
             <span>Sort By</span>
             <Icon
@@ -187,7 +390,7 @@ const FilterAndSortBar = ({
                       setSelectedSortBy(option.id);
                       setIsSortByOpen(false);
                     }}
-                    className="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition-colors"
+                    className="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer"
                   >
                     <div className="text-left">
                       <p className="font-medium text-gray-800">
@@ -215,7 +418,7 @@ const FilterAndSortBar = ({
         <div className="relative" ref={filterRef}>
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-700 transition-colors duration-200"
+            className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-700 transition-colors duration-200"
           >
             <Icon name="filter" size={16} />
             <span>Filter</span>

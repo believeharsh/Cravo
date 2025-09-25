@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CategoryHeader from './sections/CategoryHeader';
@@ -38,6 +38,15 @@ const CategoryResultPage = () => {
     topRated: false,
     offers: false,
   });
+
+  const navbarRef = useRef(null);
+  const filterBarRef = useRef(null);
+  const restaurantSectionRef = useRef(null);
+
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [isFilterBarSticky, setIsFilterBarSticky] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [navbarHeight, setNavbarHeight] = useState(0);
 
   // Function to fetch restaurants based on current URL parameters
   const fetchRestaurants = async (pageToFetch = 1) => {
@@ -86,6 +95,67 @@ const CategoryResultPage = () => {
     fetchRestaurants();
   }, [categorySlug, searchParams]);
 
+  useEffect(() => {
+    // Get navbar height on mount
+    if (navbarRef.current) {
+      setNavbarHeight(navbarRef.current.offsetHeight);
+    }
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+
+      // Get restaurant section position
+      const restaurantSection = restaurantSectionRef.current;
+      const filterBar = filterBarRef.current;
+
+      if (restaurantSection && filterBar) {
+        const restaurantSectionTop = restaurantSection.offsetTop;
+        const filterBarHeight = filterBar.offsetHeight;
+
+        // Calculate when to hide navbar and make filter bar sticky
+        const triggerPoint =
+          restaurantSectionTop - navbarHeight - filterBarHeight;
+
+        // Hide navbar when scrolling down past trigger point
+        if (currentScrollY > triggerPoint && scrollDirection === 'down') {
+          setIsNavbarVisible(false);
+          setIsFilterBarSticky(true);
+        }
+        // Show navbar when scrolling up or above trigger point
+        else if (
+          currentScrollY <= triggerPoint ||
+          (scrollDirection === 'up' && currentScrollY < triggerPoint + 100)
+        ) {
+          setIsNavbarVisible(true);
+          setIsFilterBarSticky(false);
+        }
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    // Throttled scroll handler for better performance
+    let ticking = false;
+    const throttledScrollHandler = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledScrollHandler, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', throttledScrollHandler);
+    };
+  }, [lastScrollY, navbarHeight]);
+
   // Handler for "Load More" button
   const handleLoadMore = () => {
     const nextPage = currentPage + 1;
@@ -95,10 +165,6 @@ const CategoryResultPage = () => {
     });
     fetchRestaurants(nextPage);
   };
-
-  // Get current values for rendering from searchParams
-  const userLat = searchParams.get('lat') || 'N/A';
-  const userLng = searchParams.get('lng') || 'N/A';
 
   if (loading && restaurants.length === 0) {
     return (
@@ -119,52 +185,94 @@ const CategoryResultPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-helvetica">
-      <Navbar showSearch={true} currentPage="search" cartCount={2} />
+    <div className="min-h-screen  font-helvetica">
+      <div
+        ref={navbarRef}
+        className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${
+          isNavbarVisible
+            ? 'transform translate-y-0'
+            : 'transform -translate-y-full'
+        }`}
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(10px)',
+        }}
+      >
+        <Navbar showSearch={true} currentPage="search" cartCount={2} />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <CategoryHeader
-          categoryName={categorySlug}
-          categoryDescription={`Showing restaurants for ${categorySlug}`}
-          restaurantCount={totalResults}
-          // userLocation={`Lat: ${userLat}, Lng: ${userLng}`}
-          cityName={cityName}
-        />
+      <div className="pt-16">
+        {/* Adjust based on your navbar height */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <CategoryHeader
+            categoryName={categorySlug}
+            categoryDescription={`Showing restaurants for ${categorySlug}`}
+            restaurantCount={totalResults}
+            cityName={cityName}
+          />
 
-        <FilterAndSortBar
-          selectedSortBy={selectedSortBy}
-          setSelectedSortBy={setSelectedSortBy}
-          quickFilters={quickFilters}
-          setQuickFilters={setQuickFilters}
-          selectedFilters={selectedFilters}
-          setSelectedFilters={setSelectedFilters}
-        />
-
-        {restaurants.length > 0 ? (
-          <RestaurantList restaurants={restaurants} isLoading={loading} />
-        ) : (
-          <p className="text-center text-gray-600 text-lg mt-8">
-            No restaurants found for "{categorySlug}" in this area.
-          </p>
-        )}
-
-        {currentPage < totalPages && (
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={handleLoadMore}
-              disabled={loading}
-              className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          {/* REPLACE YOUR FilterAndSortBar JSX WITH THIS */}
+          <div
+            ref={filterBarRef}
+            className={`transition-all duration-300 ease-in-out ${
+              isFilterBarSticky
+                ? 'fixed top-0 left-0 right-0 z-40  bg-white'
+                : 'relative bg-transparent'
+            }`}
+            style={
+              isFilterBarSticky ? { paddingTop: '', paddingBottom: '' } : {}
+            }
+          >
+            <div
+              className={`${isFilterBarSticky ? 'max-w-7xl mx-auto px-4 sm:px-6' : ''}`}
             >
-              {loading ? 'Loading More...' : 'Load More'}
-            </button>
+              <FilterAndSortBar
+                selectedSortBy={selectedSortBy}
+                setSelectedSortBy={setSelectedSortBy}
+                quickFilters={quickFilters}
+                setQuickFilters={setQuickFilters}
+                selectedFilters={selectedFilters}
+                setSelectedFilters={setSelectedFilters}
+              />
+            </div>
           </div>
-        )}
 
-        {error && restaurants.length > 0 && (
-          <p className="text-center text-red-500 text-sm mt-4">{error}</p>
-        )}
+          <h3 className="text-xl font-bold">Restaurant To Explore</h3>
+          {/* WRAP YOUR RESTAURANT SECTION WITH THIS REF AND PADDING */}
+          <div
+            ref={restaurantSectionRef}
+            className={`transition-all duration-300 ease-in-out ${
+              isFilterBarSticky ? 'pt-20' : 'pt-0'
+            }`}
+          >
+            {/* YOUR EXISTING RESTAURANT LIST AND LOAD MORE CODE STAYS THE SAME */}
+            {restaurants.length > 0 ? (
+              <RestaurantList restaurants={restaurants} isLoading={loading} />
+            ) : (
+              <p className="text-center text-gray-600 text-lg mt-8">
+                No restaurants found for "{categorySlug}" in this area.
+              </p>
+            )}
 
-        <ExploreMore />
+            {currentPage < totalPages && (
+              <div className="flex justify-center mt-8">
+                <button
+                  onClick={handleLoadMore}
+                  disabled={loading}
+                  className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Loading More...' : 'Load More'}
+                </button>
+              </div>
+            )}
+
+            {error && restaurants.length > 0 && (
+              <p className="text-center text-red-500 text-sm mt-4">{error}</p>
+            )}
+          </div>
+
+          <ExploreMore />
+        </div>
       </div>
       <Footer />
     </div>
