@@ -29,7 +29,6 @@
 // src/app/store.js (Cleaned Up)
 
 import { configureStore } from '@reduxjs/toolkit';
-// Import only the default reducer exports (no named action imports here!)
 import authReducer from '../features/auth/authSlice';
 import landingPageReducer from '../features/landing/landingSlice';
 import locationReducer from '../features/location/locationSlice';
@@ -38,6 +37,7 @@ import wishlistReducer from '../features/wishList/wishListSlice';
 import uiReducer from '../features/ui/uiSlice';
 import addressReducer from '../features/address/addressSlice';
 import categoryResultReducer from '../features/categoryResult/categoryResultSlice';
+import restaurantMenuReducer from '../features/restaurantMenu/restaurantMenuSlice';
 
 // Import the default axiosInstance (which no longer imports the store)
 import axiosInstance from '../api/axiosInstance';
@@ -52,6 +52,7 @@ const store = configureStore({
     wishlist: wishlistReducer,
     address: addressReducer,
     categoryResult: categoryResultReducer,
+    restaurantMenu: restaurantMenuReducer,
   },
 });
 
