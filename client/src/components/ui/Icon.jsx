@@ -103,6 +103,9 @@ import {
   BetweenHorizontalEnd,
   ChefHat,
   Grid3x2,
+  Smartphone,
+  LogOutIcon,
+  LogInIcon,
 } from 'lucide-react';
 
 // creating a map with icons names properties and adding actual Lucide React Icon to them
@@ -214,6 +217,9 @@ const iconMap = {
   'between-horizontal-end': BetweenHorizontalEnd,
   'chef-hat': ChefHat,
   grid3x2: Grid3x2,
+  smartphone: Smartphone,
+  'log-out': LogOutIcon,
+  'log-in': LogInIcon,
 };
 
 // Main Icon component that renders the correct icon based on props.
