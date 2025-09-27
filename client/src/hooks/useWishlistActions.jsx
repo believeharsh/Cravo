@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   removeItemFromWishlist,
   addItemToWishlist,
-  createNewProductList,
+  createNewWishList,
   TransferProductFromList,
 } from '../features/wishList/wishListSlice';
 import CustomToast from '../components/CustomToast';
@@ -56,9 +56,11 @@ export const useFavoriteActions = () => {
     listName,
   }) => {
     try {
-      await dispatch(
+      console.log(listId, itemId, itemType, itemName, listName);
+      const response = await dispatch(
         removeItemFromWishlist({ listId, itemId, itemType, itemName })
       ).unwrap();
+      console.log(response);
 
       showStackedToast(
         CustomToast,
@@ -76,8 +78,11 @@ export const useFavoriteActions = () => {
     }
   };
 
-  const handleCreateNewProductList = async ({ listName }) => {
-    dispatch(createNewProductList({ listName }));
+  const handleCreateNewWishList = async ({ listName, list_type }) => {
+    const response = dispatch(
+      createNewWishList({ listName, list_type })
+    ).unwrap();
+    console.log('response in the useWishlist Actions', response);
   };
 
   const handleTransferProductFromList = async ({
@@ -107,7 +112,7 @@ export const useFavoriteActions = () => {
     loading,
     handleAddItemToWishlist,
     handleRemoveItemFromWishlist,
-    handleCreateNewProductList,
+    handleCreateNewWishList,
     handleTransferProductFromList,
   };
 };
