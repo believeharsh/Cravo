@@ -4,11 +4,20 @@ import ProductGridCard from '../components/ProductGridCard';
 import RestaurantGridCard from '../components/RestaurantGridCard';
 import ProductListCard from '../components/ProductListCard';
 import RestaurantListCard from '../components/RestaurantListCard';
+import RestaurantCard from '../../../../components/shared/RestaurantCard';
 
 const ItemsView = ({ selectedList, viewMode, setViewMode }) => {
-  const items = selectedList.items;
+  const productListItems = selectedList.items;
+  const restaurantListItems = selectedList.restaurants;
 
-  if (!items || items.length === 0) {
+  // Determine the actual list of items based on the list_type
+  const activeItems =
+    selectedList.list_type === 'productList'
+      ? productListItems
+      : restaurantListItems;
+
+  // Now, check only the active list
+  if (!activeItems || activeItems.length === 0) {
     return (
       <div className="text-center text-gray-500 font-medium p-8">
         This list is currently empty.
@@ -24,9 +33,9 @@ const ItemsView = ({ selectedList, viewMode, setViewMode }) => {
         : RestaurantGridCard;
   } else {
     CardComponent =
-      selectedList.list_type === 'productList'
-        ? ProductListCard
-        : RestaurantListCard;
+      selectedList.list_type === 'restaurantList'
+        ? RestaurantListCard
+        : ProductListCard;
   }
 
   const listContainerClass =
@@ -38,10 +47,9 @@ const ItemsView = ({ selectedList, viewMode, setViewMode }) => {
     <>
       <div className="flex items-center justify-between bg-white rounded-2xl shadow-lg border border-cream p-4">
         <p className="text-sm text-medium-gray">
-          Showing {items.length || 0}{' '}
           {selectedList.list_type === 'productList'
-            ? 'products'
-            : 'restaurants'}
+            ? `Showing ${productListItems.length || 0} items`
+            : `Showing ${restaurantListItems.length || 0} restaurants`}
         </p>
         <div className="flex gap-2">
           <button
@@ -59,14 +67,23 @@ const ItemsView = ({ selectedList, viewMode, setViewMode }) => {
         </div>
       </div>
       <div className={listContainerClass}>
-        {items.map(item => (
-          <CardComponent
-            key={item._id}
-            item={item}
-            list={selectedList}
-            listId={selectedList._id}
-          />
-        ))}
+        {selectedList.list_type === 'productList'
+          ? productListItems.map(item => (
+              <CardComponent
+                key={item._id}
+                item={item}
+                list={selectedList}
+                listId={selectedList._id}
+              />
+            ))
+          : restaurantListItems.map(item => (
+              <CardComponent
+                key={item._id}
+                item={item}
+                list={selectedList}
+                listId={selectedList}
+              />
+            ))}
       </div>
     </>
   );
