@@ -120,9 +120,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('User is authenticated, fetching initial data.');
-
-      // Create an array of thunk dispatches
+      // Creating an array of thunk dispatches
       const fetches = [
         dispatch(fetchAllWishlists()),
         dispatch(fetchUserCart()),

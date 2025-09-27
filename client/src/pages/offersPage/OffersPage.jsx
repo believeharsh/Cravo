@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import Footer from '../../components/Footer';
-import Icon from '../../components/ui/Icon'; // Adjust path as needed
+import Icon from '../../components/ui/Icon';
 
 const OffersPage = () => {
-  /* ────────────────────────── state ────────────────────────── */
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedOfferType, setSelectedOfferType] = useState('all');
   const [copiedId, setCopiedId] = useState(null);
 
-  /* ────────────────────────── data ─────────────────────────── */
   const categories = [
     { key: 'all', label: 'All Offers', icon: 'tag' },
     { key: 'pizza', label: 'Pizza', icon: 'pizza' },

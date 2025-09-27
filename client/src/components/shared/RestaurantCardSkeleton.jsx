@@ -1,4 +1,4 @@
-const SkeletonCard = ({ width }) => (
+const RestaurantSkeletonCard = ({ width }) => (
   <div className="flex-shrink-0 px-2" style={{ width }}>
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 w-full flex flex-col overflow-hidden animate-pulse">
       {/* Skeleton Image */}
@@ -35,4 +35,4 @@ const SkeletonCard = ({ width }) => (
   </div>
 );
 
-export default SkeletonCard;
+export default RestaurantSkeletonCard;

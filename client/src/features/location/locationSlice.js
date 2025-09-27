@@ -4,9 +4,7 @@ export const fetchUserLocation = createAsyncThunk(
   'location/fetchUserLocation',
   async (_, { rejectWithValue }) => {
     try {
-      // Use a Promise wrapper for the callback-based Geolocation API
       const position = await new Promise((resolve, reject) => {
-        // Options for high accuracy, a timeout, and no cached data
         navigator.geolocation.getCurrentPosition(resolve, reject, {
           enableHighAccuracy: true,
           timeout: 5000,
@@ -14,13 +12,11 @@ export const fetchUserLocation = createAsyncThunk(
         });
       });
 
-      // On success, return an object containing the coordinates
       return {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
     } catch (error) {
-      // On error (e.g., permission denied), use rejectWithValue to return a specific payload
       return rejectWithValue(error.message);
     }
   }

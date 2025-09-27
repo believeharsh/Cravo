@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import Icon from '../../../components/ui/Icon';
 import { Link } from 'react-router-dom';
 
-// Skeleton Component for the loading state (No changes needed)
 const RestaurantCardSkeleton = ({ width }) => (
   <div
     className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col p-4 animate-pulse"
@@ -33,7 +32,6 @@ const RestaurantCardSkeleton = ({ width }) => (
   </div>
 );
 
-// Actual Restaurant Card Component (No changes needed)
 const RestaurantCard = ({ restaurant }) => (
   <div
     className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out

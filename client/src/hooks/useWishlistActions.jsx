@@ -60,7 +60,6 @@ export const useFavoriteActions = () => {
       const response = await dispatch(
         removeItemFromWishlist({ listId, itemId, itemType, itemName })
       ).unwrap();
-      console.log(response);
 
       showStackedToast(
         CustomToast,
@@ -73,16 +72,13 @@ export const useFavoriteActions = () => {
         },
         { duration: 6000 }
       );
-    } catch (error) {
-      // You can also use the stacked toast for errors if needed
-    }
+    } catch (error) {}
   };
 
   const handleCreateNewWishList = async ({ listName, list_type }) => {
     const response = dispatch(
       createNewWishList({ listName, list_type })
     ).unwrap();
-    console.log('response in the useWishlist Actions', response);
   };
 
   const handleTransferProductFromList = async ({

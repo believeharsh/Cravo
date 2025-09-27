@@ -4,7 +4,6 @@ const CategoryHeader = ({
   categoryName,
   categoryDescription,
   restaurantCount,
-  // userLocation,
   cityName,
 }) => {
   return (

@@ -24,7 +24,6 @@ const areCustomizationsEqual = (arr1, arr2) => {
   });
 };
 
-// The initial state now mirrors the exact structure of the data coming from the backend.
 const initialState = {
   items: [],
   totalPrice: 0,
@@ -39,7 +38,6 @@ export const fetchUserCart = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get(API.CART.GET_USER_CART);
-      // We return the `data` object which contains the items, totalPrice, etc.
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -48,7 +46,6 @@ export const fetchUserCart = createAsyncThunk(
 );
 
 // Async thunk to add an item to the cart.
-// The backend should ideally return the complete updated cart after the operation.
 export const addItemToCart = createAsyncThunk(
   'cart/addItemToCart',
   async ({ productId, quantity, customizations }, thunkAPI) => {
@@ -58,7 +55,6 @@ export const addItemToCart = createAsyncThunk(
         quantity,
         customizations,
       });
-      // We return the updated cart data from the backend.
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
@@ -74,7 +70,6 @@ export const removeItemFromCart = createAsyncThunk(
       const response = await axiosInstance.delete(
         API.CART.REMOVE_ITEM_FROM_CART(itemId)
       );
-      // Return the updated cart from the backend after removal.
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
@@ -91,8 +86,6 @@ export const updateQuantity = createAsyncThunk(
         API.CART.UPDATE_ITEM_QUANTITY(itemId),
         { quantity }
       );
-      // Return the updated cart from the backend after quantity update.
-      console.log(response);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
@@ -104,7 +97,6 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    // This reducer is for local state clearing, useful for logout.
     clearCart: state => {
       state.items = [];
       state.totalPrice = 0;
@@ -120,7 +112,6 @@ const cartSlice = createSlice({
       .addCase(fetchUserCart.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.error = null;
-        // Correctly set the state based on the payload from the backend.
         state.items = action.payload.items;
         state.totalPrice = action.payload.totalPrice;
         state.totalQuantity = action.payload.totalQuantity;
@@ -137,8 +128,6 @@ const cartSlice = createSlice({
       })
       .addCase(addItemToCart.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.error = null;
-        // Since the backend returns the full updated cart, we can just replace the state.
         state.items = action.payload.items;
         state.totalPrice = action.payload.totalPrice;
         state.totalQuantity = action.payload.totalQuantity;

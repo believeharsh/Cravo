@@ -36,7 +36,6 @@ export const useAddressActions = () => {
         { duration: 3000 }
       );
     } catch (error) {
-      // You can add a custom error toast here if needed
       console.error('Failed to create address:', error);
     }
   };

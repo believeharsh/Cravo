@@ -96,7 +96,7 @@ const CategoriesSlider = () => {
   const firstRowCategories = foodCategories.slice(0, categoriesPerRow);
   const secondRowCategories = foodCategories.slice(categoriesPerRow);
 
-  // Keep index in range when viewport shrinks
+  // Keeping index in range when viewport shrinks
   const maxIndex = Math.max(0, categoriesPerRow - itemsToShow);
   useEffect(
     () => setIndex(i => Math.min(i, maxIndex)),
@@ -128,7 +128,7 @@ const CategoriesSlider = () => {
     // If not loading, render real category cards
     return categories.map(c => (
       <CategoryCard
-        key={c._id || c.name} // Use a more stable key if available
+        key={c._id || c.name}
         c={c}
         width={`${cardWidthPct}%`}
         onClick={handleNavigateToCategoryResultPage}

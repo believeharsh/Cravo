@@ -1,6 +1,5 @@
 import React from 'react';
 import CitiesSection from './sections/CitiesSection';
-// import Footer from './sections/FooterSection';
 import LandingNavigation from './sections/NavigationSection';
 import Hero from './sections/HeroSection';
 import CategoriesSlider from './sections/CategoriesSection';

@@ -24,12 +24,10 @@ export const useRestaurantMenu = restaurantID => {
   const dispatch = useDispatch();
   const { showStackedToast } = useToastStack();
 
-  // 1. Select the relevant state for the given restaurantID from the normalized store
   const restaurantState = useSelector(
     state => state.restaurantMenu.menus[restaurantID] || {}
   );
 
-  // Destructure with default values for cleaner component usage
   const {
     restaurant = null,
     products = [],
@@ -46,7 +44,7 @@ export const useRestaurantMenu = restaurantID => {
       }
 
       dispatch(fetchRestaurantMenu(restaurantID))
-        .unwrap() // Unwrap handles the fulfillment and rejection
+        .unwrap()
         .catch(e => {
           // Error case (API failed OR cache hit)
           if (e && !e.isCacheHit) {
@@ -58,7 +56,6 @@ export const useRestaurantMenu = restaurantID => {
           }
         });
     },
-    // Dependencies needed for useCallback
     [dispatch, restaurantID, loading, error, showStackedToast]
   );
 
@@ -71,16 +68,14 @@ export const useRestaurantMenu = restaurantID => {
       // Only dispatch the action if we don't already have the data
       handleFetchRestaurantMenu();
     }
-    // Dependency array uses the state properties to decide if a refetch is necessary
   }, [restaurantID, handleFetchRestaurantMenu, loading, products.length]);
 
-  // 4. Return the data and derived status
   return {
     restaurant,
     menuItems: products,
     loading,
     error,
-    // Expose the function for manual refresh (e.g., used by the error button)
+    // Expose the function for manual refresh
     refetchMenu: () => handleFetchRestaurantMenu(true),
 
     // isInitialLoading is true if we are waiting for the FIRST successful response.

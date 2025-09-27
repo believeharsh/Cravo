@@ -5,19 +5,12 @@ import { API } from '../../config/api';
 import axios from 'axios';
 import { setUserLocation } from '../location/locationSlice';
 
-console.log(setUserLocation);
-
-// New Async Thunk to handle all API calls concurrently
 export const initializeApplication = createAsyncThunk(
   'landingPage/initializeApplication',
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      // Dispatch the auth check first, but don't wait for it.
-      // It's a critical background task.
       dispatch(checkAuthStatus());
 
-      // Use Promise.all to make these API calls concurrently for speed.
-      // This is the core change for optimization.
       const [citiesRes, categoriesRes, ipLocationRes] = await Promise.all([
         axiosInstance.get(API.CITIES.GET_ALL_CITIES),
         axiosInstance.get(API.CATEGORIES.GET_ALL_CATEGORIES),
@@ -54,7 +47,7 @@ export const initializeApplication = createAsyncThunk(
       console.log('restaurants after the api call', restaurantsRes);
       const restaurants = restaurantsRes.data.data.restaurants;
 
-      // Return the combined payload for the fulfilled action
+      // Returning the combined payload for the fulfilled action
       return {
         cities,
         categories,
@@ -71,9 +64,6 @@ export const initializeApplication = createAsyncThunk(
     }
   }
 );
-
-// We no longer need this separate thunk. Its logic is now inside initializeApplication.
-// export const fetchLandingPageData = createAsyncThunk(...);
 
 const landingPageSlice = createSlice({
   name: 'landingPage',

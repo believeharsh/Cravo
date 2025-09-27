@@ -86,8 +86,7 @@ const authSlice = createSlice({
     clearAuthError: state => {
       state.error = null;
     },
-    // This reducer is for manually setting auth state, e.g., if you re-hydrate from a secure source
-    // It expects a direct payload of { user, role, token }
+
     setAuthState: (state, action) => {
       const { user, role, token } = action.payload;
       state.user = user || null;
@@ -99,12 +98,12 @@ const authSlice = createSlice({
       state.isAuthChecking = false;
       state.isInitialized = true;
     },
-    // Reducer to explicitly mark initialization (used if checkAuthStatus isn't the only init path)
+
     setAuthInitialized: state => {
       state.isInitialized = true;
     },
   },
-  // `extraReducers` handle actions from `createAsyncThunk` or other slices
+
   extraReducers: builder => {
     builder
       // --- Handlers for loginUser thunk ---
@@ -152,7 +151,6 @@ const authSlice = createSlice({
         state.user = null;
         state.role = null;
         state.token = null;
-        // `action.payload` here would be null for 401/404, or a message for other errors
         state.error = action.payload;
       });
   },

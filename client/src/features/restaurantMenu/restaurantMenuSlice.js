@@ -20,7 +20,7 @@ export const fetchRestaurantMenu = createAsyncThunk(
     // Caching Check: If valid data (products array) exists for this restaurant, skip the API call.
     // This ensures data is fetched only once per app session.
     if (cachedData && cachedData.products && cachedData.products.length > 0) {
-      // Use 'rejectWithValue' to stop the thunk chain and signal a cache hit
+      // Using 'rejectWithValue' to stop the thunk chain and signal a cache hit
       return thunkAPI.rejectWithValue({
         isCacheHit: true,
         data: {
@@ -82,7 +82,7 @@ const restaurantMenuSlice = createSlice({
         state.menus[restaurantID] = {
           restaurant,
           products,
-          loading: 'succeeded', // Explicitly set success
+          loading: 'succeeded',
           error: null,
         };
       })
@@ -91,18 +91,16 @@ const restaurantMenuSlice = createSlice({
       .addCase(fetchRestaurantMenu.rejected, (state, action) => {
         const restaurantID = action.meta.arg;
 
-        // FIX: If it was a cache hit, explicitly set loading to succeeded
+        // If it was a cache hit, explicitly set loading to succeeded
         // to render the cached data.
         if (action.payload && action.payload.isCacheHit) {
-          // This must explicitly update the loading status to transition the UI.
           if (state.menus[restaurantID]) {
             state.menus[restaurantID].loading = 'succeeded';
             state.menus[restaurantID].error = null;
           }
-          return; // Exit the reducer
+          return;
         }
 
-        // Standard error handling for a failed API call
         if (state.menus[restaurantID]) {
           state.menus[restaurantID].loading = 'failed';
           state.menus[restaurantID].error =
