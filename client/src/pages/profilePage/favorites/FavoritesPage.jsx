@@ -26,9 +26,6 @@ const FavoritesPage = () => {
               <h1 className="text-4xl font-bold text-gray-800 mb-2">
                 {selectedList && `Items in "${selectedList.name}"`}
               </h1>
-              {/* <p className="text-sm text-medium-gray mt-1">
-                Organize and manage your favorite items and restaurants.
-              </p> */}
             </div>
           </div>
           {selectedListId && (
