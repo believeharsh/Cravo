@@ -47,7 +47,7 @@ export const addItemToWishlist = createAsyncThunk(
       } else if (itemType === 'restaurant') {
         response = await axiosInstance.post(
           API.WISHLIST.ADD_ITEM_TO_RESTAURANT_LIST(listId),
-          { productId: itemId }
+          { restaurantId: itemId }
         );
       }
       return response.data; // The API returns the updated list
@@ -71,7 +71,7 @@ export const removeItemFromWishlist = createAsyncThunk(
       } else if (itemType === 'restaurant') {
         response = await axiosInstance.delete(
           API.WISHLIST.REMOVE_ITEM_FROM_RESTAURANT_LIST(listId),
-          { data: { productId: itemId } }
+          { data: { restaurantId: itemId } }
         );
       }
       return response.data; // The API returns the updated list
@@ -82,17 +82,27 @@ export const removeItemFromWishlist = createAsyncThunk(
 );
 
 // Thunk for creating the new wishlist
-export const createNewProductList = createAsyncThunk(
+export const createNewWishList = createAsyncThunk(
   'wishList/newProductList',
-  async ({ listName }, thunkAPI) => {
+  async ({ listName, list_type }, thunkAPI) => {
+    console.log('listName and the list_type in the thunk', listName, list_type);
     try {
       let response;
-      response = await axiosInstance.post(
-        API.WISHLIST.CREATE_NEW_PRODUCT_LIST,
-        { name: listName }
-      );
-      console.log('response of the createNewProductList', response);
-      return response.data;
+      if (list_type == 'productList') {
+        response = await axiosInstance.post(
+          API.WISHLIST.CREATE_NEW_PRODUCT_LIST,
+          { name: listName }
+        );
+        console.log('response of the createNewProductList', response);
+        return response.data;
+      } else if (list_type == 'restaurantList') {
+        response = await axiosInstance.post(
+          API.WISHLIST.CREATE_NEW_RESTAURANT_LIST,
+          { name: listName }
+        );
+        console.log('response of the createNewRestaurantList', response);
+        return response.data;
+      }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -196,7 +206,7 @@ const wishlistSlice = createSlice({
       })
 
       // Handle creating new Product and Restaurants List
-      .addCase(createNewProductList.fulfilled, (state, action) => {
+      .addCase(createNewWishList.fulfilled, (state, action) => {
         // Extract the new list object from the payload.
         const newList = action.payload.data;
 

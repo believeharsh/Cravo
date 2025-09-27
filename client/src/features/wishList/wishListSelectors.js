@@ -67,6 +67,22 @@ export const selectDefaultRestaurantListId = createSelector(
     defaultRestaurantList ? defaultRestaurantList._id : null
 );
 
+export const selectIsRestaurantInAnyRestaurantList = createSelector(
+  [selectWishlistState, (state, restaurantId) => restaurantId],
+
+  (wishlistState, restaurantId) => {
+    const targetRestaurantId = String(restaurantId);
+    console.log(restaurantId);
+    const isRestaurantPresent = wishlistState.lists.some(
+      list =>
+        list.list_type === 'restaurantList' &&
+        list.restaurants?.some(item => String(item._id) === targetRestaurantId)
+    );
+
+    return isRestaurantPresent;
+  }
+);
+
 /**
  * Selector to get the type of the default restaurant list.
  * @returns {string | null} The list type, or null if not found.
