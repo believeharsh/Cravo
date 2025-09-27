@@ -285,7 +285,11 @@ const TopRestaurants = () => {
                   className="flex-shrink-0 px-2 sm:px-3"
                   style={{ width: `${cardWidthPct}%` }}
                 >
-                  <RestaurantCard key={restaurant._id} data={restaurant} />
+                  <RestaurantCard
+                    key={restaurant._id}
+                    data={restaurant}
+                    className="max-h-96"
+                  />
                 </Link>
               );
             })}
