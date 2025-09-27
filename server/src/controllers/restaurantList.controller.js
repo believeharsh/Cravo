@@ -131,7 +131,9 @@ const addRestaurantToTheList = asyncHandler(async (req, res) => {
     listId,
     { $push: { restaurants: restaurantId } },
     { new: true, runValidators: true }
-  );
+  ).populate({
+    path: 'restaurants',
+  });
 
   res
     .status(200)
@@ -153,7 +155,9 @@ const removeRestaurantFromList = asyncHandler(async (req, res) => {
     { _id: listId, owner: userId },
     { $pull: { restaurants: restaurantId } },
     { new: true }
-  );
+  ).populate({
+    path: 'restaurants',
+  });
 
   if (!updatedList) {
     throw new apiError(
