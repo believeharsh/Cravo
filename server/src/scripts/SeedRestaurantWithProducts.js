@@ -16,7 +16,10 @@ import City from '../models/city.model.js';
 // Sample Data
 // import IndoreRestaurants from "../sample-Data/Restaurants-Data/IndoreRestaurant.js" ;
 // import bhopalRestaurants from '../sample-Data/Restaurants-Data/BhopalRestaurants.js';
-import ahmadabadRestaurants from '../sample-Data/Restaurants-Data/AhmadabadRestaurants.js';
+// import ahmadabadRestaurants from '../sample-Data/Restaurants-Data/AhmadabadRestaurants.js';
+// import mumbaiRestaurants from '../sample-Data/Restaurants-Data/MumbaiRestaurants.js';
+import bangaloreRestaurants from '../sample-Data/Restaurants-Data/BangaloreRestaurants.js';
+
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
 
@@ -181,7 +184,7 @@ const seedDatabase = async () => {
     // Ensure indexes on ImageCache
     await ImageCache.init();
 
-    const cityForRestaurants = await City.findOne({ name: 'Ahmadabad' });
+    const cityForRestaurants = await City.findOne({ name: 'Bangalore' });
     if (!cityForRestaurants) {
       console.warn('city not found. Create city documents first.');
       return;
@@ -194,7 +197,7 @@ const seedDatabase = async () => {
     }, {});
 
     const insertedRestaurants = [];
-    for (const restaurant of ahmadabadRestaurants) {
+    for (const restaurant of bangaloreRestaurants) {
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {
