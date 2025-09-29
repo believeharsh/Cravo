@@ -72,7 +72,6 @@ export const selectIsRestaurantInAnyRestaurantList = createSelector(
 
   (wishlistState, restaurantId) => {
     const targetRestaurantId = String(restaurantId);
-    console.log(restaurantId);
     const isRestaurantPresent = wishlistState.lists.some(
       list =>
         list.list_type === 'restaurantList' &&
