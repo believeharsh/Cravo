@@ -18,10 +18,7 @@ const CityCard = ({ city }) => (
 const CitiesSection = () => {
   const { data, isLoading, error } = useSelector(state => state.landingPage);
   const citiesData = data.cities;
-  console.log(
-    'cities data is coming inside the landing/cities section',
-    citiesData
-  );
+
   const [cities, setCities] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -31,7 +28,6 @@ const CitiesSection = () => {
   useEffect(() => {
     if (citiesData) {
       setCities(citiesData);
-      console.log(citiesData);
     }
   }, [data]);
 

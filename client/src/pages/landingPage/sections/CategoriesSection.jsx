@@ -48,7 +48,7 @@ const CategoriesSlider = () => {
   const [foodCategories, setFoodCategories] = useState([]);
   const { data, isLoading, error } = useSelector(state => state.landingPage);
   const { user } = useSelector(state => state.auth);
-  console.log(user);
+
   const userName = user?.name;
   const UserFirstName = userName?.split(' ')[0];
 

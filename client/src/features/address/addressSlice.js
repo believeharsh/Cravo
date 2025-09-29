@@ -15,7 +15,6 @@ export const fetchAllAddresses = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get(API.ADDRESS.GET_ALL_ADDRESSES);
-      console.log('address response', response);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

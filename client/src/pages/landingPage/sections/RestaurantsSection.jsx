@@ -98,7 +98,6 @@ const RestaurantCard = ({ restaurant }) => (
 const RestaurantsSection = () => {
   const itemsPerView = { mobile: 1, tablet: 2, desktop: 4 };
   const { data, isLoading, error } = useSelector(state => state.landingPage);
-  console.log('data is this', data);
   const restaurantsData = data?.restaurants || [];
 
   // SSR-safe "items per view"
