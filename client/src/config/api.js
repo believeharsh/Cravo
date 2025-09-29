@@ -1,4 +1,5 @@
 export const API = {
+  // BASE_URL :
   AUTH: {
     LOGIN: '/auth/login',
     SIGNUP: '/auth/register',
@@ -18,6 +19,7 @@ export const API = {
     RESTAURANTS_LIST: '/restaurants',
     DETAILS: id => `/restaurants/${id}`,
     PRODUCTS: restaurantId => `/restaurants/${restaurantId}/products`,
+    TOP_RATED_RESTAURANTS: '/restaurants/top-rated',
   },
 
   CITIES: {
