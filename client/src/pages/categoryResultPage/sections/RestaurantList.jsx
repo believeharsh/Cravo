@@ -32,8 +32,11 @@ const RestaurantList = ({ restaurants, isLoading }) => {
             .toLowerCase()
             .replace(/\s+/g, '-');
           return (
-            <Link to={`/menu/${restaurant_slug}/${restaurant._id}`}>
-              <RestaurantCard key={restaurant._id} data={restaurant} />
+            <Link
+              to={`/menu/${restaurant_slug}/${restaurant._id}`}
+              key={restaurant._id}
+            >
+              <RestaurantCard data={restaurant} />
             </Link>
           );
         })}

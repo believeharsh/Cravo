@@ -7,7 +7,10 @@ import RestaurantList from './sections/RestaurantList';
 import ExploreMore from './sections/ExploreMore';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategoryRestaurants } from '../../features/categoryResult/categoryResultSlice';
+import {
+  fetchCategoryRestaurants,
+  clearCategoryResults,
+} from '../../features/categoryResult/categoryResultSlice';
 
 const CategoryResultPage = () => {
   const { categorySlug } = useParams();
@@ -25,6 +28,8 @@ const CategoryResultPage = () => {
     totalResults,
     currentCategorySlug,
   } = useSelector(state => state.categoryResult);
+  console.log('currentCategorySlug', currentCategorySlug);
+  console.log('restaurants', restaurants);
 
   const urlPage = parseInt(searchParams.get('page')) || 1;
 
@@ -54,51 +59,60 @@ const CategoryResultPage = () => {
 
   // Logic to fetch restaurants when categorySlug or page changes
   useEffect(() => {
-    const isDataStale =
-      currentCategorySlug !== categorySlug || urlPage > currentPage; // User navigated to a higher page number
+    const isNewCategory = currentCategorySlug !== categorySlug;
+    console.log('is New Category', isNewCategory);
 
-    // If data is already loaded for this category and page, skip the fetch.
-    // The main check is that 'currentCategorySlug' is set and matches the URL slug
-    // AND the URL page number is not greater than the current Redux page number.
-    if (
-      currentCategorySlug === categorySlug &&
-      urlPage <= currentPage &&
-      restaurants.length > 0
-    ) {
-      console.log(
-        `Data for category "${categorySlug}" already in store. Skipping API call.`
-      );
+    // 1. Exit if location data is not yet available
+    if (!latitude || !longitude) {
+      // Optional: Set a local error state or show a message to the user
       return;
     }
 
-    if (latitude && longitude) {
-      console.log(`Dispatching fetch for ${categorySlug}, page ${urlPage}`);
+    // 2. Clear state on category switch
+    if (isNewCategory) {
+      // 💡 FIX: Immediately dispatch the clear action to wipe old restaurants
+      dispatch(clearCategoryResults());
+    }
+
+    // 3. Determine if a fetch is required
+    // Fetch if: A) New category, OR B) 'Load More' (URL page > Redux page)
+    // OR C) Initial load and no restaurants are present yet.
+    const shouldFetch =
+      isNewCategory || urlPage > currentPage || restaurants.length === 0;
+
+    // The old skip logic (isDataStale check) is replaced by this cleaner 'shouldFetch' check.
+    if (shouldFetch) {
+      console.log(
+        `Dispatching fetch for ${categorySlug}, page ${isNewCategory ? 1 : urlPage}`
+      );
+
+      // Set the page to 1 for a new category, otherwise use the URL page (Load More)
+      const pageToFetch = isNewCategory ? 1 : urlPage;
+
       dispatch(
         fetchCategoryRestaurants({
           categorySlug,
           cityName,
           latitude,
           longitude,
-          page: urlPage,
+          page: pageToFetch,
           limit,
         })
       );
     } else {
-      // This is a placeholder for error handling if coordinates aren't found
-      // setError("Could not determine active city coordinates.");
+      console.log(
+        `Data for category "${categorySlug}" already in store. Skipping API call.`
+      );
     }
-
-    // Re-run effect only when categorySlug or URL page changes
   }, [
     categorySlug,
     urlPage,
     dispatch,
     currentCategorySlug,
     currentPage,
-    restaurants.length,
-    cityName,
     latitude,
     longitude,
+    // Removed restaurants.length as a dependency to prevent unnecessary re-runs
   ]);
 
   // Handler for "Load More" button
