@@ -14,7 +14,7 @@ export const fetchLocationSuggestions = createAsyncThunk(
     // OpenStreetMap Nominatim API for searching addresses
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
       query
-    )}&format=json&addressdetails=1&limit=5`;
+    )}&format=json&addressdetails=1&limit=5&accept-language=en`;
 
     try {
       const response = await fetch(url);
@@ -24,17 +24,38 @@ export const fetchLocationSuggestions = createAsyncThunk(
       const data = await response.json();
 
       // Map and format the suggestion data
-      return data.map(item => ({
-        name: item.display_name,
-        lat: parseFloat(item.lat),
-        lng: parseFloat(item.lon),
-        // Simple city name extraction for frontend validation
-        simpleCityName:
-          item.address?.city ||
-          item.address?.town ||
-          item.address?.village ||
-          item.display_name.split(',')[0],
-      }));
+      return data.map(item => {
+        const address = item.address;
+
+        // Prioritize city/town/village, then append the location type or a general identifier.
+        const cityPart =
+          address?.city || address?.town || address?.village || '';
+
+        // Use a more specific place/road/suburb if available, or fall back to display name
+        const placePart =
+          address?.suburb ||
+          address?.road ||
+          address?.leisure ||
+          item.display_name.split(',')[0];
+
+        // Construct the formatted display name: "City, Specific Place"
+        let formattedName = item.display_name; // Default fallback
+
+        if (cityPart && placePart) {
+          // Example: "Bhopal, TT Nagar"
+          formattedName = `${cityPart}, ${placePart}`;
+        } else if (cityPart) {
+          formattedName = cityPart;
+        }
+
+        return {
+          // Use the newly constructed name
+          name: formattedName,
+          lat: parseFloat(item.lat),
+          lng: parseFloat(item.lon),
+          simpleCityName: cityPart || item.display_name.split(',')[0],
+        };
+      });
     } catch (error) {
       return rejectWithValue(error.message);
     }
