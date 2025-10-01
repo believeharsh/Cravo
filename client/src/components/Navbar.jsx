@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
 import { openAuthSidebar } from '../features/ui/uiSlice';
 import Icon from './ui/Icon';
+import { logoutUser } from '../features/auth/authSlice';
 
 // The Button component is self-contained and doesn't need changes.
 const Button = ({
@@ -336,8 +337,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                             <button
                               onClick={() => {
                                 setIsProfileDropdownOpen(false);
-                                // 🔴 Replace with your actual logout function
-                                dispatch({ type: 'auth/logout' });
+                                dispatch(logoutUser());
                                 navigate('/');
                               }}
                               className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
