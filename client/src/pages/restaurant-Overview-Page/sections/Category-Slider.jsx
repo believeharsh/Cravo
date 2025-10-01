@@ -50,8 +50,8 @@ const RestaurantCategoriesSlider = () => {
   const navigate = useNavigate();
 
   const categoriesData = data.categories;
-  const userName = user.name;
-  const UserFirstName = userName.split(' ')[0];
+  const userName = user?.name;
+  const UserFirstName = userName ? userName.split(' ')[0] : '';
 
   useEffect(() => {
     if (categoriesData) {
