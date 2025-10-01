@@ -46,7 +46,7 @@ const CitiesSection = () => {
   };
 
   return (
-    <section className="py-5 bg-white">
+    <section className="mb-2 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 mt-15">
