@@ -61,6 +61,24 @@ export const checkAuthStatus = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      // Assuming the backend handles session clearing (e.g., clearing httpOnly cookies)
+      await axiosInstance.post(API.AUTH.LOGOUT, {}, { withCredentials: true });
+      return null; // Successful API call
+    } catch (err) {
+      // Even if the logout API fails (e.g., network error, token already invalid),
+      // we usually want to clear the local state to ensure the user is logged out visually.
+      console.error('Logout API call failed, but clearing local state.', err);
+      // We return null on failure so the .fulfilled/rejected still runs the local logout logic.
+      // If you needed to show a message, you'd use rejectWithValue(errorMessage)
+      return null;
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -111,6 +129,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
+
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
@@ -121,6 +140,7 @@ const authSlice = createSlice({
         state.isAuthChecking = false;
         state.isInitialized = true;
       })
+
       .addCase(loginUser.rejected, (state, action) => {
         console.log('SLICE REJECTED FIRED:', action);
         state.isLoading = false;
@@ -134,6 +154,7 @@ const authSlice = createSlice({
         state.isAuthChecking = false;
         state.isInitialized = true;
       })
+
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
         console.log('action', action);
         state.isAuthChecking = false;
@@ -144,6 +165,7 @@ const authSlice = createSlice({
         state.role = action.payload.user.role || null;
         state.error = null;
       })
+
       .addCase(checkAuthStatus.rejected, (state, action) => {
         state.isAuthChecking = false;
         state.isInitialized = true;
@@ -152,6 +174,33 @@ const authSlice = createSlice({
         state.role = null;
         state.token = null;
         state.error = action.payload;
+      })
+
+      // --- ⚡️ Handlers for logoutUser thunk ⚡️ ---
+      .addCase(logoutUser.fulfilled, state => {
+        // Clear state upon successful logout API call
+        state.user = null;
+        state.role = null;
+        state.token = null;
+        state.isAuthenticated = false;
+        state.isLoading = false;
+        state.error = null;
+      })
+
+      .addCase(logoutUser.pending, state => {
+        state.isLoading = true; // 👈 Sets loading to true
+        state.error = null;
+      })
+
+      .addCase(logoutUser.rejected, state => {
+        // Clear state even if the API call fails, just to ensure local integrity
+        state.user = null;
+        state.role = null;
+        state.token = null;
+        state.isAuthenticated = false;
+        state.isLoading = false;
+        // Optionally set a small error message here if needed, but clearing state is primary
+        state.error = null;
       });
   },
 });
