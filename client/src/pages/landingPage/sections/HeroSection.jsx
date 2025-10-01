@@ -29,6 +29,7 @@ const Hero = () => {
   const locationRef = useRef(null);
 
   const initialIpLocation = useSelector(state => state.location);
+  console.log('initialIpLocation', initialIpLocation);
 
   const {
     locationSearchTerm,
@@ -46,6 +47,8 @@ const Hero = () => {
     setShowSuggestions,
     handleRestaurantNameChange,
   } = useSearchContext(initialIpLocation);
+
+  console.log('selected location', selectedLocation);
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -84,14 +87,15 @@ const Hero = () => {
       params.set('restaurantName', restaurantName.trim());
     }
 
-    const newLocation = {
+    const payload = {
       city: selectedLocation.simpleCityName,
-      latitude: selectedLocation.lat,
-      longitude: selectedLocation.lng,
+      lat: selectedLocation.lat,
+      lon: selectedLocation.lng,
     };
-    dispatch(setUserLocation(newLocation));
 
-    navigate(`/restaurants?${params.toString()}`);
+    dispatch(setUserLocation(payload));
+
+    navigate(`/restaurants`);
   };
 
   const locationPlaceholder = `${initialIpLocation.city}, ${initialIpLocation.region}, ${initialIpLocation.country}`;

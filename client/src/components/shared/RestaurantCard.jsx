@@ -138,10 +138,10 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
 
         {/* Cuisine tags */}
         <div className="flex flex-wrap gap-1 text-xs text-gray-600 font-medium">
-          {data.cuisine_type?.slice(0, 3).map((cuisine, idx) => (
+          {data.cuisine_type?.slice(0, 4).map((cuisine, idx) => (
             <span key={cuisine}>
               {cuisine}
-              {idx < data.cuisine_type.slice(0, 3).length - 1 && ' •'}
+              {idx < data.cuisine_type.slice(0, 4).length - 1 && ' •'}
             </span>
           ))}
         </div>

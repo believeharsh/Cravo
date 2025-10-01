@@ -1,15 +1,14 @@
-// src/hooks/useSearchContext.js
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchLocationSuggestions,
-  fetchCurrentLocation, // GPS thunk
-  setConfirmedLocation, // Location setter
-  setCategoryName, // Category setter
-  setRestaurantName, // Added missing action for completeness
-  clearSuggestions, // Added missing action for completeness
-} from '../features/SearchContext/searchContaxtSlice'; // Assuming you added setRestaurantName and clearSuggestions
+  fetchCurrentLocation,
+  setConfirmedLocation,
+  setCategoryName,
+  setRestaurantName,
+  clearSuggestions,
+} from '../features/SearchContext/searchContaxtSlice';
+import { setUserLocation } from '../features/location/locationSlice';
 
 // Debounce utility
 const debounce = (func, delay) => {
@@ -35,8 +34,6 @@ export const useSearchContext = initialIpLocation => {
     categoryName: persistedCategoryName,
     restaurantName: persistedRestaurantName,
   } = useSelector(state => state.searchContext);
-  // const Data = useSelector(state => state.searchContext) ;
-  // console.log("Data inside hook", Data) ;
 
   // --- Local UI State for Input Values ---
   const [locationSearchTerm, setLocationSearchTerm] = useState('');
@@ -52,11 +49,12 @@ export const useSearchContext = initialIpLocation => {
   useEffect(() => {
     // 1. Initialize location input from IP data if no selection exists
     if (initialIpLocation && initialIpLocation.city && !selectedLocation) {
-      const { city, region, country, lat, lng } = initialIpLocation;
+      const { city, region, country, latitude, longitude } = initialIpLocation;
       const initialLocationObject = {
         name: `${city}, ${region}, ${country}`,
-        lat,
-        lng,
+        city: city,
+        lat: latitude,
+        lng: longitude,
         simpleCityName: city,
       };
       dispatch(setConfirmedLocation(initialLocationObject));
@@ -96,6 +94,9 @@ export const useSearchContext = initialIpLocation => {
       dispatch(setConfirmedLocation(location));
       // searchTerm will update via the useEffect hook
       setShowSuggestions(false); // Hide the dropdown manually
+      console.log('for watching the acions inside the handleSelectLocation');
+      console.log('location', location);
+      dispatch(setUserLocation(location));
     },
     [dispatch]
   );
@@ -144,8 +145,8 @@ export const useSearchContext = initialIpLocation => {
     handleSelectLocation,
     handleUseCurrentLocation,
     handleCategoryChange,
-    handleRestaurantNameChange, // Export the new handler
+    handleRestaurantNameChange,
     handleInputFocus,
-    setShowSuggestions, // Export for the outside click handler in Hero.jsx
+    setShowSuggestions,
   };
 };
