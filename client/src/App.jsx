@@ -38,6 +38,7 @@ import { fetchAllWishlists } from './features/wishList/wishListSlice';
 import { fetchUserCart } from './features/cart/cartSlice';
 import { closeAuthSidebar } from './features/ui/uiSlice';
 import { fetchAllAddresses } from './features/address/addressSlice';
+import CravoGetTheAPP from './pages/Get_the_App/GetTheAppPage';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ function AppContent() {
       <Route path="cart" element={<CartPage />} />
       <Route path="corporate" element={<CorporatePage />} />
       <Route path="unauthorized" element={<UnauthorizedPage />} />
+      <Route path="get-the-app" element={<CravoGetTheAPP />} />
       <Route element={<PrivateRoute />}>
         <Route path="profile" element={<ProfileLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />

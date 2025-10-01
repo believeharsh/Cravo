@@ -20,7 +20,7 @@ const authRoute = Router();
 
 authRoute.post('/login', loginUser);
 authRoute.post('/register', registerUser);
-authRoute.get('/logout', checkAuth, isLoggedIn, logoutUser);
+authRoute.post('/logout', checkAuth, isLoggedIn, logoutUser);
 authRoute.get('/profile', checkAuth, getAuthStatus);
 authRoute.post('/verify', verifyUserOTP);
 authRoute.post('/refresh', refreshAccessToken);
