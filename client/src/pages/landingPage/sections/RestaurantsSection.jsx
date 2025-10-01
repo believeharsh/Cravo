@@ -32,68 +32,81 @@ const RestaurantCardSkeleton = ({ width }) => (
   </div>
 );
 
-const RestaurantCard = ({ restaurant }) => (
-  <div
-    className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out
-               transform hover:-translate-y-1 cursor-pointer overflow-hidden flex flex-col"
-  >
-    {/* Restaurant Image */}
-    <div className="relative h-34 sm:36 overflow-hidden">
-      <img
-        src={restaurant.images[0]}
-        alt={restaurant.name}
-        className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-      />
-      {restaurant.is_active && (
-        <div className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2  rounded-full shadow-md">
-          Open
-        </div>
-      )}
-      <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
-        <Icon name={'star'} size={12} fill="#FACC15" />
-        <span>{restaurant.rating}</span>
-      </div>
-    </div>
-
-    {/* Restaurant Details with Fixed Height */}
-    <div className="px-3 py-1 flex flex-col" style={{ minHeight: '160px' }}>
-      <div>
-        <h3 className="font-bold text-gray-900 text-lg mb-1 truncate">
-          {restaurant.name}
-        </h3>
-
-        {/* Fixed-height container for cuisine type */}
-        <div className="text-xs text-gray-600 overflow-hidden h-9 mb-2">
-          <p className="line-clamp-2">{restaurant.cuisine_type.join(', ')}</p>
-        </div>
-      </div>
-
-      <div className="pt-3 border-t border-gray-200">
-        <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-          <div className="flex items-center gap-1">
-            <Icon name={'map-pin'} size={12} />
-            <span className="truncate">
-              {restaurant?.address?.cityDetails?.name || 'N/A'}
-            </span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Icon name={'clock'} size={12} />
-            <span>{restaurant.delivery_time_mins} min</span>
+const RestaurantCard = ({ restaurant }) => {
+  const imageUrl =
+    restaurant.images?.[0] ||
+    'https://placehold.co/400x240/f0f0f0/808080?text=Restaurant';
+  return (
+    <>
+      <div
+        className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out
+               transform hover:-translate-y-1 cursor-pointer overflow-hidden flex flex-col mb-1"
+      >
+        {/* Restaurant Image */}
+        <div className="relative h-34 sm:36 overflow-hidden">
+          <img
+            src={imageUrl}
+            alt={restaurant.name}
+            className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+            onError={e => {
+              e.target.src =
+                'https://placehold.co/400x240/f0f0f0/808080?text=Restaurant';
+            }}
+          />
+          {restaurant.is_active && (
+            <div className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2  rounded-full shadow-md">
+              Open
+            </div>
+          )}
+          <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+            <Icon name={'star'} size={12} fill="#FACC15" />
+            <span>{restaurant.rating}</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-gray-600 font-medium">
-            Min Order: ₹{restaurant.min_order_value}
-          </span>
-          <span className="text-gray-500">
-            ({restaurant.numberOfReviews} reviews)
-          </span>
+        {/* Restaurant Details with Fixed Height */}
+        <div className="px-3 py-1 flex flex-col" style={{ minHeight: '160px' }}>
+          <div>
+            <h3 className="font-bold text-gray-900 text-lg mb-1 truncate">
+              {restaurant.name}
+            </h3>
+
+            {/* Fixed-height container for cuisine type */}
+            <div className="text-xs text-gray-600 overflow-hidden h-9 mb-2">
+              <p className="line-clamp-2">
+                {restaurant.cuisine_type.join(', ')}
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-gray-200">
+            <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+              <div className="flex items-center gap-1">
+                <Icon name={'map-pin'} size={12} />
+                <span className="truncate">
+                  {restaurant?.address?.cityDetails?.name || 'N/A'}
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Icon name={'clock'} size={12} />
+                <span>{restaurant.delivery_time_mins} min</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-gray-600 font-medium">
+                Min Order: ₹{restaurant.min_order_value}
+              </span>
+              <span className="text-gray-500">
+                ({restaurant.numberOfReviews} reviews)
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-);
+    </>
+  );
+};
 
 const RestaurantsSection = () => {
   const itemsPerView = { mobile: 1, tablet: 2, desktop: 4 };
