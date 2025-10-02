@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import {
-  CheckCircle,
-  XCircle,
-  Calendar,
   Search,
+  Calendar,
   ChevronDown,
   ChevronUp,
+  MapPin,
   Phone,
+  Clock,
+  ShoppingCart,
+  XCircle,
   Navigation,
   Receipt,
+  Package,
 } from 'lucide-react';
-import Icon from '../../components/ui/Icon';
 
 const Orders = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -18,54 +20,161 @@ const Orders = () => {
   const [expandedOrder, setExpandedOrder] = useState(null);
   const [filterDateRange, setFilterDateRange] = useState('all');
 
-  const [orders, setOrders] = useState([
-    /* ------ seed data unchanged ------ */
+  // Sample orders data
+  const [orders] = useState([
+    {
+      id: 'ORD-001',
+      restaurant: {
+        name: 'Pizza Paradise',
+        image:
+          'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200&q=80',
+      },
+      orderDate: '2024-03-15T14:30:00',
+      status: 'delivered',
+      estimatedDelivery: null,
+      items: [
+        {
+          id: 1,
+          name: 'Margherita Pizza',
+          quantity: 2,
+          price: 250,
+          image:
+            'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=200&q=80',
+          customizations: ['Extra Cheese'],
+        },
+        {
+          id: 2,
+          name: 'Garlic Bread',
+          quantity: 1,
+          price: 80,
+          image:
+            'https://images.unsplash.com/photo-1573140401552-3fab0b24f2fc?w=200&q=80',
+          customizations: [],
+        },
+      ],
+      subtotal: 580,
+      deliveryFee: 40,
+      tax: 35,
+      total: 655,
+      deliveryAddress: '123 Main Street, Apartment 4B',
+      deliveryInstructions: 'Ring the bell twice',
+      canReorder: true,
+      canCancel: false,
+    },
+    {
+      id: 'ORD-002',
+      restaurant: {
+        name: 'Burger Bliss',
+        image:
+          'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&q=80',
+      },
+      orderDate: '2024-03-16T18:45:00',
+      status: 'preparing',
+      estimatedDelivery: '2024-03-16T19:30:00',
+      items: [
+        {
+          id: 1,
+          name: 'Classic Burger',
+          quantity: 2,
+          price: 180,
+          image:
+            'https://images.unsplash.com/photo-1550547660-d9450f859349?w=200&q=80',
+          customizations: ['No Onions'],
+        },
+        {
+          id: 2,
+          name: 'French Fries',
+          quantity: 1,
+          price: 90,
+          image:
+            'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=200&q=80',
+          customizations: [],
+        },
+      ],
+      subtotal: 450,
+      deliveryFee: 30,
+      tax: 28,
+      total: 508,
+      deliveryAddress: '123 Main Street, Apartment 4B',
+      canReorder: false,
+      canCancel: true,
+      driver: { name: 'John Doe', phone: '+91 98765 43210' },
+    },
+    {
+      id: 'ORD-003',
+      restaurant: {
+        name: 'Sushi House',
+        image:
+          'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=200&q=80',
+      },
+      orderDate: '2024-03-14T12:20:00',
+      status: 'cancelled',
+      cancellationReason: 'Customer request',
+      items: [
+        {
+          id: 1,
+          name: 'California Roll',
+          quantity: 2,
+          price: 320,
+          image:
+            'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=200&q=80',
+          customizations: [],
+        },
+      ],
+      subtotal: 640,
+      deliveryFee: 50,
+      tax: 42,
+      total: 732,
+      deliveryAddress: '123 Main Street, Apartment 4B',
+      canReorder: true,
+      canCancel: false,
+    },
   ]);
 
-  /* ── Helpers ───────────────────────────────────────────────────────────── */
-  const getStatusInfo = status => {
+  const getStatusConfig = status => {
     switch (status) {
       case 'preparing':
         return {
           label: 'Preparing',
-          color: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-          icon: 'clock',
+          color: 'bg-yellow-100 text-yellow-800',
+          dotColor: 'bg-yellow-500',
         };
       case 'on_the_way':
         return {
           label: 'On the way',
-          color: 'text-blue-600 bg-blue-50 border-blue-200',
-          icon: 'truck',
+          color: 'bg-blue-100 text-blue-800',
+          dotColor: 'bg-blue-500',
         };
       case 'delivered':
         return {
           label: 'Delivered',
-          color: 'text-mint-green bg-green-50 border-green-200',
-          icon: 'check-circle',
+          color: 'bg-green-100 text-green-800',
+          dotColor: 'bg-green-500',
         };
       case 'cancelled':
         return {
           label: 'Cancelled',
-          color: 'text-red-600 bg-red-50 border-red-200',
-          icon: 'x-circle',
+          color: 'bg-red-100 text-red-800',
+          dotColor: 'bg-red-500',
         };
       default:
         return {
           label: 'Unknown',
-          color: 'text-medium-gray bg-gray-50 border-gray-200',
-          icon: 'package',
+          color: 'bg-gray-100 text-gray-800',
+          dotColor: 'bg-gray-500',
         };
     }
   };
 
-  const formatDate = d =>
-    new Date(d).toLocaleDateString('en-US', {
+  const formatDate = d => {
+    return new Date(d).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
     });
+  };
 
   const formatETA = d => {
     const eta = new Date(d);
@@ -75,7 +184,6 @@ const Orders = () => {
     return `${Math.floor(diff / 60)}h ${diff % 60}m`;
   };
 
-  /* ── Filtering ─────────────────────────────────────────────────────────── */
   const filteredOrders = orders.filter(o => {
     const term = searchTerm.toLowerCase();
     const matchesSearch =
@@ -90,302 +198,276 @@ const Orders = () => {
       (activeTab === 'completed' && o.status === 'delivered') ||
       (activeTab === 'cancelled' && o.status === 'cancelled');
 
-    const dateOk = (() => {
-      if (filterDateRange === 'all') return true;
-      const diff = Date.now() - new Date(o.orderDate).getTime();
-      const day = 24 * 60 * 60 * 1000;
-      if (filterDateRange === 'week') return diff <= 7 * day;
-      if (filterDateRange === 'month') return diff <= 30 * day;
-      if (filterDateRange === 'year') return diff <= 365 * day;
-      return true;
-    })();
-
-    return matchesSearch && matchesTab && dateOk;
+    return matchesSearch && matchesTab;
   });
 
-  /* ── Actions ───────────────────────────────────────────────────────────── */
   const handleReorder = order => console.log('Reorder:', order.id);
   const handleCancelOrder = id => {
     if (window.confirm('Cancel this order?')) {
-      setOrders(prev =>
-        prev.map(o =>
-          o.id === id ? { ...o, status: 'cancelled', canCancel: false } : o
-        )
-      );
+      console.log('Cancel order:', id);
     }
   };
   const handleTrackOrder = o => console.log('Track:', o.id);
-  const toggleExpand = id => setExpandedOrder(expandedOrder === id ? null : id);
 
-  /* ── JSX ───────────────────────────────────────────────────────────────── */
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-charcoal">My Orders</h1>
-          <p className="text-medium-gray mt-1">
-            {filteredOrders.length}{' '}
-            {filteredOrders.length === 1 ? 'order' : 'orders'} found
-          </p>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
+        <p className="text-gray-600 mt-1">
+          {filteredOrders.length}{' '}
+          {filteredOrders.length === 1 ? 'order' : 'orders'}
+        </p>
       </div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-2xl shadow-lg border border-cream p-2">
-        <div className="flex flex-wrap gap-2">
-          {[
-            { key: 'all', label: 'All Orders' },
-            { key: 'active', label: 'Active' },
-            { key: 'completed', label: 'Completed' },
-            { key: 'cancelled', label: 'Cancelled' },
-          ].map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setActiveTab(key)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
-                activeTab === key
-                  ? 'bg-yellow-400 text-white shadow-lg'
-                  : 'text-medium-gray hover:text-charcoal hover:bg-gray-100'
-              }`}
-            >
-              {label}
-              <span
-                className={`px-2 py-0.5 rounded-full text-xs ${
-                  activeTab === key
-                    ? 'bg-white bg-opacity-20 text-white'
-                    : 'bg-gray-200 text-medium-gray'
-                }`}
-              >
-                {
-                  {
-                    all: orders.length,
-                    active: orders.filter(o =>
-                      ['preparing', 'on_the_way'].includes(o.status)
-                    ).length,
-                    completed: orders.filter(o => o.status === 'delivered')
-                      .length,
-                    cancelled: orders.filter(o => o.status === 'cancelled')
-                      .length,
-                  }[key]
-                }
-              </span>
-            </button>
-          ))}
-        </div>
+      <div className="flex gap-2 overflow-x-auto pb-2">
+        {[
+          { key: 'all', label: 'All Orders', count: orders.length },
+          {
+            key: 'active',
+            label: 'Active',
+            count: orders.filter(o =>
+              ['preparing', 'on_the_way'].includes(o.status)
+            ).length,
+          },
+          {
+            key: 'completed',
+            label: 'Completed',
+            count: orders.filter(o => o.status === 'delivered').length,
+          },
+          {
+            key: 'cancelled',
+            label: 'Cancelled',
+            count: orders.filter(o => o.status === 'cancelled').length,
+          },
+        ].map(({ key, label, count }) => (
+          <button
+            key={key}
+            onClick={() => setActiveTab(key)}
+            className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
+              activeTab === key
+                ? 'bg-yellow-400 text-gray-900 shadow-lg'
+                : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+            }`}
+          >
+            {label} {count > 0 && `(${count})`}
+          </button>
+        ))}
       </div>
 
-      {/* Search & Date Filter */}
-      <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1 relative">
-            <Icon
-              name={'search'}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray"
-            />
-            <input
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              placeholder="Search orders, restaurants, or items..."
-              className="w-full pl-10 pr-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-            />
-          </div>
-
-          <div className="relative">
-            <Icon
-              name={'calendar'}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray"
-            />
-            <select
-              value={filterDateRange}
-              onChange={e => setFilterDateRange(e.target.value)}
-              className="pl-10 pr-8 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 bg-white min-w-[150px]"
-            >
-              <option value="all">All Time</option>
-              <option value="week">Last 7 Days</option>
-              <option value="month">Last 30 Days</option>
-              <option value="year">Last Year</option>
-            </select>
-          </div>
-        </div>
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <input
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          placeholder="Search by order ID, restaurant, or item..."
+          className="w-full pl-12 pr-4 py-3.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+        />
       </div>
 
       {/* Orders List */}
       <div className="space-y-4">
-        {filteredOrders.map(o => {
-          const status = getStatusInfo(o.status);
-          const isOpen = expandedOrder === o.id;
+        {filteredOrders.map(order => {
+          const status = getStatusConfig(order.status);
+          const isExpanded = expandedOrder === order.id;
+
           return (
             <div
-              key={o.id}
-              className="bg-white rounded-2xl shadow-lg border border-cream hover:shadow-xl transition-all"
+              key={order.id}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
             >
-              {/* Summary Row */}
-              <button
-                onClick={() => toggleExpand(o.id)}
-                className="w-full p-6 flex items-start justify-between text-left"
-              >
+              {/* Order Summary */}
+              <div className="p-6">
                 <div className="flex items-start gap-4">
                   <img
-                    src={o.restaurant.image}
-                    alt={o.restaurant.name}
-                    className="w-16 h-16 rounded-lg object-cover bg-gray-200"
+                    src={order.restaurant.image}
+                    alt={order.restaurant.name}
+                    className="w-20 h-20 rounded-xl object-cover"
                   />
-                  <div>
-                    <h3 className="font-semibold text-charcoal">
-                      {o.restaurant.name}
-                    </h3>
-                    <p className="text-medium-gray text-sm">
-                      {formatDate(o.orderDate)}
-                    </p>
-                    <div
-                      className={`inline-flex items-center gap-1 px-2 py-0.5 mt-1 text-xs rounded-full border ${status.color}`}
-                    >
-                      <status.icon className="w-3 h-3" />
-                      {status.label}
-                    </div>
-                    {o.estimatedDelivery && o.status !== 'delivered' && (
-                      <p className="text-sm text-yellow-600 mt-1">
-                        ETA: {formatETA(o.estimatedDelivery)}
-                      </p>
-                    )}
-                    {o.status === 'cancelled' && o.cancellationReason && (
-                      <p className="text-xs text-red-600 mt-1">
-                        Reason: {o.cancellationReason}
-                      </p>
-                    )}
-                  </div>
-                </div>
 
-                <div className="text-right">
-                  <p className="font-bold text-charcoal">
-                    ${o.total.toFixed(2)}
-                  </p>
-                  <p className="text-sm text-medium-gray">
-                    {o.items.length} items
-                  </p>
-                  <div className="mt-3">
-                    {isOpen ? (
-                      <Icon
-                        name={'chevron-up'}
-                        className="w-5 h-5 text-medium-gray"
-                      />
-                    ) : (
-                      <Icon
-                        name={'chevron-down'}
-                        className="w-5 h-5 text-medium-gray"
-                      />
-                    )}
-                  </div>
-                </div>
-              </button>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {order.restaurant.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                          {formatDate(order.orderDate)}
+                        </p>
 
-              {/* Expanded Details */}
-              {isOpen && (
-                <div className="border-t border-cream px-6 pb-6 space-y-6">
-                  {/* Items */}
-                  <div className="space-y-4">
-                    {o.items.map(it => (
-                      <div key={it.id} className="flex items-center gap-4">
-                        <img
-                          src={it.image}
-                          alt={it.name}
-                          className="w-14 h-14 rounded-lg object-cover bg-gray-200"
-                        />
-                        <div className="flex-1">
-                          <p className="font-medium text-charcoal">
-                            {it.quantity}× {it.name}
-                          </p>
-                          {it.customizations.length > 0 && (
-                            <p className="text-xs text-medium-gray">
-                              {it.customizations.join(', ')}
+                        <div className="flex items-center gap-3 mt-3">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${status.color}`}
+                          >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${status.dotColor}`}
+                            ></span>
+                            {status.label}
+                          </span>
+
+                          {order.estimatedDelivery &&
+                            order.status !== 'delivered' && (
+                              <span className="text-xs text-yellow-600 font-medium">
+                                ETA: {formatETA(order.estimatedDelivery)}
+                              </span>
+                            )}
+                        </div>
+
+                        {order.status === 'cancelled' &&
+                          order.cancellationReason && (
+                            <p className="text-xs text-red-600 mt-2">
+                              Reason: {order.cancellationReason}
                             </p>
                           )}
-                        </div>
-                        <p className="font-medium text-charcoal">
-                          ${it.price.toFixed(2)}
+                      </div>
+
+                      <div className="text-right">
+                        <p className="text-xl font-bold text-gray-900">
+                          ₹{order.total}
+                        </p>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {order.items.length} items
                         </p>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Charges & Actions */}
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-                    <div className="space-y-1 text-sm">
-                      <p className="flex justify-between">
-                        <span>Subtotal</span>
-                        <span>${o.subtotal.toFixed(2)}</span>
-                      </p>
-                      <p className="flex justify-between">
-                        <span>Delivery</span>
-                        <span>${o.deliveryFee.toFixed(2)}</span>
-                      </p>
-                      <p className="flex justify-between">
-                        <span>Tax</span>
-                        <span>${o.tax.toFixed(2)}</span>
-                      </p>
-                      <p className="flex justify-between font-semibold text-charcoal">
-                        <span>Total</span>
-                        <span>${o.total.toFixed(2)}</span>
-                      </p>
                     </div>
 
-                    {/* Buttons */}
-                    <div className="flex flex-wrap gap-2">
-                      {o.canReorder && (
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {order.canReorder && (
                         <button
-                          onClick={() => handleReorder(o)}
-                          className="flex items-center gap-1 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors"
+                          onClick={() => handleReorder(order)}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 rounded-lg font-semibold transition-colors text-sm"
                         >
-                          <Icon name={'shopping-cart'} className="w-4 h-4" />
+                          <ShoppingCart className="w-4 h-4" />
                           Reorder
                         </button>
                       )}
-                      {o.status !== 'cancelled' && o.canCancel && (
+
+                      {['preparing', 'on_the_way'].includes(order.status) &&
+                        order.canCancel && (
+                          <button
+                            onClick={() => handleCancelOrder(order.id)}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-semibold transition-colors text-sm"
+                          >
+                            <XCircle className="w-4 h-4" />
+                            Cancel
+                          </button>
+                        )}
+
+                      {['preparing', 'on_the_way'].includes(order.status) && (
                         <button
-                          onClick={() => handleCancelOrder(o.id)}
-                          className="flex items-center gap-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                          onClick={() => handleTrackOrder(order)}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-lg font-semibold transition-colors text-sm"
                         >
-                          <Icon name={'x-circle'} className="w-4 h-4" />
-                          Cancel Order
-                        </button>
-                      )}
-                      {['preparing', 'on_the_way'].includes(o.status) && (
-                        <button
-                          onClick={() => handleTrackOrder(o)}
-                          className="flex items-center gap-1 px-4 py-2 border border-yellow-400 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors"
-                        >
-                          <Icon name={'navigation'} className="w-4 h-4" />
+                          <Navigation className="w-4 h-4" />
                           Track
                         </button>
                       )}
+
                       <button
-                        className="flex items-center gap-1 px-4 py-2 border border-cream hover:bg-gray-50 rounded-lg transition-colors"
-                        onClick={() => console.log('Invoice for', o.id)}
+                        onClick={() =>
+                          setExpandedOrder(isExpanded ? null : order.id)
+                        }
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-lg font-semibold transition-colors text-sm"
                       >
-                        <Icon name={'recipt'} className="w-4 h-4" />
-                        Invoice
+                        {isExpanded ? 'Hide' : 'View'} Details
+                        {isExpanded ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
+                        )}
                       </button>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  {/* Delivery info */}
-                  <div className="pt-6 border-t border-cream space-y-3 text-sm">
-                    <p className="flex items-center gap-2 text-medium-gray">
-                      <Icon name={'map-pin'} className="w-4 h-4" />
-                      {o.deliveryAddress}
-                    </p>
-                    {o.deliveryInstructions && (
-                      <p className="flex items-center gap-2 text-medium-gray">
-                        <Icon name={'clock'} className="w-4 h-4" />
-                        {o.deliveryInstructions}
-                      </p>
+              {/* Expanded Details */}
+              {isExpanded && (
+                <div className="border-t border-gray-200 bg-gray-50 p-6 space-y-6">
+                  {/* Items List */}
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">
+                      Order Items
+                    </h4>
+                    <div className="space-y-3">
+                      {order.items.map(item => (
+                        <div
+                          key={item.id}
+                          className="flex items-center gap-3 bg-white rounded-lg p-3"
+                        >
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-14 h-14 rounded-lg object-cover"
+                          />
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900">
+                              {item.quantity}× {item.name}
+                            </p>
+                            {item.customizations.length > 0 && (
+                              <p className="text-xs text-gray-500 mt-0.5">
+                                {item.customizations.join(', ')}
+                              </p>
+                            )}
+                          </div>
+                          <p className="font-semibold text-gray-900">
+                            ₹{item.price * item.quantity}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price Breakdown */}
+                  <div className="bg-white rounded-lg p-4">
+                    <h4 className="font-semibold text-gray-900 mb-3">
+                      Bill Summary
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between text-gray-600">
+                        <span>Subtotal</span>
+                        <span>₹{order.subtotal}</span>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Delivery Fee</span>
+                        <span>₹{order.deliveryFee}</span>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Tax</span>
+                        <span>₹{order.tax}</span>
+                      </div>
+                      <div className="flex justify-between font-bold text-gray-900 text-base pt-2 border-t border-gray-200">
+                        <span>Total</span>
+                        <span>₹{order.total}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Delivery Info */}
+                  <div className="bg-white rounded-lg p-4 space-y-3">
+                    <h4 className="font-semibold text-gray-900 mb-3">
+                      Delivery Information
+                    </h4>
+                    <div className="flex items-start gap-3 text-sm text-gray-600">
+                      <MapPin className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+                      <span>{order.deliveryAddress}</span>
+                    </div>
+                    {order.deliveryInstructions && (
+                      <div className="flex items-start gap-3 text-sm text-gray-600">
+                        <Clock className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+                        <span>{order.deliveryInstructions}</span>
+                      </div>
                     )}
-                    {o.driver && (
-                      <p className="flex items-center gap-2 text-medium-gray">
-                        <Icon name={'phone'} className="w-4 h-4" />
-                        {o.driver.name} &middot; {o.driver.phone}
-                      </p>
+                    {order.driver && (
+                      <div className="flex items-start gap-3 text-sm text-gray-600">
+                        <Phone className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+                        <span>
+                          {order.driver.name} • {order.driver.phone}
+                        </span>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -394,18 +476,17 @@ const Orders = () => {
           );
         })}
 
-        {/* Empty-state */}
+        {/* Empty State */}
         {filteredOrders.length === 0 && (
-          <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-            <Icon
-              name={'package'}
-              className="w-10 h-10 mx-auto text-yellow-400"
-            />
-            <h3 className="mt-4 text-xl font-semibold text-charcoal">
-              No orders match your filters
+          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Package className="w-8 h-8 text-gray-400" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              No orders found
             </h3>
-            <p className="text-medium-gray">
-              Try adjusting search or date range.
+            <p className="text-gray-600">
+              Try adjusting your search or filters
             </p>
           </div>
         )}
