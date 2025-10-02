@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
-import Icon from '../../components/ui/Icon';
-import Footer from '../../components/Footer';
-import CorporateNavigation from './sections/CorporateNavigation';
+import {
+  Users,
+  CreditCard,
+  BarChart3,
+  Settings,
+  Shield,
+  Headphones,
+  Coffee,
+  UsersRound,
+  Clock,
+  Gift,
+  CheckCircle,
+  ArrowRight,
+  Play,
+  Building2,
+  TrendingUp,
+  Truck,
+  X,
+  Sparkles,
+} from 'lucide-react';
 
 const CorporatePage = () => {
-  const [activeTab, setActiveTab] = useState('overview');
-  const [selectedPlan, setSelectedPlan] = useState('standard');
   const [showContactForm, setShowContactForm] = useState(false);
-
   const [contactForm, setContactForm] = useState({
     companyName: '',
     contactName: '',
@@ -19,38 +33,38 @@ const CorporatePage = () => {
 
   const corporateFeatures = [
     {
-      icon: 'users',
+      icon: Users,
       title: 'Employee Management',
       description:
         'Easy employee onboarding with bulk invitations and role-based access controls.',
     },
     {
-      icon: 'credit-card',
+      icon: CreditCard,
       title: 'Centralized Billing',
       description:
         'Single invoice for all orders with detailed reporting and expense tracking.',
     },
     {
-      icon: 'bar-chart-3',
+      icon: BarChart3,
       title: 'Analytics Dashboard',
       description:
         'Comprehensive insights into ordering patterns, spending, and employee preferences.',
     },
     {
-      icon: 'settings',
+      icon: Settings,
       title: 'Custom Policies',
       description:
         'Set spending limits, approved restaurants, and ordering time restrictions.',
     },
     {
-      icon: 'shield',
+      icon: Shield,
       title: 'Security & Compliance',
       description:
         'Enterprise-grade security with SOC 2 compliance and data protection.',
     },
     {
-      icon: 'head-phones',
-      title: 'dedicated-support',
+      icon: Headphones,
+      title: 'Dedicated Support',
       description:
         '24/7 priority support with dedicated account manager for enterprise clients.',
     },
@@ -75,7 +89,7 @@ const CorporatePage = () => {
     {
       id: 'standard',
       name: 'Standard',
-      price: '$99',
+      price: '₹8,999',
       description: 'Great for growing companies',
       employees: 'Up to 100 employees',
       features: [
@@ -109,7 +123,6 @@ const CorporatePage = () => {
   const testimonials = [
     {
       company: 'TechCorp Inc.',
-      logo: '/api/placeholder/80/40',
       testimonial:
         'Carve has transformed our office meal experience. The corporate dashboard gives us complete visibility into our food spending.',
       author: 'Sarah Johnson',
@@ -119,7 +132,6 @@ const CorporatePage = () => {
     },
     {
       company: 'StartupXYZ',
-      logo: '/api/placeholder/80/40',
       testimonial:
         'The employee management features are fantastic. We can easily onboard new team members and track meal allowances.',
       author: 'Mike Chen',
@@ -129,7 +141,6 @@ const CorporatePage = () => {
     },
     {
       company: 'Global Solutions',
-      logo: '/api/placeholder/80/40',
       testimonial:
         'Outstanding support and analytics. The insights help us make better decisions about our employee benefits program.',
       author: 'Emily Rodriguez',
@@ -140,33 +151,33 @@ const CorporatePage = () => {
   ];
 
   const stats = [
-    { label: 'Corporate Clients', value: '500+', icon: 'building-2' },
-    { label: 'Employees Served', value: '50K+', icon: 'users' },
-    { label: 'Orders Delivered', value: '2M+', icon: 'truck' },
-    { label: 'Cost Savings', value: '35%', icon: 'trending-up' },
+    { label: 'Corporate Clients', value: '500+', icon: Building2 },
+    { label: 'Employees Served', value: '50K+', icon: Users },
+    { label: 'Orders Delivered', value: '2M+', icon: Truck },
+    { label: 'Cost Savings', value: '35%', icon: TrendingUp },
   ];
 
   const useCases = [
     {
-      icon: 'coffee',
+      icon: Coffee,
       title: 'Daily Meals',
       description:
         'Provide breakfast, lunch, and dinner options for your employees with flexible meal allowances.',
     },
     {
-      icon: 'users-2',
+      icon: UsersRound,
       title: 'Team Events',
       description:
         'Order catering for meetings, celebrations, and team building events with bulk ordering features.',
     },
     {
-      icon: 'clock',
+      icon: Clock,
       title: 'Late Night Work',
       description:
         'Support employees working late with extended ordering hours and priority delivery.',
     },
     {
-      icon: 'gift',
+      icon: Gift,
       title: 'Employee Perks',
       description:
         'Enhance your benefits package with meal credits and special occasion treats.',
@@ -175,7 +186,7 @@ const CorporatePage = () => {
 
   const handleContactSubmit = e => {
     e.preventDefault();
-    console.log('Contact form submitted:', contactForm);
+    console.log('Contact submitted:', contactForm);
     setShowContactForm(false);
     setContactForm({
       companyName: '',
@@ -188,341 +199,414 @@ const CorporatePage = () => {
   };
 
   return (
-    <>
-      <CorporateNavigation />
-      <div className="min-h-screen bg-cream">
-        <div className="relative bg-gradient-to-br from-charcoal via-gray-800 to-charcoal text-white overflow-hidden">
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="relative z-10 container mx-auto px-4 py-20">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-yellow-400/20 text-yellow-300 px-4 py-2 rounded-full mb-6">
-                <Icon name="building-2" className="w-5 h-5" />
-                <span className="font-semibold">Corporate Solutions</span>
-              </div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl"></div>
+        </div>
 
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Feed Your Team,{' '}
-                <span className="text-yellow-400">Fuel Success</span>
-              </h1>
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+            }}
+          ></div>
+        </div>
 
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Streamline your corporate food ordering with our comprehensive
-                platform. Manage employees, track spending, and boost
-                productivity with delicious meals.
-              </p>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 md:py-28">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-yellow-400/20 backdrop-blur-xl border border-yellow-400/30 text-yellow-400 px-5 py-2.5 rounded-full text-sm font-bold mb-8 shadow-lg">
+              <Building2 className="w-4 h-4" />
+              Corporate Solutions
+            </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <button
-                  onClick={() => setShowContactForm(true)}
-                  className="bg-yellow-400 hover:bg-yellow-500 text-charcoal font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-                >
-                  Get Started <Icon name="arrow-right" className="w-5 h-5" />
-                </button>
-                <button className="border-2 border-white text-white hover:bg-white hover:text-charcoal font-semibold px-8 py-4 rounded-lg transition-all flex items-center gap-2">
-                  <Icon name="play" className="w-5 h-5" /> Watch Demo
-                </button>
-              </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              <span className="text-white">Feed Your Team,</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500">
+                Fuel Success
+              </span>
+            </h1>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {stats.map((s, i) => (
-                  <div key={i} className="text-center">
-                    <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-                      <Icon name={s.icon} className="w-6 h-6 text-yellow-400" />
+            <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Streamline your corporate food ordering with our comprehensive
+              platform. Manage employees, track spending, and boost
+              productivity.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <button
+                onClick={() => setShowContactForm(true)}
+                className="group bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+              >
+                Get Started
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button className="group border-2 border-white/30 backdrop-blur-xl text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-2xl transition-all flex items-center justify-center gap-2">
+                <Play className="w-5 h-5" />
+                Watch Demo
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {stats.map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    key={i}
+                    className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6"
+                  >
+                    <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <Icon className="w-6 h-6 text-gray-900" />
                     </div>
-                    <div className="text-3xl font-bold text-yellow-400 mb-1">
-                      {s.value}
+                    <div className="text-3xl font-bold text-white mb-1">
+                      {stat.value}
                     </div>
-                    <div className="text-gray-300 text-sm">{s.label}</div>
+                    <div className="text-gray-400 text-sm font-medium">
+                      {stat.label}
+                    </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 py-16">
-          <section className="mb-20">
-            <header className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-charcoal mb-4">
-                Everything You Need for Corporate Food Management
-              </h2>
-              <p className="text-xl text-medium-gray max-w-2xl mx-auto">
-                Our platform is designed specifically for businesses to manage
-                employee meals efficiently and cost-effectively.
-              </p>
-            </header>
+      {/* Features Section */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-bold mb-4">
+            <Sparkles className="w-4 h-4" />
+            Powerful Features
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Everything You Need for Corporate Food Management
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Our platform is designed specifically for businesses to manage
+            employee meals efficiently and cost-effectively.
+          </p>
+        </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {corporateFeatures.map((f, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl shadow-lg border border-cream p-8 hover:shadow-xl transition-all group"
-                >
-                  <div className="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-yellow-200 transition-colors">
-                    <Icon name={f.icon} className="w-8 h-8 text-yellow-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-charcoal mb-3">
-                    {f.title}
-                  </h3>
-                  <p className="text-medium-gray leading-relaxed">
-                    {f.description}
-                  </p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {corporateFeatures.map((feature, i) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={i}
+                className="group bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-2xl hover:border-yellow-400 transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Icon className="w-8 h-8 text-gray-900" />
                 </div>
-              ))}
-            </div>
-          </section>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-          <section className="mb-20">
-            <header className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-charcoal mb-4">
-                Perfect for Every Occasion
-              </h2>
-              <p className="text-xl text-medium-gray max-w-2xl mx-auto">
-                From daily meals to special events, we've got your corporate
-                food needs covered.
-              </p>
-            </header>
+      {/* Use Cases */}
+      <div className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Perfect for Every Occasion
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From daily meals to special events, we've got your corporate food
+              needs covered.
+            </p>
+          </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {useCases.map((u, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {useCases.map((useCase, i) => {
+              const Icon = useCase.icon;
+              return (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl shadow-lg border border-cream p-6 text-center hover:shadow-xl transition-all"
+                  className="bg-white rounded-2xl border border-gray-200 p-6 text-center hover:shadow-xl transition-all"
                 >
                   <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon name={u.icon} className="w-8 h-8 text-yellow-600" />
+                    <Icon className="w-8 h-8 text-yellow-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-charcoal mb-2">
-                    {u.title}
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {useCase.title}
                   </h3>
-                  <p className="text-medium-gray text-sm leading-relaxed">
-                    {u.description}
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {useCase.description}
                   </p>
                 </div>
-              ))}
-            </div>
-          </section>
+              );
+            })}
+          </div>
+        </div>
+      </div>
 
-          <section className="mb-20">
-            <header className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-charcoal mb-4">
-                Choose Your Plan
-              </h2>
-              <p className="text-xl text-medium-gray max-w-2xl mx-auto">
-                Flexible pricing options to fit your company size and needs.
-              </p>
-            </header>
+      {/* Pricing */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Choose Your Plan
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Flexible pricing options to fit your company size and needs.
+          </p>
+        </div>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {pricingPlans.map(p => (
-                <div
-                  key={p.id}
-                  className={`bg-white rounded-2xl shadow-lg border-2 p-8 relative hover:shadow-xl transition-all ${
-                    p.popular ? 'border-yellow-400' : 'border-cream'
-                  }`}
-                >
-                  {p.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <span className="bg-yellow-400 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                        Most Popular
-                      </span>
-                    </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {pricingPlans.map(plan => (
+            <div
+              key={plan.id}
+              className={`bg-white rounded-3xl border-2 p-8 relative hover:shadow-2xl transition-all ${
+                plan.popular
+                  ? 'border-yellow-400 shadow-xl scale-105'
+                  : 'border-gray-200'
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 px-5 py-2 rounded-full text-sm font-bold shadow-lg">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {plan.name}
+                </h3>
+                <p className="text-gray-600 mb-6">{plan.description}</p>
+                <div className="mb-4">
+                  <span className="text-5xl font-bold text-gray-900">
+                    {plan.price}
+                  </span>
+                  {plan.price !== 'Free' && plan.price !== 'Custom' && (
+                    <span className="text-gray-600">/month</span>
                   )}
-
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-charcoal mb-2">
-                      {p.name}
-                    </h3>
-                    <p className="text-medium-gray mb-4">{p.description}</p>
-                    <div className="mb-4">
-                      <span className="text-4xl font-bold text-charcoal">
-                        {p.price}
-                      </span>
-                      {p.price !== 'Free' && p.price !== 'Custom' && (
-                        <span className="text-medium-gray">/month</span>
-                      )}
-                    </div>
-                    <p className="text-sm text-medium-gray">{p.employees}</p>
-                  </div>
-
-                  <ul className="space-y-4 mb-8">
-                    {p.features.map((f, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <Icon
-                          name="check-circle"
-                          className="w-5 h-5 text-mint-green"
-                        />
-                        <span className="text-medium-gray">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button
-                    onClick={() => setSelectedPlan(p.id)}
-                    className={`w-full py-3 rounded-lg font-semibold transition-all ${
-                      p.popular
-                        ? 'bg-yellow-400 hover:bg-yellow-500 text-white shadow-lg hover:shadow-xl'
-                        : 'bg-gray-100 hover:bg-gray-200 text-charcoal'
-                    }`}
-                  >
-                    {p.price === 'Custom' ? 'Contact Sales' : 'Get Started'}
-                  </button>
                 </div>
-              ))}
+                <p className="text-sm font-semibold text-gray-600">
+                  {plan.employees}
+                </p>
+              </div>
+
+              <ul className="space-y-4 mb-8">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={() => setShowContactForm(true)}
+                className={`w-full py-4 rounded-2xl font-bold transition-all ${
+                  plan.popular
+                    ? 'bg-yellow-400 hover:bg-yellow-500 text-gray-900 shadow-lg hover:shadow-xl'
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                }`}
+              >
+                {plan.price === 'Custom' ? 'Contact Sales' : 'Get Started'}
+              </button>
             </div>
-          </section>
+          ))}
+        </div>
+      </div>
 
-          <section className="mb-20">
-            <header className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-charcoal mb-4">
-                Trusted by Leading Companies
-              </h2>
-              <p className="text-xl text-medium-gray max-w-2xl mx-auto">
-                Join hundreds of satisfied HR and operations teams who rely on
-                us every day.
-              </p>
-            </header>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((t, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl shadow-lg border border-cream p-8 hover:shadow-xl transition-all flex flex-col"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <img
-                      src={t.logo}
-                      alt={t.company}
-                      className="w-16 h-8 object-contain bg-gray-100 rounded-lg p-1"
-                    />
-                    <h3 className="font-semibold text-charcoal">{t.company}</h3>
-                  </div>
-                  <p className="text-medium-gray flex-1 mb-6">
-                    “{t.testimonial}”
-                  </p>
-                  <div className="text-sm text-medium-gray">
-                    <p className="font-semibold text-charcoal">{t.author}</p>
-                    <p>{t.position}</p>
-                    <p>{t.employees}</p>
-                    <p className="text-mint-green font-medium">{t.savings}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="bg-yellow-400 rounded-2xl p-12 text-center shadow-lg mb-20">
-            <h2 className="text-4xl font-bold text-charcoal mb-4">
-              Ready to supercharge your team meals?
+      {/* Testimonials */}
+      <div className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Trusted by Leading Companies
             </h2>
-            <p className="text-xl text-charcoal mb-8">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Join hundreds of satisfied HR and operations teams who rely on us
+              every day.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-xl transition-all"
+              >
+                <div className="mb-6">
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, idx) => (
+                      <div
+                        key={idx}
+                        className="w-5 h-5 bg-yellow-400 rounded-full"
+                      ></div>
+                    ))}
+                  </div>
+                  <p className="text-gray-700 leading-relaxed mb-6">
+                    "{testimonial.testimonial}"
+                  </p>
+                </div>
+
+                <div className="border-t border-gray-200 pt-6">
+                  <p className="font-bold text-gray-900 mb-1">
+                    {testimonial.author}
+                  </p>
+                  <p className="text-sm text-gray-600 mb-1">
+                    {testimonial.position}
+                  </p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {testimonial.company}
+                  </p>
+                  <div className="flex items-center justify-between mt-4 text-sm">
+                    <span className="text-gray-600">
+                      {testimonial.employees}
+                    </span>
+                    <span className="text-green-600 font-semibold">
+                      {testimonial.savings}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-3xl p-12 md:p-16 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+
+          <div className="relative">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Ready to Supercharge Your Team Meals?
+            </h2>
+            <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
               Get a personalized demo or start for free in minutes.
             </p>
             <button
               onClick={() => setShowContactForm(true)}
-              className="bg-white hover:bg-gray-100 text-charcoal font-semibold px-10 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 mx-auto"
+              className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-bold px-10 py-5 rounded-2xl shadow-xl hover:shadow-2xl transition-all"
             >
-              Contact Sales <Icon name="arrow-right" className="w-5 h-5" />
+              Contact Sales
+              <ArrowRight className="w-5 h-5" />
             </button>
-          </section>
+          </div>
         </div>
+      </div>
 
-        {showContactForm && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-8 relative">
-              <button
-                onClick={() => setShowContactForm(false)}
-                className="absolute top-4 right-4 text-medium-gray hover:text-charcoal text-2xl leading-none"
-              >
-                &times;
-              </button>
-              <h3 className="text-2xl font-bold text-charcoal mb-6">
-                Talk to our team
-              </h3>
+      {/* Contact Modal */}
+      {showContactForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowContactForm(false)}
+              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-              <form onSubmit={handleContactSubmit} className="space-y-4">
+            <h3 className="text-3xl font-bold text-gray-900 mb-2">
+              Let's Talk
+            </h3>
+            <p className="text-gray-600 mb-8">
+              Fill out the form and our team will get back to you within 24
+              hours.
+            </p>
+
+            <div className="space-y-5">
+              <input
+                className="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                placeholder="Company Name"
+                value={contactForm.companyName}
+                onChange={e =>
+                  setContactForm({
+                    ...contactForm,
+                    companyName: e.target.value,
+                  })
+                }
+              />
+
+              <div className="grid md:grid-cols-2 gap-5">
                 <input
-                  className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-                  placeholder="Company Name"
-                  required
-                  value={contactForm.companyName}
+                  className="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  placeholder="Contact Name"
+                  value={contactForm.contactName}
                   onChange={e =>
                     setContactForm({
                       ...contactForm,
-                      companyName: e.target.value,
+                      contactName: e.target.value,
                     })
                   }
                 />
-                <div className="grid md:grid-cols-2 gap-4">
-                  <input
-                    className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Contact Name"
-                    required
-                    value={contactForm.contactName}
-                    onChange={e =>
-                      setContactForm({
-                        ...contactForm,
-                        contactName: e.target.value,
-                      })
-                    }
-                  />
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Email"
-                    required
-                    value={contactForm.email}
-                    onChange={e =>
-                      setContactForm({ ...contactForm, email: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <input
-                    className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Phone"
-                    value={contactForm.phone}
-                    onChange={e =>
-                      setContactForm({ ...contactForm, phone: e.target.value })
-                    }
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Employees"
-                    value={contactForm.employeeCount}
-                    onChange={e =>
-                      setContactForm({
-                        ...contactForm,
-                        employeeCount: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <textarea
-                  rows="4"
-                  className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 resize-none"
-                  placeholder="How can we help?"
-                  value={contactForm.message}
+                <input
+                  type="email"
+                  className="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  placeholder="Email"
+                  value={contactForm.email}
                   onChange={e =>
-                    setContactForm({ ...contactForm, message: e.target.value })
+                    setContactForm({ ...contactForm, email: e.target.value })
                   }
                 />
+              </div>
 
-                <button
-                  type="submit"
-                  className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-charcoal font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
-                >
-                  Submit <Icon name="arrow-right" className="w-5 h-5" />
-                </button>
-              </form>
+              <div className="grid md:grid-cols-2 gap-5">
+                <input
+                  className="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  placeholder="Phone Number"
+                  value={contactForm.phone}
+                  onChange={e =>
+                    setContactForm({ ...contactForm, phone: e.target.value })
+                  }
+                />
+                <input
+                  type="number"
+                  className="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  placeholder="Number of Employees"
+                  value={contactForm.employeeCount}
+                  onChange={e =>
+                    setContactForm({
+                      ...contactForm,
+                      employeeCount: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <textarea
+                rows={4}
+                className="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent resize-none transition-all"
+                placeholder="How can we help your organization?"
+                value={contactForm.message}
+                onChange={e =>
+                  setContactForm({ ...contactForm, message: e.target.value })
+                }
+              />
+
+              <button
+                onClick={handleContactSubmit}
+                className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+              >
+                Submit Request
+                <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
           </div>
-        )}
-        <Footer />
-      </div>
-    </>
+        </div>
+      )}
+    </div>
   );
 };
 
