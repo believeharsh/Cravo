@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const BestDineOutSection = () => {
   return (
@@ -72,10 +73,12 @@ const BestDineOutSection = () => {
             </div>
 
             {/* CTA Button */}
-            <button className="group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold px-8 py-4 rounded-2xl transition-all shadow-lg shadow-yellow-200 hover:shadow-xl hover:shadow-yellow-300 flex items-center gap-3 hover:gap-4">
-              Explore Dine-Out Options
-              <ArrowRight className="w-5 h-5 transition-all" />
-            </button>
+            <Link to={'restaurants/dine-out'}>
+              <button className="cursor-pointer group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold px-8 py-4 rounded-2xl transition-all shadow-lg shadow-yellow-200 hover:shadow-xl hover:shadow-yellow-300 flex items-center gap-3 hover:gap-4">
+                Explore Dine-Out Options
+                <ArrowRight className="w-5 h-5 transition-all" />
+              </button>
+            </Link>
           </div>
 
           {/* Image Side */}

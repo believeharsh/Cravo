@@ -39,6 +39,7 @@ import { fetchUserCart } from './features/cart/cartSlice';
 import { closeAuthSidebar } from './features/ui/uiSlice';
 import { fetchAllAddresses } from './features/address/addressSlice';
 import CravoGetTheAPP from './pages/Get_the_App/GetTheAppPage';
+import DineoutRestaurantPage from './pages/dineOut-Restaurants-Page/DineOutRestaurantPage';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function AppContent() {
   return (
     <Routes>
       <Route path="restaurants" element={<RestaurantsOverviewPage />} />
+      <Route path="restaurants/dine-out" element={<DineoutRestaurantPage />} />
       <Route path="/" element={<LandingPage />} />
       <Route path="categories/:categorySlug" element={<CategoryResultPage />} />
       <Route
