@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  Facebook,
+  GithubIcon,
   Twitter,
   Instagram,
   Linkedin,
   Mail,
   Phone,
-  MapPin,
 } from 'lucide-react';
 
 const InternalLinkItem = ({ to, children }) => (
@@ -153,23 +152,23 @@ const Footer = () => (
           <div className="flex items-center space-x-3">
             <span className="text-sm text-gray-300 mr-2">Follow us:</span>
             <SocialIcon
-              Icon={Facebook}
-              href="https://facebook.com/cravo"
+              Icon={GithubIcon}
+              href="https://github.com/believeharsh"
               label="Facebook"
             />
             <SocialIcon
               Icon={Twitter}
-              href="https://twitter.com/cravo"
+              href="https://x.com/believeharsh?t=TIwrahwHjYlsDs8-EbUxig&s=09"
               label="Twitter"
             />
             <SocialIcon
               Icon={Instagram}
-              href="https://instagram.com/cravo"
+              href="https://www.instagram.com/theharshdahiya1/"
               label="Instagram"
             />
             <SocialIcon
               Icon={Linkedin}
-              href="https://linkedin.com/company/cravo"
+              href="https://www.linkedin.com/in/believeharsh11/"
               label="LinkedIn"
             />
           </div>
