@@ -67,4 +67,12 @@ export const API = {
     UPDATE_ADDRESS: addressId => `/address/${addressId}`,
     DELETE_ADDRESS: addressId => `/address/${addressId}`,
   },
+
+  ORDERS: {
+    CHECKOUT: '/orders/checkout',
+  },
+
+  PAYMENTS: {
+    VERIFY_PAYMENT: '/payments/verify',
+  },
 };
