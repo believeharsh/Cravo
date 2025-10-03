@@ -11,6 +11,7 @@ import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection'
 import OrderSummarySection from './sections/OrderSummarySection';
 import ItemDeleteConfirmation from '../../components/modules/cart/ItemDeleteConfirmModal';
 import { Link } from 'react-router-dom';
+import { useOrderActions } from '../../hooks/userOrdersActions';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
@@ -154,8 +155,108 @@ const CartPage = () => {
     setPromoMessage('');
   };
 
-  const handleCheckout = () => {
-    console.log('Proceeding to checkout...');
+  const { handleClearOrderState, handleCreateOrder, handleVerifyPayment } =
+    useOrderActions();
+
+  const handleRazorpaySuccess = response => {
+    const verificationPayload = {
+      razorpay_payment_id: response.razorpay_payment_id,
+      razorpay_order_id: response.razorpay_order_id,
+      razorpay_signature: response.razorpay_signature,
+    };
+
+    const verifyPayment = handleVerifyPayment(verificationPayload);
+    console.log('verifyPayment Result', verifyPayment);
+    // This is where you call your backend's payment verification API (e.g., handleVerifyPayment(verificationPayload))
+    console.log(
+      'Payment successful. Verification payload:',
+      verificationPayload
+    );
+  };
+
+  const displayRazorpay = razorpayDetails => {
+    const { amount, razorpayOrderId, keyId } = razorpayDetails;
+
+    const options = {
+      key: keyId,
+      amount: amount, // Amount must be in paisa (smallest unit)
+      currency: razorpayDetails.currency || 'INR',
+      name: 'Cravo India Limited',
+      order_id: razorpayOrderId,
+      handler: handleRazorpaySuccess, // Pass the success handler
+      prefill: {
+        /* ... user details ... */
+      },
+      theme: { color: '#FBBF24' },
+    };
+
+    if (window.Razorpay) {
+      const rzp1 = new window.Razorpay(options);
+      rzp1.on('payment.failed', function (response) {
+        console.error('Razorpay Error:', response.error);
+        alert(
+          `Payment Failed: ${response.error.description || 'Please try again.'}`
+        );
+        handleClearOrderState();
+      });
+      rzp1.open();
+    } else {
+      alert('Payment gateway failed to load.');
+      handleClearOrderState();
+    }
+  };
+
+  const loadRazorpayScript = () => {
+    return new Promise(resolve => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handleCheckout = async () => {
+    // Clear any previous errors/states before starting a new transaction
+    handleClearOrderState();
+
+    const scriptLoaded = await loadRazorpayScript();
+    if (!scriptLoaded) {
+      alert('Payment script could not load. Check your internet connection.');
+      return;
+    }
+
+    // Payload for the backend to create the Razorpay order
+    const orderPayload = {
+      deliveryAddress: {
+        street: '101, B Wing, Star Towers',
+        city: 'Mumbai',
+        state: 'Maharastara',
+        zipCode: '400053',
+        country: 'India',
+        landmark: 'Near the Yellow Clock Tower',
+        contactNumber: '9876543210',
+      },
+      paymentMethod: 'COD',
+      deliveryMethod: 'Standard',
+      promoCode: 'SAVE50',
+      guestInfo: {
+        name: 'Harsh Dahiya ',
+        email: 'onlybelieveharsh@gmail.com',
+      },
+    };
+
+    try {
+      // Dispatch the thunk and use .unwrap() to get the fulfilled data
+      const result = await handleCreateOrder(orderPayload).unwrap();
+      console.log('result is this', result);
+      // On successful order creation, open the payment modal
+      let razorpayDetails = result.data;
+      displayRazorpay(razorpayDetails);
+    } catch (error) {
+      // Error handling is managed by the extraReducers, the UI will reflect 'orderCreationError'
+      console.error('Order Creation Failed:', error);
+    }
   };
 
   if (cartItems.length === 0) {
