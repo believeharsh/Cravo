@@ -9,6 +9,7 @@ import addressReducer from '../features/address/addressSlice';
 import categoryResultReducer from '../features/categoryResult/categoryResultSlice';
 import restaurantMenuReducer from '../features/restaurantMenu/restaurantMenuSlice';
 import searchContextReducer from '../features/SearchContext/searchContaxtSlice';
+import ordersReducer from '../features/orders/ordersSlice';
 
 import axiosInstance from '../api/axiosInstance';
 
@@ -24,6 +25,7 @@ const store = configureStore({
     categoryResult: categoryResultReducer,
     restaurantMenu: restaurantMenuReducer,
     searchContext: searchContextReducer,
+    orders: ordersReducer,
   },
 });
 
