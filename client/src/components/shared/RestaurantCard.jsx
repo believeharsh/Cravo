@@ -137,13 +137,15 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         </h3>
 
         {/* Cuisine tags */}
-        <div className="flex flex-wrap gap-1 text-xs text-gray-600 font-medium">
+        <div className="flex items-center gap-1 text-xs text-gray-600 font-medium overflow-hidden whitespace-nowrap">
           {data.cuisine_type?.slice(0, 4).map((cuisine, idx) => (
             <span key={cuisine}>
               {cuisine}
               {idx < data.cuisine_type.slice(0, 4).length - 1 && ' •'}
             </span>
           ))}
+          {/* Add ellipsis if there are more than 4 items, though the content will be clipped anyway */}
+          {data.cuisine_type?.length > 4 && <span>...</span>}
         </div>
 
         {/* Rating and Reviews */}
