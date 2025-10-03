@@ -5,7 +5,7 @@ import Icon from '../../../components/ui/Icon';
 const CartNavigation = () => {
   return (
     <>
-      <nav className="px-4 sm:px-6 py-1 sm:py-2 bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav className="px-4 sm:px-6 py-1 sm:py-1 bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3 sm:space-x-4">
             <div className=" bg-white rounded-full flex items-center justify-center">
@@ -22,7 +22,7 @@ const CartNavigation = () => {
                 />
               </div>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
+            <h1 className="text-xl sm:text-xl font-bold text-gray-800">
               Secure Checkout
             </h1>
           </div>
@@ -43,7 +43,7 @@ const CartNavigation = () => {
                 <span className="hidden xl:block">Help</span>
               </NavLink>
               <NavLink
-                to="/profile"
+                to="/profile/account"
                 className={({ isActive }) =>
                   `flex items-center gap-1 ${
                     isActive
@@ -53,7 +53,7 @@ const CartNavigation = () => {
                 }
               >
                 <Icon name="user" size={20} />
-                <span className="hidden xl:block">Profile</span>
+                <span className="hidden xl:block ">Profile</span>
               </NavLink>
             </div>
           </div>
