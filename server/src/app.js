@@ -17,6 +17,7 @@ import restaurantListRoute from './routes/restaurantList.route.js';
 import cartRoute from './routes/cart.route.js';
 import orderRoute from './routes/order.route.js';
 import addressRoute from './routes/address.route.js';
+import paymentRoute from './routes/payment.route.js';
 import restaurantSuperAdminRoute from './routes/superAdmin/restaurantSuperAdmin.route.js';
 
 dotenv.config();
@@ -52,6 +53,7 @@ app.use('/api/v1/cities', cityRoute);
 app.use('/api/v1/lists', listRoute);
 app.use('/api/v1/restaurantList', restaurantListRoute);
 app.use('/api/v1/address', addressRoute);
+app.use('/api/v1/payments', paymentRoute);
 
 // super Admin Routes
 app.use('/api/v1/super-admin/restaurants', restaurantSuperAdminRoute);
