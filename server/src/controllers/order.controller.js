@@ -6,53 +6,101 @@ import Order from '../models/order.model.js';
 import Product from '../models/product.model.js';
 import mongoose from 'mongoose';
 
+//razorpay instance import
+import razorpayInstance from '../config/razorPayConfig.js';
+
 // Helper function to handle price and stock checks during checkout
+/**
+ * Validates cart items against product database, calculates final totals,
+ * and prepares the snapshot for the Order document.
+ * * @param {Array} cartItems - Array of items from the user's cart (product ID, quantity, customizations).
+ * @returns {Object} { orderItems, subTotal, taxAmount, shippingCost, totalAmount }
+ */
 const validateAndPrepareOrderItems = async items => {
-  let totalAmount = 0;
+  let subTotal = 0;
+  let taxAmount = 0;
+  let discountAmount = 0; // Placeholder for future discount logic
+  const SHIPPING_FLAT_RATE = 50; // Example flat rate
+  const TAX_RATE = 0.18; // 18% GST example
+
   const orderItems = [];
+  const productIds = items.map(item => item.product);
 
+  // 1. Fetch all product data in a single query for efficiency (less MongoDB round trips)
+  const products = await Product.find({ _id: { $in: productIds } });
+  const productMap = products.reduce((acc, product) => {
+    acc[product._id.toString()] = product;
+    return acc;
+  }, {});
+
+  // 2. Loop through cart items for validation and calculation
   for (const cartItem of items) {
-    const product = await Product.findById(cartItem.product);
+    const product = productMap[cartItem.product.toString()];
 
-    // Check if the product still exists
+    // A. Check if the product still exists
     if (!product) {
-      throw new apiError(404, `Product with ID ${cartItem.product} not found`);
-    }
-
-    // Check for a price change to prevent manipulation
-    if (product.price !== cartItem.price) {
       throw new apiError(
-        400,
-        `Price for product '${product.name}' has changed. Please update your cart.`
+        404,
+        `One or more products in your cart were not found.`
       );
     }
 
-    // Check for stock (assuming you'll add a stock field to the Product model)
+    // B. Security: Use the price from the database (SNAPSHOT IT)
+    // IMPORTANT: We DO NOT check cartItem.price vs product.price.
+    // We trust the database price (product.price) and use it.
+    const itemPrice = product.price;
+    const itemTotal = itemPrice * cartItem.quantity;
+
+    // C. Stock Check (Uncomment and implement stock logic when ready)
     // if (product.stock < cartItem.quantity) {
-    //     throw new apiError(400, `Not enough stock for product '${product.name}'`);
+    //   throw new apiError(400, `Not enough stock for '${product.name}'. Available: ${product.stock}`);
     // }
 
-    // Prepare the item for the order document (taking a snapshot)
+    // D. Prepare the snapshot for the Order document
     orderItems.push({
       product: product._id,
       name: product.name,
       quantity: cartItem.quantity,
-      price: product.price,
-      customizations: cartItem.customizations,
+      price: itemPrice, // Snapped price from DB
+      customizations: cartItem.customizations || [], // Ensure it's an array
     });
 
-    totalAmount += product.price * cartItem.quantity;
+    // E. Calculate running subtotal
+    subTotal += itemTotal;
   }
 
-  return { orderItems, totalAmount };
+  // 3. Final Financial Calculations
+
+  // Tax is calculated on the subTotal after discounts (if discounts applied here)
+  const taxableAmount = subTotal - discountAmount;
+  taxAmount = taxableAmount * TAX_RATE;
+
+  // Shipping cost (Can be zero or calculated based on weight/location later)
+  const shippingCost = SHIPPING_FLAT_RATE;
+
+  // Final total amount to be charged
+  const totalAmount = subTotal - discountAmount + taxAmount + shippingCost;
+
+  // 4. Return the full financial breakdown
+  return {
+    orderItems,
+    subTotal,
+    taxAmount,
+    shippingCost,
+    totalAmount,
+    discountApplied: discountAmount, // Return this as well for the Order model
+  };
 };
 
 const createOrder = asyncHandler(async (req, res) => {
-  // 1. Get user ID and delivery/payment details from request
-  const userId = req.user._id;
-  const { deliveryAddress, paymentMethod, deliveryMethod } = req.body;
+  // 1. Get user/guest ID and necessary details
+  const userId = req.user?._id; // Use optional chaining for guest (if supported)
+  // For production, you'd handle guest info separately if userId is null
+  // console.log("incoming body is this", req.body) ;
+  const { deliveryAddress, paymentMethod, deliveryMethod, guestInfo } =
+    req.body;
 
-  // 2. Validate required details
+  // 2. Initial Validation
   if (!deliveryAddress || !paymentMethod || !deliveryMethod) {
     throw new apiError(
       400,
@@ -60,18 +108,29 @@ const createOrder = asyncHandler(async (req, res) => {
     );
   }
 
-  // 3. Find the user's cart and check if it's empty
+  // 3. Find the user's cart
   const cart = await Cart.findOne({ user: userId });
   if (!cart || cart.items.length === 0) {
     throw new apiError(400, 'Your cart is empty.');
   }
 
-  // 4. Validate and prepare order items (with price and stock check)
-  const { orderItems, totalAmount } = await validateAndPrepareOrderItems(
-    cart.items
-  );
+  // 4. Validate, Price, and Calculate Financials (MOST CRITICAL STEP)
+  // Assume this function fetches product prices from DB and calculates totals securely.
+  const { orderItems, subTotal, taxAmount, shippingCost, totalAmount } =
+    await validateAndPrepareOrderItems(cart.items); // Must be an async function
 
-  // 5. Create a new Order document in an atomic transaction
+  // Razorpay requires amount in the smallest currency unit (e.g., paise for INR)
+  const amountInPaise = totalAmount * 100;
+
+  // 5. Razorpay Order Creation (Server-to-Server)
+  const razorpayOrder = await razorpayInstance.orders.create({
+    amount: amountInPaise,
+    currency: 'INR', // Or your currency
+    receipt: `receipt_order_${Date.now()}`, // Unique receipt for your records
+    // Optional: pass your Order ID as metadata once it's created, but better to use the response ID.
+  });
+
+  // 6. Create a new Order document in an atomic transaction
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -80,11 +139,19 @@ const createOrder = asyncHandler(async (req, res) => {
       [
         {
           user: userId,
+          guestInfo: guestInfo, // Save guest details if provided
           orderItems,
+          // Financials breakdown
+          subTotal,
+          taxAmount,
+          shippingCost,
           totalAmount,
+          // Payment details
           paymentMethod,
-          paymentStatus: 'Paid', // Assuming success for now. This would integrate with a payment gateway.
-          orderStatus: 'Confirmed',
+          paymentStatus: 'Pending', // Order is created, but payment is not confirmed yet
+          razorpayOrderId: razorpayOrder.id, // Store the ID from Razorpay
+          // Fulfillment details
+          orderStatus: 'Pending',
           deliveryAddress,
           deliveryMethod,
         },
@@ -92,25 +159,33 @@ const createOrder = asyncHandler(async (req, res) => {
       { session }
     );
 
-    // 6. Clear the user's cart
-    await Cart.findByIdAndUpdate(
-      cart._id,
-      { $set: { items: [], totalPrice: 0, totalQuantity: 0 } },
-      { new: true, session }
-    );
-
     // 7. Commit the transaction
     await session.commitTransaction();
     session.endSession();
 
-    // 8. Respond with the new order
-    res
-      .status(201)
-      .json(new apiResponse(201, newOrder[0], 'Order created successfully'));
+    // 8. Respond with the data needed by the frontend to open the Razorpay modal
+    res.status(201).json(
+      new apiResponse(
+        201,
+        {
+          orderId: newOrder[0]._id, // Your internal DB Order ID
+          razorpayOrderId: razorpayOrder.id, // Razorpay ID for the payment modal
+          amount: totalAmount, // Total amount
+          keyId: process.env.RAZORPAY_KEY_ID, // Public key ID for the frontend
+          currency: 'INR',
+          // Pass user/guest contact details for the payment modal options
+          name: userId ? req.user.fullName : guestInfo?.name,
+          email: userId ? req.user.email : guestInfo?.email,
+        },
+        'Order initiated successfully. Proceed to payment.'
+      )
+    );
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    throw new apiError(500, 'Order creation failed. Please try again.');
+    // Log the error for debugging
+    console.error('Order creation failed during transaction:', error);
+    throw new apiError(500, 'Order initiation failed. Please try again.');
   }
 });
 

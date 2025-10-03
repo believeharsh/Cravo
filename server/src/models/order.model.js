@@ -2,57 +2,81 @@ import { Schema, model } from 'mongoose';
 
 const OrderSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: 'User', default: null }, // Null for guest checkout
+    // --- 1. User/Guest Identification ---
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      default: null, // Allows for guest checkout
+      index: true, // Indexing this field for quick lookups
+    },
 
     // Guest Information (if user is not logged in)
     guestInfo: {
-      name: { type: String },
-      email: { type: String },
-      phone: { type: String },
+      name: { type: String, trim: true },
+      email: { type: String, trim: true },
+      phone: { type: String, trim: true },
     },
 
+    // --- 2. Item Details (Snapshot) ---
     orderItems: [
       {
-        // Embedded document for specific items in THIS order
+        // Reference to the current product (for easy lookup/admin)
         product: {
           type: Schema.Types.ObjectId,
           ref: 'Product',
           required: true,
         },
-        name: { type: String, required: true }, // Snapshot of product name
+        // SNAPPED data: Price and details at the time of order
+        name: { type: String, required: true },
         quantity: { type: Number, required: true, min: 1 },
-        price: { type: Number, required: true, min: 0 }, // Price at time of order
+        price: { type: Number, required: true, min: 0 },
+
+        // Snapshot of customizations selected for this item
         customizations: [
           {
-            // Snapshot of customizations selected for this item
             optionName: { type: String },
-            selectedItems: [{ type: String }], // e.g., ['Extra Cheese', 'Jalapenos']
+            selectedItems: [{ type: String }],
           },
         ],
       },
     ],
 
-    totalAmount: { type: Number, required: true, min: 0 },
-    discountApplied: { type: Number, default: 0 }, // Total discount amount
-    couponUsed: { type: Schema.Types.ObjectId, ref: 'Coupon' }, // Reference to a coupon if used
+    // --- 3. Financials and Totals ---
+    subTotal: { type: Number, required: true, min: 0 }, // Total of all item prices
+    shippingCost: { type: Number, default: 0 },
+    taxAmount: { type: Number, default: 0 },
+    discountApplied: { type: Number, default: 0 },
+    totalAmount: { type: Number, required: true, min: 0 }, // Final amount charged
 
+    couponUsed: { type: Schema.Types.ObjectId, ref: 'Coupon' },
+
+    // --- 4. Payment and Transaction Details ---
     paymentMethod: {
       type: String,
-      enum: ['Credit/Debit Card', 'PayPal', 'UPI', 'Wallet', 'COD'],
+      enum: ['Credit/Debit Card', 'UPI', 'Wallet', 'Net Banking', 'COD'],
       required: true,
     },
     paymentStatus: {
       type: String,
-      enum: ['Pending', 'Paid', 'Failed', 'Refunded'],
+      // 'Authorized' is a key status for gateways like Razorpay/Stripe
+      enum: ['Pending', 'Authorized', 'Paid', 'Failed', 'Refunded'],
       default: 'Pending',
+      index: true,
     },
-    transactionId: { type: String }, // ID from payment gateway
 
+    // Razorpay-specific IDs for verification and lookup
+    razorpayOrderId: { type: String }, // ID from Razorpay when order is created (e.g., order_xxxx)
+    razorpayPaymentId: { type: String }, // ID from Razorpay after successful payment (e.g., pay_xxxx)
+    // razorpaySignature is often only used during the verification API call and not stored long-term,
+    // but you can add it if you need it for audit logs:
+    // razorpaySignature: { type: String },
+
+    // --- 5. Fulfillment and Shipping ---
     orderStatus: {
       type: String,
       enum: [
-        'Pending',
-        'Confirmed',
+        'Pending', // Waiting for payment verification
+        'Confirmed', // Payment verified, order accepted
         'Preparing',
         'Out for Delivery',
         'Delivered',
@@ -60,9 +84,11 @@ const OrderSchema = new Schema(
         'Refunded',
       ],
       default: 'Pending',
+      index: true,
     },
+
+    // Embedded copy of the address at time of order
     deliveryAddress: {
-      // Embedded copy of the address at time of order
       street: { type: String, required: true },
       city: { type: String, required: true },
       state: { type: String, required: true },
@@ -79,13 +105,18 @@ const OrderSchema = new Schema(
     estimatedDeliveryTime: { type: Date },
     actualDeliveryTime: { type: Date },
     trackingNumber: { type: String },
-    pickupStore: { type: String }, // Name/ID of the store if pickup
+    pickupStore: { type: String },
 
-    // Customer support related
+    // --- 6. Cancellation/Refund ---
     cancellationReason: { type: String },
-    refundStatus: { type: String, enum: ['None', 'Initiated', 'Completed'] },
+    refundStatus: {
+      type: String,
+      enum: ['None', 'Initiated', 'Completed', 'Failed'],
+      default: 'None',
+    },
+    refundAmount: { type: Number, default: 0 }, // Tracks the total amount refunded
   },
-  { timestamps: true }
+  { timestamps: true } // Adds createdAt and updatedAt fields
 );
 
 const Order = model('Order', OrderSchema);
