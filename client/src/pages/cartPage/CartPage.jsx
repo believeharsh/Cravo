@@ -16,6 +16,10 @@ import { useOrderActions } from '../../hooks/userOrdersActions';
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
   const cartItems = cart.items;
+
+  // addresses of the user
+  const userAddresses = useSelector(state => state.address);
+
   const totalPrice = cart.totalPrice;
   const totalQuantity = cart.totalQuantity;
 
@@ -167,7 +171,6 @@ const CartPage = () => {
 
     const verifyPayment = handleVerifyPayment(verificationPayload);
     console.log('verifyPayment Result', verifyPayment);
-    // This is where you call your backend's payment verification API (e.g., handleVerifyPayment(verificationPayload))
     console.log(
       'Payment successful. Verification payload:',
       verificationPayload
