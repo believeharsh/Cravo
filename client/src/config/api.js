@@ -70,6 +70,9 @@ export const API = {
 
   ORDERS: {
     CHECKOUT: '/orders/checkout',
+    GET_ALL_USER_ORDERS: '/orders',
+    GET_ORDER_DETAILS: orderId => `/orders/${orderId}`,
+    CANCEL_ORDER: orderId => `/orders/${orderId}`,
   },
 
   PAYMENTS: {
