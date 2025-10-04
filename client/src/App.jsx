@@ -10,7 +10,8 @@ import RestaurantsOverviewPage from './pages/restaurant-Overview-Page/Restaurant
 import CartPage from './pages/cartPage/CartPage';
 import Settings from './pages/profilePage/Settings';
 import HelpSupport from './pages/profilePage/Help-Support';
-import Orders from './pages/profilePage/Orders';
+// import Orders from './pages/profilePage/Orders'; // direct from the profile page
+import Orders from './pages/profilePage/orders/Orders';
 import Payments from './pages/profilePage/Payment';
 import AddressPage from './pages/profilePage/Address/Address';
 import AccountPage from './pages/profilePage/Account/AccountPage';
@@ -40,6 +41,7 @@ import { closeAuthSidebar } from './features/ui/uiSlice';
 import { fetchAllAddresses } from './features/address/addressSlice';
 import CravoGetTheAPP from './pages/Get_the_App/GetTheAppPage';
 import DineoutRestaurantPage from './pages/dineOut-Restaurants-Page/DineOutRestaurantPage';
+import { AllUserOrdersThunk } from './features/orders/ordersSlice';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -129,6 +131,7 @@ function App() {
         dispatch(fetchAllWishlists()),
         dispatch(fetchUserCart()),
         dispatch(fetchAllAddresses()),
+        dispatch(AllUserOrdersThunk()),
         // dispatch(fetchPaymentMethods()),
       ];
 
