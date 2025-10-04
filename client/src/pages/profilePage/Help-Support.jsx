@@ -1,8 +1,29 @@
 import React, { useState } from 'react';
-import Icon from '../../components/ui/Icon';
+import {
+  Search,
+  ChevronDown,
+  ChevronUp,
+  ThumbsUp,
+  ThumbsDown,
+  MessageCircle,
+  Phone,
+  Mail,
+  Package,
+  AlertCircle,
+  User,
+  CreditCard,
+  Send,
+  X,
+  HelpCircle,
+  FileText,
+  Video,
+  Shield,
+  Settings,
+  ExternalLink,
+  Paperclip,
+} from 'lucide-react';
 
 const HelpSupport = () => {
-  /* --------------------------- local state --------------------------- */
   const [activeTab, setActiveTab] = useState('faq');
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedFaq, setExpandedFaq] = useState(null);
@@ -13,17 +34,14 @@ const HelpSupport = () => {
     category: 'general',
     priority: 'medium',
     message: '',
-    attachments: [],
   });
 
-  /* ------------------------------- data ------------------------------ */
   const faqCategories = [
-    { key: 'all', label: 'All Topics', icon: 'book' },
-    { key: 'orders', label: 'Orders & Delivery', icon: 'package' },
-    { key: 'payments', label: 'Payments & Billing', icon: 'credit-card' },
-    { key: 'account', label: 'Account & Profile', icon: 'user' },
-    { key: 'technical', label: 'Technical Issues', icon: 'settings' },
-    { key: 'restaurants', label: 'Restaurants', icon: 'truck' },
+    { key: 'all', label: 'All Topics', icon: FileText },
+    { key: 'orders', label: 'Orders', icon: Package },
+    { key: 'payments', label: 'Payments', icon: CreditCard },
+    { key: 'account', label: 'Account', icon: User },
+    { key: 'technical', label: 'Technical', icon: Settings },
   ];
 
   const faqs = [
@@ -32,7 +50,7 @@ const HelpSupport = () => {
       category: 'orders',
       question: 'How can I track my order?',
       answer:
-        'You can track your order in real-time by going to "My Orders" section in your profile. You\'ll see live updates including when your food is being prepared, picked up, and on its way to you. You\'ll also receive push notifications for major status updates.',
+        'You can track your order in real-time by going to "My Orders" section. You\'ll see live updates and receive notifications for major status changes.',
       helpful: 45,
       notHelpful: 3,
     },
@@ -41,16 +59,16 @@ const HelpSupport = () => {
       category: 'orders',
       question: 'What should I do if my order is late?',
       answer:
-        'If your order is significantly delayed beyond the estimated delivery time, please contact our support team immediately. We can track your order, contact the restaurant or driver, and provide updates. In case of excessive delays, we may offer compensation or help you reorder.',
+        'If your order is delayed beyond the estimated time, contact our support team. We can track your order and provide updates or compensation if needed.',
       helpful: 38,
       notHelpful: 2,
     },
     {
       id: 3,
       category: 'orders',
-      question: 'Can I modify or cancel my order after placing it?',
+      question: 'Can I modify or cancel my order?',
       answer:
-        'You can cancel your order within the first few minutes after placing it, before the restaurant starts preparing it. To cancel, go to your active orders and click "Cancel Order". Modifications are generally not possible once the order is confirmed, but you can contact support for urgent changes.',
+        'You can cancel within the first few minutes after placing it. Go to active orders and click "Cancel Order". Modifications aren\'t possible once confirmed.',
       helpful: 52,
       notHelpful: 8,
     },
@@ -59,153 +77,126 @@ const HelpSupport = () => {
       category: 'payments',
       question: 'What payment methods do you accept?',
       answer:
-        'We accept all major credit cards (Visa, Mastercard, American Express), debit cards, PayPal, Apple Pay, Google Pay, and digital wallets. You can save multiple payment methods in your account for faster checkout.',
+        'We accept credit/debit cards, UPI, net banking, and digital wallets. You can save multiple payment methods for faster checkout.',
       helpful: 67,
       notHelpful: 1,
     },
     {
       id: 5,
       category: 'payments',
-      question: 'Why was I charged twice for the same order?',
-      answer:
-        "Double charges are usually temporary authorization holds that will be released within 3-5 business days. If you see two actual charges after this period, please contact our billing support team with your order details, and we'll investigate and resolve the issue immediately.",
-      helpful: 29,
-      notHelpful: 4,
-    },
-    {
-      id: 6,
-      category: 'payments',
       question: 'How do refunds work?',
       answer:
-        "Refunds are processed back to your original payment method within 5-7 business days. For cancelled orders, you'll receive a full refund. For issues with delivered orders, refunds are evaluated case-by-case based on our refund policy.",
+        'Refunds are processed to your original payment method within 5-7 business days. Cancelled orders get full refunds.',
       helpful: 41,
       notHelpful: 6,
     },
     {
-      id: 7,
+      id: 6,
       category: 'account',
       question: 'How do I reset my password?',
       answer:
-        'Click "Forgot Password" on the login page, enter your email address, and we\'ll send you a password reset link. Follow the instructions in the email to create a new password. Make sure to check your spam folder if you don\'t see the email.',
+        'Click "Forgot Password" on the login page, enter your email, and we\'ll send you a reset link. Check spam if you don\'t see it.',
       helpful: 73,
       notHelpful: 2,
     },
     {
-      id: 8,
-      category: 'account',
-      question: 'How can I delete my account?',
-      answer:
-        'To delete your account, go to Settings > Account > Delete Account. Please note that this action is permanent and will remove all your order history, saved addresses, and payment methods. You can also contact support if you need assistance.',
-      helpful: 34,
-      notHelpful: 5,
-    },
-    {
-      id: 9,
+      id: 7,
       category: 'technical',
-      question: 'The app is not working properly. What should I do?',
+      question: 'The app is not working properly',
       answer:
-        'First, try closing and reopening the app. If issues persist, check if you have the latest app version and update if needed. Clear the app cache or restart your device. If problems continue, contact our technical support team.',
+        'Try closing and reopening the app. Check for updates and clear the cache. If issues persist, contact our support team.',
       helpful: 56,
       notHelpful: 7,
-    },
-    {
-      id: 10,
-      category: 'restaurants',
-      question: 'Why is a restaurant showing as closed when it should be open?',
-      answer:
-        'Restaurant hours can change due to various factors like holidays, staff shortages, or temporary closures. We update this information as quickly as possible, but there might be brief delays. You can try contacting the restaurant directly or choose an alternative.',
-      helpful: 28,
-      notHelpful: 9,
-    },
-  ];
-
-  const supportTickets = [
-    {
-      id: 'TKT-2024-001',
-      subject: 'Order never arrived',
-      category: 'orders',
-      priority: 'high',
-      status: 'resolved',
-      createdAt: '2024-01-20T10:30:00Z',
-      updatedAt: '2024-01-20T14:45:00Z',
-      messages: 3,
-    },
-    {
-      id: 'TKT-2024-002',
-      subject: 'Refund request for cancelled order',
-      category: 'payments',
-      priority: 'medium',
-      status: 'in_progress',
-      createdAt: '2024-01-19T16:20:00Z',
-      updatedAt: '2024-01-21T09:15:00Z',
-      messages: 5,
-    },
-    {
-      id: 'TKT-2024-003',
-      subject: 'App crashes when placing order',
-      category: 'technical',
-      priority: 'low',
-      status: 'open',
-      createdAt: '2024-01-18T14:10:00Z',
-      updatedAt: '2024-01-18T14:10:00Z',
-      messages: 1,
     },
   ];
 
   const quickActions = [
-    {
-      title: 'Track Order',
-      description: 'Check current order status',
-      icon: 'package',
-    },
+    { title: 'Track Order', description: 'Check order status', icon: Package },
     {
       title: 'Report Issue',
-      description: 'Report a problem with your order',
-      icon: 'alert-circle',
+      description: 'Report a problem',
+      icon: AlertCircle,
     },
-    {
-      title: 'Account Help',
-      description: 'Manage account settings',
-      icon: 'user',
-    },
+    { title: 'Account Help', description: 'Manage settings', icon: User },
     {
       title: 'Payment Issues',
       description: 'Fix billing problems',
-      icon: 'credit-card',
+      icon: CreditCard,
     },
   ];
 
   const contactMethods = [
     {
       type: 'Live Chat',
-      description: 'Chat with our support team',
+      description: 'Chat with our team',
       availability: 'Available 24/7',
-      responseTime: 'Typically replies in 2-3 min',
-      icon: 'message-circle',
-      color: 'bg-mint-green',
-      action: () => console.log('Open live chat'),
+      time: '2-3 min response',
+      icon: MessageCircle,
+      bgColor: 'bg-green-100',
+      iconColor: 'text-green-600',
     },
     {
       type: 'Phone Support',
       description: 'Call us directly',
       availability: 'Mon-Sun • 8 AM-10 PM',
-      responseTime: '+1 (555) 123-FOOD',
-      icon: 'phone',
-      color: 'bg-blue-500',
-      action: () => window.open('tel:+15551234663'),
+      time: '+91 555-1234-FOOD',
+      icon: Phone,
+      bgColor: 'bg-blue-100',
+      iconColor: 'text-blue-600',
     },
     {
       type: 'Email Support',
       description: 'Send us an email',
-      availability: 'We reply within 4-6 h',
-      responseTime: 'support@example.com',
-      icon: 'mail',
-      color: 'bg-purple-500',
-      action: () => setShowContactForm(true),
+      availability: 'Reply within 4-6 hours',
+      time: 'support@carve.com',
+      icon: Mail,
+      bgColor: 'bg-purple-100',
+      iconColor: 'text-purple-600',
     },
   ];
 
-  /* ---------------------------- helpers ------------------------------ */
+  const supportTickets = [
+    {
+      id: 'TKT-001',
+      subject: 'Order never arrived',
+      category: 'orders',
+      status: 'resolved',
+      priority: 'high',
+      createdAt: '2024-01-20',
+      messages: 3,
+    },
+    {
+      id: 'TKT-002',
+      subject: 'Refund request',
+      category: 'payments',
+      status: 'in_progress',
+      priority: 'medium',
+      createdAt: '2024-01-19',
+      messages: 5,
+    },
+  ];
+
+  const guides = [
+    {
+      title: 'Getting Started',
+      desc: 'Quick overview of features',
+      icon: FileText,
+    },
+    { title: 'How to Order', desc: 'Step-by-step guide', icon: Video },
+    {
+      title: 'Manage Payments',
+      desc: 'Add/edit payment methods',
+      icon: CreditCard,
+    },
+    { title: 'Account Security', desc: 'Keep your account safe', icon: Shield },
+    {
+      title: 'App Settings',
+      desc: 'Customize your experience',
+      icon: Settings,
+    },
+    { title: 'Video Tutorials', desc: 'Watch quick tutorials', icon: Video },
+  ];
+
   const filteredFaqs = faqs.filter(f => {
     const term = searchTerm.toLowerCase();
     const matches =
@@ -215,157 +206,133 @@ const HelpSupport = () => {
     return matches && cat;
   });
 
-  const toggleFaq = id => setExpandedFaq(expandedFaq === id ? null : id);
-
-  const handleFeedback = (id, good) =>
-    console.log(`FAQ ${id} marked ${good ? 'helpful' : 'not helpful'}`);
-
-  const handleFileAttach = e =>
-    setContactForm(f => ({
-      ...f,
-      attachments: [...f.attachments, ...e.target.files],
-    }));
-
-  const handleSubmitTicket = () => {
-    console.log('Submit ticket', contactForm);
-    setShowContactForm(false);
-    setContactForm({
-      subject: '',
-      category: 'general',
-      priority: 'medium',
-      message: '',
-      attachments: [],
-    });
+  const getStatusStyle = status => {
+    const styles = {
+      open: 'bg-yellow-100 text-yellow-800',
+      in_progress: 'bg-blue-100 text-blue-800',
+      resolved: 'bg-green-100 text-green-800',
+    };
+    return styles[status] || 'bg-gray-100 text-gray-800';
   };
 
-  const statusColor = s =>
-    ({
-      open: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-      in_progress: 'text-blue-600 bg-blue-50 border-blue-200',
-      resolved: 'text-mint-green bg-green-50 border-green-200',
-    })[s] || 'text-medium-gray bg-gray-50 border-gray-200';
+  const getPriorityStyle = priority => {
+    const styles = {
+      high: 'bg-red-100 text-red-800',
+      medium: 'bg-yellow-100 text-yellow-800',
+      low: 'bg-green-100 text-green-800',
+    };
+    return styles[priority] || 'bg-gray-100 text-gray-800';
+  };
 
-  const priorityBg = p =>
-    ({
-      high: 'text-red-600 bg-red-50',
-      medium: 'text-yellow-600 bg-yellow-50',
-      low: 'text-mint-green bg-green-50',
-    })[p];
-
-  /* -------------------------- Tab components ------------------------- */
   const FAQTab = () => (
     <div className="space-y-6">
-      {/* Quick actions grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {quickActions.map(a => (
-          <button
-            key={a.title}
-            onClick={() => {
-              if (a.title === 'Report Issue') setShowContactForm(true);
-              if (a.title === 'Account Help') setSelectedCategory('account');
-              if (a.title === 'Payment Issues') setSelectedCategory('payments');
-              console.log(a.title);
-            }}
-            className="p-4 bg-white rounded-xl border border-cream hover:border-yellow-400 hover:shadow-lg transition-all text-left group"
-          >
-            <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-yellow-200 transition-colors">
-              <Icon name={a.icon} className="w-6 h-6 text-yellow-600" />
-            </div>
-            <h3 className="font-semibold text-charcoal mb-1">{a.title}</h3>
-            <p className="text-sm text-medium-gray">{a.description}</p>
-          </button>
-        ))}
+      {/* Quick Actions */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {quickActions.map(action => {
+          const Icon = action.icon;
+          return (
+            <button
+              key={action.title}
+              onClick={() => {
+                if (action.title === 'Report Issue') setShowContactForm(true);
+              }}
+              className="p-4 bg-white rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all text-left group"
+            >
+              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-yellow-200 transition-colors">
+                <Icon className="w-6 h-6 text-yellow-600" />
+              </div>
+              <h3 className="font-bold text-gray-900 text-sm mb-1">
+                {action.title}
+              </h3>
+              <p className="text-xs text-gray-600">{action.description}</p>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Search + category filter */}
-      <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
-        <div className="flex flex-col lg:flex-row gap-4">
-          <div className="flex-1 relative">
-            <Icon
-              name="search"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-medium-gray"
-            />
-            <input
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              placeholder="Search frequently asked questions..."
-              className="w-full pl-10 pr-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-            />
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {faqCategories.map(c => (
+      {/* Search & Filters */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <input
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            placeholder="Search frequently asked questions..."
+            className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+          />
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {faqCategories.map(cat => {
+            const Icon = cat.icon;
+            return (
               <button
-                key={c.key}
-                onClick={() => setSelectedCategory(c.key)}
-                className={`flex items-center gap-1 px-4 py-2 rounded-lg transition-all border ${
-                  selectedCategory === c.key
-                    ? 'bg-yellow-400 text-white shadow-lg border-yellow-400'
-                    : 'bg-white text-medium-gray border-cream hover:bg-gray-100'
+                key={cat.key}
+                onClick={() => setSelectedCategory(cat.key)}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${
+                  selectedCategory === cat.key
+                    ? 'bg-yellow-400 text-gray-900 shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <Icon name={c.icon} className="w-4 h-4" />
-                {c.label}
+                <Icon className="w-4 h-4" />
+                {cat.label}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* FAQ list */}
-      <div className="space-y-4">
+      {/* FAQ List */}
+      <div className="space-y-3">
         {filteredFaqs.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg border border-cream p-12 text-center">
-            <Icon
-              name="help-circle"
-              className="w-16 h-16 text-medium-gray mx-auto mb-4"
-            />
-            <h3 className="text-xl font-semibold text-charcoal mb-2">
+          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+            <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
               No FAQs found
             </h3>
-            <p className="text-medium-gray">
-              Try different keywords or another category.
+            <p className="text-gray-600">
+              Try different keywords or another category
             </p>
           </div>
         ) : (
-          filteredFaqs.map(f => (
+          filteredFaqs.map(faq => (
             <div
-              key={f.id}
-              className="bg-white rounded-2xl shadow-lg border border-cream overflow-hidden"
+              key={faq.id}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
             >
               <button
-                onClick={() => toggleFaq(f.id)}
-                className="w-full p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                onClick={() =>
+                  setExpandedFaq(expandedFaq === faq.id ? null : faq.id)
+                }
+                className="w-full p-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
               >
-                <h3 className="font-medium text-charcoal">{f.question}</h3>
-                {expandedFaq === f.id ? (
-                  <Icon
-                    name="chevron-up"
-                    className="w-5 h-5 text-medium-gray"
-                  />
+                <h3 className="font-semibold text-gray-900 pr-4">
+                  {faq.question}
+                </h3>
+                {expandedFaq === faq.id ? (
+                  <ChevronUp className="w-5 h-5 text-gray-400 flex-shrink-0" />
                 ) : (
-                  <Icon
-                    name="chevron-down"
-                    className="w-5 h-5 text-medium-gray"
-                  />
+                  <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
                 )}
               </button>
-              {expandedFaq === f.id && (
-                <div className="px-6 pb-6 space-y-4">
-                  <p className="text-medium-gray">{f.answer}</p>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-medium-gray">Was this helpful?</span>
-                    <button
-                      onClick={() => handleFeedback(f.id, true)}
-                      className="flex items-center gap-1 px-3 py-1 bg-mint-green/20 text-mint-green rounded-lg hover:bg-mint-green/30 transition-colors"
-                    >
-                      <Icon name="thumbs-up" className="w-4 h-4" /> {f.helpful}
+
+              {expandedFaq === faq.id && (
+                <div className="px-5 pb-5 border-t border-gray-100">
+                  <p className="text-gray-700 mt-4 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                  <div className="flex items-center gap-3 mt-4">
+                    <span className="text-sm text-gray-600">
+                      Was this helpful?
+                    </span>
+                    <button className="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium">
+                      <ThumbsUp className="w-4 h-4" />
+                      {faq.helpful}
                     </button>
-                    <button
-                      onClick={() => handleFeedback(f.id, false)}
-                      className="flex items-center gap-1 px-3 py-1 bg-red-500/20 text-red-500 rounded-lg hover:bg-red-500/30 transition-colors"
-                    >
-                      <Icon name="thumbs-down" className="w-4 h-4" />{' '}
-                      {f.notHelpful}
+                    <button className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium">
+                      <ThumbsDown className="w-4 h-4" />
+                      {faq.notHelpful}
                     </button>
                   </div>
                 </div>
@@ -379,122 +346,119 @@ const HelpSupport = () => {
 
   const ContactTab = () => (
     <div className="space-y-6">
-      {/* Contact methods */}
+      {/* Contact Methods */}
       <div className="grid md:grid-cols-3 gap-4">
-        {contactMethods.map(m => (
-          <button
-            key={m.type}
-            onClick={m.action}
-            className="p-6 bg-white rounded-xl border border-cream hover:border-yellow-400 hover:shadow-lg transition-all text-left"
-          >
-            <div
-              className={`w-12 h-12 ${m.color} rounded-lg flex items-center justify-center mb-3`}
+        {contactMethods.map(method => {
+          const Icon = method.icon;
+          return (
+            <button
+              key={method.type}
+              onClick={() =>
+                method.type === 'Email Support' && setShowContactForm(true)
+              }
+              className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all text-left"
             >
-              <Icon name={m.icon} className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-semibold text-charcoal mb-1">{m.type}</h3>
-            <p className="text-sm text-medium-gray">{m.description}</p>
-            <p className="text-xs text-medium-gray mt-1">{m.availability}</p>
-            <p className="text-xs text-medium-gray">{m.responseTime}</p>
-          </button>
-        ))}
+              <div
+                className={`w-14 h-14 ${method.bgColor} rounded-xl flex items-center justify-center mb-4`}
+              >
+                <Icon className={`w-7 h-7 ${method.iconColor}`} />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">{method.type}</h3>
+              <p className="text-sm text-gray-600 mb-3">{method.description}</p>
+              <p className="text-xs text-gray-500">{method.availability}</p>
+              <p className="text-xs font-semibold text-gray-900 mt-1">
+                {method.time}
+              </p>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Contact form modal / inline */}
+      {/* Contact Form */}
       {showContactForm && (
-        <div className="bg-white rounded-2xl shadow-lg border border-cream p-6 space-y-6">
-          <h3 className="text-xl font-bold text-charcoal">Send us a message</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-coffee mb-2">
+        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-gray-900">
+              Send us a message
+            </h3>
+            <button
+              onClick={() => setShowContactForm(false)}
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+            >
+              <X className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Subject
               </label>
               <input
                 value={contactForm.subject}
                 onChange={e =>
-                  setContactForm(f => ({ ...f, subject: e.target.value }))
+                  setContactForm({ ...contactForm, subject: e.target.value })
                 }
-                className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                placeholder="Brief description of your issue"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-coffee mb-2">
-                Category
-              </label>
-              <select
-                value={contactForm.category}
-                onChange={e =>
-                  setContactForm(f => ({ ...f, category: e.target.value }))
-                }
-                className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-              >
-                <option value="general">General</option>
-                <option value="orders">Orders</option>
-                <option value="payments">Payments</option>
-                <option value="technical">Technical</option>
-              </select>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Category
+                </label>
+                <select
+                  value={contactForm.category}
+                  onChange={e =>
+                    setContactForm({ ...contactForm, category: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                >
+                  <option value="general">General</option>
+                  <option value="orders">Orders</option>
+                  <option value="payments">Payments</option>
+                  <option value="technical">Technical</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  Priority
+                </label>
+                <select
+                  value={contactForm.priority}
+                  onChange={e =>
+                    setContactForm({ ...contactForm, priority: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
             </div>
+
             <div>
-              <label className="block text-sm font-medium text-coffee mb-2">
-                Priority
-              </label>
-              <select
-                value={contactForm.priority}
-                onChange={e =>
-                  setContactForm(f => ({ ...f, priority: e.target.value }))
-                }
-                className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400"
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-coffee mb-2">
+              <label className="block text-sm font-semibold text-gray-900 mb-2">
                 Message
               </label>
               <textarea
                 value={contactForm.message}
                 onChange={e =>
-                  setContactForm(f => ({ ...f, message: e.target.value }))
+                  setContactForm({ ...contactForm, message: e.target.value })
                 }
                 rows={5}
-                className="w-full px-4 py-3 border border-cream rounded-lg focus:ring-2 focus:ring-yellow-400 resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent resize-none"
+                placeholder="Describe your issue in detail..."
               />
             </div>
-            <div className="md:col-span-2 flex flex-wrap gap-2 items-center">
-              <label className="inline-flex items-center gap-2 cursor-pointer text-sm text-coffee">
-                <Icon name="paperclip" className="w-4 h-4" />
-                <span>Attach files</span>
-                <input
-                  type="file"
-                  multiple
-                  className="hidden"
-                  onChange={handleFileAttach}
-                />
-              </label>
-              {contactForm.attachments.length > 0 && (
-                <span className="text-xs text-medium-gray">
-                  {contactForm.attachments.length} file(s) attached
-                </span>
-              )}
-            </div>
-          </div>
 
-          <div className="flex gap-2">
-            <button
-              onClick={handleSubmitTicket}
-              className="flex items-center gap-2 px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors"
-            >
-              <Icon name="send" className="w-4 h-4" />
-              Submit
-            </button>
-            <button
-              onClick={() => setShowContactForm(false)}
-              className="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
-            >
-              Cancel
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl transition-colors">
+              <Send className="w-4 h-4" />
+              Submit Request
             </button>
           </div>
         </div>
@@ -504,137 +468,102 @@ const HelpSupport = () => {
 
   const TicketsTab = () => (
     <div className="space-y-4">
-      {supportTickets.map(t => (
+      {supportTickets.map(ticket => (
         <div
-          key={t.id}
-          className="bg-white rounded-2xl shadow-lg border border-cream p-6 hover:shadow-xl transition-all"
+          key={ticket.id}
+          className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
         >
           <div className="flex items-start justify-between">
-            <div>
-              <h3 className="font-semibold text-charcoal flex items-center gap-2">
-                {t.subject}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="font-bold text-gray-900">{ticket.subject}</h3>
                 <span
-                  className={`text-xs font-medium px-2 py-0.5 rounded-full border ${statusColor(
-                    t.status
-                  )}`}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusStyle(ticket.status)}`}
                 >
-                  {t.status.replace('_', ' ')}
+                  {ticket.status.replace('_', ' ')}
                 </span>
-              </h3>
-              <p className="text-sm text-medium-gray mt-0.5">
-                Created: {new Date(t.createdAt).toLocaleDateString()}
-              </p>
-              <p className="text-sm text-medium-gray">
-                Updated: {new Date(t.updatedAt).toLocaleDateString()}
+              </div>
+              <p className="text-sm text-gray-600">
+                Created: {new Date(ticket.createdAt).toLocaleDateString()} •{' '}
+                {ticket.messages} messages
               </p>
             </div>
-            <div className="text-right">
-              <span
-                className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${priorityBg(
-                  t.priority
-                )}`}
-              >
-                {t.priority}
-              </span>
-              <p className="text-sm text-medium-gray mt-2">
-                {t.messages} messages
-              </p>
-            </div>
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-semibold ${getPriorityStyle(ticket.priority)}`}
+            >
+              {ticket.priority}
+            </span>
           </div>
         </div>
       ))}
+
+      {supportTickets.length === 0 && (
+        <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+          <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-gray-900 mb-2">
+            No support tickets
+          </h3>
+          <p className="text-gray-600">
+            You haven't created any support tickets yet
+          </p>
+        </div>
+      )}
     </div>
   );
 
   const GuidesTab = () => (
-    <div className="space-y-6">
-      <div className="grid md:grid-cols-3 gap-4">
-        {[
-          {
-            title: 'Getting Started',
-            desc: 'A quick overview of the app features',
-            icon: 'file-text',
-          },
-          {
-            title: 'How to Order',
-            desc: 'Step-by-step guide to place orders',
-            icon: 'video',
-          },
-          {
-            title: 'Manage Payments',
-            desc: 'Add, edit, or remove payment methods',
-            icon: 'credit-card',
-          },
-          {
-            title: 'Account Security',
-            desc: 'Keep your account safe',
-            icon: 'shield',
-          },
-          {
-            title: 'App Settings',
-            desc: 'Customize your experience',
-            icon: 'settings',
-          },
-          {
-            title: 'FAQ Video Playlist',
-            desc: 'Watch quick tutorial videos',
-            icon: 'video',
-          },
-        ].map(g => (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {guides.map(guide => {
+        const Icon = guide.icon;
+        return (
           <a
-            key={g.title}
-            href="#!"
-            className="p-6 bg-white rounded-xl border border-cream hover:border-yellow-400 hover:shadow-lg transition-all block group"
+            key={guide.title}
+            href="#"
+            className="group p-6 bg-white rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all"
           >
-            <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-3">
-              <Icon name={g.icon} className="w-6 h-6 text-yellow-600" />
+            <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-yellow-200 transition-colors">
+              <Icon className="w-6 h-6 text-yellow-600" />
             </div>
-            <h3 className="font-semibold text-charcoal mb-1">{g.title}</h3>
-            <p className="text-sm text-medium-gray">{g.desc}</p>
-            <Icon
-              name="external-link"
-              className="w-4 h-4 text-medium-gray mt-3 opacity-0 group-hover:opacity-100 transition-opacity"
-            />
+            <h3 className="font-bold text-gray-900 mb-2">{guide.title}</h3>
+            <p className="text-sm text-gray-600 mb-3">{guide.desc}</p>
+            <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-yellow-600 transition-colors" />
           </a>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 
-  /* ------------------------- main component -------------------------- */
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-charcoal">Help & Support</h1>
-          <p className="text-medium-gray mt-1">We’re here to help you 24 / 7</p>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Help & Support</h1>
+        <p className="text-gray-600 mt-1">We're here to help you 24/7</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 bg-white rounded-lg p-1 border border-cream">
+      <div className="flex gap-2 overflow-x-auto pb-2">
         {[
           { id: 'faq', label: 'FAQs' },
           { id: 'contact', label: 'Contact Us' },
           { id: 'tickets', label: 'My Tickets' },
           { id: 'guides', label: 'Guides' },
-        ].map(t => (
+        ].map(tab => (
           <button
-            key={t.id}
-            onClick={() => setActiveTab(t.id)}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              activeTab === t.id
-                ? 'bg-yellow-400 text-white'
-                : 'text-medium-gray hover:bg-gray-100'
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
+              activeTab === tab.id
+                ? 'bg-yellow-400 text-gray-900 shadow-lg'
+                : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
             }`}
           >
-            {t.label}
+            {tab.label}
           </button>
         ))}
       </div>
 
-      {/* Tab content */}
+      {/* Tab Content */}
       {activeTab === 'faq' && <FAQTab />}
       {activeTab === 'contact' && <ContactTab />}
       {activeTab === 'tickets' && <TicketsTab />}
