@@ -1,16 +1,36 @@
 import React from 'react';
 import Icon from '../../../components/ui/Icon';
 import Button from '../../../components/ui/Button';
-import AddressCard from './AddressCard';
+import { useAddressActions } from '../../../hooks/useAddressActions';
+import { useSelector } from 'react-redux';
+import AddressModal from '../../../components/modules/address/AddressModal';
 
 const DeliveryAddressSection = ({
   addresses,
   selectedAddress,
   setSelectedAddress,
 }) => {
+  const { isAddressModalOpen, isDeleteAddressModalOpen } = useSelector(
+    state => state.ui.address
+  );
+  const { handleOpenAddressModal } = useAddressActions();
+
   return (
     <div className="bg-white rounded-3xl shadow-lg p-4">
-      <h2 className="text-xl font-bold text-gray-800 mb-3">Delivery Details</h2>
+      <div className="flex justify-between items-center pb-1">
+        <h2 className="text-xl font-bold text-gray-800 mb-3">
+          Delivery Details
+        </h2>
+        <button
+          className="text-xs font-bold bg-yellow-400 hover:bg-yellow-500 cursor-pointer p-2 rounded-full"
+          onClick={() => {
+            handleOpenAddressModal();
+          }}
+        >
+          <Icon name="plus" />
+        </button>
+      </div>
+
       <div className="space-y-3">
         {addresses.map(addr => (
           <div
@@ -32,6 +52,7 @@ const DeliveryAddressSection = ({
           </div>
         ))}
       </div>
+      {isAddressModalOpen && <AddressModal />}
     </div>
   );
 };

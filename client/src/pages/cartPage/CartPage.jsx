@@ -20,32 +20,58 @@ const CartPage = () => {
   // addresses of the user
   const userAddresses = useSelector(state => state.address);
 
-  const totalPrice = cart.totalPrice;
-  const totalQuantity = cart.totalQuantity;
-
   const { isDeleteModalOpen, modalProps } = useSelector(state => state.ui.cart);
 
-  // Hardcoded data for addresses, payment methods, and promo codes for now
-  const addresses = [
-    {
-      id: 1,
-      type: 'Home',
-      icon: 'home',
-      address: '123 Main Street, Apt 4B',
-      city: 'New York, NY 10001',
-      landmark: 'Near Central Park',
-      isDefault: true,
-    },
-    {
-      id: 2,
-      type: 'Work',
-      icon: 'building',
-      address: '456 Business Ave, Floor 12',
-      city: 'New York, NY 10005',
-      landmark: 'Manhattan Financial District',
-      isDefault: false,
-    },
-  ];
+  const formatUserAddresses = userAddressList => {
+    if (!userAddressList || userAddressList.length === 0) return [];
+
+    return userAddressList.map(addr => {
+      // Create the single string address as requested: 'addressLine1, addressLine2, city, state zipCode, country'
+      const fullAddress = [addr.addressLine1, addr.addressLine2]
+        .filter(Boolean)
+        .join(', ');
+
+      const cityStateZip = [addr.city, addr.state, addr.zipCode]
+        .filter(Boolean)
+        .join(' ');
+
+      return {
+        id: addr._id, // Use the MongoDB _id as the unique identifier
+        type: addr.addressType || 'Other',
+        // Determine the icon based on the type, defaulting to 'map-pin'
+        icon:
+          addr.addressType?.toLowerCase() === 'home'
+            ? 'home'
+            : addr.addressType?.toLowerCase() === 'work'
+              ? 'building'
+              : 'map-pin',
+        address: fullAddress, // Primary street/line address
+        city: cityStateZip, // City, State, and Zip Code combined
+        landmark: addr.landmark || '', // Use landmark if available
+        isDefault: addr.isDefault || false,
+      };
+    });
+  };
+
+  // Use the mapped user addresses or fall back to a default if none are loaded/available
+  const savedAddresses = formatUserAddresses(userAddresses.list);
+
+  // Use saved addresses if available, otherwise fall back to a single hardcoded list
+  const addresses =
+    savedAddresses.length > 0
+      ? savedAddresses
+      : [
+          // This is the hardcoded fallback for development/empty state
+          {
+            id: 1,
+            type: 'Home',
+            icon: 'home',
+            address: '123 Main Street, Apt 4B',
+            city: 'New York, NY 10001',
+            landmark: 'Near Central Park',
+            isDefault: true,
+          },
+        ];
 
   const paymentMethods = [
     {
