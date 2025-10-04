@@ -35,17 +35,23 @@ const DeliveryAddressSection = ({
         {addresses.map(addr => (
           <div
             key={addr.id}
-            onClick={() => setSelectedAddress(addr.id)}
-            className={`p-3 rounded-xl cursor-pointer transition-all duration-200 ${selectedAddress === addr.id ? 'bg-yellow-50 border-2 border-yellow-400' : 'bg-gray-50 border border-transparent hover:bg-gray-100'}`}
+            onClick={() => setSelectedAddress(addr._id)}
+            className={`p-3 rounded-xl cursor-pointer transition-all duration-200 ${selectedAddress === addr._id ? 'bg-yellow-50 border-2 border-yellow-400' : 'bg-gray-50 border border-transparent hover:bg-gray-100'}`}
           >
             <div className="flex items-center space-x-3">
               <div className="flex-shrink-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow">
-                <Icon name={addr.icon} className="w-4 h-4 text-gray-600" />
+                {addr.addressType === 'home' ? (
+                  <Icon name="home" className="w-4 h-4 text-gray-600" />
+                ) : (
+                  <Icon name="building" className="w-4 h-4 text-gray-600" />
+                )}
               </div>
               <div className="flex-grow">
-                <p className="font-semibold text-gray-800">{addr.type}</p>
+                <p className="font-semibold text-gray-800">
+                  {addr.addressType}
+                </p>
                 <p className="text-sm text-gray-500">
-                  {addr.address}, {addr.city}
+                  {addr.addressLine1}, {addr.addressLine2},
                 </p>
               </div>
             </div>
