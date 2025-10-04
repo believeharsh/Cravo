@@ -10,6 +10,8 @@ import PaymentMethodSection from './sections/PaymentMethodSection';
 import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection';
 import OrderSummarySection from './sections/OrderSummarySection';
 import ItemDeleteConfirmation from '../../components/modules/cart/ItemDeleteConfirmModal';
+import PaymentStatusModal from './components/PaymentStatusModal';
+
 import { Link } from 'react-router-dom';
 import { useOrderActions } from '../../hooks/userOrdersActions';
 
@@ -17,61 +19,15 @@ const CartPage = () => {
   const cart = useSelector(state => state.cart);
   const cartItems = cart.items;
 
+  // Check authentication status
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
   // addresses of the user
   const userAddresses = useSelector(state => state.address);
 
   const { isDeleteModalOpen, modalProps } = useSelector(state => state.ui.cart);
 
-  const formatUserAddresses = userAddressList => {
-    if (!userAddressList || userAddressList.length === 0) return [];
-
-    return userAddressList.map(addr => {
-      // Create the single string address as requested: 'addressLine1, addressLine2, city, state zipCode, country'
-      const fullAddress = [addr.addressLine1, addr.addressLine2]
-        .filter(Boolean)
-        .join(', ');
-
-      const cityStateZip = [addr.city, addr.state, addr.zipCode]
-        .filter(Boolean)
-        .join(' ');
-
-      return {
-        id: addr._id, // Use the MongoDB _id as the unique identifier
-        type: addr.addressType || 'Other',
-        // Determine the icon based on the type, defaulting to 'map-pin'
-        icon:
-          addr.addressType?.toLowerCase() === 'home'
-            ? 'home'
-            : addr.addressType?.toLowerCase() === 'work'
-              ? 'building'
-              : 'map-pin',
-        address: fullAddress, // Primary street/line address
-        city: cityStateZip, // City, State, and Zip Code combined
-        landmark: addr.landmark || '', // Use landmark if available
-        isDefault: addr.isDefault || false,
-      };
-    });
-  };
-
-  // Use the mapped user addresses or fall back to a default if none are loaded/available
-  const savedAddresses = formatUserAddresses(userAddresses.list);
-
-  // Use saved addresses if available, otherwise fall back to a single hardcoded list
-  const addresses =
-    savedAddresses.length > 0
-      ? savedAddresses
-      : [
-          // This is the hardcoded fallback for development/empty state
-          {
-            id: 1,
-            type: 'Home',
-            icon: 'home',
-            address: '123 Main Street, Apt 4B',
-            city: 'New York, NY 10001',
-            landmark: 'Near Central Park',
-            isDefault: true,
-          },
-        ];
+  const addresses = userAddresses.list;
 
   const paymentMethods = [
     {
@@ -97,7 +53,7 @@ const CartPage = () => {
     },
     {
       id: 4,
-      type: 'Cash On Delivery',
+      type: 'COD',
       details: 'john.doe@email.com',
       icon: 'bank-note',
       isDefault: false,
@@ -129,15 +85,25 @@ const CartPage = () => {
   ];
 
   const [selectedAddress, setSelectedAddress] = useState(
-    addresses.find(addr => addr.isDefault)?.id || null
+    addresses.find(addr => addr.isDefault)?._id || null
   );
+
   const [selectedPayment, setSelectedPayment] = useState(
     paymentMethods.find(pm => pm.isDefault)?.id || null
   );
+
   const [promoCode, setPromoCode] = useState('');
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [promoMessage, setPromoMessage] = useState('');
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
+  // Payment Status Modal State
+  const [paymentModalState, setPaymentModalState] = useState({
+    isOpen: false,
+    status: null, // 'success', 'failed', 'cancelled'
+    orderDetails: null,
+  });
 
   // Use selectors to get the subtotal and total value from the cart items
   const subtotal = useSelector(selectCartTotalValue);
@@ -188,19 +154,56 @@ const CartPage = () => {
   const { handleClearOrderState, handleCreateOrder, handleVerifyPayment } =
     useOrderActions();
 
-  const handleRazorpaySuccess = response => {
+  const selectedAddressDetails =
+    addresses.find(addr => addr._id === selectedAddress) || null;
+
+  const selectedPaymentDetails =
+    paymentMethods.find(pm => pm.id === selectedPayment) || null;
+
+  const handleRazorpaySuccess = async response => {
     const verificationPayload = {
       razorpay_payment_id: response.razorpay_payment_id,
       razorpay_order_id: response.razorpay_order_id,
       razorpay_signature: response.razorpay_signature,
     };
 
-    const verifyPayment = handleVerifyPayment(verificationPayload);
-    console.log('verifyPayment Result', verifyPayment);
-    console.log(
-      'Payment successful. Verification payload:',
-      verificationPayload
-    );
+    try {
+      const verifyPayment = await handleVerifyPayment(verificationPayload);
+      console.log('verifyPayment Result', verifyPayment);
+      console.log(
+        'Payment successful. Verification payload:',
+        verificationPayload
+      );
+
+      setIsCheckoutLoading(false);
+
+      // Show success modal
+      setPaymentModalState({
+        isOpen: true,
+        status: 'success',
+        orderDetails: {
+          orderId: response.razorpay_order_id,
+          amount: finalTotal,
+          paymentMethod: selectedPaymentDetails?.type,
+          estimatedTime: '30-40 mins',
+          address: `${selectedAddressDetails?.addressLine1}, ${selectedAddressDetails?.city}, ${selectedAddressDetails?.state}`,
+        },
+      });
+    } catch (error) {
+      console.error('Payment verification failed:', error);
+      setIsCheckoutLoading(false);
+
+      // Show failed modal
+      setPaymentModalState({
+        isOpen: true,
+        status: 'failed',
+        orderDetails: {
+          amount: finalTotal,
+          paymentMethod: selectedPaymentDetails?.type,
+          errorMessage: 'Payment verification failed. Please contact support.',
+        },
+      });
+    }
   };
 
   const displayRazorpay = razorpayDetails => {
@@ -208,30 +211,59 @@ const CartPage = () => {
 
     const options = {
       key: keyId,
-      amount: amount, // Amount must be in paisa (smallest unit)
+      amount: amount,
       currency: razorpayDetails.currency || 'INR',
       name: 'Cravo India Limited',
       order_id: razorpayOrderId,
-      handler: handleRazorpaySuccess, // Pass the success handler
+      handler: handleRazorpaySuccess,
       prefill: {
         /* ... user details ... */
       },
       theme: { color: '#FBBF24' },
+      modal: {
+        ondismiss: function () {
+          console.log('Payment modal closed by user');
+          setIsCheckoutLoading(false);
+
+          // Show cancelled modal
+          setPaymentModalState({
+            isOpen: true,
+            status: 'cancelled',
+            orderDetails: {
+              amount: finalTotal,
+              paymentMethod: selectedPaymentDetails?.type,
+            },
+          });
+        },
+      },
     };
 
     if (window.Razorpay) {
       const rzp1 = new window.Razorpay(options);
       rzp1.on('payment.failed', function (response) {
         console.error('Razorpay Error:', response.error);
-        alert(
-          `Payment Failed: ${response.error.description || 'Please try again.'}`
-        );
+        setIsCheckoutLoading(false);
+
+        // Show failed modal
+        setPaymentModalState({
+          isOpen: true,
+          status: 'failed',
+          orderDetails: {
+            amount: finalTotal,
+            paymentMethod: selectedPaymentDetails?.type,
+            errorMessage:
+              response.error.description ||
+              'Payment processing failed. Please try again.',
+          },
+        });
+
         handleClearOrderState();
       });
       rzp1.open();
     } else {
       alert('Payment gateway failed to load.');
       handleClearOrderState();
+      setIsCheckoutLoading(false);
     }
   };
 
@@ -246,47 +278,86 @@ const CartPage = () => {
   };
 
   const handleCheckout = async () => {
-    // Clear any previous errors/states before starting a new transaction
+    setIsCheckoutLoading(true);
     handleClearOrderState();
 
     const scriptLoaded = await loadRazorpayScript();
     if (!scriptLoaded) {
       alert('Payment script could not load. Check your internet connection.');
+      setIsCheckoutLoading(false);
       return;
     }
 
-    // Payload for the backend to create the Razorpay order
     const orderPayload = {
       deliveryAddress: {
-        street: '101, B Wing, Star Towers',
-        city: 'Mumbai',
-        state: 'Maharastara',
-        zipCode: '400053',
-        country: 'India',
-        landmark: 'Near the Yellow Clock Tower',
-        contactNumber: '9876543210',
+        street: `${selectedAddressDetails.addressLine1}${selectedAddressDetails.addressLine2}`,
+        city: selectedAddressDetails.city,
+        state: selectedAddressDetails.state,
+        zipCode: selectedAddressDetails.zipCode,
+        country: selectedAddressDetails.country,
       },
-      paymentMethod: 'COD',
+      paymentMethod: selectedPaymentDetails.type,
       deliveryMethod: 'Standard',
       promoCode: 'SAVE50',
       guestInfo: {
-        name: 'Harsh Dahiya ',
-        email: 'onlybelieveharsh@gmail.com',
+        name: 'my guest',
+        email: 'myguest@gmail.com',
       },
     };
 
     try {
-      // Dispatch the thunk and use .unwrap() to get the fulfilled data
       const result = await handleCreateOrder(orderPayload).unwrap();
       console.log('result is this', result);
-      // On successful order creation, open the payment modal
       let razorpayDetails = result.data;
       displayRazorpay(razorpayDetails);
     } catch (error) {
-      // Error handling is managed by the extraReducers, the UI will reflect 'orderCreationError'
       console.error('Order Creation Failed:', error);
+      setIsCheckoutLoading(false);
+
+      // Show failed modal for order creation failure
+      setPaymentModalState({
+        isOpen: true,
+        status: 'failed',
+        orderDetails: {
+          amount: finalTotal,
+          paymentMethod: selectedPaymentDetails?.type,
+          errorMessage: 'Failed to create order. Please try again.',
+        },
+      });
     }
   };
+
+  const closePaymentModal = () => {
+    setPaymentModalState({
+      isOpen: false,
+      status: null,
+      orderDetails: null,
+    });
+  };
+
+  // Check if user is not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans">
+        <div className="max-w-md mx-auto text-center p-8 bg-white rounded-3xl shadow-lg">
+          <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="user" className="w-12 h-12 text-yellow-500" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Login Required
+          </h2>
+          <p className="text-gray-600 mb-8">
+            We are working on guest checkout. Please login to order food!
+          </p>
+          <Link to={'/login'}>
+            <button className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+              Login to Continue
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -353,12 +424,37 @@ const CartPage = () => {
                 gst={gst}
                 finalTotal={finalTotal}
                 handleCheckout={handleCheckout}
+                isCheckoutLoading={isCheckoutLoading}
               />
             </div>
           </div>
         </div>
       </div>
+
       {isDeleteModalOpen && <ItemDeleteConfirmation />}
+
+      {/* Payment Status Modal */}
+      <PaymentStatusModal
+        isOpen={paymentModalState.isOpen}
+        status={paymentModalState.status}
+        orderDetails={paymentModalState.orderDetails}
+        onClose={closePaymentModal}
+      />
+
+      {/* Loading Overlay */}
+      {isCheckoutLoading && (
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 shadow-2xl text-center">
+            <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              Processing Payment
+            </h3>
+            <p className="text-gray-600">
+              Please wait while we prepare your order...
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 };
