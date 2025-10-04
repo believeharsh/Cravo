@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Search,
   Calendar,
@@ -15,121 +16,85 @@ import {
 } from 'lucide-react';
 
 const Orders = () => {
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedOrder, setExpandedOrder] = useState(null);
-  const [filterDateRange, setFilterDateRange] = useState('all');
 
-  // Sample orders data
-  const [orders] = useState([
-    {
-      id: 'ORD-001',
+  // Get orders from Redux store - adjust the path according to your store structure
+  const userOrders = useSelector(state => state.orders?.userOrders || []);
+  console.log('userOrders', userOrders);
+  const isLoading = useSelector(state => state.orders?.isLoading || false);
+
+  // Fetch orders on component mount if needed
+  // useEffect(() => {
+  //   dispatch(fetchUserOrders());
+  // }, [dispatch]);
+
+  // Transform API data to match the UI structure
+  const transformedOrders = userOrders.map(order => {
+    // Map order status
+    const getUIStatus = apiStatus => {
+      const statusMap = {
+        Confirmed: 'preparing',
+        Preparing: 'preparing',
+        'Out for Delivery': 'on_the_way',
+        Delivered: 'delivered',
+        Cancelled: 'cancelled',
+      };
+      return statusMap[apiStatus] || 'preparing';
+    };
+
+    // Get restaurant name from first item (assuming all items from same restaurant)
+    const restaurantName =
+      order.orderItems[0]?.product?.restaurantName || 'Restaurant';
+    const restaurantImage =
+      order.orderItems[0]?.product?.images?.[0] ||
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&q=80';
+
+    // Calculate estimated delivery (30-40 mins from creation)
+    const orderDate = new Date(order.createdAt);
+    const estimatedDelivery = new Date(orderDate.getTime() + 35 * 60000); // +35 mins
+
+    const uiStatus = getUIStatus(order.orderStatus);
+    const isActive = ['preparing', 'on_the_way'].includes(uiStatus);
+
+    return {
+      id: order._id,
+      orderId: order._id.slice(-8).toUpperCase(), // Show last 8 chars
+      razorpayOrderId: order.razorpayOrderId,
       restaurant: {
-        name: 'Pizza Paradise',
-        image:
-          'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200&q=80',
+        name: restaurantName,
+        image: restaurantImage,
       },
-      orderDate: '2024-03-15T14:30:00',
-      status: 'delivered',
-      estimatedDelivery: null,
-      items: [
-        {
-          id: 1,
-          name: 'Margherita Pizza',
-          quantity: 2,
-          price: 250,
-          image:
-            'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=200&q=80',
-          customizations: ['Extra Cheese'],
-        },
-        {
-          id: 2,
-          name: 'Garlic Bread',
-          quantity: 1,
-          price: 80,
-          image:
-            'https://images.unsplash.com/photo-1573140401552-3fab0b24f2fc?w=200&q=80',
-          customizations: [],
-        },
-      ],
-      subtotal: 580,
-      deliveryFee: 40,
-      tax: 35,
-      total: 655,
-      deliveryAddress: '123 Main Street, Apartment 4B',
-      deliveryInstructions: 'Ring the bell twice',
-      canReorder: true,
-      canCancel: false,
-    },
-    {
-      id: 'ORD-002',
-      restaurant: {
-        name: 'Burger Bliss',
+      orderDate: order.createdAt,
+      status: uiStatus,
+      estimatedDelivery: isActive ? estimatedDelivery.toISOString() : null,
+      items: order.orderItems.map(item => ({
+        id: item._id,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
         image:
-          'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&q=80',
-      },
-      orderDate: '2024-03-16T18:45:00',
-      status: 'preparing',
-      estimatedDelivery: '2024-03-16T19:30:00',
-      items: [
-        {
-          id: 1,
-          name: 'Classic Burger',
-          quantity: 2,
-          price: 180,
-          image:
-            'https://images.unsplash.com/photo-1550547660-d9450f859349?w=200&q=80',
-          customizations: ['No Onions'],
-        },
-        {
-          id: 2,
-          name: 'French Fries',
-          quantity: 1,
-          price: 90,
-          image:
-            'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=200&q=80',
-          customizations: [],
-        },
-      ],
-      subtotal: 450,
-      deliveryFee: 30,
-      tax: 28,
-      total: 508,
-      deliveryAddress: '123 Main Street, Apartment 4B',
-      canReorder: false,
-      canCancel: true,
-      driver: { name: 'John Doe', phone: '+91 98765 43210' },
-    },
-    {
-      id: 'ORD-003',
-      restaurant: {
-        name: 'Sushi House',
-        image:
-          'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=200&q=80',
-      },
-      orderDate: '2024-03-14T12:20:00',
-      status: 'cancelled',
-      cancellationReason: 'Customer request',
-      items: [
-        {
-          id: 1,
-          name: 'California Roll',
-          quantity: 2,
-          price: 320,
-          image:
-            'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=200&q=80',
-          customizations: [],
-        },
-      ],
-      subtotal: 640,
-      deliveryFee: 50,
-      tax: 42,
-      total: 732,
-      deliveryAddress: '123 Main Street, Apartment 4B',
-      canReorder: true,
-      canCancel: false,
-    },
-  ]);
+          item.product?.images?.[0] ||
+          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80',
+        customizations: item.customizations || [],
+      })),
+      subtotal: order.subTotal,
+      deliveryFee: order.shippingCost,
+      tax: order.taxAmount,
+      discount: order.discountApplied,
+      total: order.totalAmount,
+      deliveryAddress: `${order.deliveryAddress.street}, ${order.deliveryAddress.city}, ${order.deliveryAddress.state} - ${order.deliveryAddress.zipCode}`,
+      deliveryInstructions: order.deliveryInstructions || null,
+      paymentMethod: order.paymentMethod,
+      paymentStatus: order.paymentStatus,
+      cancellationReason: order.cancellationReason || null,
+      canReorder: true, // Can always reorder past orders
+      canCancel: isActive && order.paymentStatus === 'Paid', // Can cancel active paid orders
+      driver: order.driver || null, // Add driver info if available in API
+    };
+  });
 
   const getStatusConfig = status => {
     switch (status) {
@@ -184,10 +149,11 @@ const Orders = () => {
     return `${Math.floor(diff / 60)}h ${diff % 60}m`;
   };
 
-  const filteredOrders = orders.filter(o => {
+  const filteredOrders = transformedOrders.filter(o => {
     const term = searchTerm.toLowerCase();
     const matchesSearch =
-      o.id.toLowerCase().includes(term) ||
+      o.orderId.toLowerCase().includes(term) ||
+      o.razorpayOrderId?.toLowerCase().includes(term) ||
       o.restaurant.name.toLowerCase().includes(term) ||
       o.items.some(it => it.name.toLowerCase().includes(term));
 
@@ -201,13 +167,39 @@ const Orders = () => {
     return matchesSearch && matchesTab;
   });
 
-  const handleReorder = order => console.log('Reorder:', order.id);
+  const handleReorder = order => {
+    console.log('Reorder:', order.id);
+    // Dispatch action to add items to cart
+    // order.items.forEach(item => {
+    //   dispatch(addToCart({
+    //     productId: item.id,
+    //     quantity: item.quantity,
+    //     customizations: item.customizations
+    //   }));
+    // });
+  };
+
   const handleCancelOrder = id => {
-    if (window.confirm('Cancel this order?')) {
+    if (window.confirm('Are you sure you want to cancel this order?')) {
       console.log('Cancel order:', id);
+      // dispatch(cancelOrder(id));
     }
   };
-  const handleTrackOrder = o => console.log('Track:', o.id);
+
+  const handleTrackOrder = o => {
+    console.log('Track:', o.id);
+    // Navigate to tracking page or open tracking modal
+  };
+
+  if (isLoading) {
+    return (
+      <div className="max-w-5xl mx-auto space-y-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -223,23 +215,25 @@ const Orders = () => {
       {/* Tabs */}
       <div className="flex gap-2 overflow-x-auto pb-2">
         {[
-          { key: 'all', label: 'All Orders', count: orders.length },
+          { key: 'all', label: 'All Orders', count: transformedOrders.length },
           {
             key: 'active',
             label: 'Active',
-            count: orders.filter(o =>
+            count: transformedOrders.filter(o =>
               ['preparing', 'on_the_way'].includes(o.status)
             ).length,
           },
           {
             key: 'completed',
             label: 'Completed',
-            count: orders.filter(o => o.status === 'delivered').length,
+            count: transformedOrders.filter(o => o.status === 'delivered')
+              .length,
           },
           {
             key: 'cancelled',
             label: 'Cancelled',
-            count: orders.filter(o => o.status === 'cancelled').length,
+            count: transformedOrders.filter(o => o.status === 'cancelled')
+              .length,
           },
         ].map(({ key, label, count }) => (
           <button
@@ -296,6 +290,9 @@ const Orders = () => {
                         <p className="text-sm text-gray-500 mt-0.5">
                           {formatDate(order.orderDate)}
                         </p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          Order ID: {order.orderId}
+                        </p>
 
                         <div className="flex items-center gap-3 mt-3">
                           <span
@@ -325,10 +322,13 @@ const Orders = () => {
 
                       <div className="text-right">
                         <p className="text-xl font-bold text-gray-900">
-                          ₹{order.total}
+                          ₹{order.total.toFixed(2)}
                         </p>
                         <p className="text-sm text-gray-500 mt-1">
                           {order.items.length} items
+                        </p>
+                        <p className="text-xs text-green-600 font-medium mt-1">
+                          {order.paymentStatus}
                         </p>
                       </div>
                     </div>
@@ -414,7 +414,7 @@ const Orders = () => {
                             )}
                           </div>
                           <p className="font-semibold text-gray-900">
-                            ₹{item.price * item.quantity}
+                            ₹{(item.price * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       ))}
@@ -429,19 +429,29 @@ const Orders = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between text-gray-600">
                         <span>Subtotal</span>
-                        <span>₹{order.subtotal}</span>
+                        <span>₹{order.subtotal.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>Delivery Fee</span>
-                        <span>₹{order.deliveryFee}</span>
+                        <span>₹{order.deliveryFee.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between text-gray-600">
-                        <span>Tax</span>
-                        <span>₹{order.tax}</span>
+                        <span>Tax & Charges</span>
+                        <span>₹{order.tax.toFixed(2)}</span>
                       </div>
+                      {order.discount > 0 && (
+                        <div className="flex justify-between text-green-600">
+                          <span>Discount</span>
+                          <span>-₹{order.discount.toFixed(2)}</span>
+                        </div>
+                      )}
                       <div className="flex justify-between font-bold text-gray-900 text-base pt-2 border-t border-gray-200">
-                        <span>Total</span>
-                        <span>₹{order.total}</span>
+                        <span>Total Paid</span>
+                        <span>₹{order.total.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm text-gray-500 mt-1">
+                        <span>Payment Method</span>
+                        <span>{order.paymentMethod}</span>
                       </div>
                     </div>
                   </div>
@@ -486,7 +496,9 @@ const Orders = () => {
               No orders found
             </h3>
             <p className="text-gray-600">
-              Try adjusting your search or filters
+              {searchTerm || activeTab !== 'all'
+                ? 'Try adjusting your search or filters'
+                : "You haven't placed any orders yet"}
             </p>
           </div>
         )}
