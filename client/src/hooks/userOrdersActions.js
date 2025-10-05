@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import {
+  cancelOrderThunk,
   clearOrderState,
   createOrderThunk,
   verifyPaymentThunk,
@@ -72,9 +73,14 @@ export const useOrderActions = () => {
     return dispatch(clearOrderState());
   };
 
+  const handleCancleOrder = id => {
+    return dispatch(cancelOrderThunk(id));
+  };
+
   return {
     handleCreateOrder,
     handleVerifyPayment,
     handleClearOrderState,
+    handleCancleOrder,
   };
 };

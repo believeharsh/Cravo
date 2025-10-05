@@ -6,6 +6,7 @@ import OrderCard from './components/OrderCard';
 import EmptyOrdersState from './components/EmptyOrdersState';
 import OrdersLoading from './components/OrdersLoading';
 import OrdersHeader from './components/OrdersHeader';
+import { useOrderActions } from '../../../hooks/userOrdersActions';
 
 const Orders = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -14,6 +15,8 @@ const Orders = () => {
 
   const userOrders = useSelector(state => state.orders?.userOrders || []);
   const isLoading = useSelector(state => state.orders?.isLoading || false);
+
+  const { handleCancleOrder } = useOrderActions();
 
   // Fetch orders on mount
   // useEffect(() => {
@@ -157,10 +160,10 @@ const Orders = () => {
     // Implement reorder logic
   };
 
-  const handleCancelOrder = id => {
+  const handleCancelOrderClick = id => {
     if (window.confirm('Are you sure you want to cancel this order?')) {
       console.log('Cancel order:', id);
-      // dispatch(cancelOrder(id));
+      handleCancleOrder(id);
     }
   };
 
@@ -196,7 +199,7 @@ const Orders = () => {
               setExpandedOrder(expandedOrder === order.id ? null : order.id)
             }
             onReorder={handleReorder}
-            onCancel={handleCancelOrder}
+            onCancel={handleCancelOrderClick}
             onTrack={handleTrackOrder}
             formatDate={formatDate}
             formatETA={formatETA}

@@ -129,10 +129,12 @@ export const cancelOrderThunk = createAsyncThunk(
       const response = await axiosInstance.patch(
         `${API.ORDERS.CANCEL_ORDER(orderId)}`
       );
-      return response.data; // Should be the updated order status
+      console.log('response after deletion', response);
+      return response.data.data; // Should be the updated order status
     } catch (error) {
       const message =
         error.response?.data?.message || 'Failed to cancel order.';
+      console.log('error', error);
       return rejectWithValue(message);
     }
   }
