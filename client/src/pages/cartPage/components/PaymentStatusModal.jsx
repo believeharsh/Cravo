@@ -1,21 +1,27 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
+import { useCartActions } from '../../../hooks/useCartActions';
 
 const PaymentStatusModal = ({ isOpen, status, orderDetails, onClose }) => {
   const navigate = useNavigate();
 
+  const { handleClearUserCart } = useCartActions();
+
   if (!isOpen) return null;
 
   const handleTrackOrder = () => {
-    navigate(`/orders/${orderDetails?.orderId}`);
+    handleClearUserCart();
+    navigate(`/profile/orders`);
   };
 
   const handleViewOrders = () => {
+    handleClearUserCart();
     navigate('/profile/orders');
   };
 
   const handleContinueShopping = () => {
+    handleClearUserCart();
     navigate('/restaurants');
   };
 

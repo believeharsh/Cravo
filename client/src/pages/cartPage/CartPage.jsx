@@ -14,6 +14,7 @@ import PaymentStatusModal from './components/PaymentStatusModal';
 
 import { Link } from 'react-router-dom';
 import { useOrderActions } from '../../hooks/userOrdersActions';
+import { useCartActions } from '../../hooks/useCartActions';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
@@ -157,6 +158,8 @@ const CartPage = () => {
   const selectedAddressDetails =
     addresses.find(addr => addr._id === selectedAddress) || null;
 
+  console.log('selectedaddress', selectedAddressDetails);
+
   const selectedPaymentDetails =
     paymentMethods.find(pm => pm.id === selectedPayment) || null;
 
@@ -189,6 +192,7 @@ const CartPage = () => {
           address: `${selectedAddressDetails?.addressLine1}, ${selectedAddressDetails?.city}, ${selectedAddressDetails?.state}`,
         },
       });
+      // await handleClearUserCart() ;
     } catch (error) {
       console.error('Payment verification failed:', error);
       setIsCheckoutLoading(false);
@@ -290,7 +294,7 @@ const CartPage = () => {
 
     const orderPayload = {
       deliveryAddress: {
-        street: `${selectedAddressDetails.addressLine1}${selectedAddressDetails.addressLine2}`,
+        street: `${selectedAddressDetails?.addressLine1}${selectedAddressDetails?.addressLine2}`,
         city: selectedAddressDetails.city,
         state: selectedAddressDetails.state,
         zipCode: selectedAddressDetails.zipCode,

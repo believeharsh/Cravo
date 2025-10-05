@@ -4,6 +4,7 @@ import {
   addItemToCart,
   removeItemFromCart,
   updateQuantity,
+  clearCart,
 } from '../features/cart/cartSlice';
 
 import { openDeleteModal, closeDeleteModal } from '../features/ui/uiSlice';
@@ -61,6 +62,10 @@ export const useCartActions = () => {
     dispatch(closeDeleteModal());
   };
 
+  const handleClearUserCart = () => {
+    dispatch(clearCart());
+  };
+
   return {
     handleGetUserCart,
     handleAddToCart,
@@ -68,5 +73,6 @@ export const useCartActions = () => {
     handleUpdateQuantity,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
+    handleClearUserCart,
   };
 };
