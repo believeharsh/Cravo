@@ -79,9 +79,9 @@ const TopRestaurants = () => {
   const [currentIndex, setCurrentIndex] = useState(0); // 1. Fetching Data Effect
 
   useEffect(() => {
-    const finalCity = selectedLocation.simpleCityName || defaultCity;
-    const finalLat = selectedLocation.lat || defaultLat;
-    const finalLng = selectedLocation.lng || defaultLng;
+    const finalCity = selectedLocation?.simpleCityName || defaultCity;
+    const finalLat = selectedLocation?.lat || defaultLat;
+    const finalLng = selectedLocation?.lng || defaultLng;
 
     if (!finalCity && !(finalLat && finalLng)) {
       setLoading(false);
