@@ -10,7 +10,6 @@ import RestaurantsOverviewPage from './pages/restaurant-Overview-Page/Restaurant
 import CartPage from './pages/cartPage/CartPage';
 import Settings from './pages/profilePage/Settings';
 import HelpSupport from './pages/profilePage/Help-Support';
-// import Orders from './pages/profilePage/Orders'; // direct from the profile page
 import Orders from './pages/profilePage/orders/Orders';
 import Payments from './pages/profilePage/Payment';
 import AddressPage from './pages/profilePage/Address/Address';
@@ -47,29 +46,29 @@ function AppContent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const handleMessage = event => {
-      console.log('Received message:', event);
-      const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000'];
-      if (!allowedOrigins.includes(event.origin)) return;
+  // useEffect(() => {
+  //   const handleMessage = event => {
+  //     console.log('Received message:', event);
+  //     const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000'];
+  //     if (!allowedOrigins.includes(event.origin)) return;
 
-      if (event.data?.type === 'authComplete' && event.data.success) {
-        console.log('Auth complete signal received, dispatching setAuthState');
-        dispatch(
-          setAuthState({
-            user: event.data.data.user,
-            token: event.data.data.accessToken,
-            role: event.data.data.user.role,
-          })
-        );
-        dispatch(closeAuthSidebar());
-        navigate('/restaurants');
-      }
-    };
+  //     if (event.data?.type === 'authComplete' && event.data.success) {
+  //       console.log('Auth complete signal received, dispatching setAuthState');
+  //       dispatch(
+  //         setAuthState({
+  //           user: event.data.data.user,
+  //           token: event.data.data.accessToken,
+  //           role: event.data.data.user.role,
+  //         })
+  //       );
+  //       dispatch(closeAuthSidebar());
+  //       navigate('/restaurants');
+  //     }
+  //   };
 
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [dispatch, navigate]);
+  //   window.addEventListener('message', handleMessage);
+  //   return () => window.removeEventListener('message', handleMessage);
+  // }, [dispatch, navigate]);
 
   return (
     <Routes>

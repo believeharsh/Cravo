@@ -1,0 +1,78 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../features/auth/authSlice';
+import { setAuthMode } from '../features/ui/uiSlice';
+import axiosInstance from '../api/axiosInstance';
+import { API } from '../config/api';
+
+export const useAuthForm = () => {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    name: '',
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleInputChange = e => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const resetForm = () => {
+    setFormData({ email: '', password: '', name: '' });
+    setShowPassword(false);
+  };
+
+  const handleLogin = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await dispatch(loginUser(formData)).unwrap();
+      return { success: true };
+    } catch (err) {
+      console.error('Login failed:', err);
+      return { success: false, error: err };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignup = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const res = await axiosInstance.post(API.AUTH.SIGNUP, formData, {
+        withCredentials: true,
+      });
+
+      if (res.data?.success) {
+        dispatch(setAuthMode('otp'));
+        return { success: true };
+      }
+
+      return { success: false, error: 'Signup failed' };
+    } catch (err) {
+      console.error('Signup failed:', err);
+      return {
+        success: false,
+        error: err.response?.data?.message || 'Signup failed',
+      };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return {
+    formData,
+    showPassword,
+    isLoading,
+    handleInputChange,
+    setShowPassword,
+    resetForm,
+    handleLogin,
+    handleSignup,
+  };
+};
