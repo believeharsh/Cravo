@@ -259,7 +259,7 @@ const cancelOrder = asyncHandler(async (req, res) => {
 
   // 5. Update the order status and save
   order.orderStatus = 'Cancelled';
-  order.cancellationReason = req.body.reason || 'Cancelled by user';
+  order.cancellationReason = req.body?.reason || 'Cancelled by user';
   // You might also want to set paymentStatus to 'Refunded' here,
   // depending on your business logic.
   order.paymentStatus = 'Refunded';
