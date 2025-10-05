@@ -42,7 +42,7 @@ export const createOrderThunk = createAsyncThunk(
         orderPayload
       );
       // The backend should return the Razorpay Order details
-      return response.data;
+      return response.data.data;
     } catch (error) {
       const message =
         error.response?.data?.message || 'Failed to create order.';
@@ -159,6 +159,7 @@ const orderSlice = createSlice({
   },
   extraReducers: builder => {
     // --- Handlers for createOrderThunk ---
+
     builder
       .addCase(createOrderThunk.pending, state => {
         state.isOrderCreationLoading = true;
@@ -177,7 +178,9 @@ const orderSlice = createSlice({
         state.orderCreationError = action.payload || action.error.message;
         state.paymentStatus = 'failed';
       })
+
       // --- Handlers for verifyPaymentThunk ---
+
       .addCase(verifyPaymentThunk.pending, state => {
         state.isPaymentVerificationLoading = true;
         state.paymentVerificationError = null;
@@ -192,8 +195,6 @@ const orderSlice = createSlice({
         state.paymentStatus = 'failed';
         state.paymentVerificationError = action.payload || action.error.message;
       })
-      // --------------------------------------------------------------------------
-      // --- New Handlers for Orders Management ---
 
       // --- Handlers for getAllUserOrdersThunk ---
       .addCase(AllUserOrdersThunk.pending, state => {

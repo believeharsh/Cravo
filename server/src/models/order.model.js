@@ -53,7 +53,7 @@ const OrderSchema = new Schema(
     // --- 4. Payment and Transaction Details ---
     paymentMethod: {
       type: String,
-      enum: ['Debit Card', 'Credit Cart', 'UPI', 'Wallet', 'COD'],
+      enum: ['Debit Card', 'Credit Card', 'UPI', 'Wallet', 'COD'],
       required: true,
     },
     paymentStatus: {

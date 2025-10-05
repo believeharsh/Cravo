@@ -60,7 +60,7 @@ export const useOrderActions = () => {
           actionText: '',
           onActionClick: () => {},
         },
-        { duration: 5000, type: 'error' }
+        { duration: 3000, type: 'error' }
       );
       console.error('Payment Verification Failed:', error);
     }
@@ -73,8 +73,23 @@ export const useOrderActions = () => {
     return dispatch(clearOrderState());
   };
 
-  const handleCancleOrder = id => {
-    return dispatch(cancelOrderThunk(id));
+  const handleCancleOrder = async id => {
+    try {
+      await dispatch(cancelOrderThunk(id)).unwrap();
+
+      // On successful order Canclelation:
+      showStackedToast(
+        CustomToast,
+        {
+          message: 'Your Order has Cancelled Succussfully.',
+          actionText: 'View Order',
+          onActionClick: () => {
+            /* Logic to navigate to order details */
+          },
+        },
+        { duration: 3000, type: 'success' }
+      );
+    } catch (error) {}
   };
 
   return {

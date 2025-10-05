@@ -29,7 +29,7 @@ const CartPage = () => {
   const { isDeleteModalOpen, modalProps } = useSelector(state => state.ui.cart);
 
   const addresses = userAddresses.list;
-
+  // 'Debit Card', 'Credit Card', 'UPI', 'Wallet', 'COD'
   const paymentMethods = [
     {
       id: 1,
@@ -312,7 +312,7 @@ const CartPage = () => {
     try {
       const result = await handleCreateOrder(orderPayload).unwrap();
       console.log('result is this', result);
-      let razorpayDetails = result.data;
+      let razorpayDetails = result;
       displayRazorpay(razorpayDetails);
     } catch (error) {
       console.error('Order Creation Failed:', error);
