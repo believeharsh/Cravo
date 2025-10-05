@@ -29,7 +29,7 @@ const Hero = () => {
   const locationRef = useRef(null);
 
   const initialIpLocation = useSelector(state => state.location);
-  console.log('initialIpLocation', initialIpLocation);
+  // console.log('initialIpLocation', initialIpLocation);
 
   const {
     locationSearchTerm,
@@ -48,7 +48,7 @@ const Hero = () => {
     handleRestaurantNameChange,
   } = useSearchContext(initialIpLocation);
 
-  console.log('selected location', selectedLocation);
+  // console.log('selected location', selectedLocation);
 
   useEffect(() => {
     const handleClickOutside = event => {
