@@ -9,8 +9,75 @@ import {
   createAccessToken,
   createRefreshToken,
 } from '../services/userTokens.js';
+import { config } from '../config/app.config.js';
 
 import { createDefaultLists } from '../services/user.service.js';
+
+const initiateGoogleAuth = asyncHandler(async (req, res, next) => {
+  // Get client origin from query or header
+  const clientOrigin =
+    req.query.origin || req.get('origin') || config.clientUrl;
+
+  // Validate against allowed origins
+  if (!config.allowedOrigins.includes(clientOrigin)) {
+    console.log('Invalid origin blocked:', clientOrigin);
+    throw new apiError(403, 'Invalid origin');
+  }
+
+  req.clientOrigin = clientOrigin;
+
+  // Move to next middleware (passport.authenticate)
+  next();
+});
+
+// const googleAuthCallback = asyncHandler(async (req, res) => {
+//   const user = await User.findById(req.user._id).select('-password');
+//   if (!user) {
+//     throw new apiError(404, 'User not found');
+//   }
+
+//   const { accessToken, refreshToken } =
+//     await user.generateAccessAndRefreshToken();
+
+//   user.refreshTokens = [{ token: refreshToken }];
+//   await user.save({ validateBeforeSave: false });
+
+//   const options = {
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === 'production',
+//     sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+//     path: '/',
+//   };
+//   res.cookie('refreshToken', refreshToken, options);
+
+//   const payload = {
+//     type: 'authComplete',
+//     success: true,
+//     data: {
+//       accessToken: accessToken,
+//       user: user,
+//     },
+//   };
+
+//   res.send(`
+//     <!DOCTYPE html>
+//     <html>
+//       <head>
+//         <title>Authentication Complete</title>
+//       </head>
+//       <body>
+//         <script>
+//           (function() {
+//             if (window.opener) {
+//               window.opener.postMessage(${JSON.stringify(payload)}, "http://localhost:5173");
+//               window.close();
+//             }
+//           })();
+//         </script>
+//       </body>
+//     </html>
+//   `);
+// });
 
 const googleAuthCallback = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select('-password');
@@ -20,39 +87,42 @@ const googleAuthCallback = asyncHandler(async (req, res) => {
 
   const { accessToken, refreshToken } =
     await user.generateAccessAndRefreshToken();
-
   user.refreshTokens = [{ token: refreshToken }];
   await user.save({ validateBeforeSave: false });
 
-  const options = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    path: '/',
-  };
-  res.cookie('refreshToken', refreshToken, options);
+  res.cookie('refreshToken', refreshToken, config.cookie);
+
+  // Retrieving client origin from session
+  let clientUrl = config.clientUrl;
+
+  try {
+    const state = JSON.parse(Buffer.from(req.query.state, 'base64').toString());
+    if (state.origin && config.allowedOrigins.includes(state.origin)) {
+      clientUrl = state.origin;
+    }
+  } catch (err) {
+    console.warn('Failed to decode OAuth state:', err.message);
+  }
 
   const payload = {
     type: 'authComplete',
     success: true,
-    data: {
-      accessToken: accessToken,
-      user: user,
-    },
+    data: { accessToken, user },
   };
 
   res.send(`
     <!DOCTYPE html>
     <html>
-      <head>
-        <title>Authentication Complete</title>
-      </head>
+      <head><title>Authentication Complete</title></head>
       <body>
         <script>
           (function() {
+            const payload = ${JSON.stringify(payload)};
+            const targetOrigin = "${clientUrl}";
+            
             if (window.opener) {
-              window.opener.postMessage(${JSON.stringify(payload)}, "http://localhost:5173");
-              window.close();
+              window.opener.postMessage(payload, targetOrigin);
+              setTimeout(() => window.close(), 500);
             }
           })();
         </script>
@@ -69,7 +139,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findOne({ email });
-  console.log('user', user);
+  // console.log('user', user);
   if (!user) {
     throw new apiError(404, 'User not found with this email');
   }
@@ -361,6 +431,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 });
 
 export {
+  initiateGoogleAuth,
   googleAuthCallback,
   loginUser,
   registerUser,
