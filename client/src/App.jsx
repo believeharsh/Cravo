@@ -82,7 +82,8 @@ function App() {
   const { appInitError } = useSelector(state => state.landingPage);
   const { isAuthSidebarOpen } = useSelector(state => state.ui.auth);
   const { isWishlistModalOpen } = useSelector(state => state.ui.wishlist);
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuthenticated, isInitialized } = useSelector(state => state.auth);
+  // console.log(isAuthenticated) ;
 
   useEffect(() => {
     if (!hasAppInitializedRef.current) {
@@ -95,7 +96,7 @@ function App() {
   }, [dispatch]); // 2. Fetch user-specific data *only after* authentication is confirmed
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && isInitialized) {
       // Creating an array of thunk dispatches
       const fetches = [
         dispatch(fetchAllWishlists()),
@@ -118,7 +119,7 @@ function App() {
       console.log('User is not authenticated, skipping data fetch.');
       // Optional: Dispatch actions to clear the state for all these slices on logout.
     }
-  }, [isAuthenticated, dispatch]);
+  }, [isAuthenticated, dispatch, isInitialized]);
 
   if (appInitError) {
     console.error('App Initialization Error:', appInitError);
