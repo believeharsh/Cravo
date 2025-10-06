@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import Icon from '../components/ui/Icon';
 import Button from './ui/Button';
+import Navbar from './Navbar/Navbar';
 
 const ProfileLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

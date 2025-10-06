@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Navbar from '../../components/Navbar';
+// import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer';
 import CategoryHeader from './sections/CategoryHeader';
 import FilterAndSortBar from './sections/FilterAndSortBar';

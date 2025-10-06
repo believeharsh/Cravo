@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 import { useRestaurantMenu } from '../../hooks/useRestaurantMenu';
@@ -11,6 +10,7 @@ import MenuFilters from './sections/MenuFilters';
 import ProductList from './sections/ProductList';
 import DealsSection from './sections/DealsSections';
 import CartStatusSection from './sections/CartStatusSection';
+import Navbar from '../../components/Navbar/Navbar';
 
 const RestaurantMenuPage = () => {
   const { restaurantID } = useParams();

@@ -6,8 +6,9 @@ import RestaurantGrid from './sections/RestRestaurant';
 import NearbyCuisineGrid from './sections/Near-restaurants-card';
 import Footer from '../../components/Footer';
 import TopRestaurants from './sections/TopRestaurants';
-import Navbar from '../../components/Navbar';
+// import Navbar from '../../components/Navbar';
 import RestaurantCategoriesSlider from './sections/Category-Slider';
+import Navbar from '../../components/Navbar/Navbar';
 
 const RestaurantsOverviewPage = () => {
   const [showRestaurantNavbar, setShowRestaurantNavbar] = useState(false);
