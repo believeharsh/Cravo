@@ -99,14 +99,29 @@ const AuthModal = () => {
     otpVerification.resetOTP();
   };
 
+  // const handleGoogleLogin = () => {
+  //   const width = 500;
+  //   const height = 600;
+  //   const left = window.screen.width / 2 - width / 2;
+  //   const top = window.screen.height / 2 - height / 2;
+
+  //   window.open(
+  //     `${import.meta.env.VITE_API_URL}/auth/google`,
+  //     'google-login',
+  //     `width=${width},height=${height},left=${left},top=${top}`
+  //   );
+  // };
+
   const handleGoogleLogin = () => {
+    const currentOrigin = window.location.origin;
     const width = 500;
     const height = 600;
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
 
+    // ✅ Pass current origin to backend
     window.open(
-      `${import.meta.env.VITE_API_URL}/auth/google`,
+      `${import.meta.env.VITE_API_URL}/auth/google?origin=${encodeURIComponent(currentOrigin)}`,
       'google-login',
       `width=${width},height=${height},left=${left},top=${top}`
     );

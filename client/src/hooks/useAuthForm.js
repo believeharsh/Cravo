@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/auth/authSlice';
-import { setAuthMode } from '../features/ui/uiSlice';
+import { closeAuthSidebar, setAuthMode } from '../features/ui/uiSlice';
 import axiosInstance from '../api/axiosInstance';
 import { API } from '../config/api';
 
@@ -30,6 +30,7 @@ export const useAuthForm = () => {
 
     try {
       await dispatch(loginUser(formData)).unwrap();
+      dispatch(closeAuthSidebar());
       return { success: true };
     } catch (err) {
       console.error('Login failed:', err);
@@ -50,6 +51,7 @@ export const useAuthForm = () => {
 
       if (res.data?.success) {
         dispatch(setAuthMode('otp'));
+        dispatch(closeAuthSidebar());
         return { success: true };
       }
 
