@@ -155,7 +155,7 @@ const authSlice = createSlice({
       })
 
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
-        console.log('action', action);
+        // console.log('action', action);
         state.isAuthChecking = false;
         state.isInitialized = true;
         state.isAuthenticated = true;

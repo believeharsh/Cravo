@@ -79,7 +79,7 @@ export const AllUserOrdersThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(API.ORDERS.ALL_USER_ORDERS);
-      console.log('response', response);
+      // console.log('response', response);
       return response.data.data;
     } catch (error) {
       const message =

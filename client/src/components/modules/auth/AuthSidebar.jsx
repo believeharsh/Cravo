@@ -44,8 +44,8 @@ const AuthModal = () => {
           'http://localhost:8000',
       ];
 
-      console.log('📨 Received message from:', event.origin);
-      console.log('✅ Allowed origins:', allowedOrigins);
+      // console.log('📨 Received message from:', event.origin);
+      // console.log('✅ Allowed origins:', allowedOrigins);
 
       // Security: Validate origin
       if (!allowedOrigins.includes(event.origin)) {
@@ -66,7 +66,7 @@ const AuthModal = () => {
         return;
       }
 
-      console.log('✅ OAuth authentication successful');
+      // console.log('✅ OAuth authentication successful');
 
       // Update auth state
       dispatch(
