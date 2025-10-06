@@ -4,6 +4,9 @@ import { apiError } from '../services/apiError.js';
 import { apiResponse } from '../services/apiResponse.js';
 import Address from '../models/address.model.js';
 
+// for getting all the save address of the user
+// GET : /api/v1/address
+
 const getAllAddresses = asyncHandler(async (req, res) => {
   // 1. Get user ID from the request object
   const userId = req.user._id;
@@ -19,6 +22,9 @@ const getAllAddresses = asyncHandler(async (req, res) => {
     .status(200)
     .json(new apiResponse(200, addresses, 'Addresses retrieved successfully'));
 });
+
+// for getting the specific adderess details by it's id
+// GET : /api/v1/address/:addressId
 
 const getAddressById = asyncHandler(async (req, res) => {
   // 1. Get address ID from the request parameters and user ID from the request object
@@ -46,6 +52,9 @@ const getAddressById = asyncHandler(async (req, res) => {
     .status(200)
     .json(new apiResponse(200, address, 'Address retrieved successfully'));
 });
+
+// for creating the new address for the user
+// POST : /api/v1/address
 
 const createAddress = asyncHandler(async (req, res) => {
   // 1. Get user and address data
@@ -104,6 +113,9 @@ const createAddress = asyncHandler(async (req, res) => {
     );
 });
 
+// for editing the already saved address
+// PATCH : /api/v1/address/:addressId
+
 const updateAddress = asyncHandler(async (req, res) => {
   // 1. Get user, address ID, and update data
   const { addressId } = req.params;
@@ -151,6 +163,9 @@ const updateAddress = asyncHandler(async (req, res) => {
       new apiResponse(200, updatedAddresses, 'Address updated successfully')
     );
 });
+
+// for deleting the saved address
+// DELETE : /api/v1/address/:addressId
 
 const deleteAddress = asyncHandler(async (req, res) => {
   // 1. Get user and address ID

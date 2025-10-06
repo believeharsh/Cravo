@@ -5,7 +5,7 @@ const CitySchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true, // Each city name must be unique (e.g., "Indore", "Mumbai")
+      unique: true,
       trim: true,
       text: true, // Enables full-text search on city names if needed later
     },
@@ -26,7 +26,7 @@ const CitySchema = new Schema(
       },
     },
     is_serviceable: {
-      // A simple flag: Is this city currently active for deliveries on your platform?
+      // A simple flag: Is this city currently active for deliveries on our platform?
       type: Boolean,
       default: true,
     },

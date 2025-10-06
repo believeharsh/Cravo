@@ -5,7 +5,6 @@ import Cart from '../models/cart.model.js';
 import Product from '../models/product.model.js';
 
 // A utility function to recalculate cart totals.
-// This function remains the same as it handles internal logic.
 const recalculateCartTotals = cart => {
   let newTotalPrice = 0;
   let newTotalQuantity = 0;
@@ -22,7 +21,6 @@ const recalculateCartTotals = cart => {
   cart.totalQuantity = newTotalQuantity;
 };
 
-// This controller remains perfect and unchanged.
 const getAllCartItems = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
@@ -53,7 +51,6 @@ const getAllCartItems = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, cart, 'Cart items retrieved successfully'));
 });
 
-// Refactored to return the fully populated cart.
 const addItemToTheCart = asyncHandler(async (req, res) => {
   // 1. Get user ID and item details from the request
   const userId = req.user._id;
@@ -127,7 +124,6 @@ const addItemToTheCart = asyncHandler(async (req, res) => {
     );
 });
 
-// Refactored to return the fully populated cart.
 const updateItemQuantityInCart = asyncHandler(async (req, res) => {
   // 1. Get user and item IDs, and the new quantity from the request
   const userId = req.user._id;
@@ -181,7 +177,6 @@ const updateItemQuantityInCart = asyncHandler(async (req, res) => {
     );
 });
 
-// Refactored to return the fully populated cart.
 const removeItemFromCart = asyncHandler(async (req, res) => {
   // 1. Get user ID and item ID from the request
   const userId = req.user._id;
@@ -227,7 +222,6 @@ const removeItemFromCart = asyncHandler(async (req, res) => {
     );
 });
 
-// Refactored to return the fully populated cart.
 const clearTheEntireCart = asyncHandler(async (req, res) => {
   // 1. Get the user ID
   const userId = req.user._id;

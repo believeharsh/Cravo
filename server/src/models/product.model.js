@@ -9,8 +9,8 @@ const ProductSchema = new Schema(
 
     restaurant: {
       type: Schema.Types.ObjectId,
-      ref: 'Restaurant', // This should match the name of your Restaurant model
-      required: true, // A product must belong to a restaurant
+      ref: 'Restaurant',
+      required: true,
     },
 
     // Categorization

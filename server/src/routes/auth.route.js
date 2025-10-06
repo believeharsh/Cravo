@@ -31,7 +31,7 @@ authRoute.get(
   '/google',
   passport.authenticate('google', {
     scope: ['profile', 'email'],
-    session: false, // We're using tokens, not sessions
+    session: false,
   })
 );
 

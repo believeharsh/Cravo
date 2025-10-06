@@ -10,19 +10,19 @@ import {
 
 const cartRoute = Router();
 
-cartRoute.get('/', checkAuth, isLoggedIn, getAllCartItems); // GET : for getting the entire cart resource
+cartRoute.get('/', checkAuth, isLoggedIn, getAllCartItems);
 
-cartRoute.delete('/', checkAuth, isLoggedIn, clearTheEntireCart); // DELETE : for getting the entire cart resource
+cartRoute.delete('/', checkAuth, isLoggedIn, clearTheEntireCart);
 
-cartRoute.post('/items', checkAuth, isLoggedIn, addItemToTheCart); // POST for adding an item
+cartRoute.post('/items', checkAuth, isLoggedIn, addItemToTheCart);
 
 cartRoute.patch(
   '/items/:itemId',
   checkAuth,
   isLoggedIn,
   updateItemQuantityInCart
-); // PATCH : for updating the quantity of the items int the cart ;
+);
 
-cartRoute.delete('/items/:itemId', checkAuth, isLoggedIn, removeItemFromCart); // DELETE: deleting a specific item resource
+cartRoute.delete('/items/:itemId', checkAuth, isLoggedIn, removeItemFromCart);
 
 export default cartRoute;

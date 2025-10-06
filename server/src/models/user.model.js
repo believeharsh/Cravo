@@ -57,7 +57,7 @@ const UserSchema = new Schema(
     lists: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'List', // This links the user to their lists
+        ref: 'List',
       },
     ],
 
@@ -125,7 +125,6 @@ UserSchema.methods.generateAccessAndRefreshToken = async function () {
     throw new Error('Could not generate tokens: ' + error.message);
   }
 };
-// --- END: New Instance Method for Google Login ---
 
 // Static method to match password and generate tokens
 UserSchema.statics.matchPassAndGenTokens = async function (email, password) {

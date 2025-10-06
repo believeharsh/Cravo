@@ -1,4 +1,3 @@
-// This function catches the `apiError` thrown in your controllers
 const errorHandler = (err, req, res, next) => {
   // Use the statusCode and message from the thrown apiError
   console.log('this error handler is working');

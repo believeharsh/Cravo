@@ -68,7 +68,8 @@ const OrderSchema = new Schema(
     razorpayOrderId: { type: String }, // ID from Razorpay when order is created (e.g., order_xxxx)
     razorpayPaymentId: { type: String }, // ID from Razorpay after successful payment (e.g., pay_xxxx)
     // razorpaySignature is often only used during the verification API call and not stored long-term,
-    // but you can add it if you need it for audit logs:
+    // but we can add it if we need it for audit logs:
+
     // razorpaySignature: { type: String },
 
     // --- 5. Fulfillment and Shipping ---

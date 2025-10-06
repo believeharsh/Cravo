@@ -39,7 +39,7 @@ const ListSchema = new Schema(
 );
 
 // Optional: Add a unique compound index to prevent a user from having
-// multiple lists with the same name. You can remove this if you want to allow it.
+// multiple lists with the same name. we can remove this if you want to allow it.
 ListSchema.index({ owner: 1, name: 1 }, { unique: true });
 
 const List = model('List', ListSchema);

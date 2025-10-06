@@ -54,19 +54,17 @@ const RestaurantSchema = new Schema(
       min: 0,
       default: 0,
     },
-    // New field for average cost for two people, for filtering and sorting
     cost_for_two: {
       type: Number,
       min: 0,
       default: 0,
     },
-    // New field for estimated average delivery time, for filtering and sorting
+
     delivery_time_mins: {
       type: Number,
       min: 0,
       default: 0,
     },
-    // New boolean flag for the "10 Mins Delivery" filter
     is_10_min_delivery: {
       type: Boolean,
       default: false,
@@ -128,9 +126,7 @@ const RestaurantSchema = new Schema(
   { timestamps: true }
 );
 
-// ----------------------------------------------------
 // INDEXES FOR EFFICIENT FILTERING AND SORTING
-// ----------------------------------------------------
 
 // 1. Primary Compound Index for filtering by city/cuisine and sorting by rating/cost
 // This index follows the ESR (Equality, Sort, Range) rule.

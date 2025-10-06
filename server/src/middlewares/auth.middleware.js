@@ -40,7 +40,6 @@ const isLoggedIn = (req, res, next) => {
 };
 
 const authorizeRoles = (...roles) => {
-  // ... (Your authorizeRoles middleware is already correct)
   return (req, res, next) => {
     if (!req.user || !req.user.role) {
       throw new apiError(

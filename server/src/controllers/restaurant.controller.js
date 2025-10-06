@@ -43,15 +43,15 @@ const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
 });
 
 const getRestaurantsWithNoProducts = asyncHandler(async (req, res) => {
-  // 1. Find all unique restaurant IDs that have at least one product.
+  // Find all unique restaurant IDs that have at least one product.
   const restaurantWithProducts = await Product.distinct('restaurant');
 
-  // 2. Find all restaurants whose IDs are NOT in the list of restaurants that have products.
+  // Find all restaurants whose IDs are NOT in the list of restaurants that have products.
   const restaurants = await Restaurant.find({
     _id: { $nin: restaurantWithProducts },
   });
 
-  // 3. If the list is empty, it's a successful request that just happens to have no data.
+  // If the list is empty, it's a successful request that just happens to have no data.
   if (!restaurants || restaurants.length === 0) {
     return res
       .status(200)
@@ -72,109 +72,13 @@ const getRestaurantsWithNoProducts = asyncHandler(async (req, res) => {
     );
 });
 
-// const getRestaurantsByQuery = asyncHandler(async (req, res) => {
-//   const { categoryName, longitude, latitude, limit = 10, page = 1 } = req.query;
-
-//   const userLongitude = parseFloat(longitude);
-//   const userLatitude = parseFloat(latitude);
-
-//   const MAX_DISTANCE_METERS = 10000;
-//   const skipAmount = (parseInt(page) - 1) * parseInt(limit);
-//   const parsedLimit = parseInt(limit);
-
-//   const isLocationBasedQuery = !isNaN(userLongitude) && !isNaN(userLatitude);
-
-//   const pipeline = [];
-
-//   // 1. $geoNear must be the first stage if location provided
-//   if (isLocationBasedQuery) {
-//     pipeline.push({
-//       $geoNear: {
-//         near: {
-//           type: 'Point',
-//           coordinates: [userLongitude, userLatitude],
-//         },
-//         distanceField: 'distance',
-//         spherical: true,
-//         maxDistance: MAX_DISTANCE_METERS,
-//         key: 'address.location',
-//       },
-//     });
-//   }
-
-//   // 2. Match by cuisine type (case-insensitive)
-//   if (categoryName) {
-//     pipeline.push({
-//       $match: {
-//         cuisine_type: {
-//           $regex: new RegExp(`^${categoryName}$`, 'i'),
-//         },
-//       },
-//     });
-//   }
-
-//   // 3. Add $lookup and $unwind to populate city details
-//   pipeline.push({
-//     $lookup: {
-//       from: 'cities', // Your cities collection name
-//       localField: 'address.city',
-//       foreignField: '_id',
-//       as: 'address.cityDetails',
-//     },
-//   });
-
-//   pipeline.push({
-//     $unwind: {
-//       path: '$address.cityDetails',
-//       preserveNullAndEmptyArrays: true,
-//     },
-//   });
-
-//   // 4. Use $facet for pagination + count
-//   pipeline.push({
-//     $facet: {
-//       restaurants: [{ $skip: skipAmount }, { $limit: parsedLimit }],
-//       totalCount: [{ $count: 'total' }],
-//     },
-//   });
-
-//   // Execute the aggregation pipeline
-//   const result = await Restaurant.aggregate(pipeline);
-
-//   const restaurants = result[0].restaurants;
-//   const totalCount =
-//     result[0].totalCount.length > 0 ? result[0].totalCount[0].total : 0;
-//   const totalPages = Math.ceil(totalCount / parsedLimit);
-
-//   if (totalCount === 0) {
-//     return res
-//       .status(200)
-//       .json(
-//         new apiResponse(200, [], 'No restaurants found matching the criteria.')
-//       );
-//   }
-
-//   res.status(200).json(
-//     new apiResponse(
-//       200,
-//       {
-//         restaurants,
-//         totalResults: totalCount,
-//         currentPage: page,
-//         totalPages: totalPages,
-//       },
-//       'Restaurants fetched successfully.'
-//     )
-//   );
-// });
-
 const getRestaurantsByQuery = asyncHandler(async (req, res) => {
   console.log('restaurant with query is being fired');
   const {
     categoryName,
     longitude,
     latitude,
-    cityName, // New query parameter
+    cityName,
     limit = 10,
     page = 1,
   } = req.query;
@@ -237,11 +141,9 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
     return pipeline;
   };
 
-  // =================================================================
   // A. Explicit City Search (Highest Priority)
-  // =================================================================
   if (cityName) {
-    // Find the City ID based on the user-provided name (case-insensitive)
+    // Finding the City ID based on the user-provided name (case-insensitive)
     const cityDoc = await City.findOne(
       {
         name: { $regex: new RegExp(`^${cityName}$`, 'i') },
@@ -264,9 +166,7 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
       // We exit the main search flow and will execute the empty pipeline later.
     }
 
-    // =================================================================
     // B. Location-Based Initial Load (Second Priority)
-    // =================================================================
   } else if (isLocationBasedQuery) {
     // --- 1. Attempt the strict local search ($geoNear) ---
     finalPipeline.push({
@@ -284,9 +184,7 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
 
     finalPipeline.push(...getCorePipeline());
   } else {
-    // =================================================================
     // C. Generic Search (Lowest Priority - No City, No Coordinates)
-    // =================================================================
     finalPipeline = getCorePipeline();
     initialMessage = 'Generic restaurant list fetched.';
   }
@@ -459,15 +357,13 @@ const getRestaurantsByLocation = asyncHandler(async (req, res) => {
 });
 
 const getTopRatedRestuarantsOfTheCity = asyncHandler(async (req, res) => {
-  console.log('This top rated restaurants is being fired');
-
-  // 1. Extract Query Parameters
+  // Extract Query Parameters
   const { cityName, latitude, longitude } = req.query;
 
   const query = {};
   const MAX_DISTANCE_METERS = 10000; // 10km radius for geo-search
 
-  // 2. Build Location Query (Prioritizing City Name)
+  // Build Location Query (Prioritizing City Name)
   if (cityName) {
     // --- STEP A: RESOLVE CITY NAME TO CITY ID ---
 
@@ -501,7 +397,7 @@ const getTopRatedRestuarantsOfTheCity = asyncHandler(async (req, res) => {
     const lng = parseFloat(longitude);
 
     if (!isNaN(lat) && !isNaN(lng)) {
-      // Note: The location field is at the root of the Restaurant document based on your schema sample
+      // Note: The location field is at the root of the Restaurant document based on our schema sample
       query.location = {
         $geoWithin: {
           // Using $geoWithin instead of $near for simple find queries
@@ -511,7 +407,7 @@ const getTopRatedRestuarantsOfTheCity = asyncHandler(async (req, res) => {
           ],
         },
       };
-      // NOTE: Alternatively, if you need distance sorting (like in $geoNear), you must use aggregation.
+      // NOTE: Alternatively, if we need distance sorting (like in $geoNear), you must use aggregation.
       // Sticking to .find() here for simplicity and efficiency for a top 10 list.
     }
   } else {

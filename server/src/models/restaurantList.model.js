@@ -27,7 +27,7 @@ const RestaurantListSchema = new Schema(
     restaurants: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurant', // This is the key difference, referencing the Restaurant model
+        ref: 'Restaurant',
       },
     ],
 
@@ -40,7 +40,7 @@ const RestaurantListSchema = new Schema(
   { timestamps: true }
 );
 
-// Add a unique compound index to prevent a user from having
+// Adding a unique compound index to prevent a user from having
 // multiple restaurant lists with the same name.
 RestaurantListSchema.index({ owner: 1, name: 1 }, { unique: true });
 

@@ -6,7 +6,6 @@ import Order from '../models/order.model.js';
 import Product from '../models/product.model.js';
 import mongoose from 'mongoose';
 
-//razorpay instance import
 import razorpayInstance from '../config/razorPayConfig.js';
 
 // Helper function to handle price and stock checks during checkout
@@ -16,24 +15,25 @@ import razorpayInstance from '../config/razorPayConfig.js';
  * * @param {Array} cartItems - Array of items from the user's cart (product ID, quantity, customizations).
  * @returns {Object} { orderItems, subTotal, taxAmount, shippingCost, totalAmount }
  */
+
 const validateAndPrepareOrderItems = async items => {
   let subTotal = 0;
   let taxAmount = 0;
   let discountAmount = 0; // Placeholder for future discount logic
   const SHIPPING_FLAT_RATE = 50; // Example flat rate
-  const TAX_RATE = 0.18; // 18% GST example
+  const TAX_RATE = 0.18; // 18% GST
 
   const orderItems = [];
   const productIds = items.map(item => item.product);
 
-  // 1. Fetch all product data in a single query for efficiency (less MongoDB round trips)
+  //  Fetching all product data in a single query for efficiency (less MongoDB round trips)
   const products = await Product.find({ _id: { $in: productIds } });
   const productMap = products.reduce((acc, product) => {
     acc[product._id.toString()] = product;
     return acc;
   }, {});
 
-  // 2. Loop through cart items for validation and calculation
+  // Looping through cart items for validation and calculation
   for (const cartItem of items) {
     const product = productMap[cartItem.product.toString()];
 
@@ -62,14 +62,14 @@ const validateAndPrepareOrderItems = async items => {
       name: product.name,
       quantity: cartItem.quantity,
       price: itemPrice, // Snapped price from DB
-      customizations: cartItem.customizations || [], // Ensure it's an array
+      customizations: cartItem.customizations || [],
     });
 
     // E. Calculate running subtotal
     subTotal += itemTotal;
   }
 
-  // 3. Final Financial Calculations
+  // Final Financial Calculations
 
   // Tax is calculated on the subTotal after discounts (if discounts applied here)
   const taxableAmount = subTotal - discountAmount;
@@ -81,26 +81,25 @@ const validateAndPrepareOrderItems = async items => {
   // Final total amount to be charged
   const totalAmount = subTotal - discountAmount + taxAmount + shippingCost;
 
-  // 4. Return the full financial breakdown
+  //  Return the full financial breakdown
   return {
     orderItems,
     subTotal,
     taxAmount,
     shippingCost,
     totalAmount,
-    discountApplied: discountAmount, // Return this as well for the Order model
+    discountApplied: discountAmount,
   };
 };
 
 const createOrder = asyncHandler(async (req, res) => {
-  // 1. Get user/guest ID and necessary details
-  const userId = req.user?._id; // Use optional chaining for guest (if supported)
-  // For production, you'd handle guest info separately if userId is null
-  // console.log("incoming body is this", req.body) ;
+  const userId = req.user?._id;
+  // For production, we will be handle guest info separately if userId is null
+
   const { deliveryAddress, paymentMethod, deliveryMethod, guestInfo } =
     req.body;
 
-  // 2. Initial Validation
+  // Initial Validation
   if (!deliveryAddress || !paymentMethod || !deliveryMethod) {
     throw new apiError(
       400,
@@ -108,29 +107,27 @@ const createOrder = asyncHandler(async (req, res) => {
     );
   }
 
-  // 3. Find the user's cart
+  // Finding the user's cart
   const cart = await Cart.findOne({ user: userId });
   if (!cart || cart.items.length === 0) {
     throw new apiError(400, 'Your cart is empty.');
   }
 
-  // 4. Validate, Price, and Calculate Financials (MOST CRITICAL STEP)
-  // Assume this function fetches product prices from DB and calculates totals securely.
+  // Validate, Price, and Calculate Financials (MOST CRITICAL STEP)
   const { orderItems, subTotal, taxAmount, shippingCost, totalAmount } =
     await validateAndPrepareOrderItems(cart.items); // Must be an async function
 
   // Razorpay requires amount in the smallest currency unit (e.g., paise for INR)
   const amountInPaise = totalAmount * 100;
 
-  // 5. Razorpay Order Creation (Server-to-Server)
+  // Razorpay Order Creation (Server-to-Server)
   const razorpayOrder = await razorpayInstance.orders.create({
     amount: amountInPaise,
-    currency: 'INR', // Or your currency
+    currency: 'INR',
     receipt: `receipt_order_${Date.now()}`, // Unique receipt for your records
-    // Optional: pass your Order ID as metadata once it's created, but better to use the response ID.
   });
 
-  // 6. Create a new Order document in an atomic transaction
+  // Create a new Order document in an atomic transaction
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -139,7 +136,7 @@ const createOrder = asyncHandler(async (req, res) => {
       [
         {
           user: userId,
-          guestInfo: guestInfo, // Save guest details if provided
+          guestInfo: guestInfo,
           orderItems,
           // Financials breakdown
           subTotal,
@@ -149,7 +146,7 @@ const createOrder = asyncHandler(async (req, res) => {
           // Payment details
           paymentMethod,
           paymentStatus: 'Pending', // Order is created, but payment is not confirmed yet
-          razorpayOrderId: razorpayOrder.id, // Store the ID from Razorpay
+          razorpayOrderId: razorpayOrder.id, // Storing the ID from Razorpay
           // Fulfillment details
           orderStatus: 'Pending',
           deliveryAddress,
@@ -159,21 +156,21 @@ const createOrder = asyncHandler(async (req, res) => {
       { session }
     );
 
-    // 7. Commit the transaction
+    // Commit the transaction
     await session.commitTransaction();
     session.endSession();
 
-    // 8. Respond with the data needed by the frontend to open the Razorpay modal
+    // Respond with the data needed by the frontend to open the Razorpay modal
     res.status(201).json(
       new apiResponse(
         201,
         {
-          orderId: newOrder[0]._id, // Your internal DB Order ID
-          razorpayOrderId: razorpayOrder.id, // Razorpay ID for the payment modal
+          orderId: newOrder[0]._id,
+          razorpayOrderId: razorpayOrder.id,
           amount: totalAmount, // Total amount
           keyId: process.env.RAZORPAY_KEY_ID, // Public key ID for the frontend
           currency: 'INR',
-          // Pass user/guest contact details for the payment modal options
+          // Passing user/guest contact details for the payment modal options
           name: userId ? req.user.fullName : guestInfo?.name,
           email: userId ? req.user.email : guestInfo?.email,
         },
@@ -190,10 +187,9 @@ const createOrder = asyncHandler(async (req, res) => {
 });
 
 const getAllUserOrders = asyncHandler(async (req, res) => {
-  // 1. Get user ID
   const userId = req.user._id;
 
-  // 2. Find all orders for the user and sort by most recent
+  // Finding all orders for the user and sort by most recent
   const orders = await Order.find({ user: userId })
     .sort({ createdAt: -1 })
     .populate({
@@ -208,17 +204,16 @@ const getAllUserOrders = asyncHandler(async (req, res) => {
 });
 
 const getOrderByOrderId = asyncHandler(async (req, res) => {
-  // 1. Get order and user IDs
   const { orderId } = req.params;
   const userId = req.user._id;
 
-  // 2. Find the specific order, ensuring it belongs to the user
+  // Finding the specific order, ensuring it belongs to the user
   const order = await Order.findOne({ _id: orderId, user: userId }).populate({
     path: 'orderItems.product',
     select: 'name price images',
   });
 
-  // 3. Handle case where order is not found
+  // Handling case where order is not found
   if (!order) {
     throw new apiError(
       404,
@@ -226,21 +221,20 @@ const getOrderByOrderId = asyncHandler(async (req, res) => {
     );
   }
 
-  // 4. Send response
+  // Sending response
   res
     .status(200)
     .json(new apiResponse(200, order, 'Order retrieved successfully'));
 });
 
 const cancelOrder = asyncHandler(async (req, res) => {
-  // 1. Get order ID from parameters and user ID from the request
   const { orderId } = req.params;
   const userId = req.user._id;
 
-  // 2. Find the order by ID and user, ensuring ownership
+  // Finding the order by ID and user, ensuring ownership
   const order = await Order.findOne({ _id: orderId, user: userId });
 
-  // 3. Handle case where order is not found
+  // Handling case where order is not found
   if (!order) {
     throw new apiError(
       404,
@@ -248,7 +242,7 @@ const cancelOrder = asyncHandler(async (req, res) => {
     );
   }
 
-  // 4. Validate if the order can be cancelled
+  // Validating if the order can be cancelled
   const canBeCancelled = ['Pending', 'Confirmed', 'Preparing'];
   if (!canBeCancelled.includes(order.orderStatus)) {
     throw new apiError(
@@ -257,16 +251,15 @@ const cancelOrder = asyncHandler(async (req, res) => {
     );
   }
 
-  // 5. Update the order status and save
+  // Update the order status and save
   order.orderStatus = 'Cancelled';
   order.cancellationReason = req.body?.reason || 'Cancelled by user';
-  // You might also want to set paymentStatus to 'Refunded' here,
-  // depending on your business logic.
+
   order.paymentStatus = 'Refunded';
 
   await order.save();
 
-  // 6. Send a success response with the updated order
+  // Send a success response with the updated order
   res
     .status(200)
     .json(new apiResponse(200, order, 'Order cancelled successfully'));

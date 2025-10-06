@@ -12,18 +12,18 @@ import {
 
 const listRoute = Router();
 
-listRoute.post('/', checkAuth, isLoggedIn, createNewList); // for Creating a new list for the user
+listRoute.post('/', checkAuth, isLoggedIn, createNewList);
 
-listRoute.get('/', checkAuth, isLoggedIn, getAllListOfUser); // for Getting all lists for the user
+listRoute.get('/', checkAuth, isLoggedIn, getAllListOfUser);
 
-listRoute.get('/:id', checkAuth, isLoggedIn, getListById); // for Getting a specific list by its ID
+listRoute.get('/:id', checkAuth, isLoggedIn, getListById);
 
-listRoute.post('/:id/add', checkAuth, isLoggedIn, addProductToTheList); // for Adding a product to a specific list
+listRoute.post('/:id/add', checkAuth, isLoggedIn, addProductToTheList);
 
-listRoute.delete('/:id/remove', checkAuth, isLoggedIn, removeProductFromList); // for Removing a product from a specific list
+listRoute.delete('/:id/remove', checkAuth, isLoggedIn, removeProductFromList);
 
-listRoute.delete('/:id', checkAuth, isLoggedIn, deleteTheList); // for Deleting an entire list
+listRoute.delete('/:id', checkAuth, isLoggedIn, deleteTheList);
 
-listRoute.post('/transfer', checkAuth, isLoggedIn, transferProductToList); // for transfer a item from one list to another list
+listRoute.post('/transfer', checkAuth, isLoggedIn, transferProductToList);
 
 export default listRoute;

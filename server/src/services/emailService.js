@@ -33,7 +33,7 @@ transporter.verify(function (error) {
   }
 });
 
-// ------------------ OLD FUNCTION (Link Verification) ------------------
+// FUNCTION (Link Verification)
 const sendVerificationEmail = async (userEmail, verificationLink) => {
   try {
     const templatePath = path.join(
@@ -77,7 +77,7 @@ const sendVerificationEmail = async (userEmail, verificationLink) => {
   }
 };
 
-// ------------------ NEW FUNCTION (OTP Verification) ------------------
+// FUNCTION (OTP Verification)
 const sendVerificationOTP = async (userEmail, otp) => {
   try {
     const templatePath = path.join(

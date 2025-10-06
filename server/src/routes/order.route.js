@@ -9,14 +9,12 @@ import {
 
 const orderRoute = Router();
 
-// Endpoint for the checkout process
 orderRoute.post('/checkout', checkAuth, isLoggedIn, createOrder);
 
-// Endpoint for the cancling the order
 orderRoute.patch('/cancle/:orderId', checkAuth, isLoggedIn, cancelOrder);
 
-// Endpoints for retrieving a user's orders
 orderRoute.get('/', checkAuth, isLoggedIn, getAllUserOrders);
+
 orderRoute.get('/:orderId', checkAuth, isLoggedIn, getOrderByOrderId);
 
 export default orderRoute;
