@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// ====================================================================
-// ASYNC THUNKS (API Communication with OpenStreetMap)
-// ====================================================================
-
 // Thunk for location suggestions based on user input (Geocoding)
 export const fetchLocationSuggestions = createAsyncThunk(
   'locationSearch/fetchSuggestions',
@@ -31,7 +27,7 @@ export const fetchLocationSuggestions = createAsyncThunk(
         const cityPart =
           address?.city || address?.town || address?.village || '';
 
-        // Use a more specific place/road/suburb if available, or fall back to display name
+        // Using specific place/road/suburb if available, or fall back to display name
         const placePart =
           address?.suburb ||
           address?.road ||
@@ -113,22 +109,13 @@ export const fetchCurrentLocation = createAsyncThunk(
   }
 );
 
-// ====================================================================
-// SLICE DEFINITION
-// ====================================================================
-
 const searchContextSlice = createSlice({
   name: 'searchContext',
   initialState: {
-    // --- A. Location Search State (UI specific) ---
     suggestions: [],
     loading: false,
     error: null,
-    // The confirmed location selected by the user
     selectedLocation: null,
-
-    // --- B. Food/Restaurant Search State (UI/Submission specific) ---
-    // Final values for the API query
     restaurantName: '', // For explicit restaurant name search
     categoryName: '', // For general food/category search (Pizza, Chinese, etc.)
   },
@@ -145,10 +132,9 @@ const searchContextSlice = createSlice({
     },
     // 3. Set Food/Category Search Term
     setCategoryName(state, action) {
-      // Use this for the main food/category search box
       state.categoryName = action.payload;
     },
-    // 4. Set Restaurant Name (If you have a separate input for this)
+    // 4. Set Restaurant Name
     setRestaurantName(state, action) {
       state.restaurantName = action.payload;
     },

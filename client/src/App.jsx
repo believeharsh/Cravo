@@ -43,33 +43,6 @@ import DineoutRestaurantPage from './pages/dineOut-Restaurants-Page/DineOutResta
 import { AllUserOrdersThunk } from './features/orders/ordersSlice';
 
 function AppContent() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const handleMessage = event => {
-  //     console.log('Received message:', event);
-  //     const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000'];
-  //     if (!allowedOrigins.includes(event.origin)) return;
-
-  //     if (event.data?.type === 'authComplete' && event.data.success) {
-  //       console.log('Auth complete signal received, dispatching setAuthState');
-  //       dispatch(
-  //         setAuthState({
-  //           user: event.data.data.user,
-  //           token: event.data.data.accessToken,
-  //           role: event.data.data.user.role,
-  //         })
-  //       );
-  //       dispatch(closeAuthSidebar());
-  //       navigate('/restaurants');
-  //     }
-  //   };
-
-  //   window.addEventListener('message', handleMessage);
-  //   return () => window.removeEventListener('message', handleMessage);
-  // }, [dispatch, navigate]);
-
   return (
     <Routes>
       <Route path="restaurants" element={<RestaurantsOverviewPage />} />
@@ -116,7 +89,7 @@ function App() {
   useEffect(() => {
     if (!hasAppInitializedRef.current) {
       console.log(
-        'App.jsx: Dispatching initializeApplication on initial mount.'
+        'Cravo : Dispatching initializeApplication on initial mount.'
       );
       dispatch(initializeApplication());
       hasAppInitializedRef.current = true;
@@ -137,7 +110,7 @@ function App() {
       // Use Promise.all to run them concurrently
       Promise.all(fetches)
         .then(() => {
-          console.log('All initial data fetched successfully!');
+          // console.log('All initial data fetched successfully!');
         })
         .catch(error => {
           console.error('Failed to fetch some initial data:', error);

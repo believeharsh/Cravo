@@ -30,8 +30,6 @@ export const fetchCategoryRestaurants = createAsyncThunk(
   }
 );
 
-// ------------------------------------------------------------------
-
 const initialState = {
   currentCategorySlug: null,
   restaurants: [],
@@ -46,7 +44,6 @@ const categoryResultSlice = createSlice({
   name: 'categoryResult',
   initialState,
   reducers: {
-    // 💡 Must be dispatched from the component on category change.
     clearCategoryResults: state => {
       state.restaurants = [];
       state.totalResults = 0;
@@ -61,15 +58,12 @@ const categoryResultSlice = createSlice({
       .addCase(fetchCategoryRestaurants.pending, state => {
         state.isLoading = true;
         state.error = null;
-
-        // 💡 Optimization: Removed redundant page check. The clear logic
-        //    is now handled by clearCategoryResults dispatched in the component.
       })
       .addCase(fetchCategoryRestaurants.fulfilled, (state, action) => {
         const {
           restaurants,
           totalResults,
-          currentPage, // Already a safe number due to thunk logic
+          currentPage,
           totalPages,
           categorySlug,
         } = action.payload;
@@ -87,7 +81,7 @@ const categoryResultSlice = createSlice({
 
           // 2. APPEND Logic (Page > 1): Handles "Load More"
         } else {
-          // 💡 Defensive Check (Optional but recommended for race conditions):
+          // Defensive Check (Optional but recommended for race conditions):
           // Only append if we are fetching the *next* sequential page.
           if (currentPage === state.currentPage + 1) {
             state.restaurants.push(...restaurants);

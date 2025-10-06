@@ -14,14 +14,14 @@ const initialState = {
   paymentVerificationError: null,
   paymentStatus: 'idle', // 'idle', 'success', 'failed'
 
-  // --- New State for Orders Management ---
+  // State for Orders Management
   userOrders: [],
   selectedOrder: null,
   isOrdersLoading: false,
   ordersError: null,
   isOrderDetailsLoading: false,
   orderDetailsError: null,
-  isOrderActionLoading: false, // For actions like Cancel
+  isOrderActionLoading: false,
   orderActionError: null,
 };
 
@@ -41,7 +41,6 @@ export const createOrderThunk = createAsyncThunk(
         API.ORDERS.CHECKOUT,
         orderPayload
       );
-      // The backend should return the Razorpay Order details
       return response.data.data;
     } catch (error) {
       const message =
@@ -62,7 +61,6 @@ export const verifyPaymentThunk = createAsyncThunk(
         API.PAYMENTS.VERIFY_PAYMENT,
         verificationPayload
       );
-      // The backend should return the updated order status
       return response.data;
     } catch (error) {
       const message =
@@ -72,8 +70,6 @@ export const verifyPaymentThunk = createAsyncThunk(
   }
 );
 
-// --- New Async Thunks ---
-
 /**
  * Thunk to fetch all orders for the currently logged-in user.
  * @returns {Array} An array of user order objects.
@@ -82,10 +78,9 @@ export const AllUserOrdersThunk = createAsyncThunk(
   'order/getAllUserOrders',
   async (_, { rejectWithValue }) => {
     try {
-      // Assuming this endpoint fetches orders for the authenticated user
       const response = await axiosInstance.get(API.ORDERS.ALL_USER_ORDERS);
       console.log('response', response);
-      return response.data.data; // Should be an array of orders
+      return response.data.data;
     } catch (error) {
       const message =
         error.response?.data?.message || 'Failed to fetch user orders.';
@@ -103,11 +98,10 @@ export const getOrderDetailThunk = createAsyncThunk(
   'order/getOrderDetail',
   async (orderId, { rejectWithValue }) => {
     try {
-      // Assuming the endpoint uses the orderId as a route parameter
       const response = await axiosInstance.get(
         `${API.ORDERS.ORDER_DETAILS(orderId)}`
       );
-      return response.data; // Should be a single order object
+      return response.data;
     } catch (error) {
       const message =
         error.response?.data?.message || 'Failed to fetch order details.';
@@ -121,16 +115,16 @@ export const getOrderDetailThunk = createAsyncThunk(
  * @param {string} orderId - The ID of the order to cancel.
  * @returns {object} The response data, typically the updated (cancelled) order object.
  */
+
 export const cancelOrderThunk = createAsyncThunk(
   'order/cancelOrder',
   async (orderId, { rejectWithValue }) => {
     try {
-      // Assuming the endpoint uses a PATCH or POST request to update the status
       const response = await axiosInstance.patch(
         `${API.ORDERS.CANCEL_ORDER(orderId)}`
       );
       console.log('response after deletion', response);
-      return response.data.data; // Should be the updated order status
+      return response.data.data;
     } catch (error) {
       const message =
         error.response?.data?.message || 'Failed to cancel order.';

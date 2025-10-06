@@ -39,7 +39,7 @@ export const setupInterceptors = ({
   logoutAction,
   setAuthStateAction,
 }) => {
-  // 1. Request Interceptor: Attach token using getState()
+  // 1. Request Interceptor: Attaching token using getState()
   axiosInstance.interceptors.request.use(
     config => {
       const { token } = getState().auth;
@@ -90,7 +90,7 @@ export const setupInterceptors = ({
           const { accessToken, role, user } = res.data.data;
           setAuthHeader(accessToken);
 
-          // Use the passed dispatch() function and setAuthStateAction
+          // Using the passed dispatch() function and setAuthStateAction
           dispatch(
             setAuthStateAction({ role: role, user: user, token: accessToken })
           );
@@ -102,7 +102,7 @@ export const setupInterceptors = ({
           return axiosInstance(originalRequest);
         } catch (refreshError) {
           processQueue(refreshError);
-          // Use the passed dispatch() function and logoutAction
+          // Using the passed dispatch() function and logoutAction
           dispatch(logoutAction());
           isRefreshing = false;
           return Promise.reject(refreshError);

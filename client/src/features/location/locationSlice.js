@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// ====================================================================
-// NEW: Thunk to fetch comprehensive location data based on IP or coordinates
-// ====================================================================
+// Thunk to fetch comprehensive location data based on IP or coordinates
 export const fetchIpLocationDetails = createAsyncThunk(
   'location/fetchIpLocationDetails',
   async (
@@ -10,16 +8,16 @@ export const fetchIpLocationDetails = createAsyncThunk(
     coordinates = null,
     { rejectWithValue }
   ) => {
-    // You would typically use a service like ip-api.com, abstractly represented here
+    // using a service ip-api.com, abstractly represented here
     let url = 'https://ip-api.com/json/';
 
     // If coordinates are provided, use a reverse geocoding API instead
     if (coordinates && coordinates.lat && coordinates.lng) {
       // NOTE: ip-api.com doesn't offer reverse geocoding.
-      // If you need it, you must use OpenStreetMap's Nominatim URL here:
+      // we must use OpenStreetMap's Nominatim URL here:
       // url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}`;
       // For simplicity, we'll keep the IP URL, assuming this is mainly for IP fallback.
-      // If you use Nominatim, the response structure (city, region, etc.) will be different.
+      // If we use Nominatim, the response structure (city, region, etc.) will be different.
     }
 
     try {
@@ -28,15 +26,13 @@ export const fetchIpLocationDetails = createAsyncThunk(
         throw new Error('Failed to fetch location details from API');
       }
       const data = await response.json();
-
-      // Assuming the external API returns data matching your required structure
       if (data.status === 'fail') {
         throw new Error(data.message || 'Location data fetch failed.');
       }
 
       return {
         city: data.city || 'Unknown City',
-        lat: data.lat || null, // Assuming lat/lon are named `lat` and `lon` in the response
+        lat: data.lat || null,
         lon: data.lon || null,
         country: data.country || '',
         countryCode: data.countryCode || '',
@@ -51,10 +47,7 @@ export const fetchIpLocationDetails = createAsyncThunk(
   }
 );
 
-// ====================================================================
-// Existing Thunk: Fetches raw coordinates from the browser
-// (No changes needed, but will be used in tandem with the new thunk)
-// ====================================================================
+// Thunk to fetch the user location using navigator geolocation
 export const fetchUserLocation = createAsyncThunk(
   'location/fetchUserLocation',
   async (_, { rejectWithValue }) => {
@@ -77,9 +70,6 @@ export const fetchUserLocation = createAsyncThunk(
   }
 );
 
-// ====================================================================
-// locationSlice Definition
-// ====================================================================
 const locationSlice = createSlice({
   name: 'location',
   initialState: {
@@ -91,12 +81,11 @@ const locationSlice = createSlice({
     region: '',
     regionName: '',
     zip: '',
-    source: 'default', // New state to track if location is from IP, GPS, or manual
+    source: 'default',
     isLoading: false,
     error: null,
   },
   reducers: {
-    // Reducer remains the same, but is now used by the new thunk
     setUserLocation: (state, action) => {
       state.city = action.payload.city;
       state.latitude = action.payload.lat;
@@ -108,7 +97,7 @@ const locationSlice = createSlice({
       state.zip = action.payload.zip;
       state.source = action.payload.source || 'manual';
       state.error = null;
-      state.isLoading = false; // Important to reset loading state here
+      state.isLoading = false;
     },
   },
   extraReducers: builder => {
@@ -119,7 +108,6 @@ const locationSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchIpLocationDetails.fulfilled, (state, action) => {
-        // When details are fetched, directly populate the entire state
         locationSlice.caseReducers.setUserLocation(state, action);
       })
       .addCase(fetchIpLocationDetails.rejected, (state, action) => {
@@ -134,14 +122,12 @@ const locationSlice = createSlice({
       })
       .addCase(fetchUserLocation.fulfilled, (state, action) => {
         state.isLoading = false;
-        // This only gets lat/lng. You should decide if you want to
-        // immediately fire a reverse geocoding API call here.
         state.latitude = action.payload.lat;
         state.longitude = action.payload.lng;
         state.source = 'geolocation';
         state.error = null;
 
-        // OPTIONAL: If you want to get the city name for the new GPS coords:
+        // If we want to get the city name for the new GPS coords:
         // DISPATCH A REVERSE GEOCODING THUNK HERE (outside the slice)
       })
       .addCase(fetchUserLocation.rejected, (state, action) => {

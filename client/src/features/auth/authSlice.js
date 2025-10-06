@@ -33,7 +33,7 @@ export const checkAuthStatus = createAsyncThunk(
       const res = await axiosInstance.post(API.AUTH.REFRESH, {
         withCredentials: true,
       });
-      console.log(res.data.data);
+      // console.log(res.data.data);
       return res.data.data; // Return the user object if authenticated
     } catch (err) {
       if (err.response) {
@@ -65,15 +65,14 @@ export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async (_, { rejectWithValue }) => {
     try {
-      // Assuming the backend handles session clearing (e.g., clearing httpOnly cookies)
+      // the backend handles session clearing (e.g., clearing httpOnly cookies)
       await axiosInstance.post(API.AUTH.LOGOUT, {}, { withCredentials: true });
       return null; // Successful API call
     } catch (err) {
       // Even if the logout API fails (e.g., network error, token already invalid),
-      // we usually want to clear the local state to ensure the user is logged out visually.
+      // I want to clear the local state to ensure the user is logged out visually.
       console.error('Logout API call failed, but clearing local state.', err);
       // We return null on failure so the .fulfilled/rejected still runs the local logout logic.
-      // If you needed to show a message, you'd use rejectWithValue(errorMessage)
       return null;
     }
   }
@@ -188,18 +187,17 @@ const authSlice = createSlice({
       })
 
       .addCase(logoutUser.pending, state => {
-        state.isLoading = true; // 👈 Sets loading to true
+        state.isLoading = true;
         state.error = null;
       })
 
       .addCase(logoutUser.rejected, state => {
-        // Clear state even if the API call fails, just to ensure local integrity
+        // Clearing the state even if the API call fails, just to ensure local integrity
         state.user = null;
         state.role = null;
         state.token = null;
         state.isAuthenticated = false;
         state.isLoading = false;
-        // Optionally set a small error message here if needed, but clearing state is primary
         state.error = null;
       });
   },

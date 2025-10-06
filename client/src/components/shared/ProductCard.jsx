@@ -27,12 +27,12 @@ const ProductCard = ({ item, listId }) => {
   const defaultProductListId = useSelector(selectDefaultProductListId);
 
   const handleWishlistClick = () => {
-    // Find the list where this item exists
+    // Finding the list where this item exists
     const listWithItem = lists.find(list =>
       list.items?.some(productItem => productItem._id === item._id)
     );
 
-    // Find the default list object to get its name
+    // Finding the default list object to get its name
     const defaultList = lists.find(list => list._id === defaultProductListId);
 
     if (listId) {

@@ -37,7 +37,6 @@ const uiSlice = createSlice({
   reducers: {
     // Actions for the Auth Sidebar
     openAuthSidebar: (state, action) => {
-      console.log('this reducers is being called');
       state.auth.isAuthSidebarOpen = true;
       if (typeof action.payload === 'string') {
         state.auth.mode = action.payload;
@@ -75,7 +74,6 @@ const uiSlice = createSlice({
     openWishlistModal: (state, action) => {
       state.wishlist.isWishlistModalOpen = true;
       state.wishlist.modalProps = action.payload;
-      console.log('action payload', action.payload);
     },
 
     closeWishlistModal: state => {
@@ -87,8 +85,6 @@ const uiSlice = createSlice({
     openDeleteModal: (state, action) => {
       state.cart.isDeleteModalOpen = true;
       state.cart.modalProps = action.payload;
-      console.log('modal props for the openDeleteModal is ', action.payload);
-      console.log('modap prop state', state.isDeleteModalOpen);
     },
 
     closeDeleteModal: state => {
@@ -110,7 +106,6 @@ const uiSlice = createSlice({
     openDeleteAddressModal: (state, action) => {
       state.address.isDeleteAddressModalOpen = true;
       state.address.deleteAddressID = action.payload;
-      console.log(action.payload);
     },
 
     closeDeleteAddressModal: state => {

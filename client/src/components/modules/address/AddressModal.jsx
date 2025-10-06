@@ -33,9 +33,9 @@ const AddressModal = ({ initialData }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (initialData) {
-      handleUpdateAddress(formData); // Use the update action
+      handleUpdateAddress(formData);
     } else {
-      handleCreateNewAddress(formData); // Use the add action
+      handleCreateNewAddress(formData);
     }
     handleCloseAddressModal();
   };

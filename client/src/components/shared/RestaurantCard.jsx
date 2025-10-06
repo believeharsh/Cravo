@@ -15,6 +15,7 @@ import { useFavoriteActions } from '../../hooks/useWishlistActions';
  * @param {object} [props.listId] - Optional ID object if used within a specific wishlist context.
  * @param {string} [props.className=''] - Optional Tailwind class to apply to the outer container for dimension overrides.
  */
+
 const RestaurantCard = ({ data, listId, className = '' }) => {
   const { lists, handleAddItemToWishlist, handleRemoveItemFromWishlist } =
     useFavoriteActions();
@@ -131,7 +132,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
 
       {/* CONTENT SECTION */}
       <div className={contentContainerClasses}>
-        {/* Restaurant name - Fixed text size */}
+        {/* Restaurant name */}
         <h3 className="text-lg font-bold text-gray-800 group-hover:text-yellow-500 transition-colors line-clamp-1 leading-tight">
           {data.name}
         </h3>
@@ -144,7 +145,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
               {idx < data.cuisine_type.slice(0, 4).length - 1 && ' •'}
             </span>
           ))}
-          {/* Add ellipsis if there are more than 4 items, though the content will be clipped anyway */}
+          {/* Adding ellipsis if there are more than 4 items, though the content will be clipped anyway */}
           {data.cuisine_type?.length > 4 && <span>...</span>}
         </div>
 

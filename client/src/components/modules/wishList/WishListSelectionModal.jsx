@@ -25,7 +25,7 @@ const WishlistModal = ({ productId }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      // Set the initial selected list ID from the payload, if it exists
+      // Setting the initial selected list ID from the payload, if it exists
       if (modalProps && modalProps.sourceListId) {
         setSelectedListId(modalProps.sourceListId);
       }
