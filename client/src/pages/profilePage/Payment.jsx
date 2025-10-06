@@ -15,9 +15,7 @@ const Payments = () => {
   const [showCardNumber, setShowCardNumber] = useState({});
   const [filterPeriod, setFilterPeriod] = useState('all');
 
-  /* ───────────────────────────────
-                Data
-  ─────────────────────────────── */
+  // data
   const [paymentMethods, setPaymentMethods] = useState([
     {
       id: 1,
@@ -64,9 +62,7 @@ const Payments = () => {
     isDefault: false,
   });
 
-  /* ───────────────────────────────
-           Helpers / Utilities
-  ─────────────────────────────── */
+  // helper utilites
   const cardBrands = {
     visa: { name: 'Visa', color: 'bg-blue-600' },
     mastercard: { name: 'Mastercard', color: 'bg-red-600' },
@@ -108,9 +104,7 @@ const Payments = () => {
     return true;
   });
 
-  /* ───────────────────────────────
-           CRUD: Payment Methods
-  ─────────────────────────────── */
+  // cards payment method
   const handleAddCard = () => {
     setCardForm({
       holderName: '',
@@ -185,9 +179,7 @@ const Payments = () => {
   const toggleCardVisibility = id =>
     setShowCardNumber(v => ({ ...v, [id]: !v[id] }));
 
-  /* ───────────────────────────────
-                Tabs
-  ─────────────────────────────── */
+  // tabs
   const PaymentMethodsTab = () => (
     <div className="space-y-6">
       {/* Header & Add button */}
@@ -467,9 +459,8 @@ const Payments = () => {
     </div>
   );
 
-  /* ───────────────────────────────
-             Main Render
-  ─────────────────────────────── */
+  //  Main Render
+
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       {/* Tabs bar */}

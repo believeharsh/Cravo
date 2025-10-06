@@ -31,8 +31,6 @@ import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
 import AuthSidebar from './components/modules/auth/AuthSidebar';
 import WishlistModal from './components/modules/wishList/WishListSelectionModal';
 
-import { checkAuthStatus, setAuthState } from './features/auth/authSlice';
-
 import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
 import { fetchAllWishlists } from './features/wishList/wishListSlice';
 import { fetchUserCart } from './features/cart/cartSlice';

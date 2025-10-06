@@ -173,15 +173,6 @@ const Settings = () => {
         </div>
       </div>
 
-      {/* 1. Notifications */}
-      {/* (unchanged code above) */}
-
-      {/* 2. Privacy & Security */}
-      {/* (unchanged code above) */}
-
-      {/* 3. App Preferences */}
-      {/* (unchanged code above) */}
-
       {/* 4. Data & Marketing */}
       <div className="bg-white rounded-2xl shadow-lg border border-cream p-6">
         <h2 className="text-xl font-bold text-charcoal mb-6 flex items-center gap-3">

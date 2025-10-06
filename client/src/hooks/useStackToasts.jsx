@@ -1,4 +1,3 @@
-// useToastStack.js
 import { useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -6,7 +5,7 @@ export const useToastStack = () => {
   const [activeToastIds, setActiveToastIds] = useState([]);
   const activeToastIdsRef = useRef(activeToastIds);
 
-  // Keep the ref in sync with state
+  // for Keeping the ref in sync with state
   useEffect(() => {
     activeToastIdsRef.current = activeToastIds;
   }, [activeToastIds]);

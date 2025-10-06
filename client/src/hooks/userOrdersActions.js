@@ -6,7 +6,6 @@ import {
   verifyPaymentThunk,
 } from '../features/orders/ordersSlice';
 
-// NOTE: Mocking imports to match your existing pattern
 import { useToastStack } from './useStackToasts';
 import CustomToast from '../components/CustomToast';
 

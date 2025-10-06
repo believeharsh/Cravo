@@ -83,7 +83,6 @@ export const useSearchContext = initialIpLocation => {
 
       // --- COMPLETED DEBOUNCE CALL ---
       debouncedFetchSuggestions(value);
-      // --------------------------------
     },
     [debouncedFetchSuggestions]
   ); // Added debouncedFetchSuggestions as dependency

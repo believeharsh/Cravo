@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-// import Navbar from '../../components/Navbar';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer';
 import CategoryHeader from './sections/CategoryHeader';
@@ -29,8 +28,8 @@ const CategoryResultPage = () => {
     totalResults,
     currentCategorySlug,
   } = useSelector(state => state.categoryResult);
-  console.log('currentCategorySlug', currentCategorySlug);
-  console.log('restaurants', restaurants);
+  // console.log('currentCategorySlug', currentCategorySlug);
+  // console.log('restaurants', restaurants);
 
   const urlPage = parseInt(searchParams.get('page')) || 1;
 
@@ -61,7 +60,7 @@ const CategoryResultPage = () => {
   // Logic to fetch restaurants when categorySlug or page changes
   useEffect(() => {
     const isNewCategory = currentCategorySlug !== categorySlug;
-    console.log('is New Category', isNewCategory);
+    // console.log('is New Category', isNewCategory);
 
     // 1. Exit if location data is not yet available
     if (!latitude || !longitude) {
@@ -83,9 +82,9 @@ const CategoryResultPage = () => {
 
     // The old skip logic (isDataStale check) is replaced by this cleaner 'shouldFetch' check.
     if (shouldFetch) {
-      console.log(
-        `Dispatching fetch for ${categorySlug}, page ${isNewCategory ? 1 : urlPage}`
-      );
+      // console.log(
+      //   `Dispatching fetch for ${categorySlug}, page ${isNewCategory ? 1 : urlPage}`
+      // );
 
       // Set the page to 1 for a new category, otherwise use the URL page (Load More)
       const pageToFetch = isNewCategory ? 1 : urlPage;
@@ -101,9 +100,9 @@ const CategoryResultPage = () => {
         })
       );
     } else {
-      console.log(
-        `Data for category "${categorySlug}" already in store. Skipping API call.`
-      );
+      // console.log(
+      //   `Data for category "${categorySlug}" already in store. Skipping API call.`
+      // );
     }
   }, [
     categorySlug,

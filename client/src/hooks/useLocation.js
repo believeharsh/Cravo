@@ -1,20 +1,11 @@
-// src/hooks/useHeroLocationSearch.js
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-// Import actions from the two slices:
-// 1. locationSearch (Handles suggestions/geocoding)
 import {
   fetchLocationSuggestions,
-  setSelectedLocation as setSelectedSearchLocation, // Rename to avoid conflict
-  // clearSuggestions,
-  fetchCurrentLocation as fetchReverseGeocode, // Rename for clarity
-} from '../features/location/locationSlice'; // Assuming you kept the previous structure
-
-// 2. location (Your existing slice - only needed for initial IP data)
-// Assuming your existing slice exports the location state as `state.location`
-// And we need lat/lng from the existing state for initial value
+  setSelectedLocation as setSelectedSearchLocation,
+  fetchCurrentLocation as fetchReverseGeocode,
+} from '../features/location/locationSlice';
 
 // Debounce utility (defined here for completeness, or import if external)
 const debounce = (func, delay) => {
@@ -72,7 +63,7 @@ export const useLocationSearch = () => {
         name: initialName,
         lat: lat,
         lng: lng,
-        simpleCityName: city, // Use city for initial simple check
+        simpleCityName: city,
       };
 
       // Set the initial location in the locationSearch slice
@@ -107,7 +98,6 @@ export const useLocationSearch = () => {
   // Handle user clicking a suggestion item
   const handleSelectLocation = useCallback(
     location => {
-      // Update the permanently selected location in Redux
       dispatch(setSelectedSearchLocation(location));
       // searchTerm will be updated via the useEffect above
     },
@@ -130,7 +120,6 @@ export const useLocationSearch = () => {
   }, [searchTerm, dispatch]);
 
   return {
-    // State to be read by the component
     searchTerm,
     suggestions,
     isLocationLoading,
@@ -138,7 +127,7 @@ export const useLocationSearch = () => {
     showSuggestions,
     initialPlaceholder: `${initialIpLocation.city}, ${initialIpLocation.region}, ${initialIpLocation.country}`,
 
-    // Handlers to be bound to UI elements
+    // Handlers
     handleLocationChange,
     handleSelectLocation,
     handleUseCurrentLocation,
