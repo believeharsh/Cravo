@@ -20,6 +20,7 @@ import addressRoute from './routes/address.route.js';
 import paymentRoute from './routes/payment.route.js';
 import restaurantSuperAdminRoute from './routes/superAdmin/restaurantSuperAdmin.route.js';
 import locationRoute from './routes/location.route.js';
+import { keepAlive } from './services/keepAlive.js';
 
 dotenv.config();
 
@@ -43,6 +44,11 @@ app.use(passport.initialize());
 configurePassport();
 
 app.use(express.static(path.resolve('./public')));
+
+if (process.env.NODE_ENV === 'production') {
+  const url = 'https://cravo-backend-4y9p.onrender.com';
+  keepAlive(url);
+}
 
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/categories', categoryRoute);
