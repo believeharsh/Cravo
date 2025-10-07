@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import Icon from '../../../ui/Icon';
+import SocialLoginButton from '../SocialLoginButton';
+import LoadingSpinner from '../../../ui/LoadingSpinner';
+
 const SignupForm = ({
   formData,
   onChange,

@@ -51,7 +51,7 @@ export const useAuthForm = () => {
 
       if (res.data?.success) {
         dispatch(setAuthMode('otp'));
-        dispatch(closeAuthSidebar());
+        // dispatch(closeAuthSidebar());
         return { success: true };
       }
 
