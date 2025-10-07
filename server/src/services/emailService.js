@@ -21,8 +21,7 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: true, // Use false only for testing
   },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
+  connectionTimeout: 15000,
 });
 
 const COMPANY_NAME = process.env.APP_NAME || 'Cravo';
