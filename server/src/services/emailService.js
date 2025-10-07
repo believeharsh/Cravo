@@ -10,9 +10,10 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
+  service: 'gmail',
   host: process.env.EMAIL_HOST, // 'smtp.gmail.com' or 'smtp.sendgrid.net'
   port: process.env.EMAIL_PORT, // 587 for TLS, 465 for SSL
-  secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
+  // secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
