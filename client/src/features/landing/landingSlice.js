@@ -14,14 +14,15 @@ export const initializeApplication = createAsyncThunk(
       const [citiesRes, categoriesRes, ipLocationRes] = await Promise.all([
         axiosInstance.get(API.CITIES.GET_ALL_CITIES),
         axiosInstance.get(API.CATEGORIES.GET_ALL_CATEGORIES),
-        axios.get('http://ip-api.com/json', { withCredentials: false }),
+        // axios.get('http://ip-api.com/json', { withCredentials: false }),
+        axiosInstance.get(API.LOCATION.USER_IP_LOCATION),
       ]);
 
       const cities = citiesRes.data.data.cities;
       const categories = categoriesRes.data.data.categories;
-      // console.log('api location res', ipLocationRes);
+      console.log('api location res', ipLocationRes);
       const { lat, lon, city, country, countryCode, region, regionName, zip } =
-        ipLocationRes.data;
+        ipLocationRes.data.data;
       // const { city, country, countryCode, region, regionName, zip } =
       //   ipLocationRes.data;
       // const lat = 23.2599;

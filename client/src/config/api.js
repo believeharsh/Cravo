@@ -78,4 +78,8 @@ export const API = {
   PAYMENTS: {
     VERIFY_PAYMENT: '/payments/verify',
   },
+
+  LOCATION: {
+    USER_IP_LOCATION: '/location/user-location',
+  },
 };
