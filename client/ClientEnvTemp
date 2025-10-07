@@ -1,0 +1,9 @@
+# .env.development
+VITE_API_URL=http://localhost:8000/api/v1
+VITE_SERVER_ORIGIN=http://localhost:8000
+VITE_CLIENT_URL=http://localhost:5173
+
+# # .env.production
+# VITE_API_URL=https://api.yourapp.com/api/v1
+# VITE_SERVER_ORIGIN=https://api.yourapp.com
+# VITE_CLIENT_URL=https://yourapp.com

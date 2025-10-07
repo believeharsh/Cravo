@@ -14,7 +14,7 @@ export const initializeApplication = createAsyncThunk(
       const [citiesRes, categoriesRes, ipLocationRes] = await Promise.all([
         axiosInstance.get(API.CITIES.GET_ALL_CITIES),
         axiosInstance.get(API.CATEGORIES.GET_ALL_CATEGORIES),
-        axios.get('http://ip-api.com/json', { withCredentials: false }),
+        axios.get('https://ip-api.com/json', { withCredentials: false }),
       ]);
 
       const cities = citiesRes.data.data.cities;
