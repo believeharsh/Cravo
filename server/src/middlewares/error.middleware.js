@@ -1,7 +1,7 @@
 const errorHandler = (err, req, res, next) => {
   // Use the statusCode and message from the thrown apiError
   console.log('this error handler is working');
-  // console.log("Error is this", err);
+  console.log('Error is this', err);
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
 

@@ -86,7 +86,7 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
   const userLongitude = parseFloat(longitude);
   const userLatitude = parseFloat(latitude);
 
-  const MAX_DISTANCE_METERS = 10000;
+  const MAX_DISTANCE_METERS = 50000 * 10;
   const skipAmount = (parseInt(page) - 1) * parseInt(limit);
   const parsedLimit = parseInt(limit);
 
@@ -206,10 +206,11 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
           distanceField: 'distance',
           spherical: true,
           key: 'location',
-          limit: 1,
+          // REMOVE: limit: 1,  <-- This is causing the error
           query: { is_serviceable: true },
         },
       },
+      { $limit: 1 }, // ADD: Use $limit as a separate stage instead
       { $project: { _id: 1, name: 1 } },
     ]);
 
