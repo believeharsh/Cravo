@@ -125,6 +125,7 @@
 // export { sendVerificationEmail, sendVerificationOTP };
 
 // emailService.js
+
 import dotenv from 'dotenv';
 import { Resend } from 'resend';
 import fs from 'fs';
