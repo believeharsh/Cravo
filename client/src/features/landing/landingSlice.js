@@ -37,15 +37,18 @@ export const initializeApplication = createAsyncThunk(
           country: country,
           countryCode: countryCode,
           region: region,
-          regionName: regionName,
+          regionName: region,
           zip: zip,
         })
       );
       // Make the final, dependent call for restaurants using the fetched location
-      const restaurantsRes = await axiosInstance.get(
-        `${API.RESTAURANTS.RESTAURANTS_LIST}/?longitude=${lon}&latitude=${lat}&sort=rating&limit=15`
-      );
+      // const restaurantsRes = await axiosInstance.get(
+      //   `${API.RESTAURANTS.RESTAURANTS_LIST}/?cityName=${encodeURIComponent(city)}/longitude=${lon}&latitude=${lat}&sort=rating&limit=15`
+      // );
       // console.log('restaurants after the api call', restaurantsRes);
+      const restaurantsRes = await axiosInstance.get(
+        `${API.RESTAURANTS.RESTAURANTS_LIST}?cityName=${encodeURIComponent(city)}&sort=rating&limit=15`
+      );
       const restaurants = restaurantsRes.data.data.restaurants;
 
       // Returning the combined payload for the fulfilled action
