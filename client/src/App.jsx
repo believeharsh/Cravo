@@ -121,7 +121,7 @@ function App() {
   }, [isAuthenticated, dispatch, isInitialized]);
 
   // Show loader while checking auth or initializing app
-  if (isAuthChecking || !isInitialized) {
+  if (isAuthChecking) {
     return <DeliveryLoader />;
   }
 
