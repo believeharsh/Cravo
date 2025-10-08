@@ -108,6 +108,7 @@ import {
   LogInIcon,
   LocateIcon,
   Handshake,
+  LocateFixed,
 } from 'lucide-react';
 
 // creating a map with icons names properties and adding actual Lucide React Icon to them
@@ -224,6 +225,7 @@ const iconMap = {
   'log-in': LogInIcon,
   'location-pin': LocateIcon,
   handshake: Handshake,
+  'locate-fixed': LocateFixed,
 };
 
 // Main Icon component that renders the correct icon based on props.
