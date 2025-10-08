@@ -1,6 +1,7 @@
 import './App.css';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
+// import DeliveryLoader from './components/DeliveryLoader';
 import CategoryResultPage from './pages/categoryResultPage/CategoryResultpage';
 import OffersPage from './pages/offersPage/OffersPage';
 import AdminPage from './pages/adminPage/AdminPage';
@@ -79,11 +80,14 @@ function AppContent() {
 function App() {
   const dispatch = useDispatch();
   const hasAppInitializedRef = useRef(false);
-  const { appInitError } = useSelector(state => state.landingPage);
+  const { appInitError, isAppInitializing } = useSelector(
+    state => state.landingPage
+  );
   const { isAuthSidebarOpen } = useSelector(state => state.ui.auth);
   const { isWishlistModalOpen } = useSelector(state => state.ui.wishlist);
-  const { isAuthenticated, isInitialized } = useSelector(state => state.auth);
-  // console.log(isAuthenticated) ;
+  const { isAuthenticated, isInitialized, isAuthChecking } = useSelector(
+    state => state.auth
+  );
 
   useEffect(() => {
     if (!hasAppInitializedRef.current) {
@@ -93,36 +97,43 @@ function App() {
       dispatch(initializeApplication());
       hasAppInitializedRef.current = true;
     }
-  }, [dispatch]); // 2. Fetch user-specific data *only after* authentication is confirmed
+  }, [dispatch]);
 
   useEffect(() => {
     if (isAuthenticated && isInitialized) {
-      // Creating an array of thunk dispatches
       const fetches = [
         dispatch(fetchAllWishlists()),
         dispatch(fetchUserCart()),
         dispatch(fetchAllAddresses()),
         dispatch(AllUserOrdersThunk()),
-        // dispatch(fetchPaymentMethods()),
       ];
 
-      // Use Promise.all to run them concurrently
       Promise.all(fetches)
         .then(() => {
-          // console.log('All initial data fetched successfully!');
+          console.log('All initial data fetched successfully!');
         })
         .catch(error => {
           console.error('Failed to fetch some initial data:', error);
-          // Handle errors here, such as showing a notification to the user
         });
     } else {
       console.log('User is not authenticated, skipping data fetch.');
-      // Optional: Dispatch actions to clear the state for all these slices on logout.
     }
   }, [isAuthenticated, dispatch, isInitialized]);
 
+  // Show loader while checking auth or initializing app
+  if (isAuthChecking || !isInitialized) {
+    return <DeliveryLoader />;
+  }
+
+  // Show error state if app initialization failed
   if (appInitError) {
-    console.error('App Initialization Error:', appInitError);
+    return (
+      <div className="error-container">
+        <h2>Something went wrong</h2>
+        <p>{appInitError}</p>
+        <button onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
   }
 
   return (
