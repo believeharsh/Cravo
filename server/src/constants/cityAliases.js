@@ -1,0 +1,19 @@
+const cityAliases = {
+  ahmedabad: ['ahmadabad', 'ahmedabad'],
+  bangalore: ['bengaluru', 'bangalore'],
+  bhopal: ['bhopal'],
+  calcutta: ['kolkata', 'calcutta'],
+  chennai: ['chennai', 'madras'],
+  delhi: ['new delhi', 'delhi'],
+  hyderabad: ['hyderabad'],
+  indore: ['indore'],
+  jaipur: ['jaipur'],
+  kochi: ['kochi', 'cochin'],
+  lucknow: ['lucknow'],
+  mumbai: ['mumbai', 'bombay'],
+  nagpur: ['nagpur'],
+  pune: ['pune'],
+  surat: ['surat'],
+};
+
+export default cityAliases;
