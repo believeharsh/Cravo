@@ -5,7 +5,6 @@ import { selectCartTotalQuantity } from '../../features/cart/cartSelectors';
 import { openAuthSidebar } from '../../features/ui/uiSlice';
 import Icon from '../ui/Icon';
 import Button from '../ui/Button';
-// import SearchModal from '../ui/SearchModal';
 import SearchModal from '../modules/Search/SearchModal';
 import MobileMenu from './MobileMenu';
 import { getNavItems } from './NavbarConfig';
@@ -15,7 +14,8 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [userLocation, setUserLocation] = useState('Indore, MP, India');
+
+  // profile button dropdown state
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -23,6 +23,12 @@ const Navbar = ({ showSearch = true, visibilty }) => {
     state => state.auth
   );
   const cartCount = useSelector(selectCartTotalQuantity);
+
+  // current selected location fetching from loction slice state
+  const userLocation = useSelector(state => state.location);
+  const { city, regionName, country } = userLocation;
+
+  const CurrentLocation = `${city}, ${regionName ? regionName : ''}, ${country ? country : ''}`;
 
   const navItems = useMemo(() => {
     return getNavItems(
@@ -86,7 +92,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   className="text-gray-400 group-hover:text-yellow-500 transition-colors"
                 />
                 <span className="font-medium text-sm md:text-base hidden sm:inline">
-                  {userLocation}
+                  {CurrentLocation}
                 </span>
                 <Icon
                   name="chevron-down"
@@ -217,7 +223,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
           <MobileMenu
             isOpen={isMobileMenuOpen}
             navItems={navItems}
-            userLocation={userLocation}
+            userLocation={CurrentLocation}
             onClose={toggleMobileMenu}
           />
         </div>
