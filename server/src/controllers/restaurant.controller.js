@@ -72,8 +72,194 @@ const getRestaurantsWithNoProducts = asyncHandler(async (req, res) => {
     );
 });
 
+// const getRestaurantsByQuery = asyncHandler(async (req, res) => {
+//   console.log('restaurant with query is being fired');
+//   const {
+//     categoryName,
+//     longitude,
+//     latitude,
+//     cityName,
+//     limit = 10,
+//     page = 1,
+//   } = req.query;
+
+//   const userLongitude = parseFloat(longitude);
+//   const userLatitude = parseFloat(latitude);
+
+//   const MAX_DISTANCE_METERS = 50000 * 10;
+//   const skipAmount = (parseInt(page) - 1) * parseInt(limit);
+//   const parsedLimit = parseInt(limit);
+
+//   const isLocationBasedQuery = !isNaN(userLongitude) && !isNaN(userLatitude);
+
+//   let finalPipeline = [];
+//   let isFallback = false;
+//   let fallbackCityName = "Mumbai";
+//   let initialMessage = 'Restaurants fetched successfully.';
+
+//   // --- 1. Utility function to build the core aggregation stages ---
+//   const getCorePipeline = (matchConditions = {}) => {
+//     const pipeline = [];
+
+//     if (Object.keys(matchConditions).length > 0) {
+//       pipeline.push({ $match: matchConditions });
+//     }
+
+//     if (categoryName) {
+//       pipeline.push({
+//         $match: {
+//           cuisine_type: { $regex: new RegExp(`^${categoryName}$`, 'i') },
+//         },
+//       });
+//     }
+
+//     // Add $lookup and $unwind to populate city details
+//     pipeline.push({
+//       $lookup: {
+//         from: 'cities',
+//         localField: 'address.city',
+//         foreignField: '_id',
+//         as: 'address.cityDetails',
+//       },
+//     });
+
+//     pipeline.push({
+//       $unwind: {
+//         path: '$address.cityDetails',
+//         preserveNullAndEmptyArrays: true,
+//       },
+//     });
+
+//     // Use $facet for pagination + count
+//     pipeline.push({
+//       $facet: {
+//         restaurants: [{ $skip: skipAmount }, { $limit: parsedLimit }],
+//         totalCount: [{ $count: 'total' }],
+//       },
+//     });
+
+//     return pipeline;
+//   };
+
+//   // A. Explicit City Search (Highest Priority)
+//   if (cityName) {
+//     // Finding the City ID based on the user-provided name (case-insensitive)
+//     const cityDoc = await City.findOne(
+//       {
+//         name: { $regex: new RegExp(`^${cityName}$`, 'i') },
+//       },
+//       { _id: 1, name: 1 }
+//     );
+
+//     if (cityDoc) {
+//       const cityId = cityDoc._id;
+//       initialMessage = `Restaurants in ${cityDoc.name} fetched successfully.`;
+
+//       // Build pipeline using direct city ID match
+//       finalPipeline = getCorePipeline({
+//         'address.city': cityId,
+//       });
+//     } else {
+//       // City not found, proceed to next priority (or return empty)
+//       initialMessage = `City "${cityName}" not found in supported areas.`;
+
+//       // We exit the main search flow and will execute the empty pipeline later.
+//     }
+
+//     // B. Location-Based Initial Load (Second Priority)
+//   } else if (isLocationBasedQuery) {
+//     // --- 1. Attempt the strict local search ($geoNear) ---
+//     finalPipeline.push({
+//       $geoNear: {
+//         near: { type: 'Point', coordinates: [userLongitude, userLatitude] },
+//         distanceField: 'distance',
+//         spherical: true,
+//         maxDistance: MAX_DISTANCE_METERS,
+//         key: 'address.location',
+//         query: categoryName
+//           ? { cuisine_type: { $regex: new RegExp(`^${categoryName}$`, 'i') } }
+//           : {},
+//       },
+//     });
+
+//     finalPipeline.push(...getCorePipeline());
+//   } else {
+//     // C. Generic Search (Lowest Priority - No City, No Coordinates)
+//     finalPipeline = getCorePipeline();
+//     initialMessage = 'Generic restaurant list fetched.';
+//   }
+
+//   // --- 2. Execute the constructed pipeline ---
+//   let result =
+//     finalPipeline.length > 0 ? await Restaurant.aggregate(finalPipeline) : [{}];
+
+//   let restaurants = result[0]?.restaurants || [];
+//   let totalCount = result[0]?.totalCount[0]?.total || 0;
+
+//   // --- 3. Check for Fallback Condition (ONLY if it was a failed Location Search) ---
+//   if (totalCount === 0 && !cityName && isLocationBasedQuery) {
+//     // Find the nearest supported city (NO maxDistance)
+//     const nearestCityResult = await City.aggregate([
+//       {
+//         $geoNear: {
+//           near: { type: 'Point', coordinates: [userLongitude, userLatitude] },
+//           distanceField: 'distance',
+//           spherical: true,
+//           key: 'location',
+//           // REMOVE: limit: 1,  <-- This is causing the error
+//           query: { is_serviceable: true },
+//         },
+//       },
+//       { $limit: 1 }, // ADD: Use $limit as a separate stage instead
+//       { $project: { _id: 1, name: 1 } },
+//     ]);
+
+//     if (nearestCityResult.length > 0) {
+//       isFallback = true;
+//       const nearestCityId = nearestCityResult[0]._id;
+//       fallbackCityName = nearestCityResult[0].name;
+
+//       // Re-run the aggregation query, matching by the nearest city ID
+//       const fallbackPipeline = getCorePipeline({
+//         'address.city': nearestCityId,
+//       });
+
+//       result = await Restaurant.aggregate(fallbackPipeline);
+
+//       restaurants = result[0]?.restaurants || [];
+//       totalCount = result[0]?.totalCount[0]?.total || 0;
+//     }
+//   }
+
+//   // --- 4. Final Response Construction ---
+//   const totalPages = Math.ceil(totalCount / parsedLimit);
+
+//   let message = initialMessage;
+//   if (isFallback && totalCount > 0) {
+//     // Override message if fallback was used
+//     message = `No restaurants found nearby. Displaying data for the nearest supported city: ${fallbackCityName}.`;
+//   } else if (totalCount === 0) {
+//     // Override message if no restaurants were found in the selected/queried area
+//     message = `No restaurants found matching the criteria in the selected area.`;
+//   }
+
+//   res.status(200).json(
+//     new apiResponse(
+//       200,
+//       {
+//         restaurants,
+//         totalResults: totalCount,
+//         currentPage: page,
+//         totalPages: totalPages,
+//       },
+//       message
+//     )
+//   );
+// });
+
 const getRestaurantsByQuery = asyncHandler(async (req, res) => {
-  console.log('restaurant with query is being fired');
+  console.log('Restaurant query fired ✅');
+
   const {
     categoryName,
     longitude,
@@ -95,9 +281,10 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
   let finalPipeline = [];
   let isFallback = false;
   let fallbackCityName = null;
+  let resolvedCity = null;
   let initialMessage = 'Restaurants fetched successfully.';
 
-  // --- 1. Utility function to build the core aggregation stages ---
+  // --- 1. Core reusable aggregation pipeline ---
   const getCorePipeline = (matchConditions = {}) => {
     const pipeline = [];
 
@@ -113,7 +300,7 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
       });
     }
 
-    // Add $lookup and $unwind to populate city details
+    // Populate city details
     pipeline.push({
       $lookup: {
         from: 'cities',
@@ -130,7 +317,7 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
       },
     });
 
-    // Use $facet for pagination + count
+    // Pagination
     pipeline.push({
       $facet: {
         restaurants: [{ $skip: skipAmount }, { $limit: parsedLimit }],
@@ -141,34 +328,28 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
     return pipeline;
   };
 
-  // A. Explicit City Search (Highest Priority)
+  // --- 2. Main logic branches ---
+
+  // (A) City-based query (highest priority)
   if (cityName) {
-    // Finding the City ID based on the user-provided name (case-insensitive)
+    console.log('cityName is coming this', cityName);
     const cityDoc = await City.findOne(
-      {
-        name: { $regex: new RegExp(`^${cityName}$`, 'i') },
-      },
+      { name: { $regex: new RegExp(`^${cityName}$`, 'i') } },
       { _id: 1, name: 1 }
     );
-
+    console.log('cityDoc is this : ', cityDoc);
     if (cityDoc) {
       const cityId = cityDoc._id;
+      resolvedCity = cityDoc.name;
       initialMessage = `Restaurants in ${cityDoc.name} fetched successfully.`;
 
-      // Build pipeline using direct city ID match
-      finalPipeline = getCorePipeline({
-        'address.city': cityId,
-      });
+      finalPipeline = getCorePipeline({ 'address.city': cityId });
     } else {
-      // City not found, proceed to next priority (or return empty)
       initialMessage = `City "${cityName}" not found in supported areas.`;
-
-      // We exit the main search flow and will execute the empty pipeline later.
     }
 
-    // B. Location-Based Initial Load (Second Priority)
+    // (B) Location-based query (for IP location or coords)
   } else if (isLocationBasedQuery) {
-    // --- 1. Attempt the strict local search ($geoNear) ---
     finalPipeline.push({
       $geoNear: {
         near: { type: 'Point', coordinates: [userLongitude, userLatitude] },
@@ -183,22 +364,22 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
     });
 
     finalPipeline.push(...getCorePipeline());
+
+    // (C) Generic fallback (no city or coords)
   } else {
-    // C. Generic Search (Lowest Priority - No City, No Coordinates)
     finalPipeline = getCorePipeline();
     initialMessage = 'Generic restaurant list fetched.';
   }
 
-  // --- 2. Execute the constructed pipeline ---
+  // --- 3. Execute query ---
   let result =
     finalPipeline.length > 0 ? await Restaurant.aggregate(finalPipeline) : [{}];
 
   let restaurants = result[0]?.restaurants || [];
   let totalCount = result[0]?.totalCount[0]?.total || 0;
 
-  // --- 3. Check for Fallback Condition (ONLY if it was a failed Location Search) ---
+  // --- 4. Fallback to nearest city (only if needed) ---
   if (totalCount === 0 && !cityName && isLocationBasedQuery) {
-    // Find the nearest supported city (NO maxDistance)
     const nearestCityResult = await City.aggregate([
       {
         $geoNear: {
@@ -206,11 +387,10 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
           distanceField: 'distance',
           spherical: true,
           key: 'location',
-          // REMOVE: limit: 1,  <-- This is causing the error
           query: { is_serviceable: true },
         },
       },
-      { $limit: 1 }, // ADD: Use $limit as a separate stage instead
+      { $limit: 1 },
       { $project: { _id: 1, name: 1 } },
     ]);
 
@@ -218,39 +398,37 @@ const getRestaurantsByQuery = asyncHandler(async (req, res) => {
       isFallback = true;
       const nearestCityId = nearestCityResult[0]._id;
       fallbackCityName = nearestCityResult[0].name;
+      resolvedCity = fallbackCityName;
 
-      // Re-run the aggregation query, matching by the nearest city ID
       const fallbackPipeline = getCorePipeline({
         'address.city': nearestCityId,
       });
 
       result = await Restaurant.aggregate(fallbackPipeline);
-
       restaurants = result[0]?.restaurants || [];
       totalCount = result[0]?.totalCount[0]?.total || 0;
     }
   }
 
-  // --- 4. Final Response Construction ---
+  // --- 5. Final response ---
   const totalPages = Math.ceil(totalCount / parsedLimit);
 
   let message = initialMessage;
   if (isFallback && totalCount > 0) {
-    // Override message if fallback was used
     message = `No restaurants found nearby. Displaying data for the nearest supported city: ${fallbackCityName}.`;
   } else if (totalCount === 0) {
-    // Override message if no restaurants were found in the selected/queried area
     message = `No restaurants found matching the criteria in the selected area.`;
   }
 
-  res.status(200).json(
+  return res.status(200).json(
     new apiResponse(
       200,
       {
         restaurants,
         totalResults: totalCount,
         currentPage: page,
-        totalPages: totalPages,
+        totalPages,
+        resolvedCity: resolvedCity || cityName || null,
       },
       message
     )
