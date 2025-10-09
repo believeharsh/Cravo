@@ -14,9 +14,10 @@ import Product from '../models/product.model.js';
 import City from '../models/city.model.js';
 
 // Sample Data
-import lucknowRestaurants from '../sample-Data/Restaurants-Data/LucknowRestaurants.js';
+
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
+import chennaiRestaurants from '../sample-Data/Restaurants-Data/ChennaiRestaurants.js';
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -179,7 +180,7 @@ const seedDatabase = async () => {
     // Ensure indexes on ImageCache
     await ImageCache.init();
 
-    const cityForRestaurants = await City.findOne({ name: 'Lucknow' });
+    const cityForRestaurants = await City.findOne({ name: 'Chennai' });
     if (!cityForRestaurants) {
       console.warn('city not found. Create city documents first.');
       return;
@@ -192,7 +193,7 @@ const seedDatabase = async () => {
     }, {});
 
     const insertedRestaurants = [];
-    for (const restaurant of lucknowRestaurants) {
+    for (const restaurant of chennaiRestaurants) {
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {

@@ -4,141 +4,141 @@ const baseLon = 88.3639;
 
 const calcuttaRestaurants = [
   // --- Restaurants 1-10 ---
-  {
-    name: 'Peter Cat',
-    description:
-      'An iconic Park Street restaurant famous for its Chelo Kebab and continental dishes.',
-    address: {
-      street: '18A, Park Street',
-      city: 'Kolkata',
-      state: 'West Bengal',
-      zip_code: '700071',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.01, baseLat - 0.02],
-      },
-    },
-    contact: { phone: '9876570001', email: 'petercat.kol@example.com' },
-    cuisine_type: ['North-Indian', 'BBQ', 'Dinner', 'Lunch', 'Indian'],
-    rating: 4.7,
-    numberOfReviews: 9500,
-    opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
-    is_active: true,
-    min_order_value: 500,
-    delivery_radius_km: 8,
-    is_veg: false,
-    cost_for_two: 1500,
-    delivery_time_mins: 45,
-  },
-  {
-    name: 'Arsalan',
-    description:
-      'A legendary destination for authentic Mughlai Biryani and kebabs.',
-    address: {
-      street: 'Park Circus Area',
-      city: 'Kolkata',
-      state: 'West Bengal',
-      zip_code: '700017',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.03, baseLat - 0.03],
-      },
-    },
-    contact: { phone: '9876570002', email: 'arsalan.kol@example.com' },
-    cuisine_type: ['North-Indian', 'Indian', 'Dinner', 'Lunch', 'BBQ'],
-    rating: 4.6,
-    numberOfReviews: 12500,
-    opening_hours: [{ day: 'Tuesday', open: '11:00', close: '23:45' }],
-    is_active: true,
-    min_order_value: 300,
-    delivery_radius_km: 9,
-    is_veg: false,
-    cost_for_two: 800,
-    delivery_time_mins: 40,
-  },
-  {
-    name: 'Flurys',
-    description:
-      'A historic tearoom on Park Street, famous for its English breakfast and pastries.',
-    address: {
-      street: '18, Park Street',
-      city: 'Kolkata',
-      state: 'West Bengal',
-      zip_code: '700071',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.011, baseLat - 0.021],
-      },
-    },
-    contact: { phone: '9876570003', email: 'flurys.kol@example.com' },
-    cuisine_type: [
-      'Breakfast',
-      'Desserts',
-      'Sandwiches',
-      'Beverages',
-      'Salads',
-    ],
-    rating: 4.5,
-    numberOfReviews: 7800,
-    opening_hours: [{ day: 'Wednesday', open: '07:30', close: '22:00' }],
-    is_active: true,
-    min_order_value: 250,
-    delivery_radius_km: 7,
-    is_veg: false,
-    cost_for_two: 1000,
-    delivery_time_mins: 35,
-  },
-  {
-    name: 'Mocambo',
-    description:
-      'A classic fine-dining restaurant with a retro vibe, serving Continental and Indian dishes.',
-    address: {
-      street: '25B, Park Street',
-      city: 'Kolkata',
-      state: 'West Bengal',
-      zip_code: '700016',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.012, baseLat - 0.022],
-      },
-    },
-    contact: { phone: '9876570004', email: 'mocambo.kol@example.com' },
-    cuisine_type: ['Italian', 'North-Indian', 'Dinner', 'Lunch', 'Soups'],
-    rating: 4.6,
-    numberOfReviews: 8200,
-    opening_hours: [{ day: 'Thursday', open: '11:00', close: '23:30' }],
-    is_active: true,
-    min_order_value: 600,
-    delivery_radius_km: 8,
-    is_veg: false,
-    cost_for_two: 1800,
-    delivery_time_mins: 50,
-  },
-  {
-    name: 'Kusum Rolls',
-    description: 'An iconic spot for authentic Kolkata-style Kathi Rolls.',
-    address: {
-      street: 'Karnani Mansion, Park Street',
-      city: 'Kolkata',
-      state: 'West Bengal',
-      zip_code: '700016',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.013, baseLat - 0.023],
-      },
-    },
-    contact: { phone: '9876570005', email: 'kusumrolls@example.com' },
-    cuisine_type: ['Street-Food', 'Fast-Food', 'Indian', 'Lunch', 'Dinner'],
-    rating: 4.7,
-    numberOfReviews: 9800,
-    opening_hours: [{ day: 'Friday', open: '12:00', close: '23:00' }],
-    is_active: true,
-    min_order_value: 100,
-    delivery_radius_km: 6,
-    is_veg: false,
-    cost_for_two: 250,
-    delivery_time_mins: 25,
-  },
+  // {
+  //   name: 'Peter Cat',
+  //   description:
+  //     'An iconic Park Street restaurant famous for its Chelo Kebab and continental dishes.',
+  //   address: {
+  //     street: '18A, Park Street',
+  //     city: 'Kolkata',
+  //     state: 'West Bengal',
+  //     zip_code: '700071',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.01, baseLat - 0.02],
+  //     },
+  //   },
+  //   contact: { phone: '9876570001', email: 'petercat.kol@example.com' },
+  //   cuisine_type: ['North-Indian', 'BBQ', 'Dinner', 'Lunch', 'Indian'],
+  //   rating: 4.7,
+  //   numberOfReviews: 9500,
+  //   opening_hours: [{ day: 'Monday', open: '11:00', close: '23:00' }],
+  //   is_active: true,
+  //   min_order_value: 500,
+  //   delivery_radius_km: 8,
+  //   is_veg: false,
+  //   cost_for_two: 1500,
+  //   delivery_time_mins: 45,
+  // },
+  // {
+  //   name: 'Arsalan',
+  //   description:
+  //     'A legendary destination for authentic Mughlai Biryani and kebabs.',
+  //   address: {
+  //     street: 'Park Circus Area',
+  //     city: 'Kolkata',
+  //     state: 'West Bengal',
+  //     zip_code: '700017',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.03, baseLat - 0.03],
+  //     },
+  //   },
+  //   contact: { phone: '9876570002', email: 'arsalan.kol@example.com' },
+  //   cuisine_type: ['North-Indian', 'Indian', 'Dinner', 'Lunch', 'BBQ'],
+  //   rating: 4.6,
+  //   numberOfReviews: 12500,
+  //   opening_hours: [{ day: 'Tuesday', open: '11:00', close: '23:45' }],
+  //   is_active: true,
+  //   min_order_value: 300,
+  //   delivery_radius_km: 9,
+  //   is_veg: false,
+  //   cost_for_two: 800,
+  //   delivery_time_mins: 40,
+  // },
+  // {
+  //   name: 'Flurys',
+  //   description:
+  //     'A historic tearoom on Park Street, famous for its English breakfast and pastries.',
+  //   address: {
+  //     street: '18, Park Street',
+  //     city: 'Kolkata',
+  //     state: 'West Bengal',
+  //     zip_code: '700071',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.011, baseLat - 0.021],
+  //     },
+  //   },
+  //   contact: { phone: '9876570003', email: 'flurys.kol@example.com' },
+  //   cuisine_type: [
+  //     'Breakfast',
+  //     'Desserts',
+  //     'Sandwiches',
+  //     'Beverages',
+  //     'Salads',
+  //   ],
+  //   rating: 4.5,
+  //   numberOfReviews: 7800,
+  //   opening_hours: [{ day: 'Wednesday', open: '07:30', close: '22:00' }],
+  //   is_active: true,
+  //   min_order_value: 250,
+  //   delivery_radius_km: 7,
+  //   is_veg: false,
+  //   cost_for_two: 1000,
+  //   delivery_time_mins: 35,
+  // },
+  // {
+  //   name: 'Mocambo',
+  //   description:
+  //     'A classic fine-dining restaurant with a retro vibe, serving Continental and Indian dishes.',
+  //   address: {
+  //     street: '25B, Park Street',
+  //     city: 'Kolkata',
+  //     state: 'West Bengal',
+  //     zip_code: '700016',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.012, baseLat - 0.022],
+  //     },
+  //   },
+  //   contact: { phone: '9876570004', email: 'mocambo.kol@example.com' },
+  //   cuisine_type: ['Italian', 'North-Indian', 'Dinner', 'Lunch', 'Soups'],
+  //   rating: 4.6,
+  //   numberOfReviews: 8200,
+  //   opening_hours: [{ day: 'Thursday', open: '11:00', close: '23:30' }],
+  //   is_active: true,
+  //   min_order_value: 600,
+  //   delivery_radius_km: 8,
+  //   is_veg: false,
+  //   cost_for_two: 1800,
+  //   delivery_time_mins: 50,
+  // },
+  // {
+  //   name: 'Kusum Rolls',
+  //   description: 'An iconic spot for authentic Kolkata-style Kathi Rolls.',
+  //   address: {
+  //     street: 'Karnani Mansion, Park Street',
+  //     city: 'Kolkata',
+  //     state: 'West Bengal',
+  //     zip_code: '700016',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.013, baseLat - 0.023],
+  //     },
+  //   },
+  //   contact: { phone: '9876570005', email: 'kusumrolls@example.com' },
+  //   cuisine_type: ['Street-Food', 'Fast-Food', 'Indian', 'Lunch', 'Dinner'],
+  //   rating: 4.7,
+  //   numberOfReviews: 9800,
+  //   opening_hours: [{ day: 'Friday', open: '12:00', close: '23:00' }],
+  //   is_active: true,
+  //   min_order_value: 100,
+  //   delivery_radius_km: 6,
+  //   is_veg: false,
+  //   cost_for_two: 250,
+  //   delivery_time_mins: 25,
+  // },
   // {
   //   name: 'Balaram Mullick & Radharaman Mullick',
   //   description:
@@ -269,9 +269,7 @@ const calcuttaRestaurants = [
   //   cost_for_two: 2000,
   //   delivery_time_mins: 55,
   // },
-
   // seeded till here :
-
   // --- Restaurants 11-20 ---
   // {
   //   name: 'Oh! Calcutta',
@@ -538,7 +536,6 @@ const calcuttaRestaurants = [
   //   cost_for_two: 1400,
   //   delivery_time_mins: 50,
   // },
-
   // seeded till here :
   //   // --- Restaurants 21-30 ---
   // {
@@ -800,9 +797,7 @@ const calcuttaRestaurants = [
   //   cost_for_two: 1300,
   //   delivery_time_mins: 45,
   // },
-
   // seeded till here :
-
   //   // --- Restaurants 31-40 ---
   // {
   //   name: 'Barbeque Nation',
@@ -1069,9 +1064,7 @@ const calcuttaRestaurants = [
   //   cost_for_two: 750,
   //   delivery_time_mins: 42,
   // },
-
   // seeded till here
-
   //   // --- Restaurants 41-50 ---
   // {
   //   name: 'Koshe Kosha',
@@ -1333,9 +1326,7 @@ const calcuttaRestaurants = [
   //   cost_for_two: 1600,
   //   delivery_time_mins: 50,
   // },
-
   // seeded till here ;
-
   //   // --- Restaurants 51-60 ---
   // {
   //   name: 'Zen - The Park',
@@ -1601,7 +1592,6 @@ const calcuttaRestaurants = [
   //   cost_for_two: 250,
   //   delivery_time_mins: 30,
   // },
-
   // all these restaruants have been seeded
 ];
 
