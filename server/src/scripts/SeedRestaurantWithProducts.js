@@ -17,7 +17,7 @@ import City from '../models/city.model.js';
 
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
-import kochiRestaurants from '../sample-Data/Restaurants-Data/KochiRestaurants.js';
+import jaipurRestaurants from '../sample-Data/Restaurants-Data/JaipurRestaurants.js';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 
@@ -179,7 +179,7 @@ const seedDatabase = async () => {
     // Ensure indexes on ImageCache
     await ImageCache.init();
 
-    const cityForRestaurants = await City.findOne({ name: 'Kochi' });
+    const cityForRestaurants = await City.findOne({ name: 'Jaipur' });
     if (!cityForRestaurants) {
       console.warn('city not found. Create city documents first.');
       return;
@@ -192,7 +192,7 @@ const seedDatabase = async () => {
     }, {});
 
     const insertedRestaurants = [];
-    for (const restaurant of kochiRestaurants) {
+    for (const restaurant of jaipurRestaurants) {
       const baseLon = restaurant.address.location.coordinates[0];
       const baseLat = restaurant.address.location.coordinates[1];
       const location = {
@@ -236,7 +236,7 @@ const seedDatabase = async () => {
 
       for (const category of restaurantCategories) {
         const pool = productPools[category.name.toLowerCase()] || [];
-        const subset = getRandomSubset(pool, Math.min(6, pool.length));
+        const subset = getRandomSubset(pool, Math.min(7, pool.length));
         for (let i = 0; i < subset.length; i++) {
           const poolProduct = subset[i];
           const productImageUrl = poolProduct.image;
