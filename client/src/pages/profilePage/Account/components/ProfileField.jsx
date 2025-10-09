@@ -1,0 +1,12 @@
+import React from 'react';
+
+const ProfileField = ({ label, value, fullWidth = false }) => {
+  return (
+    <div className={fullWidth ? 'col-span-2' : ''}>
+      <label className="text-gray-500">{label}</label>
+      <p className="font-medium">{value}</p>
+    </div>
+  );
+};
+
+export default ProfileField;
