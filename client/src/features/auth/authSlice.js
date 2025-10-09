@@ -38,7 +38,7 @@ export const checkAuthStatus = createAsyncThunk(
     } catch (err) {
       if (err.response) {
         const statusCode = err.response.status;
-        if (statusCode === 401 || statusCode === 404) {
+        if (statusCode === 401) {
           // Expected: User not authenticated. No console output.
           return rejectWithValue(null);
         } else {
@@ -152,6 +152,12 @@ const authSlice = createSlice({
 
         state.isAuthChecking = false;
         state.isInitialized = true;
+      })
+
+      // handlers for the CheckAuthStatus thunk
+      .addCase(checkAuthStatus.pending, state => {
+        state.isAuthChecking = true;
+        state.isInitialized = false;
       })
 
       .addCase(checkAuthStatus.fulfilled, (state, action) => {

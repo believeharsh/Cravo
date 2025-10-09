@@ -1,7 +1,6 @@
 import './App.css';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
-// import DeliveryLoader from './components/DeliveryLoader';
 import CategoryResultPage from './pages/categoryResultPage/CategoryResultpage';
 import OffersPage from './pages/offersPage/OffersPage';
 import AdminPage from './pages/adminPage/AdminPage';
@@ -119,11 +118,6 @@ function App() {
       console.log('User is not authenticated, skipping data fetch.');
     }
   }, [isAuthenticated, dispatch, isInitialized]);
-
-  // Show loader while checking auth or initializing app
-  if (isAuthChecking || !isInitialized) {
-    return <DeliveryLoader />;
-  }
 
   // Show error state if app initialization failed
   if (appInitError) {
