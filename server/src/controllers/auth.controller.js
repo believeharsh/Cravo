@@ -221,7 +221,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, {}, 'User is logged out now'));
 });
 
-const getAuthStatus = asyncHandler(async (req, res) => {
+const getUserProfileData = asyncHandler(async (req, res) => {
   // Check if req.user exists. If it does, the user is authenticated.
   if (req.user) {
     const user = req.user;
@@ -442,7 +442,7 @@ export {
   loginUser,
   registerUser,
   logoutUser,
-  getAuthStatus,
+  getUserProfileData,
   changePassword,
   verifyUserOTP,
   refreshAccessToken,

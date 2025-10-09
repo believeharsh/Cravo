@@ -3,12 +3,12 @@ import {
   loginUser,
   registerUser,
   logoutUser,
-  getAuthStatus,
   changePassword,
   verifyUserOTP,
   refreshAccessToken,
   googleAuthCallback,
   initiateGoogleAuth,
+  getUserProfileData,
 } from '../controllers/auth.controller.js';
 import {
   authorizeRoles,
@@ -22,7 +22,7 @@ const authRoute = Router();
 authRoute.post('/login', loginUser);
 authRoute.post('/register', registerUser);
 authRoute.post('/logout', checkAuth, isLoggedIn, logoutUser);
-authRoute.get('/profile', checkAuth, getAuthStatus);
+authRoute.get('/profile', checkAuth, getUserProfileData);
 authRoute.post('/verify', verifyUserOTP);
 authRoute.post('/refresh', refreshAccessToken);
 
