@@ -1,18 +1,38 @@
 import React, { useState } from 'react';
 import Icon from '../../../components/ui/Icon';
+import { useSelector } from 'react-redux';
 
 const AccountPage = () => {
   const [tab, setTab] = useState('profile');
+  const userProfileData = useSelector(state => state.auth);
+  const userAddresses = useSelector(state => state.address);
+
+  // finding the default user address
+  const userdefaultAddress = userAddresses?.list?.find(
+    da => da.isDefault === true
+  );
+  console.log(userdefaultAddress);
+  const finalUserAddressstring = userdefaultAddress
+    ? `${userdefaultAddress.city}, ${userdefaultAddress.state}, ${userdefaultAddress.country}`
+    : 'No address added';
+
+  console.log(finalUserAddressstring);
+
+  // Extract first and last name from full name
+  const fullName = userProfileData?.user?.name || '';
+  const nameParts = fullName.trim().split(' ');
+  const firstName = nameParts[0] || 'Not added';
+  const lastName = nameParts.slice(1).join(' ') || 'Not added';
 
   const [profileData, setProfileData] = useState({
-    firstName: 'Harsh',
-    lastName: 'Dahiya',
-    email: 'onlybelieveharsh@gmail.com',
-    phone: '+91: 8349774340',
-    dob: '11-01-2004',
-    address: 'Indore, MP, India',
-    bio: 'Software Engineer At Carvo Private limited.',
-    joinDate: 'Aug 2025',
+    firstName: firstName,
+    lastName: lastName,
+    email: userProfileData?.user?.email || 'Not added',
+    phone: 'Not added',
+    // dob: '11-01-2004',
+    address: finalUserAddressstring,
+    // bio: 'Software Engineer At Carvo Private limited.',
+    joinDate: userProfileData?.user?.joinedAt || 'Not available',
   });
 
   return (
@@ -88,18 +108,18 @@ const AccountPage = () => {
                 <label className="text-gray-500">Phone</label>
                 <p className="font-medium">{profileData.phone}</p>
               </div>
-              <div>
+              {/* <div>
                 <label className="text-gray-500">Date of Birth</label>
                 <p className="font-medium">{profileData.dob}</p>
-              </div>
+              </div> */}
               <div className="col-span-2">
                 <label className="text-gray-500">Address</label>
                 <p className="font-medium">{profileData.address}</p>
               </div>
-              <div className="col-span-2">
+              {/* <div className="col-span-2">
                 <label className="text-gray-500">Bio</label>
                 <p className="font-medium">{profileData.bio}</p>
-              </div>
+              </div> */}
             </div>
           </div>
         )}

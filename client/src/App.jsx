@@ -39,6 +39,7 @@ import { fetchAllAddresses } from './features/address/addressSlice';
 import CravoGetTheAPP from './pages/Get_the_App/GetTheAppPage';
 import DineoutRestaurantPage from './pages/dineOut-Restaurants-Page/DineOutRestaurantPage';
 import { AllUserOrdersThunk } from './features/orders/ordersSlice';
+import { getUserProfileData } from './features/auth/authSlice';
 
 function AppContent() {
   return (
@@ -105,6 +106,7 @@ function App() {
         dispatch(fetchUserCart()),
         dispatch(fetchAllAddresses()),
         dispatch(AllUserOrdersThunk()),
+        dispatch(getUserProfileData()),
       ];
 
       Promise.all(fetches)

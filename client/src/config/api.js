@@ -8,6 +8,7 @@ export const API = {
     LOGOUT: '/auth/logout',
     REFRESH: '/auth/refresh',
     VERIFY_OTP: '/auth/verify',
+    PROFILE: '/auth/profile',
   },
 
   USERS: {

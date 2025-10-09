@@ -26,6 +26,23 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const getUserProfileData = createAsyncThunk(
+  'auth/profile',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get(API.AUTH.PROFILE);
+
+      // console.log('profile response', res);
+      return res.data.data;
+    } catch (error) {
+      const errorMessage =
+        err.response?.data?.message ||
+        'Something went wrong. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
@@ -181,7 +198,7 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
-      // --- ⚡️ Handlers for logoutUser thunk ⚡️ ---
+      // --- Handlers for logoutUser thunk ---
       .addCase(logoutUser.fulfilled, state => {
         // Clear state upon successful logout API call
         state.user = null;
@@ -205,6 +222,24 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.isLoading = false;
         state.error = null;
+      })
+
+      // --- Handlers for getUserProfileData thunk ---
+
+      .addCase(getUserProfileData.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserProfileData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user || action.payload;
+        state.role = action.payload.role || action.payload.user?.role || null;
+        state.isAuthenticated = true;
+        state.error = null;
+      })
+      .addCase(getUserProfileData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
