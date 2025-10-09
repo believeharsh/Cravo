@@ -3,131 +3,131 @@ const baseLat = 9.9312;
 const baseLon = 76.2673;
 
 const kochiRestaurants = [
-  {
-    name: 'Dhe Puttu',
-    description:
-      'Specialty eatery serving authentic Kerala breakfast & rice-based dishes, especially puttu and appam.',
-    address: {
-      street: 'Sasthamangalam Road, Fort Kochi',
-      city: 'Kochi',
-      state: 'Kerala',
-      zip_code: '682001',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.002, baseLat + 0.004],
-      },
-    },
-    contact: { phone: '0484-1234567', email: 'dheputtu@example.com' },
-    cuisine_type: [
-      'South-Indian',
-      'Breakfast',
-      'Indian',
-      'Vegetarian',
-      'Fast-Food',
-    ],
-    rating: 4.5,
-    numberOfReviews: 5200,
-    opening_hours: [
-      { day: 'Monday', open: '07:00', close: '15:00' },
-      { day: 'Tuesday', open: '07:00', close: '15:00' },
-    ],
-    is_active: true,
-    min_order_value: 100,
-    delivery_radius_km: 5,
-    is_veg: true,
-    cost_for_two: 300,
-    delivery_time_mins: 30,
-  },
+  // {
+  //   name: 'Dhe Puttu',
+  //   description:
+  //     'Specialty eatery serving authentic Kerala breakfast & rice-based dishes, especially puttu and appam.',
+  //   address: {
+  //     street: 'Sasthamangalam Road, Fort Kochi',
+  //     city: 'Kochi',
+  //     state: 'Kerala',
+  //     zip_code: '682001',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.002, baseLat + 0.004],
+  //     },
+  //   },
+  //   contact: { phone: '0484-1234567', email: 'dheputtu@example.com' },
+  //   cuisine_type: [
+  //     'South-Indian',
+  //     'Breakfast',
+  //     'Indian',
+  //     'Vegetarian',
+  //     'Fast-Food',
+  //   ],
+  //   rating: 4.5,
+  //   numberOfReviews: 5200,
+  //   opening_hours: [
+  //     { day: 'Monday', open: '07:00', close: '15:00' },
+  //     { day: 'Tuesday', open: '07:00', close: '15:00' },
+  //   ],
+  //   is_active: true,
+  //   min_order_value: 100,
+  //   delivery_radius_km: 5,
+  //   is_veg: true,
+  //   cost_for_two: 300,
+  //   delivery_time_mins: 30,
+  // },
 
-  {
-    name: 'Fusion Bay',
-    description:
-      'Coastal location offering Kerala seafood, Indian & BBQ dinner by the shore.',
-    address: {
-      street: 'Marine Drive, Kochi',
-      city: 'Kochi',
-      state: 'Kerala',
-      zip_code: '682011',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon, baseLat + 0.007],
-      },
-    },
-    contact: { phone: '0484-2345678', email: 'fusionbay@example.com' },
-    cuisine_type: ['Indian', 'BBQ', 'Dinner', 'Seafood', 'Lunch'],
-    rating: 4.4,
-    numberOfReviews: 3800,
-    opening_hours: [
-      { day: 'Thursday', open: '12:00', close: '23:00' },
-      { day: 'Friday', open: '12:00', close: '23:59' },
-    ],
-    is_active: true,
-    min_order_value: 400,
-    delivery_radius_km: 8,
-    is_veg: false,
-    cost_for_two: 1500,
-    delivery_time_mins: 50,
-  },
+  // {
+  //   name: 'Fusion Bay',
+  //   description:
+  //     'Coastal location offering Kerala seafood, Indian & BBQ dinner by the shore.',
+  //   address: {
+  //     street: 'Marine Drive, Kochi',
+  //     city: 'Kochi',
+  //     state: 'Kerala',
+  //     zip_code: '682011',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon, baseLat + 0.007],
+  //     },
+  //   },
+  //   contact: { phone: '0484-2345678', email: 'fusionbay@example.com' },
+  //   cuisine_type: ['Indian', 'BBQ', 'Dinner', 'Seafood', 'Lunch'],
+  //   rating: 4.4,
+  //   numberOfReviews: 3800,
+  //   opening_hours: [
+  //     { day: 'Thursday', open: '12:00', close: '23:00' },
+  //     { day: 'Friday', open: '12:00', close: '23:59' },
+  //   ],
+  //   is_active: true,
+  //   min_order_value: 400,
+  //   delivery_radius_km: 8,
+  //   is_veg: false,
+  //   cost_for_two: 1500,
+  //   delivery_time_mins: 50,
+  // },
 
-  {
-    name: 'Kayees Biryani',
-    description:
-      'Legendary biryani spot in Mattancherry, with flaky parotta, mutton biryani & masala meals.',
-    address: {
-      street: 'Queen’s Road, Mattancherry',
-      city: 'Kochi',
-      state: 'Kerala',
-      zip_code: '682002',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon + 0.003, baseLat - 0.002],
-      },
-    },
-    contact: { phone: '0484-3456789', email: 'kayees@example.com' },
-    cuisine_type: ['Indian', 'Lunch', 'Dinner', 'Fast-Food', 'BBQ'],
-    rating: 4.2,
-    numberOfReviews: 9000,
-    opening_hours: [
-      { day: 'Monday', open: '11:00', close: '23:00' },
-      { day: 'Sunday', open: '11:00', close: '23:00' },
-    ],
-    is_active: true,
-    min_order_value: 200,
-    delivery_radius_km: 7,
-    is_veg: false,
-    cost_for_two: 800,
-    delivery_time_mins: 45,
-  },
+  // {
+  //   name: 'Kayees Biryani',
+  //   description:
+  //     'Legendary biryani spot in Mattancherry, with flaky parotta, mutton biryani & masala meals.',
+  //   address: {
+  //     street: 'Queen’s Road, Mattancherry',
+  //     city: 'Kochi',
+  //     state: 'Kerala',
+  //     zip_code: '682002',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon + 0.003, baseLat - 0.002],
+  //     },
+  //   },
+  //   contact: { phone: '0484-3456789', email: 'kayees@example.com' },
+  //   cuisine_type: ['Indian', 'Lunch', 'Dinner', 'Fast-Food', 'BBQ'],
+  //   rating: 4.2,
+  //   numberOfReviews: 9000,
+  //   opening_hours: [
+  //     { day: 'Monday', open: '11:00', close: '23:00' },
+  //     { day: 'Sunday', open: '11:00', close: '23:00' },
+  //   ],
+  //   is_active: true,
+  //   min_order_value: 200,
+  //   delivery_radius_km: 7,
+  //   is_veg: false,
+  //   cost_for_two: 800,
+  //   delivery_time_mins: 45,
+  // },
 
-  {
-    name: 'The Rice Boat – Vivanta',
-    description:
-      'Luxury restaurant with seafood & Kerala fish specials in a deck-style ambiance.',
-    address: {
-      street: 'Race Course, Kochi',
-      city: 'Kochi',
-      state: 'Kerala',
-      zip_code: '682035',
-      location: {
-        type: 'Point',
-        coordinates: [baseLon - 0.005, baseLat + 0.005],
-      },
-    },
-    contact: { phone: '0484-4567890', email: 'riceboat@example.com' },
-    cuisine_type: ['Indian', 'Dinner', 'BBQ', 'Seafood'],
-    rating: 4.6,
-    numberOfReviews: 3100,
-    opening_hours: [
-      { day: 'Thursday', open: '18:30', close: '23:30' },
-      { day: 'Friday', open: '18:30', close: '23:30' },
-    ],
-    is_active: true,
-    min_order_value: 1000,
-    delivery_radius_km: 10,
-    is_veg: false,
-    cost_for_two: 2000,
-    delivery_time_mins: 60,
-  },
+  // {
+  //   name: 'The Rice Boat – Vivanta',
+  //   description:
+  //     'Luxury restaurant with seafood & Kerala fish specials in a deck-style ambiance.',
+  //   address: {
+  //     street: 'Race Course, Kochi',
+  //     city: 'Kochi',
+  //     state: 'Kerala',
+  //     zip_code: '682035',
+  //     location: {
+  //       type: 'Point',
+  //       coordinates: [baseLon - 0.005, baseLat + 0.005],
+  //     },
+  //   },
+  //   contact: { phone: '0484-4567890', email: 'riceboat@example.com' },
+  //   cuisine_type: ['Indian', 'Dinner', 'BBQ', 'Seafood'],
+  //   rating: 4.6,
+  //   numberOfReviews: 3100,
+  //   opening_hours: [
+  //     { day: 'Thursday', open: '18:30', close: '23:30' },
+  //     { day: 'Friday', open: '18:30', close: '23:30' },
+  //   ],
+  //   is_active: true,
+  //   min_order_value: 1000,
+  //   delivery_radius_km: 10,
+  //   is_veg: false,
+  //   cost_for_two: 2000,
+  //   delivery_time_mins: 60,
+  // },
 
   {
     name: 'Kashi Art Cafe',
@@ -314,3 +314,5 @@ const kochiRestaurants = [
     delivery_time_mins: 35,
   },
 ];
+
+export default kochiRestaurants;
