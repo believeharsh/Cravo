@@ -12,6 +12,7 @@ import {
 import { config } from '../config/app.config.js';
 
 import { createDefaultLists } from '../services/user.service.js';
+import { formatJoinDate } from '../utils/UserInfomationUtils.js';
 
 const initiateGoogleAuth = asyncHandler(async (req, res, next) => {
   // Get client origin from query or header
@@ -223,16 +224,21 @@ const logoutUser = asyncHandler(async (req, res) => {
 const getAuthStatus = asyncHandler(async (req, res) => {
   // Check if req.user exists. If it does, the user is authenticated.
   if (req.user) {
+    const user = req.user;
+    const joinedAt = formatJoinDate(user.createdAt);
     return res.status(200).json(
       new apiResponse(
         200,
         {
           isAuthenticated: true,
           user: {
-            id: req.user._id,
-            email: req.user.email,
-            role: req.user.role,
-            name: req.user.name,
+            _id: user._id,
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            isVerified: user.isVerified,
+            role: user.role,
+            joinedAt: joinedAt,
           },
         },
         'User is authenticated.'
