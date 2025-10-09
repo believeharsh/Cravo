@@ -356,7 +356,8 @@ const verifyUserOTP = asyncHandler(async (req, res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
-  if (!refreshToken) throw new apiError(401, 'No refresh token provided');
+  if (!refreshToken)
+    throw new apiError(401, 'Session expired. Please log in again.');
 
   let decoded;
   try {
@@ -372,10 +373,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    throw new apiError(
-      403,
-      'Refresh token not recognized. Please log in again.'
-    );
+    throw new apiError(401, 'Session expired. Please log in again.');
   }
 
   // Generating new tokens here
@@ -411,11 +409,13 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     isVerified: user.isVerified,
   };
 
+  const isProduction = process.env.NODE_ENV === 'production';
+
   res.cookie('refreshToken', newRefreshToken, {
     httpOnly: true,
-    sameSite: 'None',
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    secure: isProduction, // HTTPS only in production
+    sameSite: isProduction ? 'None' : 'Lax', // Lax works locally
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
   return res.status(200).json(
