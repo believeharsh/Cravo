@@ -15,8 +15,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// seedData/citiesData.js (You can create this file)
-
 const citiesData = [
   {
     name: 'Mumbai',

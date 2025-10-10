@@ -3,8 +3,6 @@ dotenv.config();
 
 import mongoose from 'mongoose';
 import cloudinary from 'cloudinary';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import crypto from 'crypto';
 
 // Models
@@ -14,25 +12,16 @@ import Product from '../models/product.model.js';
 import City from '../models/city.model.js';
 
 // Sample Data
-
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
 import jaipurRestaurants from '../sample-Data/Restaurants-Data/JaipurRestaurants.js';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 
-// Use env var for MongoDB URI
-// const MONGODB_URI = process.env.MONGODB_URI;
-const MONGODB_URI =
-  'mongodb+srv://cravobelieveharsh:cravobelieveharsh11@cravingcartcluster.jbwz5cy.mongodb.net/?retryWrites=true&w=majority&appName=CravingCartCluster';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 cloudinary.config({
-  // cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  // api_key: process.env.CLOUDINARY_API_KEY,
-  // api_secret: process.env.CLOUDINARY_API_SECRET,
-  cloud_name: 'dd5elqfus',
-  api_key: '985926514817166',
-  api_secret: 'G0HTWbGFp1OJIDSHCW0Zh81ysOs',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // In-memory cache for runtime speed (optional)

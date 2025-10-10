@@ -1,17 +1,8 @@
 import mongoose from 'mongoose';
 
-// --- Configuration ---
-// NOTE: Set to TRUE to log the updates without writing to the database.
-// Set to FALSE only when you are absolutely ready to commit the changes.
 const DRY_RUN = true;
 
-// Note: Using the hardcoded URI from your seeding script
-const MONGODB_URI =
-  'mongodb+srv://cravobelieveharsh:cravobelieveharsh11@cravingcartcluster.jbwz5cy.mongodb.net/?retryWrites=true&w=majority&appName=CravingCartCluster';
-
 // --- Geographic Boundaries for Correction ---
-// Define coordinate bounds [Min Longitude, Max Longitude, Min Latitude, Max Latitude]
-// IMPORTANT: These bounds are CALCULATED based on your base coordinates and the +/- 0.01 offset.
 const CITY_BOUNDARIES = [
   {
     name: 'Indore',
@@ -34,15 +25,14 @@ const CITY_BOUNDARIES = [
 import Restaurant from '../models/restaurant.model.js';
 import City from '../models/city.model.js';
 
-// --------------------------------------------------------------------------
 // HELPER: Determines the correct City ID based on coordinates
-// --------------------------------------------------------------------------
 
 /**
  * Checks if the given coordinates fall within the defined boundaries of any target city.
  * @param {number[]} coordinates - [longitude, latitude] array from the restaurant document.
  * @returns {mongoose.Types.ObjectId | null} The correct City ObjectId or null if not found.
  */
+
 function determineCorrectCityId(coordinates) {
   // GeoJSON stores coordinates as [longitude, latitude]
   const [lon, lat] = coordinates;
@@ -59,9 +49,8 @@ function determineCorrectCityId(coordinates) {
   return null; // City not found in the defined map
 }
 
-// --------------------------------------------------------------------------
 // MAIN MIGRATION FUNCTION
-// --------------------------------------------------------------------------
+
 async function runCityMigration() {
   console.log('--- Starting Restaurant City Correction Script ---');
   console.log(
