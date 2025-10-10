@@ -115,7 +115,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
             </div>
 
             {/* Desktop Navigation Items */}
-            <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
+            <div className="hidden md:flex items-center space-x-2 flex-shrink-0">
               {navItems.map(item => {
                 // Profile dropdown
                 if (item.id === 'profile') {

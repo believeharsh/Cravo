@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 // Restaurant-Overview-Page sections import
-import RestaurantNavbar from './sections/RestarurantNavbar';
+import FiltersAndSerachBar from './sections/FiltersAndSerachBar';
 import RestaurantGrid from './sections/RestRestaurant';
 import NearbyCuisineGrid from './sections/Near-restaurants-card';
 import Footer from '../../components/Footer';
@@ -19,8 +19,8 @@ const RestaurantsOverviewPage = () => {
         const topRestaurantsElement = topRestaurantsRef.current;
         const rect = topRestaurantsElement.getBoundingClientRect();
 
-        // Switch navbar when TopRestaurants section reaches the top of viewport
-        if (rect.top <= 100) {
+        // Switch to RestaurantNavbar when TopRestaurants section reaches top
+        if (rect.top <= -50) {
           setShowRestaurantNavbar(true);
         } else {
           setShowRestaurantNavbar(false);
@@ -40,10 +40,9 @@ const RestaurantsOverviewPage = () => {
       }
     };
 
-    // Add scroll event listener
     window.addEventListener('scroll', throttledHandleScroll);
 
-    // Check initial position
+    // Checking initial position on mount
     handleScroll();
 
     // Cleanup
@@ -54,19 +53,44 @@ const RestaurantsOverviewPage = () => {
 
   return (
     <>
-      {/* Always fixed navbar container */}
+      {/* Fixed navbar container with smooth transition */}
       <div className="fixed top-0 left-0 right-0 z-50">
-        {showRestaurantNavbar ? <RestaurantNavbar /> : <Navbar />}
+        {/* Main Navbar with fade transition */}
+        <div
+          className={`transition-opacity duration-300 ${
+            showRestaurantNavbar
+              ? 'opacity-0 pointer-events-none absolute'
+              : 'opacity-100'
+          }`}
+        >
+          <Navbar />
+        </div>
+
+        {/* Filters And Serach Bar with fade transition */}
+        <div
+          className={`transition-opacity duration-200 ${
+            showRestaurantNavbar
+              ? 'opacity-100'
+              : 'opacity-0 pointer-events-none absolute'
+          }`}
+        >
+          <FiltersAndSerachBar />
+        </div>
       </div>
 
-      {/* Always add padding top since navbar is always fixed */}
-      <div className="mt-20">
+      {/* Main content with top padding to account for fixed navbar */}
+      <div className="pt-20">
         <RestaurantCategoriesSlider />
-        {/* Adding ref to TopRestaurants to track its position */}
-        <div ref={topRestaurantsRef}>
+
+        <div>
           <TopRestaurants />
         </div>
-        <RestaurantGrid />
+
+        {/* Tracking this section's position to trigger navbar switch */}
+        <div className="" ref={topRestaurantsRef}>
+          <RestaurantGrid />
+        </div>
+
         <NearbyCuisineGrid />
         <Footer />
       </div>
