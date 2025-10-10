@@ -11,9 +11,18 @@ import ProductList from './sections/ProductList';
 import DealsSection from './sections/DealsSections';
 import CartStatusSection from './sections/CartStatusSection';
 import Navbar from '../../components/Navbar/Navbar';
+import AuthRequiredModal from '../../components/modules/auth/AuthRequiredModal';
+import { useSelector } from 'react-redux';
+import { useAuthForm } from '../../hooks/useAuthForm';
 
 const RestaurantMenuPage = () => {
   const { restaurantID } = useParams();
+
+  const { isAuthRequireModalOpen } = useSelector(
+    state => state.ui.authRequireModal
+  );
+
+  const { handleCloseAuthRequireModal } = useAuthForm();
 
   const {
     restaurant,
@@ -100,20 +109,30 @@ const RestaurantMenuPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-helvetica">
-      <Navbar showSearch={true} currentPage="restaurant" cartCount={2} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <RestaurantHeader restaurant={restaurant} />
-        <DealsSection />
-        <MenuFilters
-          activeFilter={activeFilter}
-          setActiveFilter={setActiveFilter}
-        />
-        <ProductList menuItems={menuItems} activeFilter={activeFilter} />
+    <>
+      <div className="min-h-screen bg-gray-50 font-helvetica">
+        <Navbar showSearch={true} currentPage="restaurant" cartCount={2} />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <RestaurantHeader restaurant={restaurant} />
+          <DealsSection />
+          <MenuFilters
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
+          />
+          <ProductList menuItems={menuItems} activeFilter={activeFilter} />
+        </div>
+        <CartStatusSection />
+        <Footer />
       </div>
-      <CartStatusSection />
-      <Footer />
-    </div>
+
+      <AuthRequiredModal
+        isOpen={isAuthRequireModalOpen}
+        onClose={() => handleCloseAuthRequireModal()}
+        title="Login to Save Favorites"
+        message="Please log in to add products to your wishlist. Create an account to save your favorite products and never lose them!"
+        action="Once logged in, you can access your wishlist anytime and get personalized recommendations."
+      />
+    </>
   );
 };
 

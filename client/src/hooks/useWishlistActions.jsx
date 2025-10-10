@@ -56,7 +56,7 @@ export const useFavoriteActions = () => {
     listName,
   }) => {
     try {
-      console.log(listId, itemId, itemType, itemName, listName);
+      // console.log(listId, itemId, itemType, itemName, listName);
       const response = await dispatch(
         removeItemFromWishlist({ listId, itemId, itemType, itemName })
       ).unwrap();

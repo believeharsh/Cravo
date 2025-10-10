@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/auth/authSlice';
-import { closeAuthSidebar, setAuthMode } from '../features/ui/uiSlice';
+import {
+  closeAuthSidebar,
+  openAuthRequireModal,
+  closeAuthRequireModal,
+  setAuthMode,
+} from '../features/ui/uiSlice';
 import axiosInstance from '../api/axiosInstance';
 import { API } from '../config/api';
 
@@ -67,6 +72,14 @@ export const useAuthForm = () => {
     }
   };
 
+  const handleOpenAuthRequireModal = () => {
+    dispatch(openAuthRequireModal());
+  };
+
+  const handleCloseAuthRequireModal = () => {
+    dispatch(closeAuthRequireModal());
+  };
+
   return {
     formData,
     showPassword,
@@ -76,5 +89,7 @@ export const useAuthForm = () => {
     resetForm,
     handleLogin,
     handleSignup,
+    handleOpenAuthRequireModal,
+    handleCloseAuthRequireModal,
   };
 };

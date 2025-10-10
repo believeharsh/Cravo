@@ -29,6 +29,12 @@ const initialState = {
     isDeleteAddressModalOpen: false, // For the Delete Confirmation Modal
     deleteAddressID: null,
   },
+
+  // state for Auth Required Modal
+  authRequireModal: {
+    isAuthRequireModalOpen: false,
+    modalProps: null,
+  },
 };
 
 const uiSlice = createSlice({
@@ -112,6 +118,14 @@ const uiSlice = createSlice({
       state.address.isDeleteAddressModalOpen = false;
       state.address.deleteModalProps = null;
     },
+
+    openAuthRequireModal: (state, action) => {
+      state.authRequireModal.isAuthRequireModalOpen = true;
+    },
+
+    closeAuthRequireModal: (state, action) => {
+      state.authRequireModal.isAuthRequireModalOpen = false;
+    },
   },
 });
 
@@ -129,6 +143,8 @@ export const {
   closeAddressModal,
   openDeleteAddressModal,
   closeDeleteAddressModal,
+  openAuthRequireModal,
+  closeAuthRequireModal,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

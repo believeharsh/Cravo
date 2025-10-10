@@ -8,10 +8,20 @@ import Footer from '../../components/Footer';
 import TopRestaurants from './sections/TopRestaurants';
 import RestaurantCategoriesSlider from './sections/Category-Slider';
 import Navbar from '../../components/Navbar/Navbar';
+import AuthRequiredModal from '../../components/modules/auth/AuthRequiredModal';
+import { useSelector } from 'react-redux';
+import { useAuthForm } from '../../hooks/useAuthForm';
 
 const RestaurantsOverviewPage = () => {
   const [showRestaurantNavbar, setShowRestaurantNavbar] = useState(false);
   const topRestaurantsRef = useRef(null);
+
+  // auth require modal state extraction
+  const { isAuthRequireModalOpen } = useSelector(
+    state => state.ui.authRequireModal
+  );
+
+  const { handleCloseAuthRequireModal } = useAuthForm();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,6 +104,15 @@ const RestaurantsOverviewPage = () => {
         <NearbyCuisineGrid />
         <Footer />
       </div>
+
+      {/* showing the auth mess to the user if he is trying to use wishlist feature without log in  */}
+      <AuthRequiredModal
+        isOpen={isAuthRequireModalOpen}
+        onClose={() => handleCloseAuthRequireModal()}
+        title="Login to Save Favorites"
+        message="Please log in to add restaurants to your wishlist. Create an account to save your favorite restaurants and never lose them!"
+        action="Once logged in, you can access your wishlist anytime and get personalized recommendations."
+      />
     </>
   );
 };

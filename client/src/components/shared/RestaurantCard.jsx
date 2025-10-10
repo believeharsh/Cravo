@@ -6,6 +6,7 @@ import {
 } from '../../features/wishList/wishListSelectors';
 import { useSelector } from 'react-redux';
 import { useFavoriteActions } from '../../hooks/useWishlistActions';
+import { useAuthForm } from '../../hooks/useAuthForm';
 
 /**
  * A reusable component to display restaurant information in a compact grid layout.
@@ -17,6 +18,8 @@ import { useFavoriteActions } from '../../hooks/useWishlistActions';
  */
 
 const RestaurantCard = ({ data, listId, className = '' }) => {
+  const { isAuthenticated } = useSelector(state => state.auth);
+
   const { lists, handleAddItemToWishlist, handleRemoveItemFromWishlist } =
     useFavoriteActions();
 
@@ -24,11 +27,13 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
     selectIsRestaurantInAnyRestaurantList(state, data._id)
   );
 
+  const { handleOpenAuthRequireModal } = useAuthForm();
+
   const defaultRestaurantListId = useSelector(selectDefaultRestaurantListId);
 
-  const handleWishlistClick = e => {
-    e.stopPropagation();
-    e.preventDefault();
+  const handleWishlistClick = () => {
+    // e.stopPropagation();
+    // e.preventDefault();
 
     // Finding the list where this item exists
     const listWithRestaurant = lists.find(list =>
@@ -70,6 +75,20 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         itemName: data.name,
         listName: defaultList?.name || 'My Favorites',
       });
+    }
+  };
+
+  const onFavoriteButtonClick = e => {
+    // 1. FIX: Stop event from bubbling up to the parent link/div and causing navigation/redirect.
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (isAuthenticated) {
+      // 2. Authenticated: Proceed with the wishlist action.
+      handleWishlistClick();
+    } else {
+      // 3. Unauthenticated: Open the authentication modal.
+      handleOpenAuthRequireModal();
     }
   };
 
@@ -118,12 +137,13 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
 
         {/* Favorite button */}
         <button
-          onClick={handleWishlistClick}
+          // *** THE FIX IS HERE: Call the new universal handler for all clicks ***
+          onClick={onFavoriteButtonClick}
           className={`absolute top-3 left-3 bg-white/80 hover:bg-white rounded-full p-2 transition-all duration-200 z-10 cursor-pointer 
             ${
               isRestaurantInWishlist
-                ? 'text-red-500 opacity-100' // Always visible if favorited
-                : 'text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100' // Show on hover
+                ? 'text-red-500 opacity-100'
+                : 'text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100'
             }`}
         >
           <Icon name="heart" size={16} className="w-4 h-4 fill-current" />

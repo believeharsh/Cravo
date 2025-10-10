@@ -8,9 +8,13 @@ import {
   selectDefaultProductListId,
   selectIsProductInAnyProductList,
 } from '../../features/wishList/wishListSelectors';
+import { useAuthForm } from '../../hooks/useAuthForm';
 
 const ProductCard = ({ item, listId }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { isAuthenticated } = useSelector(state => state.auth);
+
+  const { handleOpenAuthRequireModal } = useAuthForm();
 
   const { handleAddToCart, handleUpdateQuantity } = useCartActions();
   const { lists, handleAddItemToWishlist, handleRemoveItemFromWishlist } =
@@ -105,7 +109,9 @@ const ProductCard = ({ item, listId }) => {
 
         {/* Wishlist */}
         <button
-          onClick={handleWishlistClick}
+          onClick={
+            isAuthenticated ? handleWishlistClick : handleOpenAuthRequireModal
+          }
           className={`absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-md transition-colors duration-200 cursor-pointer ${
             isProductInWishlist
               ? 'text-red-500'
