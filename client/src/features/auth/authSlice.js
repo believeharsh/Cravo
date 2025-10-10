@@ -116,6 +116,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.isAuthenticated = false;
+      state.isAuthChecking = false;
     },
     clearAuthError: state => {
       state.error = null;
@@ -144,6 +145,7 @@ const authSlice = createSlice({
       .addCase(loginUser.pending, state => {
         state.isLoading = true;
         state.error = null;
+        state.isAuthChecking = true;
       })
 
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -205,11 +207,13 @@ const authSlice = createSlice({
         state.role = null;
         state.token = null;
         state.isAuthenticated = false;
+        state.isAuthChecking = false;
         state.isLoading = false;
         state.error = null;
       })
 
       .addCase(logoutUser.pending, state => {
+        state.isAuthChecking = true;
         state.isLoading = true;
         state.error = null;
       })
@@ -222,6 +226,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.isLoading = false;
         state.error = null;
+        state.isAuthChecking = false;
       })
 
       // --- Handlers for getUserProfileData thunk ---

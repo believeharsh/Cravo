@@ -3,11 +3,13 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
 import { useDispatch, useSelector } from 'react-redux';
 import { openAuthSidebar } from '../../../features/ui/uiSlice';
+import LoadingSpinner from '../../../components/ui/LoadingSpinner';
 import { logoutUser } from '../../../features/auth/authSlice';
 
 const LandingNavigation = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuthenticated, isAuthChecking } = useSelector(state => state.auth);
+
   const navigate = useNavigate();
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -241,13 +243,23 @@ const LandingNavigation = () => {
               )}
             </div>
           ) : (
-            <button
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-all duration-200 border border-gray-200 hover:border-gray-300 hover:scale-105"
-              onClick={() => dispatch(openAuthSidebar({ mode: 'login' }))}
-            >
-              <Icon name="log-in" size={16} className="text-blue-600" />
-              <span className="font-medium text-gray-800 text-sm">Sign in</span>
-            </button>
+            <div className="">
+              {isAuthChecking ? (
+                <button className="flex items-center space-x-2 px-4 py-2 rounded-xl font-medium text-gray-700 transition-all duration-200 hover:scale-105">
+                  <LoadingSpinner />
+                </button>
+              ) : (
+                <button
+                  className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-all duration-200 border border-gray-200 hover:border-gray-300 hover:scale-105"
+                  onClick={() => dispatch(openAuthSidebar({ mode: 'login' }))}
+                >
+                  <Icon name="log-in" size={16} className="text-blue-600" />
+                  <span className="font-medium text-gray-800 text-sm">
+                    {!isAuthenticated ? 'Sign in' : ''}
+                  </span>
+                </button>
+              )}
+            </div>
           )}
         </div>
       </div>
