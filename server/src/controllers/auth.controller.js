@@ -31,55 +31,6 @@ const initiateGoogleAuth = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// const googleAuthCallback = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.user._id).select('-password');
-//   if (!user) {
-//     throw new apiError(404, 'User not found');
-//   }
-
-//   const { accessToken, refreshToken } =
-//     await user.generateAccessAndRefreshToken();
-
-//   user.refreshTokens = [{ token: refreshToken }];
-//   await user.save({ validateBeforeSave: false });
-
-//   const options = {
-//     httpOnly: true,
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-//     path: '/',
-//   };
-//   res.cookie('refreshToken', refreshToken, options);
-
-//   const payload = {
-//     type: 'authComplete',
-//     success: true,
-//     data: {
-//       accessToken: accessToken,
-//       user: user,
-//     },
-//   };
-
-//   res.send(`
-//     <!DOCTYPE html>
-//     <html>
-//       <head>
-//         <title>Authentication Complete</title>
-//       </head>
-//       <body>
-//         <script>
-//           (function() {
-//             if (window.opener) {
-//               window.opener.postMessage(${JSON.stringify(payload)}, "http://localhost:5173");
-//               window.close();
-//             }
-//           })();
-//         </script>
-//       </body>
-//     </html>
-//   `);
-// });
-
 const googleAuthCallback = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select('-password');
   if (!user) {
