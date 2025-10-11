@@ -1,7 +1,7 @@
-# 🍔 Cravo - The Ultimate Online Food Delivery Platform
+# Cravo - Your Favorite Food, Delivered Fast
 
 <div align="center">
-  <img src="./assets/cravo-logo.png" alt="Cravo Logo" width="150" />
+  <img src="./assets/logos/Cravo_logo.png" alt="Cravo Logo" width="150" />
   <h3>Order Food. Discover Restaurants. Experience Excellence.</h3>
   <p>
     <strong>Live Demo:</strong> <a href="https://cravo.online">cravo.online</a> • 
@@ -143,63 +143,38 @@
 
 ### Landing Page
 
-<img src="./assets/screenshots/01-landing-page.png" alt="Landing Page" width="100%" />
+<img src="./assets/screenshots/landing_hero.png" alt="Landing Page" width="100%" />
+<img src="./assets/screenshots/landing_category.png" alt="Landing Page" width="100%" />
+<img src="./assets/screenshots/landing_Popular_Restaurants.png" alt="Landing Page" width="100%" />
+<img src="./assets/screenshots/landing_Dine_out_restaurants.png" alt="Landing Page" width="100%" />
 
 ### Restaurant Discovery
 
-<img src="./assets/screenshots/02-restaurant-listing.png" alt="Restaurant Listing" width="100%" />
+<img src="./assets/screenshots/RestaurantOverviewPage.png" alt="Restaurant Listing" width="100%" />
 
 ### Restaurant Menu
 
-<img src="./assets/screenshots/03-restaurant-menu.png" alt="Restaurant Menu" width="100%" />
+<img src="./assets/screenshots/restaurant_menu_page.png" alt="Restaurant Menu" width="100%" />
 
 ### Smart Cart
 
-<img src="./assets/screenshots/04-cart-page.png" alt="Cart Page" width="100%" />
+<img src="./assets/screenshots/cravo_cart.png" alt="Cart Page" width="100%" />
 
-### Secure Checkout
+### Profile Favorites Page
 
-<img src="./assets/screenshots/05-checkout-page.png" alt="Checkout Page" width="100%" />
-
-### User Profile
-
-<img src="./assets/screenshots/06-user-profile.png" alt="User Profile" width="100%" />
+<img src="./assets/screenshots/profile_Favorites_page.png" alt="User Profile" width="100%" />
 
 ### Order History
 
 <img src="./assets/screenshots/07-order-history.png" alt="Order History" width="100%" />
 
-### Wishlists
-
-<img src="./assets/screenshots/08-wishlists.png" alt="Wishlists" width="100%" />
-
 ### Address Management
 
-<img src="./assets/screenshots/09-address-management.png" alt="Address Management" width="100%" />
+<img src="./assets/screenshots/address_management_page.png" alt="Address Management" width="100%" />
 
 ### Offers & Deals
 
-<img src="./assets/screenshots/10-offers-deals.png" alt="Offers & Deals" width="100%" />
-
-### Mobile Responsive
-
-<img src="./assets/screenshots/11-mobile-responsive.png" alt="Mobile Responsive" width="100%" />
-
-### Google Authentication
-
-<img src="./assets/screenshots/12-google-auth.png" alt="Google Auth" width="100%" />
-
-### Category Filter
-
-<img src="./assets/screenshots/13-category-filter.png" alt="Category Filter" width="100%" />
-
-### Payment Integration
-
-<img src="./assets/screenshots/14-payment-razorpay.png" alt="Payment Integration" width="100%" />
-
-### Help & Support
-
-<img src="./assets/screenshots/15-help-support.png" alt="Help & Support" width="100%" />
+<img src="./assets/screenshots/offer_page.png" alt="Offers & Deals" width="100%" />
 
 </div>
 
