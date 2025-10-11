@@ -244,21 +244,22 @@ const LandingNavigation = () => {
             </div>
           ) : (
             <div className="">
-              {isAuthChecking ? (
+              {/* {isAuthChecking ? (
                 <button className="flex items-center space-x-2 px-4 py-2 rounded-xl font-medium text-gray-700 transition-all duration-200 hover:scale-105">
                   <LoadingSpinner />
                 </button>
-              ) : (
-                <button
-                  className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-all duration-200 border border-gray-200 hover:border-gray-300 hover:scale-105"
-                  onClick={() => dispatch(openAuthSidebar({ mode: 'login' }))}
-                >
-                  <Icon name="log-in" size={16} className="text-blue-600" />
-                  <span className="font-medium text-gray-800 text-sm">
-                    {!isAuthenticated ? 'Sign in' : ''}
-                  </span>
-                </button>
-              )}
+              ) : ( */}
+              <button
+                className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-all duration-200 border border-gray-200 hover:border-gray-300 hover:scale-105"
+                onClick={() => dispatch(openAuthSidebar({ mode: 'login' }))}
+              >
+                <Icon name="log-in" size={16} className="text-blue-600" />
+                <span className="font-medium text-gray-800 text-sm">
+                  {/* {!isAuthenticated ? 'Sign in' : ''} */}
+                  Sign in
+                </span>
+              </button>
+              {/* )} */}
             </div>
           )}
         </div>
