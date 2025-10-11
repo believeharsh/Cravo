@@ -1,7 +1,7 @@
 # Cravo - Your Favorite Food, Delivered Fast
 
 <div align="center">
-  <img src="./assets/logos/Cravo_logo.png" alt="Cravo Logo" width="150" />
+  <img src="./assets/logos/Cravo_text_yellow_logo_without_bg.png.png" alt="Cravo Logo" width="100" height="100" />
   <h3>Order Food. Discover Restaurants. Experience Excellence.</h3>
   <p>
     <strong>Live Demo:</strong> <a href="https://cravo.online">cravo.online</a> • 
@@ -391,7 +391,7 @@ This project is open source and available under the MIT License.
 
 <div align="center">
   <p>
-    <strong>Built with ❤️ by Harsh Believe</strong>
+    <strong>Built with ❤️ Harsh Dahiya</strong>
   </p>
   <p>
     <a href="https://github.com/believeharsh">GitHub</a> • 
