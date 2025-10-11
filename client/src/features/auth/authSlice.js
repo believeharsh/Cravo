@@ -47,9 +47,11 @@ export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post(API.AUTH.REFRESH, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.post(
+        API.AUTH.REFRESH,
+        {},
+        { withCredentials: true }
+      );
       // console.log(res.data.data);
       return res.data.data; // Return the user object if authenticated
     } catch (err) {
