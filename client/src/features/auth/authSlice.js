@@ -11,7 +11,7 @@ export const loginUser = createAsyncThunk(
         withCredentials: true,
       });
       // The value returned here will become the `action.payload` for `loginUser.fulfilled`
-      console.log(res);
+      // console.log(res);
 
       return res.data;
     } catch (err) {
@@ -162,14 +162,14 @@ const authSlice = createSlice({
       })
 
       .addCase(loginUser.rejected, (state, action) => {
-        console.log('SLICE REJECTED FIRED:', action);
+        // console.log('SLICE REJECTED FIRED:', action);
         state.isLoading = false;
         state.user = null;
         state.role = null;
         state.token = null;
         state.isAuthenticated = false;
         state.error = action.payload;
-        console.error('Login rejected with payload:', action.payload);
+        // console.error('Login rejected with payload:', action.payload);
 
         state.isAuthChecking = false;
         state.isInitialized = true;
