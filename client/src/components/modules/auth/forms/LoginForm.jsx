@@ -57,7 +57,7 @@ const LoginForm = ({
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
             >
               <Icon
                 name={showPassword ? 'eye-off' : 'eye'}
@@ -68,7 +68,7 @@ const LoginForm = ({
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer"
             disabled={isLoading}
           >
             {isLoading ? <LoadingSpinner /> : 'Sign In'}

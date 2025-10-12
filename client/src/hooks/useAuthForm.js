@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/auth/authSlice';
+
+import { fetchAllWishlists } from '../features/wishList/wishListSlice';
+import { fetchUserCart } from '../features/cart/cartSlice';
+import { fetchAllAddresses } from '../features/address/addressSlice';
+import { AllUserOrdersThunk } from '../features/orders/ordersSlice';
+import { getUserProfileData } from '../features/auth/authSlice';
+
 import {
   closeAuthSidebar,
   openAuthRequireModal,
   closeAuthRequireModal,
   setAuthMode,
 } from '../features/ui/uiSlice';
-import axiosInstance from '../api/axiosInstance';
+import axiosInstance, { setAuthHeader } from '../api/axiosInstance';
 import { API } from '../config/api';
 
 export const useAuthForm = () => {
@@ -34,8 +41,23 @@ export const useAuthForm = () => {
     setIsLoading(true);
 
     try {
-      await dispatch(loginUser(formData)).unwrap();
+      const loginResult = await dispatch(loginUser(formData)).unwrap();
+
+      if (loginResult?.data?.accessToken) {
+        const token = loginResult.data.accessToken;
+        setAuthHeader(token);
+      }
+
+      await Promise.all([
+        dispatch(fetchAllWishlists()),
+        dispatch(fetchUserCart()),
+        dispatch(fetchAllAddresses()),
+        dispatch(AllUserOrdersThunk()),
+        dispatch(getUserProfileData()),
+      ]);
+
       dispatch(closeAuthSidebar());
+
       return { success: true };
     } catch (err) {
       console.error('Login failed:', err);

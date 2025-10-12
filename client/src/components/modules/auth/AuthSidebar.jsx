@@ -89,7 +89,7 @@ const AuthModal = () => {
     };
   }, [isOpen, dispatch, navigate]);
 
-  // Custom hooks for form logic (extracted for cleaner code)
+  // Custom hooks for form logic
   const authForm = useAuthForm();
   const otpVerification = useOTPVerification(authForm.formData.email);
 
@@ -99,19 +99,6 @@ const AuthModal = () => {
     otpVerification.resetOTP();
   };
 
-  // const handleGoogleLogin = () => {
-  //   const width = 500;
-  //   const height = 600;
-  //   const left = window.screen.width / 2 - width / 2;
-  //   const top = window.screen.height / 2 - height / 2;
-
-  //   window.open(
-  //     `${import.meta.env.VITE_API_URL}/auth/google`,
-  //     'google-login',
-  //     `width=${width},height=${height},left=${left},top=${top}`
-  //   );
-  // };
-
   const handleGoogleLogin = () => {
     const currentOrigin = window.location.origin;
     const width = 500;
@@ -119,7 +106,7 @@ const AuthModal = () => {
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
 
-    // ✅ Pass current origin to backend
+    // passing the current origin to backend
     window.open(
       `${import.meta.env.VITE_API_URL}/auth/google?origin=${encodeURIComponent(currentOrigin)}`,
       'google-login',

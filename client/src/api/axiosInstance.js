@@ -11,7 +11,7 @@ let isRefreshing = false;
 let failedRequestsQueue = [];
 
 // Helper to set the Authorization header
-const setAuthHeader = token => {
+export const setAuthHeader = token => {
   if (token) {
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {
