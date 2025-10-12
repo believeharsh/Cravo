@@ -13,18 +13,18 @@
 
 ## 📋 Table of Contents
 
-- [About](#about)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Screenshots](#screenshots)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Key Highlights](#key-highlights)
-- [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
-- [License](#license)
+- [About](#About)
+- [Features](#Features)
+- [Tech Stack](#Tech-Stack)
+- [Screenshots](#Screenshots)
+- [Installation](#Installation)
+- [Configuration](#Configuration)
+- [Getting Started](#Getting-Started)
+- [Project Structure](#Project-Structure)
+- [Key Highlights](#Key-Highlights)
+- [Future Enhancements](#Future-Enhancements)
+- [Contributing](#Contributing)
+- [License](#License)
 
 ---
 
@@ -100,7 +100,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech-Stack
 
 ### Frontend
 
@@ -166,7 +166,7 @@
 
 ### Order History
 
-<img src="./assets/screenshots/07-order-history.png" alt="Order History" width="100%" />
+<img src="./assets/screenshots/order_history.png" alt="Order History" width="100%" />
 
 ### Address Management
 
