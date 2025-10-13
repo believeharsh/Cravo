@@ -1,0 +1,39 @@
+name: Deploy Server to Staging
+
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - 'server/**'
+      - '.github/workflows/staging-server.yml'
+
+jobs:
+  deploy-server:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Check for syntax errors
+        working-directory: ./server
+        run: node -c src/index.js
+
+      - name: Deploy to Render (Server Staging)
+        run: |
+          curl -X POST ${{ secrets.RENDER_SERVER_STAGING_DEPLOY_HOOK }}
+          
+      - name: Deployment status
+        run: echo "✅ Server deployed to Staging successfully!"
