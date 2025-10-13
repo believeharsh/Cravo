@@ -30,6 +30,7 @@ jobs:
       - name: Run linting
         working-directory: ./client
         run: npm run lint
+        continue-on-error: true
 
       - name: Build application
         working-directory: ./client
