@@ -1,186 +1,180 @@
-# Cravo - Your Favorite Food, Delivered Fast
+# Cravo
 
-<div align="center">
-  <img src="./assets/logos/Cravo_text_yellow_logo_without_bg.png.png" alt="Cravo Logo" width="100" height="100" />
-  <h3>Order Food. Discover Restaurants. Experience Excellence.</h3>
-  <p>
-    <strong>Live Demo:</strong> <a href="https://cravo.online">cravo.online</a> • 
-    <strong>GitHub:</strong> <a href="https://github.com/believeharsh/Cravo">believeharsh/Cravo</a>
-  </p>
-</div>
+**Hungry? Tap, order, and get your cravings delivered!**
+
+A full-stack, production-ready food delivery platform built with the MERN stack. Cravo enables users to explore restaurants, browse menus, place orders securely, and enjoy a seamless food delivery experience.
+
+**Live Application:** [cravo.online](https://cravo.online)  
+**Repository:** [github.com/believeharsh/Cravo](https://github.com/believeharsh/Cravo)
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [About](#About)
-- [Features](#Features)
-- [Tech Stack](#Tech-Stack)
-- [Screenshots](#Screenshots)
-- [Installation](#Installation)
-- [Configuration](#Configuration)
-- [Getting Started](#Getting-Started)
-- [Project Structure](#Project-Structure)
-- [Key Highlights](#Key-Highlights)
-- [Future Enhancements](#Future-Enhancements)
-- [Contributing](#Contributing)
-- [License](#License)
-
----
-
-## 🎯 About
-
-**Cravo** is a full-stack, production-ready food delivery web application built with the MERN stack. It enables users to explore restaurants, browse menus, place orders securely, and enjoy a seamless food delivery experience. With an intuitive UI/UX design, advanced features like AI-powered recommendations, and robust payment integration, Cravo delivers a world-class user experience.
-
-**Built in:** 3 months | **Project Type:** Solo Project
+- [About](#about)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Key Highlights](#key-highlights)
+- [Future Enhancements](#future-enhancements)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## ✨ Features
+## About
 
-### 🏠 User Experience
+Cravo is a comprehensive food delivery web application that provides users with an intuitive platform to discover restaurants, browse menus, and place orders. Built with modern web technologies and best practices, the application features advanced capabilities including AI-powered recommendations, secure payment processing, and real-time order management.
 
-- **Beautiful Landing Page** – Location-based search with interactive category filtering
-- **Smart Location Detection** – Automatic IP-based location fetching for first-time visitors
-- **Top Restaurants Slider** – Trending restaurants organized by category with smooth carousel navigation
-- **Responsive Design** – Fully optimized for desktop, tablet, and mobile devices
-
-### 🔐 Authentication & Security
-
-- **Manual Authentication** – Secure login and sign-up with password hashing
-- **Google OAuth Integration** – One-click sign-up and login with Google
-- **Silent Login System** – Automatic login using refresh tokens (30-day validity) with Axios interceptors
-- **Guest Checkout** – Browse and order without creating an account
-
-### 🍽️ Restaurant & Menu Management
-
-- **Dedicated Restaurant Pages** – Complete menu viewing with high-quality images
-- **Advanced Filtering** – Filter by price, delivery time, dietary preferences (veg/non-veg), best sellers, and ratings
-- **Infinite Scroll Loading** – Smooth, efficient loading of restaurant listings
-- **Dine-Out Feature** – Support for both delivery and dine-in services
-- **Category Results Page** – Dedicated pages for category-based restaurant searches
-- **15+ Cities Supported** – Extensive coverage with 1,500+ restaurants and 25,000+ products seeded
-
-### 🛒 Cart & Checkout
-
-- **Secure Cart Functionality** – Real-time cart management with Redux Toolkit
-- **Quantity Control** – Adjust item quantities directly from the cart without page navigation
-- **Secure Checkout** – PCI-compliant payment processing
-- **Guest Checkout** – Complete purchases without mandatory registration
-- **Address Management** – Save and reuse multiple delivery addresses
-
-### ❤️ Personalization
-
-- **Multi-Profile Dashboard** – Comprehensive user profile with:
-  - Account Information & Settings
-  - Favorites (Wishlist) Management
-  - Saved Addresses
-  - Payment Methods
-  - Complete Order History with Status Tracking
-- **Dual Wishlists** – Default wishlists for items and restaurants
-- **Custom Wishlists** – Create and organize custom wishlists for better personalization
-
-### 💳 Payments & Notifications
-
-- **Razorpay Integration** – Secure payment gateway supporting multiple payment methods
-- **Email Notifications** – Real-time updates on orders, offers, and account activities via Resend
-- **Offers & Deals** – Dedicated page showcasing current promotions and discounts
-- **Corporate Page** – B2B features for corporate partnerships
-
-### 🤖 AI & Smart Features
-
-- **AI-Powered Recommendations** – Intelligent suggestions based on user activity and preferences
-- **Smart Filtering** – Advanced search and filtering capabilities
-- **Personalized Experience** – Dynamic content based on user behavior
-
-### 📞 Support
-
-- **Help & Support Center** – Comprehensive FAQs and support resources
-- **Email Support** – Direct communication channel for user inquiries
+**Development Timeline:** 3 months  
+**Project Type:** Solo Project
 
 ---
 
-## 🛠️ Tech-Stack
+## Features
+
+### User Experience
+
+- Beautiful landing page with location-based search and interactive category filtering
+- Smart location detection using IP-based geolocation for first-time visitors
+- Top restaurants slider with trending establishments organized by category
+- Fully responsive design optimized for desktop, tablet, and mobile devices
+
+### Authentication & Security
+
+- Secure manual authentication with password hashing
+- Google OAuth integration for seamless sign-in
+- Silent login system with automatic authentication using refresh tokens (30-day validity)
+- Axios interceptors for token management
+- Guest checkout capability for browsing and ordering without registration
+
+### Restaurant & Menu Management
+
+- Dedicated restaurant pages with complete menu viewing
+- Advanced filtering options: price, delivery time, dietary preferences, best sellers, and ratings
+- Infinite scroll loading for efficient restaurant browsing
+- Dine-out feature supporting both delivery and dine-in services
+- Category-specific result pages
+- Coverage across 15+ cities with 1,500+ restaurants and 25,000+ products
+
+### Cart & Checkout
+
+- Secure cart functionality with real-time management via Redux Toolkit
+- In-cart quantity control without page navigation
+- PCI-compliant payment processing
+- Guest checkout option
+- Multiple delivery address management
+
+### Personalization
+
+- Comprehensive user dashboard with account management
+- Favorites and wishlist functionality
+- Address book management
+- Payment method storage
+- Complete order history with status tracking
+- Default and custom wishlists for items and restaurants
+
+### Payments & Notifications
+
+- Razorpay integration supporting multiple payment methods
+- Real-time email notifications for orders, offers, and account activities via Resend
+- Dedicated offers and deals page
+- Corporate partnership features
+
+### AI & Smart Features
+
+- AI-powered recommendations based on user activity and preferences
+- Advanced search and filtering capabilities
+- Personalized content delivery based on user behavior
+
+### Support
+
+- Comprehensive help and support center with FAQs
+- Direct email support channel
+
+---
+
+## Tech Stack
 
 ### Frontend
 
-- **React** – UI library for building interactive components
-- **Tailwind CSS** – Utility-first CSS framework for responsive design
-- **Redux Toolkit** – State management for complex application state
-- **Axios** – HTTP client for API calls
-- **React Router** – Client-side routing
+- **React** - UI library for building interactive components
+- **Tailwind CSS** - Utility-first CSS framework
+- **Redux Toolkit** - State management
+- **Axios** - HTTP client
+- **React Router** - Client-side routing
 
 ### Backend
 
-- **Node.js** – JavaScript runtime
-- **Express.js** – Web application framework
-- **MongoDB** – NoSQL database for flexible data storage
-- **Mongoose** – MongoDB object modeling
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
 
 ### External Services
 
-- **Cloudinary** – Cloud-based image and asset management
-- **Razorpay** – Payment gateway for secure transactions
-- **Resend** – Email service for transactional and marketing emails
-- **Google Cloud** – OAuth 2.0 authentication
+- **Cloudinary** - Image and asset management
+- **Razorpay** - Payment gateway
+- **Resend** - Email service
+- **Google Cloud** - OAuth 2.0 authentication
 
 ### Development Tools
 
-- **Husky** – Git hooks for enforcing code quality
-- **ESLint** – Code linting for maintaining code standards
-- **Git** – Version control
+- **Husky** - Git hooks
+- **ESLint** - Code linting
+- **Git** - Version control
 
 ### Deployment
 
-- **Render** – Cloud platform for hosting the application
-- **Custom Domain** – cravo.online
+- **Render** - Cloud hosting platform
+- **Custom Domain** - cravo.online
 
 ---
 
-## 📸 Screenshots
-
-<div align="center">
+## Screenshots
 
 ### Landing Page
 
-<img src="./assets/screenshots/landing_hero.png" alt="Landing Page" width="100%" />
-<img src="./assets/screenshots/landing_category.png" alt="Landing Page" width="100%" />
-<img src="./assets/screenshots/landing_Popular_Restaurants.png" alt="Landing Page" width="100%" />
-<img src="./assets/screenshots/landing_Dine_out_restaurants.png" alt="Landing Page" width="100%" />
+![Landing Hero](./assets/screenshots/landing_hero.png)
+![Landing Category](./assets/screenshots/landing_category.png)
+![Popular Restaurants](./assets/screenshots/landing_Popular_Restaurants.png)
+![Dine Out Restaurants](./assets/screenshots/landing_Dine_out_restaurants.png)
 
 ### Restaurant Discovery
 
-<img src="./assets/screenshots/RestaurantOverviewPage.png" alt="Restaurant Listing" width="100%" />
+![Restaurant Overview](./assets/screenshots/RestaurantOverviewPage.png)
 
 ### Restaurant Menu
 
-<img src="./assets/screenshots/restaurant_menu_page.png" alt="Restaurant Menu" width="100%" />
+![Restaurant Menu](./assets/screenshots/restaurant_menu_page.png)
 
 ### Smart Cart
 
-<img src="./assets/screenshots/cravo_cart.png" alt="Cart Page" width="100%" />
+![Cart](./assets/screenshots/cravo_cart.png)
 
-### Profile Favorites Page
+### Profile & Favorites
 
-<img src="./assets/screenshots/profile_Favorites_page.png" alt="User Profile" width="100%" />
+![Favorites](./assets/screenshots/profile_Favorites_page.png)
 
 ### Order History
 
-<img src="./assets/screenshots/order_history.png" alt="Order History" width="100%" />
+![Order History](./assets/screenshots/order_history.png)
 
 ### Address Management
 
-<img src="./assets/screenshots/address_management_page.png" alt="Address Management" width="100%" />
+![Address Management](./assets/screenshots/address_management_page.png)
 
 ### Offers & Deals
 
-<img src="./assets/screenshots/offer_page.png" alt="Offers & Deals" width="100%" />
-
-</div>
+![Offers](./assets/screenshots/offer_page.png)
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
@@ -199,15 +193,16 @@ cd Cravo
 ### Install Dependencies
 
 ```bash
-# Install all dependencies
 npm install
 ```
 
-### Environment Configuration
+---
 
-Create `.env` files in both frontend and backend directories with the following credentials:
+## Configuration
 
-#### Backend `.env` Configuration
+Create `.env` files in both frontend and backend directories with the following configurations:
+
+### Backend Environment Variables
 
 ```env
 # Database
@@ -238,7 +233,7 @@ PORT=5000
 NODE_ENV=development
 ```
 
-#### Frontend `.env` Configuration
+### Frontend Environment Variables
 
 ```env
 # API
@@ -247,20 +242,20 @@ VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
-### Setup Instructions
+### Setup Steps
 
-1. **Configure MongoDB URI** – Add your MongoDB connection string to the backend `.env` file
-2. **Setup Cloudinary** – Create a Cloudinary account and add your credentials
-3. **Setup Resend** – Register for Resend email service and add your API key
-4. **Configure Google OAuth** – Create OAuth credentials in Google Cloud Console
-5. **Setup Razorpay** – Add your Razorpay API keys for payment processing
-6. **Install Dependencies** – Run `npm install` in both frontend and backend directories
+1. Configure MongoDB connection string in backend `.env`
+2. Create Cloudinary account and add credentials
+3. Register for Resend email service and obtain API key
+4. Create OAuth credentials in Google Cloud Console
+5. Add Razorpay API keys for payment processing
+6. Install dependencies in both frontend and backend directories
 
 ---
 
-## 🎯 Getting Started
+## Getting Started
 
-### Start Development Server
+### Development Mode
 
 ```bash
 # Backend (from backend directory)
@@ -270,29 +265,32 @@ npm run dev
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173` (frontend) and `http://localhost:5000` (backend).
+The application will be available at:
 
-### Running with Code Quality Tools
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
+
+### Code Quality
 
 ```bash
-# Run ESLint to check code quality
+# Run ESLint
 npm run lint
 
-# Husky hooks will automatically run on commit to ensure code standards
+# Husky hooks run automatically on commit
 ```
 
 ### Production Build
 
 ```bash
-# Frontend build
+# Frontend
 npm run build
 
-# Backend is ready for deployment as-is
+# Backend is production-ready as configured
 ```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Cravo/
@@ -319,86 +317,77 @@ Cravo/
 
 ---
 
-## 🌟 Key Highlights
+## Key Highlights
 
-### Impressive Data Seeding
+### Comprehensive Data Seeding
 
-- **1,500+ Restaurants** – Carefully curated and seeded across 15+ cities
-- **25,000+ Menu Items** – Comprehensive product database with high-quality images
-- **Custom Seeding Scripts** – Efficient data population scripts for easy database initialization
+- 1,500+ restaurants across 15+ cities
+- 25,000+ menu items with high-quality images
+- Custom seeding scripts for efficient database initialization
 
 ### Advanced State Management
 
 - Redux Toolkit for complex state handling
-- Efficient re-render optimization
+- Optimized re-render performance
 - Real-time cart synchronization
 
 ### Production-Ready Authentication
 
 - Secure password hashing
-- JWT-based authentication with refresh tokens (30-day validity)
-- Automatic silent login with Axios interceptors
-- OAuth 2.0 integration with Google
+- JWT-based authentication with 30-day refresh tokens
+- Automatic silent login via Axios interceptors
+- OAuth 2.0 integration
 
 ### Scalable Architecture
 
 - Modular component structure
-- Separation of concerns (MVC pattern in backend)
+- MVC pattern implementation
 - Reusable utility functions
-- Clean and maintainable codebase
+- Clean, maintainable codebase
 
 ### Code Quality Standards
 
 - Husky integration for git hooks
-- ESLint configuration for code consistency
-- Automated code formatting on commits
+- ESLint configuration
+- Automated code formatting
 - Best practices for error handling and validation
 
 ### User Experience Excellence
 
 - Mobile-first responsive design
-- Infinite scroll for better performance
+- Infinite scroll for performance optimization
 - Optimized image loading via Cloudinary
 - Intuitive navigation and information architecture
-- Light theme design for food delivery context
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
-- **Real-time Order Tracking** – Live GPS tracking for delivery personnel
-- **Restaurant Dashboard** – Admin panel for restaurant owners to manage menus and orders
-- **Advanced Analytics** – User behavior tracking and personalized insights
-- **Push Notifications** – Mobile push notifications for order updates
-- **Multi-language Support** – Internationalization (i18n) for global reach
-- **Reviews & Ratings** – Comprehensive review system with photos
-- **Loyalty Program** – Points and rewards system for frequent users
-- **Admin Dashboard** – Centralized management of restaurants, users, and orders
-
----
-
-## 🤝 Contributing
-
-This is a personal portfolio project. However, feedback and suggestions are welcome! Feel free to open issues or reach out with recommendations for improvements.
+- Real-time order tracking with GPS integration
+- Restaurant dashboard for menu and order management
+- Advanced analytics and personalized insights
+- Push notifications for order updates
+- Multi-language support (i18n)
+- Comprehensive review system with photo uploads
+- Loyalty program with points and rewards
+- Centralized admin dashboard
 
 ---
 
-## 📄 License
+## Contributing
+
+This is a personal portfolio project. Feedback and suggestions are welcome. Feel free to open issues or reach out with recommendations.
+
+---
+
+## License
 
 This project is open source and available under the MIT License.
 
 ---
 
-<div align="center">
-  <p>
-    <strong>Built with ❤️ Harsh Dahiya</strong>
-  </p>
-  <p>
-    <a href="https://github.com/believeharsh">GitHub</a> • 
-    <a href="https://cravo.online">Live Demo</a> • 
-    <a href="https://github.com/believeharsh/Cravo">Repository</a>
-  </p>
-  <p>
-    If you find this project interesting, please give it a ⭐ on GitHub!
-  </p>
-</div>
+**Built by Harsh Dahiya**
+
+[GitHub](https://github.com/believeharsh) • [Live Demo](https://cravo.online) • [Repository](https://github.com/believeharsh/Cravo)
+
+If you find this project interesting, please give it a star on GitHub.
