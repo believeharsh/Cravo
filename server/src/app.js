@@ -54,7 +54,7 @@ configurePassport();
 app.use(express.static(path.resolve('./public')));
 
 if (process.env.NODE_ENV === 'production') {
-  const url = 'https://cravo-backend-4y9p.onrender.com';
+  const url = 'https://cravo-server.onrender.com';
   keepAlive(url);
 }
 
