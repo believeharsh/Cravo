@@ -30,5 +30,4 @@ const store = configureStore({
 });
 
 export default store;
-// Exporting the instance as a named export for convenience
 export { axiosInstance };

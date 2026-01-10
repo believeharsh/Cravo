@@ -79,7 +79,7 @@ const ProfileLayout = () => {
     );
     // If the path segment is empty (e.g., /profile/ and not /profile/dashboard), default to 'Profile' or 'Dashboard'
     if (!currentPath && window.location.pathname.endsWith('/profile/')) {
-      return 'Profile Dashboard'; // Or just "Profile"
+      return 'Profile Dashboard';
     }
     return section ? section.title : 'Profile';
   };

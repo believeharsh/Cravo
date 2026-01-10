@@ -36,8 +36,8 @@ import { fetchAllWishlists } from './features/wishList/wishListSlice';
 import { fetchUserCart } from './features/cart/cartSlice';
 import { closeAuthSidebar } from './features/ui/uiSlice';
 import { fetchAllAddresses } from './features/address/addressSlice';
-import CravoGetTheAPP from './pages/Get_the_App/GetTheAppPage';
-import DineoutRestaurantPage from './pages/dineOut-Restaurants-Page/DineOutRestaurantPage';
+import CravoGetTheAPP from './pages/getTheApp/GetTheAppPage';
+import DineoutRestaurantPage from './pages/dineoutRestaurantsPage/DineOutRestaurantPage';
 import { AllUserOrdersThunk } from './features/orders/ordersSlice';
 import { getUserProfileData } from './features/auth/authSlice';
 

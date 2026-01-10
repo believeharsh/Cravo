@@ -1,6 +1,4 @@
 import React from 'react';
-// Assuming your Icon component is robust enough to accept specific icons
-// import Icon from '../Icon'; // Adjust path if needed
 
 /**
  * Reusable Input component with label, icon, and error handling.
@@ -72,19 +70,13 @@ const Input = ({
           id={id}
           type={type}
           className={combinedInputClasses}
-          {...props} // Pass all other standard input props like name, value, onChange, placeholder
+          {...props}
         />
         {iconRight && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             {renderIcon(iconRight)}
           </div>
         )}
-        {/*
-          IMPORTANT: The "Show Password" button should NOT be pointer-events-none.
-          If you want an interactive icon, you'd place it outside this static iconRight div
-          or make iconRight a render prop. For now, let's keep iconLeft/Right as static.
-          The Password toggle button is a special case (see usage below).
-        */}
       </div>
       {error && (
         <p className="mt-1 text-sm text-red-500 font-medium">{error}</p>
