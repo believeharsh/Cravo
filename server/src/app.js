@@ -21,6 +21,7 @@ import paymentRoute from './routes/payment.route.js';
 import restaurantSuperAdminRoute from './routes/superAdmin/restaurantSuperAdmin.route.js';
 import locationRoute from './routes/location.route.js';
 import { keepAlive } from './services/keepAlive.js';
+import { EnvConfig } from './config/env.config.js';
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-  process.env.CLIENT_URL,
+  EnvConfig.CLIENT_URL,
 ].filter(Boolean);
 
 app.use(
@@ -53,7 +54,7 @@ configurePassport();
 
 app.use(express.static(path.resolve('./public')));
 
-if (process.env.NODE_ENV === 'production') {
+if (EnvConfig.NODE_ENV === 'production') {
   const url = 'https://cravo-server.onrender.com';
   keepAlive(url);
 }

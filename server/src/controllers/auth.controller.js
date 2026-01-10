@@ -13,6 +13,7 @@ import { config } from '../config/app.config.js';
 
 import { createDefaultLists } from '../services/user.service.js';
 import { formatJoinDate } from '../utils/UserInfomationUtils.js';
+import { EnvConfig } from '../config/env.config.js';
 
 const initiateGoogleAuth = asyncHandler(async (req, res, next) => {
   // Get client origin from query or header
@@ -130,8 +131,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    secure: EnvConfig.NODE_ENV === 'production',
+    sameSite: EnvConfig.NODE_ENV === 'production' ? 'None' : 'Lax',
     path: '/',
   };
 
@@ -295,7 +296,7 @@ const verifyUserOTP = asyncHandler(async (req, res) => {
   // Set refresh token in HttpOnly cookie
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: EnvConfig.NODE_ENV === 'production',
     sameSite: 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
@@ -318,7 +319,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
   let decoded;
   try {
-    decoded = JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    decoded = JWT.verify(refreshToken, EnvConfig.REFRESH_TOKEN_SECRET);
   } catch (err) {
     throw new apiError(403, 'Invalid or expired refresh token');
   }
@@ -366,7 +367,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     isVerified: user.isVerified,
   };
 
-  const isProduction = process.env.NODE_ENV === 'production';
+  const isProduction = EnvConfig.NODE_ENV === 'production';
 
   res.cookie('refreshToken', newRefreshToken, {
     httpOnly: true,

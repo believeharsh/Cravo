@@ -1,24 +1,25 @@
-// config/app.config.js
+import { EnvConfig } from './env.config.js';
+
 const config = {
-  nodeEnv: process.env.NODE_ENV || 'development',
-  port: process.env.PORT || 8000,
+  nodeEnv: EnvConfig.NODE_ENV || 'development',
+  port: EnvConfig.PORT || 8000,
 
   // Client configuration
-  clientUrl: (process.env.CLIENT_URL || 'http://localhost:5173').replace(
+  clientUrl: (EnvConfig.CLIENT_URL || 'http://localhost:5173').replace(
     /\/$/,
     ''
   ),
 
   // Multiple allowed origins for CORS and postMessage
-  allowedOrigins: (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
+  allowedOrigins: (EnvConfig.ALLOWED_ORIGINS || 'http://localhost:5173')
     .split(',')
     .map(origin => origin.trim().replace(/\/$/, '')),
 
   // Cookie settings based on environment
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    secure: EnvConfig.NODE_ENV === 'production',
+    sameSite: EnvConfig.NODE_ENV === 'production' ? 'None' : 'Lax',
     path: '/',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   },

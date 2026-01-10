@@ -1,13 +1,14 @@
 import pkg from 'cloudinary';
 const { v2: cloudinary } = pkg;
 import dotenv from 'dotenv';
+import { EnvConfig } from '../config/env.config';
 
 dotenv.config();
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: EnvConfig.CLOUDINARY_CLOUD_NAME,
+  api_key: EnvConfig.CLOUDINARY_API_KEY,
+  api_secret: EnvConfig.CLOUDINARY_API_SECRET,
 });
 
 const uploadOnCloudinary = async (fileBuffer, fileMimetype) => {

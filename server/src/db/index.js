@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { Db_Name } from '../constants.js';
+import { EnvConfig } from '../config/env.config.js';
 
 const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(
-      `${process.env.MONGO_URI}/${Db_Name}`
+      `${EnvConfig.MONGO_URI}/${Db_Name}`
     );
     console.log(
       `\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`

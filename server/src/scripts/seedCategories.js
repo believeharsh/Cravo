@@ -5,17 +5,18 @@ import mongoose from 'mongoose';
 import Category from '../models/category.model.js';
 
 import { categoriesToUpload } from '../sample-Data/Categories-Data/Categories.js';
+import { EnvConfig } from '../config/env.config.js';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = EnvConfig.MONGODB_URI;
 
 // Get __dirname equivalent for ES Modules
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: EnvConfig.CLOUDINARY_CLOUD_NAME,
+  api_key: EnvConfig.CLOUDINARY_API_KEY,
+  api_secret: EnvConfig.CLOUDINARY_API_SECRET,
 });
 
 (async function () {

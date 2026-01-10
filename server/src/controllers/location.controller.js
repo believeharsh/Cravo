@@ -1,7 +1,7 @@
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
 import City from '../models/city.model.js';
-import cityAliases from '../constants/cityAliases.js';
+import cityAliases from '../constants/city-aliases.js';
 import { normalizeCityName } from '../services/normalizeCityNameFunc.js';
 
 // --- Free IP Info Fetcher with fallback ---

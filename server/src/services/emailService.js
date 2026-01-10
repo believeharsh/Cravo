@@ -3,20 +3,21 @@ import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { EnvConfig } from '../config/env.config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(EnvConfig.RESEND_API_KEY);
 
-const COMPANY_NAME = process.env.APP_NAME || 'Cravo';
+const COMPANY_NAME = EnvConfig.APP_NAME || 'Cravo';
 const COMPANY_LOGO_URL =
-  process.env.COMPANY_LOGO_URL ||
+  EnvConfig.COMPANY_LOGO_URL ||
   'https://placehold.co/180x60/81C784/FFFFFF?text=YOUR+LOGO';
-const PRIVACY_POLICY_URL = process.env.PRIVACY_POLICY_URL || '#';
-const TERMS_OF_SERVICE_URL = process.env.TERMS_OF_SERVICE_URL || '#';
+const PRIVACY_POLICY_URL = EnvConfig.PRIVACY_POLICY_URL || '#';
+const TERMS_OF_SERVICE_URL = EnvConfig.TERMS_OF_SERVICE_URL || '#';
 
 // Test connection on startup
 (async () => {
@@ -104,7 +105,7 @@ const sendVerificationEmail = async (userEmail, verificationLink) => {
     );
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: EnvConfig.EMAIL_USER,
       to: userEmail,
       subject: `Verify Your Account for ${COMPANY_NAME}!`,
       html: emailHtmlBody,

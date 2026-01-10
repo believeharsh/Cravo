@@ -4,15 +4,16 @@ import { fileURLToPath } from 'url';
 import City from '../models/city.model.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { EnvConfig } from '../config/env.config.js';
 
 dotenv.config();
 
 const MONGO_URI = 'your mongo uri here';
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: EnvConfig.CLOUDINARY_CLOUD_NAME,
+  api_key: EnvConfig.CLOUDINARY_API_KEY,
+  api_secret: EnvConfig.CLOUDINARY_API_SECRET,
 });
 
 const citiesData = [

@@ -3,15 +3,16 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/user.model.js';
 import { createRefreshToken } from '../services/userTokens.js';
 import { createDefaultLists } from '../services/user.service.js';
+import { EnvConfig } from './env.config.js';
 
 const configurePassport = () => {
   // --- Passport Configuration for Google OAuth ---
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `${process.env.API_BASE_URL}/auth/google/callback`,
+        clientID: EnvConfig.GOOGLE_CLIENT_ID,
+        clientSecret: EnvConfig.GOOGLE_CLIENT_SECRET,
+        callbackURL: `${EnvConfig.API_BASE_URL}/auth/google/callback`,
       },
       async (accessToken, refreshToken, profile, done) => {
         try {

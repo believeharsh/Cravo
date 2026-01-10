@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import { asyncHandler } from '../services/asyncHandler.js';
 import { apiResponse } from '../services/apiResponse.js';
 import { apiError } from '../services/apiError.js';
+import { EnvConfig } from '../config/env.config.js';
 
 dotenv.config();
 
@@ -38,8 +39,8 @@ const getLandingPageData = asyncHandler(async (req, res) => {
   }
 
   try {
-    const categoriesUrl = `${process.env.API_BASE_URL}/categories`;
-    const citiesUrl = `${process.env.API_BASE_URL}/cities`;
+    const categoriesUrl = `${EnvConfig.API_BASE_URL}/categories`;
+    const citiesUrl = `${EnvConfig.API_BASE_URL}/cities`;
 
     // Fetch categories and cities concurrently
     const [categoriesRes, citiesRes] = await Promise.all([
@@ -115,7 +116,7 @@ const getLandingPageData = asyncHandler(async (req, res) => {
     }
 
     // Constructing the restaurants URL using the determined coordinates and maxDistanceKm
-    restaurantsUrl = `${process.env.API_BASE_URL}/restaurants/location?longitude=${restaurantFetchLongitude}&latitude=${restaurantFetchLatitude}&maxDistanceKm=${maxDistanceKm}`;
+    restaurantsUrl = `${EnvConfig.API_BASE_URL}/restaurants/location?longitude=${restaurantFetchLongitude}&latitude=${restaurantFetchLatitude}&maxDistanceKm=${maxDistanceKm}`;
 
     const restaurantsRes = await fetch(restaurantsUrl);
 

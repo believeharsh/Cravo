@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { EnvConfig } from '../config/env.config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,22 +11,22 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST, // 'smtp.gmail.com' or 'smtp.sendgrid.net'
-  port: process.env.EMAIL_PORT, // 587 for TLS, 465 for SSL
-  secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
+  host: EnvConfig.EMAIL_HOST, // 'smtp.gmail.com' or 'smtp.sendgrid.net'
+  port: EnvConfig.EMAIL_PORT, // 587 for TLS, 465 for SSL
+  secure: EnvConfig.EMAIL_SECURE === 'true', // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: EnvConfig.EMAIL_USER,
+    pass: EnvConfig.EMAIL_PASS,
   },
   connectionTimeout: 5000,
 });
 
-const COMPANY_NAME = process.env.APP_NAME || 'Cravo';
+const COMPANY_NAME = EnvConfig.APP_NAME || 'Cravo';
 const COMPANY_LOGO_URL =
-  process.env.COMPANY_LOGO_URL ||
+  EnvConfig.COMPANY_LOGO_URL ||
   'https://placehold.co/180x60/81C784/FFFFFF?text=YOUR+LOGO';
-const PRIVACY_POLICY_URL = process.env.PRIVACY_POLICY_URL || '#';
-const TERMS_OF_SERVICE_URL = process.env.TERMS_OF_SERVICE_URL || '#';
+const PRIVACY_POLICY_URL = EnvConfig.PRIVACY_POLICY_URL || '#';
+const TERMS_OF_SERVICE_URL = EnvConfig.TERMS_OF_SERVICE_URL || '#';
 
 transporter.verify(function (error) {
   if (error) {
@@ -60,7 +61,7 @@ const sendVerificationOTP = async (userEmail, otp) => {
     );
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: EnvConfig.EMAIL_USER,
       to: userEmail,
       subject: `Your ${COMPANY_NAME} Verification Code`,
       html: emailHtmlBody,
@@ -104,7 +105,7 @@ const sendVerificationEmail = async (userEmail, verificationLink) => {
     );
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: EnvConfig.EMAIL_USER,
       to: userEmail,
       subject: `Verify Your Account for ${COMPANY_NAME}!`,
       html: emailHtmlBody,

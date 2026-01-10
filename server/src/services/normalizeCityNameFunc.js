@@ -1,4 +1,4 @@
-import cityAliases from '../constants/cityAliases.js';
+import cityAliases from '../constants/city-aliases.js';
 
 const normalizeCityName = cityFromIP => {
   const lowerCity = cityFromIP?.toLowerCase().trim();

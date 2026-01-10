@@ -1,11 +1,12 @@
 import Razorpay from 'razorpay';
 import dotenv from 'dotenv';
+import { EnvConfig } from './env.config.js';
 
 dotenv.config();
 
 // Get keys from environment variables
-const keyId = process.env.RAZORPAY_KEY_ID;
-const keySecret = process.env.RAZORPAY_KEY_SECRET_ID;
+const keyId = EnvConfig.RAZORPAY_KEY_ID;
+const keySecret = EnvConfig.RAZORPAY_KEY_SECRET_ID;
 
 if (!keyId || !keySecret) {
   console.error(

@@ -15,13 +15,14 @@ import City from '../models/city.model.js';
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
 import jaipurRestaurants from '../sample-Data/Restaurants-Data/JaipurRestaurants.js';
+import { EnvConfig } from '../config/env.config.js';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = EnvConfig.MONGODB_URI;
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: EnvConfig.CLOUDINARY_CLOUD_NAME,
+  api_key: EnvConfig.CLOUDINARY_API_KEY,
+  api_secret: EnvConfig.CLOUDINARY_API_SECRET,
 });
 
 // In-memory cache for runtime speed (optional)

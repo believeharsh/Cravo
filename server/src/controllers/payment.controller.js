@@ -6,6 +6,7 @@ import Order from '../models/order.model.js';
 import Product from '../models/product.model.js';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
+import { EnvConfig } from '../config/env.config.js';
 
 /**
  * @desc Verifies the Razorpay payment signature and updates the order status.
@@ -31,7 +32,7 @@ export const verifyPayment = asyncHandler(async (req, res) => {
   const body = razorpay_order_id + '|' + razorpay_payment_id;
 
   // Ensure RAZORPAY_KEY_SECRET is available
-  if (!process.env.RAZORPAY_KEY_SECRET_ID) {
+  if (!EnvConfig.RAZORPAY_KEY_SECRET_ID) {
     console.error(
       'CRITICAL: RAZORPAY_KEY_SECRET is not set in environment variables.'
     );
@@ -43,7 +44,7 @@ export const verifyPayment = asyncHandler(async (req, res) => {
 
   // Create an HMAC (Hash-based Message Authentication Code)
   const expectedSignature = crypto
-    .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET_ID)
+    .createHmac('sha256', EnvConfig.RAZORPAY_KEY_SECRET_ID)
     .update(body.toString())
     .digest('hex');
 

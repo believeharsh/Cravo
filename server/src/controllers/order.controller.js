@@ -6,7 +6,8 @@ import Order from '../models/order.model.js';
 import Product from '../models/product.model.js';
 import mongoose from 'mongoose';
 
-import razorpayInstance from '../config/razorPayConfig.js';
+import razorpayInstance from '../config/razorpay.config.js';
+import { EnvConfig } from '../config/env.config.js';
 
 // Helper function to handle price and stock checks during checkout
 /**
@@ -168,7 +169,7 @@ const createOrder = asyncHandler(async (req, res) => {
           orderId: newOrder[0]._id,
           razorpayOrderId: razorpayOrder.id,
           amount: totalAmount, // Total amount
-          keyId: process.env.RAZORPAY_KEY_ID, // Public key ID for the frontend
+          keyId: EnvConfig.RAZORPAY_KEY_ID, // Public key ID for the frontend
           currency: 'INR',
           // Passing user/guest contact details for the payment modal options
           name: userId ? req.user.fullName : guestInfo?.name,
