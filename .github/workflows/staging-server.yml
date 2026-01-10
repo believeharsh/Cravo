@@ -36,4 +36,4 @@ jobs:
           curl -X POST ${{ secrets.RENDER_SERVER_STAGING_DEPLOY_HOOK }}
           
       - name: Deployment status
-        run: echo "✅ Server deployed to Staging successfully!"
+        run: echo "Server deployed to Staging successfully!"

@@ -36,4 +36,4 @@ jobs:
           curl -X POST ${{ secrets.RENDER_SERVER_PRODUCTION_DEPLOY_HOOK }}
           
       - name: Deployment status
-        run: echo "🚀 Server deployed to Production successfully!"
+        run: echo "server deployed to Production successfully!"

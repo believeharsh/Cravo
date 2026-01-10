@@ -41,4 +41,4 @@ jobs:
           curl -X POST ${{ secrets.RENDER_CLIENT_PRODUCTION_DEPLOY_HOOK }}
           
       - name: Deployment status
-        run: echo "🚀 Client deployed to Production successfully!"
+        run: echo "Client deployed to Production successfully!"
