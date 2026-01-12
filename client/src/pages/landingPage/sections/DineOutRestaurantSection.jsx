@@ -1,6 +1,6 @@
 import React from 'react';
-import { Star, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Icon from '../../../components/ui/Icon';
 
 const BestDineOutSection = () => {
   return (
@@ -10,7 +10,7 @@ const BestDineOutSection = () => {
           {/* Content Side */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-yellow-200">
-              <Sparkles className="w-4 h-4" />
+              <Icon name="sparkles" className="w-4 h-4" />
               Premium Selection
             </div>
 
@@ -31,7 +31,7 @@ const BestDineOutSection = () => {
             <div className="grid grid-cols-1 gap-2 pt-2">
               <div className="group cursor-pointer flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 hover:border-yellow-300 hover:shadow-lg transition-all duration-300">
                 <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                  <Star className="w-6 h-6 text-gray-900" />
+                  <Icon name="star" className="w-6 h-6 text-gray-900" />
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 mb-1">
@@ -45,7 +45,7 @@ const BestDineOutSection = () => {
 
               <div className=" cursor-pointer group flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 hover:border-yellow-300 hover:shadow-lg transition-all duration-300">
                 <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                  <MapPin className="w-6 h-6 text-gray-900" />
+                  <Icon name="map-pin" className="w-6 h-6 text-gray-900" />
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 mb-1">
@@ -59,7 +59,7 @@ const BestDineOutSection = () => {
 
               <div className=" cursor-pointer group flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 hover:border-yellow-300 hover:shadow-lg transition-all duration-300">
                 <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                  <Clock className="w-6 h-6 text-gray-900" />
+                  <Icon name="clock" className="w-6 h-6 text-gray-900" />
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 mb-1">
@@ -76,7 +76,7 @@ const BestDineOutSection = () => {
             <Link to={'restaurants/dine-out'}>
               <button className="cursor-pointer group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold px-8 py-4 rounded-2xl transition-all shadow-lg shadow-yellow-200 hover:shadow-xl hover:shadow-yellow-300 flex items-center gap-3 hover:gap-4">
                 Explore Dine-Out Options
-                <ArrowRight className="w-5 h-5 transition-all" />
+                <Icon name="arrow-right" className="w-5 h-5 transition-all" />
               </button>
             </Link>
           </div>
@@ -101,7 +101,10 @@ const BestDineOutSection = () => {
             <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-2 border border-gray-100">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Star className="w-3 h-3 fill-gray-900 text-gray-900" />
+                  <Icon
+                    name="star"
+                    className="w-3 h-3 fill-gray-900 text-gray-900"
+                  />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-gray-900">4.8</p>

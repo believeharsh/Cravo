@@ -10,6 +10,7 @@ export const EnvConfig = {
   // URLs
 
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
+  CLIENT_URL: process.env.CLIENT_URL,
   API_URL: process.env.API_URL || 'http://localhost:5000/api',
   API_BASE_URL: process.env.API_BASE_URL,
   ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
