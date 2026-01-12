@@ -7,7 +7,6 @@ import {
   fetchCurrentLocation as fetchReverseGeocode,
 } from '../features/location/locationSlice';
 
-// Debounce utility (defined here for completeness, or import if external)
 const debounce = (func, delay) => {
   let timeoutId;
   return (...args) => {
@@ -73,7 +72,6 @@ export const useLocationSearch = () => {
   }, [initialIpLocation, persistedSearchLocation, dispatch]);
 
   // 2. Update local searchTerm when the selected location changes in Redux
-  // (e.g., after user selects a suggestion or uses current location)
   useEffect(() => {
     if (persistedSearchLocation) {
       setSearchTerm(persistedSearchLocation.name);
@@ -89,7 +87,6 @@ export const useLocationSearch = () => {
       const value = e.target.value;
       setSearchTerm(value);
       setShowSuggestions(true);
-      // Trigger debounced Redux thunk call
       debouncedFetchSuggestions(value);
     },
     [debouncedFetchSuggestions]
@@ -99,7 +96,6 @@ export const useLocationSearch = () => {
   const handleSelectLocation = useCallback(
     location => {
       dispatch(setSelectedSearchLocation(location));
-      // searchTerm will be updated via the useEffect above
     },
     [dispatch]
   );

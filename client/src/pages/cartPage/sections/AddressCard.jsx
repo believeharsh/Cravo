@@ -1,6 +1,4 @@
-import React from 'react';
 import Icon from '../../../components/ui/Icon';
-import Button from '../../../components/ui/Button';
 
 /**
  * Renders a card for a single delivery address.

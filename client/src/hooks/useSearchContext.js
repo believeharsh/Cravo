@@ -70,7 +70,7 @@ export const useSearchContext = initialIpLocation => {
         `${initialIpLocation.city}, ${initialIpLocation.region}, ${initialIpLocation.country}`
       );
     }
-  }, [initialIpLocation, selectedLocation, dispatch]); // Added missing dependencies
+  }, [initialIpLocation, selectedLocation, dispatch]);
 
   // --- Handlers ---
 
@@ -80,19 +80,16 @@ export const useSearchContext = initialIpLocation => {
       const value = e.target.value;
       setLocationSearchTerm(value);
       setShowSuggestions(true);
-
-      // --- COMPLETED DEBOUNCE CALL ---
       debouncedFetchSuggestions(value);
     },
     [debouncedFetchSuggestions]
-  ); // Added debouncedFetchSuggestions as dependency
+  );
 
   // 2. Location Suggestion Selection Handler
   const handleSelectLocation = useCallback(
     location => {
       dispatch(setConfirmedLocation(location));
-      // searchTerm will update via the useEffect hook
-      setShowSuggestions(false); // Hide the dropdown manually
+      setShowSuggestions(false);
       console.log('for watching the acions inside the handleSelectLocation');
       console.log('location', location);
       dispatch(setUserLocation(location));
@@ -103,7 +100,7 @@ export const useSearchContext = initialIpLocation => {
   // 3. Use Current Location Handler
   const handleUseCurrentLocation = useCallback(() => {
     dispatch(fetchCurrentLocation()); // Triggers GPS fetch and reverse geocoding
-    dispatch(clearSuggestions()); // Clear the UI list while loading
+    dispatch(clearSuggestions());
   }, [dispatch]);
 
   // 4. Category/Food Input Change Handler
@@ -128,7 +125,6 @@ export const useSearchContext = initialIpLocation => {
   }, []);
 
   return {
-    // Location-related exports
     locationSearchTerm,
     isLocationLoading,
     suggestions,

@@ -110,6 +110,7 @@ import {
   Handshake,
   LocateFixed,
   ArrowUpDown,
+  QrCode,
 } from 'lucide-react';
 
 // creating a map with icons names properties and adding actual Lucide React Icon to them
@@ -228,6 +229,8 @@ const iconMap = {
   handshake: Handshake,
   'locate-fixed': LocateFixed,
   'arrow-up-down': ArrowUpDown,
+  'qr-code': QrCode,
+  download: Download,
 };
 
 // Main Icon component that renders the correct icon based on props.

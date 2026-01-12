@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { selectCartTotalValue } from '../../features/cart/cartSelectors';
 import Icon from '../../components/ui/Icon';
 
@@ -14,7 +14,6 @@ import PaymentStatusModal from './components/PaymentStatusModal';
 
 import { Link } from 'react-router-dom';
 import { useOrderActions } from '../../hooks/userOrdersActions';
-import { useCartActions } from '../../hooks/useCartActions';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
@@ -180,7 +179,6 @@ const CartPage = () => {
 
       setIsCheckoutLoading(false);
 
-      // Show success modal
       setPaymentModalState({
         isOpen: true,
         status: 'success',
@@ -197,7 +195,6 @@ const CartPage = () => {
       console.error('Payment verification failed:', error);
       setIsCheckoutLoading(false);
 
-      // Show failed modal
       setPaymentModalState({
         isOpen: true,
         status: 'failed',
@@ -229,7 +226,6 @@ const CartPage = () => {
           console.log('Payment modal closed by user');
           setIsCheckoutLoading(false);
 
-          // Show cancelled modal
           setPaymentModalState({
             isOpen: true,
             status: 'cancelled',
@@ -248,7 +244,6 @@ const CartPage = () => {
         console.error('Razorpay Error:', response.error);
         setIsCheckoutLoading(false);
 
-        // Show failed modal
         setPaymentModalState({
           isOpen: true,
           status: 'failed',
@@ -317,8 +312,6 @@ const CartPage = () => {
     } catch (error) {
       console.error('Order Creation Failed:', error);
       setIsCheckoutLoading(false);
-
-      // Show failed modal for order creation failure
       setPaymentModalState({
         isOpen: true,
         status: 'failed',
@@ -339,7 +332,6 @@ const CartPage = () => {
     });
   };
 
-  // Check if user is not authenticated
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans">

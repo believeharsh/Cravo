@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer';
 import CategoryHeader from './sections/CategoryHeader';
@@ -28,8 +28,6 @@ const CategoryResultPage = () => {
     totalResults,
     currentCategorySlug,
   } = useSelector(state => state.categoryResult);
-  // console.log('currentCategorySlug', currentCategorySlug);
-  // console.log('restaurants', restaurants);
 
   const urlPage = parseInt(searchParams.get('page')) || 1;
 
@@ -54,33 +52,26 @@ const CategoryResultPage = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [navbarHeight, setNavbarHeight] = useState(0);
 
-  // Hardcoded limit (should ideally be configurable)
+  // Hardcoded limit
   const limit = 50;
 
   // Logic to fetch restaurants when categorySlug or page changes
   useEffect(() => {
     const isNewCategory = currentCategorySlug !== categorySlug;
-    // console.log('is New Category', isNewCategory);
 
-    // 1. Exit if location data is not yet available
     if (!latitude || !longitude) {
-      // Optional: Set a local error state or show a message to the user
       return;
     }
 
-    // 2. Clear state on category switch
     if (isNewCategory) {
-      // 💡 FIX: Immediately dispatch the clear action to wipe old restaurants
       dispatch(clearCategoryResults());
     }
 
-    // 3. Determine if a fetch is required
-    // Fetch if: A) New category, OR B) 'Load More' (URL page > Redux page)
+    // Fetching if: A) New category, OR B) 'Load More' (URL page > Redux page)
     // OR C) Initial load and no restaurants are present yet.
     const shouldFetch =
       isNewCategory || urlPage > currentPage || restaurants.length === 0;
 
-    // The old skip logic (isDataStale check) is replaced by this cleaner 'shouldFetch' check.
     if (shouldFetch) {
       // console.log(
       //   `Dispatching fetch for ${categorySlug}, page ${isNewCategory ? 1 : urlPage}`
@@ -112,15 +103,11 @@ const CategoryResultPage = () => {
     currentPage,
     latitude,
     longitude,
-    // Removed restaurants.length as a dependency to prevent unnecessary re-runs
   ]);
 
-  // Handler for "Load More" button
   const handleLoadMore = () => {
-    // The Redux state `currentPage` holds the last successfully loaded page.
     const nextPage = currentPage + 1;
 
-    // Dispatch the thunk to load the next page, which will append to the slice.
     if (nextPage <= totalPages && latitude && longitude) {
       dispatch(
         fetchCategoryRestaurants({
@@ -132,17 +119,8 @@ const CategoryResultPage = () => {
           limit,
         })
       );
-      // We are no longer modifying searchParams for page number
-      // unless you need it to persist the page number in the URL for sharing.
-      // Keeping the searchParams update for good measure:
-      // setSearchParams(prevParams => {
-      //   prevParams.set('page', nextPage.toString());
-      //   return prevParams;
-      // });
     }
   };
-
-  // (useEffect for scroll logic remains the same)
 
   useEffect(() => {
     // Get navbar height on mount

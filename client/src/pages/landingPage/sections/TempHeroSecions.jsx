@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
 import { useSelector } from 'react-redux';
 
-// Utility function to debounce API calls
 const debounce = (func, delay) => {
   let timeoutId;
   return (...args) => {
@@ -19,14 +18,10 @@ const debounce = (func, delay) => {
 const Hero = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  console.log('serachTerm', searchTerm);
-  console.log('suggestions', suggestions);
   const [isLocationLoading, setIsLocationLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [locationFocused, setLocationFocused] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  // State for food input (not implemented in this version, but kept for consistency)
   const [foodFocused, setFoodFocused] = useState(false);
 
   const { city, region, country } = useSelector(state => state.location);
@@ -35,8 +30,6 @@ const Hero = () => {
 
   // Reference for the location search container to handle clicks outside
   const locationRef = useRef(null);
-
-  // --- API Functions (your "frontend backend") ---
 
   // Function for manual search (Geocoding) using OpenStreetMap Nominatim API
   const fetchGeocodeSuggestions = async query => {
@@ -103,24 +96,20 @@ const Hero = () => {
     debounce(fetchGeocodeSuggestions, 500)
   ).current;
 
-  // --- Event Handlers ---
-
   // Handle changes in the location input field
   const handleLocationChange = e => {
     const value = e.target.value;
     setSearchTerm(value);
-    setShowSuggestions(true); // Show suggestions as soon as user types
+    setShowSuggestions(true);
     debouncedFetchSuggestions(value);
   };
 
-  // Handle when a suggestion is clicked
   const handleSelectLocation = location => {
     setSelectedLocation(location);
     setSearchTerm(location.name);
     setShowSuggestions(false);
   };
 
-  // Handle the "Use My Current Location" button click
   const handleUseCurrentLocation = () => {
     if (navigator.geolocation) {
       setIsLocationLoading(true);
@@ -129,22 +118,20 @@ const Hero = () => {
           const { latitude, longitude } = position.coords;
           fetchReverseGeocode(latitude, longitude);
           setIsLocationLoading(false);
-          setShowSuggestions(false); // Hide the dropdown
+          setShowSuggestions(false);
         },
         error => {
           console.error('Geolocation error:', error);
           setIsLocationLoading(false);
-          // You could show an error message to the user here
         },
         { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
       );
     } else {
       console.error('Geolocation is not supported by this browser.');
-      // You could show a message to the user that their browser doesn't support geolocation
+      // I have to show a message to the user that their browser doesn't support geolocation
     }
   };
 
-  // Close the suggestions dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = event => {
       if (locationRef.current && !locationRef.current.contains(event.target)) {
@@ -157,7 +144,6 @@ const Hero = () => {
     };
   }, [locationRef]);
 
-  // --- JSX ---
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12 sm:pb-20">
@@ -185,7 +171,6 @@ const Hero = () => {
                     />
                     <input
                       type="text"
-                      // placeholder="Indore, MP, India"
                       placeholder={location_placehoder}
                       className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium text-sm sm:text-base"
                       value={searchTerm}
@@ -282,8 +267,6 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* The "Find Delicious Food" button now needs to be smarter.
-                    It should use the selectedLocation, but for now we'll keep the link. */}
                 <NavLink to={'/restaurants'}>
                   <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer">
                     Find Delicious Food

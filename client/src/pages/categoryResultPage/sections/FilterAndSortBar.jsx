@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// Mock Icon component for demo
 const Icon = ({ name, size = 16, className = '' }) => {
   const icons = {
     zap: '⚡',
