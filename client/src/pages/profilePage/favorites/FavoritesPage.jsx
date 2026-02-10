@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Icon from '../../../components/ui/Icon';
+import React, { useEffect, useState } from 'react';
 
+import Icon from '../../../components/ui/Icon';
+import { useFavoriteActions } from '../../../hooks/useWishlistActions';
+import ItemsView from './sections/ItemsView';
 // Imports of the section components
 import WishlistSelectionView from './sections/WishlistSelectionView';
-import ItemsView from './sections/ItemsView';
-import { useFavoriteActions } from '../../../hooks/useWishlistActions';
 
 const FavoritesPage = () => {
   const [viewMode, setViewMode] = useState('grid');
@@ -16,14 +16,14 @@ const FavoritesPage = () => {
 
   return (
     <div className="bg-cream min-h-screen py-2">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="mx-auto max-w-7xl space-y-2 px-4 sm:px-6 lg:px-8">
+        <header className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-mint-green/20 flex items-center justify-center">
-              <Icon name="heart" className="w-8 h-8 text-mint-green" />
+            <div className="bg-mint-green/20 flex h-16 w-16 items-center justify-center rounded-full">
+              <Icon name="heart" className="text-mint-green h-8 w-8" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-text-main mb-2">
+              <h1 className="text-text-main mb-2 text-4xl font-bold">
                 {selectedList && `Items in "${selectedList.name}"`}
               </h1>
             </div>
@@ -31,9 +31,9 @@ const FavoritesPage = () => {
           {selectedListId && (
             <button
               onClick={() => setSelectedListId(null)}
-              className="flex items-center gap-2 cursor-pointer text-charcoal hover:text-yellow-400 transition-colors font-medium"
+              className="text-charcoal flex cursor-pointer items-center gap-2 font-medium transition-colors hover:text-yellow-400"
             >
-              <Icon name="arrow-left" className="w-5 h-5" /> Back to lists
+              <Icon name="arrow-left" className="h-5 w-5" /> Back to lists
             </button>
           )}
         </header>

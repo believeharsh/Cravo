@@ -11,7 +11,7 @@ on:
 jobs:
   deploy-server:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,6 +34,6 @@ jobs:
       - name: Deploy to Render (Server Staging)
         run: |
           curl -X POST ${{ secrets.RENDER_SERVER_STAGING_DEPLOY_HOOK }}
-          
+
       - name: Deployment status
         run: echo "Server deployed to Staging successfully!"

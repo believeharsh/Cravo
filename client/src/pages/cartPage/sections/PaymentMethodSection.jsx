@@ -1,13 +1,15 @@
 import React from 'react';
+
 import PaymentMethodCard from './PaymentMethodCard';
+
 const PaymentMethodSection = ({
   paymentMethods,
   selectedPayment,
   setSelectedPayment,
 }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-md p-3">
-      <h2 className="text-lg font-bold text-text-main mb-2">Payment Method</h2>
+    <div className="rounded-2xl bg-white p-3 shadow-md">
+      <h2 className="text-text-main mb-2 text-lg font-bold">Payment Method</h2>
       <div className="flex flex-wrap gap-2">
         {paymentMethods.map(payment => (
           <PaymentMethodCard

@@ -14,7 +14,7 @@ const AddressCard = ({ address, isSelected, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`p-4 rounded-xl border cursor-pointer transition-all ${
+      className={`cursor-pointer rounded-xl border p-4 transition-all ${
         isSelected
           ? 'border-border-focus bg-yellow-50'
           : 'border-cream hover:border-gray-300'
@@ -22,30 +22,30 @@ const AddressCard = ({ address, isSelected, onClick }) => {
     >
       <div className="flex items-start gap-3">
         <div
-          className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+          className={`flex h-8 w-8 items-center justify-center rounded-lg ${
             isSelected ? 'bg-primary' : 'bg-gray-100'
           }`}
         >
           <Icon
             name={address.icon}
-            className={`w-4 h-4 ${
+            className={`h-4 w-4 ${
               isSelected ? 'text-white' : 'text-medium-gray'
             }`}
           />
         </div>
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-semibold text-charcoal">{address.type}</span>
+          <div className="mb-1 flex items-center gap-2">
+            <span className="text-charcoal font-semibold">{address.type}</span>
             {address.isDefault && (
-              <span className="px-2 py-0.5 bg-mint-green text-white text-xs rounded-full">
+              <span className="bg-mint-green rounded-full px-2 py-0.5 text-xs text-white">
                 Default
               </span>
             )}
           </div>
-          <p className="text-sm text-charcoal">{address.address}</p>
-          <p className="text-sm text-medium-gray">{address.city}</p>
+          <p className="text-charcoal text-sm">{address.address}</p>
+          <p className="text-medium-gray text-sm">{address.city}</p>
           {address.landmark && (
-            <p className="text-xs text-medium-gray mt-1">{address.landmark}</p>
+            <p className="text-medium-gray mt-1 text-xs">{address.landmark}</p>
           )}
         </div>
       </div>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import ProfileSidebar from './components/ProfileSidebar';
-import ProfileInfoTab from './components/ProfileInfoTab';
-import EmailSettingsTab from './components/EmailSettingsTab';
+
 import ChangePasswordTab from './components/ChangePasswordTab';
+import EmailSettingsTab from './components/EmailSettingsTab';
+import ProfileInfoTab from './components/ProfileInfoTab';
+import ProfileSidebar from './components/ProfileSidebar';
 
 const AccountPage = () => {
   const [tab, setTab] = useState('profile');
@@ -62,7 +63,7 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto grid grid-cols-12 gap-6">
+    <div className="mx-auto grid max-w-6xl grid-cols-12 gap-6">
       <ProfileSidebar
         profileData={profileData}
         tab={tab}
@@ -70,7 +71,7 @@ const AccountPage = () => {
         onAvatarUpload={handleAvatarUpload}
       />
 
-      <div className="col-span-8 bg-white rounded-2xl shadow p-6">
+      <div className="col-span-8 rounded-2xl bg-white p-6 shadow">
         {renderTabContent()}
       </div>
     </div>

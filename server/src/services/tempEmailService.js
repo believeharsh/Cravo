@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
 import fs from 'fs';
+import nodemailer from 'nodemailer';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 import { EnvConfig } from '../config/env.config';
 
 const __filename = fileURLToPath(import.meta.url);

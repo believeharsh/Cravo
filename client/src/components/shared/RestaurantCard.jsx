@@ -1,12 +1,13 @@
 import React from 'react';
-import Icon from '../ui/Icon';
+import { useSelector } from 'react-redux';
+
 import {
   selectDefaultRestaurantListId,
   selectIsRestaurantInAnyRestaurantList,
 } from '../../features/wishList/wishListSelectors';
-import { useSelector } from 'react-redux';
-import { useFavoriteActions } from '../../hooks/useWishlistActions';
 import { useAuthForm } from '../../hooks/useAuthForm';
+import { useFavoriteActions } from '../../hooks/useWishlistActions';
+import Icon from '../ui/Icon';
 
 /**
  * A reusable component to display restaurant information in a compact grid layout.
@@ -112,7 +113,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         <img
           src={imageUrl}
           alt={data.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
           onError={e => {
             e.target.src =
@@ -124,14 +125,14 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
 
         {/* Min order badge (Grid placement) */}
-        <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm rounded-lg px-2 py-1 shadow-md">
-          <span className="text-text-main font-bold text-sm">
+        <div className="absolute bottom-3 left-3 rounded-lg bg-white/95 px-2 py-1 shadow-md backdrop-blur-sm">
+          <span className="text-text-main text-sm font-bold">
             Min ₹{data.min_order_value}
           </span>
         </div>
 
         {/* Delivery time badge (Grid placement) */}
-        <div className="absolute top-3 right-3 bg-white/90 text-text-main rounded-full px-2 py-1 text-xs font-semibold shadow-md">
+        <div className="text-text-main absolute top-3 right-3 rounded-full bg-white/90 px-2 py-1 text-xs font-semibold shadow-md">
           {data.delivery_time_mins}m
         </div>
 
@@ -139,26 +140,25 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         <button
           // *** THE FIX IS HERE: Call the new universal handler for all clicks ***
           onClick={onFavoriteButtonClick}
-          className={`absolute top-3 left-3 bg-white/80 hover:bg-white rounded-full p-2 transition-all duration-200 z-10 cursor-pointer 
-            ${
-              isRestaurantInWishlist
-                ? 'text-red-500 opacity-100'
-                : 'text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100'
-            }`}
+          className={`absolute top-3 left-3 z-10 cursor-pointer rounded-full bg-white/80 p-2 transition-all duration-200 hover:bg-white ${
+            isRestaurantInWishlist
+              ? 'text-red-500 opacity-100'
+              : 'text-gray-400 opacity-0 group-hover:opacity-100 hover:text-red-500'
+          }`}
         >
-          <Icon name="heart" size={16} className="w-4 h-4 fill-current" />
+          <Icon name="heart" size={16} className="h-4 w-4 fill-current" />
         </button>
       </div>
 
       {/* CONTENT SECTION */}
       <div className={contentContainerClasses}>
         {/* Restaurant name */}
-        <h3 className="text-lg font-bold text-text-main group-hover:text-yellow-500 transition-colors line-clamp-1 leading-tight">
+        <h3 className="text-text-main line-clamp-1 text-lg leading-tight font-bold transition-colors group-hover:text-yellow-500">
           {data.name}
         </h3>
 
         {/* Cuisine tags */}
-        <div className="flex items-center gap-1 text-xs text-text-secondary font-medium overflow-hidden whitespace-nowrap">
+        <div className="text-text-secondary flex items-center gap-1 overflow-hidden text-xs font-medium whitespace-nowrap">
           {data.cuisine_type?.slice(0, 4).map((cuisine, idx) => (
             <span key={cuisine}>
               {cuisine}
@@ -171,13 +171,13 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
 
         {/* Rating and Reviews */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100">
+          <div className="flex items-center gap-1 rounded-lg border border-emerald-100 bg-emerald-50 px-2 py-0.5">
             <Icon
               name="star"
               size={14}
-              className="text-emerald-600 fill-current"
+              className="fill-current text-emerald-600"
             />
-            <span className="text-emerald-700 font-semibold text-sm">
+            <span className="text-sm font-semibold text-emerald-700">
               {data.rating}
             </span>
           </div>
@@ -189,11 +189,11 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         </div>
 
         {/* Footer Info (Delivery Time & Veg Status) */}
-        <div className="mt-auto pt-2 border-t border-gray-100 flex items-center justify-between text-sm">
+        <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-2 text-sm">
           <span className="text-text-secondary font-medium">
             {data.delivery_time_mins} mins
           </span>
-          <span className="text-emerald-600 font-semibold">
+          <span className="font-semibold text-emerald-600">
             {data.is_veg ? 'Veg' : 'Non-Veg'}
           </span>
         </div>
@@ -201,7 +201,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         {/* Address (Street) */}
         <div className="">
           {data.address?.street && (
-            <p className="text-text-muted text-shadow-xs text-sm truncate">
+            <p className="text-text-muted truncate text-sm text-shadow-xs">
               {data.address.street}
             </p>
           )}

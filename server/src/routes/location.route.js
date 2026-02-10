@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
+
 import { getUserLocation } from '../controllers/location.controller.js';
+import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
 
 const locationRoute = Router();
 

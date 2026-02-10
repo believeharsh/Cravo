@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
 import Icon from '../../../components/ui/Icon';
 
 const FiltersAndSerachBar = ({
@@ -155,17 +156,17 @@ const FiltersAndSerachBar = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 right-0 left-0 z-40 transition-transform duration-300 ease-in-out ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
-      <div className="bg-white border-b border-border shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="border-border border-b bg-white shadow-md">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           {/* Desktop View */}
           <div className="hidden lg:block">
             <div className="flex items-center justify-between py-4">
               {/* Left Side - Quick Filters */}
-              <div className="flex items-center space-x-2 flex-1 overflow-x-auto scrollbar-hide">
+              <div className="scrollbar-hide flex flex-1 items-center space-x-2 overflow-x-auto">
                 {quickFilters.slice(0, 5).map(filter => {
                   const isActive = activeFilters[filter.id];
 
@@ -173,10 +174,10 @@ const FiltersAndSerachBar = ({
                     <button
                       key={filter.id}
                       onClick={() => handleQuickFilterToggle(filter.id)}
-                      className={`flex items-center space-x-2 px-3 py-2 rounded-xl font-medium transition-all duration-200 whitespace-nowrap border ${
+                      className={`flex items-center space-x-2 rounded-xl border px-3 py-2 font-medium whitespace-nowrap transition-all duration-200 ${
                         isActive
                           ? filter.activeColor
-                          : 'bg-bg-subtle text-text-secondary hover:bg-gray-100 border-border'
+                          : 'bg-bg-subtle text-text-secondary border-border hover:bg-gray-100'
                       }`}
                     >
                       {filter.icon && <Icon name={filter.icon} size={16} />}
@@ -187,12 +188,12 @@ const FiltersAndSerachBar = ({
               </div>
 
               {/* Right Side - Controls */}
-              <div className="flex items-center space-x-3 ml-4">
+              <div className="ml-4 flex items-center space-x-3">
                 {/* Search Bar */}
                 <form onSubmit={handleSearchSubmit} className="relative">
                   <Icon
                     name="search"
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400"
                     size={16}
                   />
                   <input
@@ -200,7 +201,7 @@ const FiltersAndSerachBar = ({
                     placeholder="Search restaurants..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="w-48 pl-10 pr-4 py-2 border border-border rounded-xl focus:outline-none focus:border-border-focus text-sm"
+                    className="border-border focus:border-border-focus w-48 rounded-xl border py-2 pr-4 pl-10 text-sm focus:outline-none"
                   />
                 </form>
 
@@ -208,7 +209,7 @@ const FiltersAndSerachBar = ({
                 <div className="relative" ref={sortByRef}>
                   <button
                     onClick={() => setIsSortByOpen(!isSortByOpen)}
-                    className="flex items-center space-x-2 px-4 py-2 bg-bg-subtle hover:bg-gray-100 rounded-xl font-medium text-text-secondary transition-colors duration-200 border border-border"
+                    className="bg-bg-subtle text-text-secondary border-border flex items-center space-x-2 rounded-xl border px-4 py-2 font-medium transition-colors duration-200 hover:bg-gray-100"
                   >
                     <span className="text-sm">Sort By</span>
                     <Icon
@@ -221,22 +222,22 @@ const FiltersAndSerachBar = ({
                   </button>
 
                   {isSortByOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-72 bg-white border border-border rounded-2xl shadow-lg">
-                      <div className="p-4 border-b border-gray-100">
-                        <h3 className="font-bold text-text-main">Sort By</h3>
+                    <div className="border-border absolute top-full right-0 mt-2 w-72 rounded-2xl border bg-white shadow-lg">
+                      <div className="border-b border-gray-100 p-4">
+                        <h3 className="text-text-main font-bold">Sort By</h3>
                       </div>
-                      <div className="p-2 max-h-64 overflow-y-auto">
+                      <div className="max-h-64 overflow-y-auto p-2">
                         {sortOptions.map(option => (
                           <button
                             key={option.id}
                             onClick={() => handleSortChange(option.id)}
-                            className="w-full flex items-center justify-between p-3 hover:bg-bg-subtle rounded-xl transition-colors"
+                            className="hover:bg-bg-subtle flex w-full items-center justify-between rounded-xl p-3 transition-colors"
                           >
                             <div className="text-left">
-                              <p className="font-medium text-text-main text-sm">
+                              <p className="text-text-main text-sm font-medium">
                                 {option.label}
                               </p>
-                              <p className="text-xs text-text-secondary">
+                              <p className="text-text-secondary text-xs">
                                 {option.description}
                               </p>
                             </div>
@@ -258,33 +259,35 @@ const FiltersAndSerachBar = ({
                 <div className="relative" ref={filterRef}>
                   <button
                     onClick={() => setIsFilterOpen(!isFilterOpen)}
-                    className="flex items-center space-x-2 px-4 py-2 bg-bg-subtle hover:bg-gray-100 rounded-xl font-medium text-text-secondary transition-colors duration-200 border border-border"
+                    className="bg-bg-subtle text-text-secondary border-border flex items-center space-x-2 rounded-xl border px-4 py-2 font-medium transition-colors duration-200 hover:bg-gray-100"
                   >
                     <Icon name="filter" size={16} />
                     <span className="text-sm">Filter</span>
                     {getActiveFiltersCount() > 0 && (
-                      <span className="bg-primary text-text-main text-xs font-bold px-2 py-1 rounded-full">
+                      <span className="bg-primary text-text-main rounded-full px-2 py-1 text-xs font-bold">
                         {getActiveFiltersCount()}
                       </span>
                     )}
                   </button>
 
                   {isFilterOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-80 bg-white border border-border rounded-2xl shadow-lg">
-                      <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                        <h3 className="font-bold text-text-main">All Filters</h3>
+                    <div className="border-border absolute top-full right-0 mt-2 w-80 rounded-2xl border bg-white shadow-lg">
+                      <div className="flex items-center justify-between border-b border-gray-100 p-4">
+                        <h3 className="text-text-main font-bold">
+                          All Filters
+                        </h3>
                         <button
                           onClick={clearAllFilters}
-                          className="text-yellow-400 hover:text-yellow-500 font-medium text-sm"
+                          className="text-sm font-medium text-yellow-400 hover:text-yellow-500"
                         >
                           Clear All
                         </button>
                       </div>
 
-                      <div className="p-4 max-h-80 overflow-y-auto">
+                      <div className="max-h-80 overflow-y-auto p-4">
                         <div className="space-y-4">
                           <div>
-                            <h4 className="font-semibold text-text-main mb-3">
+                            <h4 className="text-text-main mb-3 font-semibold">
                               Quick Filters
                             </h4>
                             <div className="grid grid-cols-2 gap-2">
@@ -297,10 +300,10 @@ const FiltersAndSerachBar = ({
                                     onClick={() =>
                                       handleQuickFilterToggle(filter.id)
                                     }
-                                    className={`flex items-center space-x-2 p-3 rounded-xl transition-all duration-200 border text-sm ${
+                                    className={`flex items-center space-x-2 rounded-xl border p-3 text-sm transition-all duration-200 ${
                                       isActive
                                         ? filter.activeColor
-                                        : 'bg-bg-subtle text-text-secondary hover:bg-gray-100 border-border'
+                                        : 'bg-bg-subtle text-text-secondary border-border hover:bg-gray-100'
                                     }`}
                                   >
                                     {filter.icon && (
@@ -315,10 +318,10 @@ const FiltersAndSerachBar = ({
                         </div>
                       </div>
 
-                      <div className="p-4 border-t border-gray-100">
+                      <div className="border-t border-gray-100 p-4">
                         <button
                           onClick={() => setIsFilterOpen(false)}
-                          className="w-full bg-primary hover:bg-primary-hover text-text-main font-semibold py-3 rounded-xl transition-colors duration-200"
+                          className="bg-primary hover:bg-primary-hover text-text-main w-full rounded-xl py-3 font-semibold transition-colors duration-200"
                         >
                           Apply Filters
                         </button>
@@ -332,20 +335,22 @@ const FiltersAndSerachBar = ({
             {/* Active Filters Display */}
             {getActiveFiltersCount() > 0 && (
               <div className="pb-4">
-                <div className="flex items-center space-x-2 flex-wrap">
-                  <span className="text-sm text-text-secondary">Active filters:</span>
+                <div className="flex flex-wrap items-center space-x-2">
+                  <span className="text-text-secondary text-sm">
+                    Active filters:
+                  </span>
                   {Object.entries(activeFilters).map(([key, isActive]) => {
                     if (!isActive) return null;
                     const filter = quickFilters.find(f => f.id === key);
                     return (
                       <span
                         key={key}
-                        className="inline-flex items-center space-x-1 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                        className="inline-flex items-center space-x-1 rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-800"
                       >
                         <span>{filter?.label}</span>
                         <button
                           onClick={() => handleQuickFilterToggle(key)}
-                          className="hover:bg-yellow-200 rounded-full p-0.5"
+                          className="rounded-full p-0.5 hover:bg-yellow-200"
                         >
                           <Icon name="x" size={12} />
                         </button>
@@ -354,7 +359,7 @@ const FiltersAndSerachBar = ({
                   })}
                   <button
                     onClick={clearAllFilters}
-                    className="text-sm text-text-muted hover:text-text-secondary underline"
+                    className="text-text-muted hover:text-text-secondary text-sm underline"
                   >
                     Clear all
                   </button>
@@ -364,9 +369,9 @@ const FiltersAndSerachBar = ({
           </div>
 
           {/* Mobile & Tablet View */}
-          <div className="lg:hidden py-3">
+          <div className="py-3 lg:hidden">
             {/* Top Row - Quick Filters Scroll */}
-            <div className="flex items-center space-x-2 overflow-x-auto scrollbar-hide pb-3">
+            <div className="scrollbar-hide flex items-center space-x-2 overflow-x-auto pb-3">
               {quickFilters.slice(0, 4).map(filter => {
                 const isActive = activeFilters[filter.id];
 
@@ -374,10 +379,10 @@ const FiltersAndSerachBar = ({
                   <button
                     key={filter.id}
                     onClick={() => handleQuickFilterToggle(filter.id)}
-                    className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap border text-xs ${
+                    className={`flex items-center space-x-1.5 rounded-lg border px-3 py-2 text-xs font-medium whitespace-nowrap transition-all duration-200 ${
                       isActive
                         ? filter.activeColor
-                        : 'bg-bg-subtle text-text-secondary hover:bg-gray-100 border-border'
+                        : 'bg-bg-subtle text-text-secondary border-border hover:bg-gray-100'
                     }`}
                   >
                     {filter.icon && <Icon name={filter.icon} size={14} />}
@@ -394,7 +399,7 @@ const FiltersAndSerachBar = ({
                 {!isSearchOpen ? (
                   <button
                     onClick={() => setIsSearchOpen(true)}
-                    className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-bg-subtle hover:bg-gray-100 rounded-lg font-medium text-text-secondary transition-colors duration-200 border border-border"
+                    className="bg-bg-subtle text-text-secondary border-border flex w-full items-center justify-center space-x-2 rounded-lg border px-3 py-2 font-medium transition-colors duration-200 hover:bg-gray-100"
                   >
                     <Icon name="search" size={16} />
                     <span className="text-sm">Search</span>
@@ -403,7 +408,7 @@ const FiltersAndSerachBar = ({
                   <form onSubmit={handleSearchSubmit} className="relative">
                     <Icon
                       name="search"
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                      className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400"
                       size={16}
                     />
                     <input
@@ -411,13 +416,13 @@ const FiltersAndSerachBar = ({
                       placeholder="Search..."
                       value={searchQuery}
                       onChange={e => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-10 py-2 border border-border rounded-lg focus:outline-none focus:border-border-focus text-sm"
+                      className="border-border focus:border-border-focus w-full rounded-lg border py-2 pr-10 pl-10 text-sm focus:outline-none"
                       autoFocus
                     />
                     <button
                       type="button"
                       onClick={() => setIsSearchOpen(false)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-text-secondary"
+                      className="hover:text-text-secondary absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-400"
                     >
                       <Icon name="x" size={16} />
                     </button>
@@ -429,29 +434,29 @@ const FiltersAndSerachBar = ({
               <div className="relative" ref={sortByRef}>
                 <button
                   onClick={() => setIsSortByOpen(!isSortByOpen)}
-                  className="flex items-center space-x-1.5 px-3 py-2 bg-bg-subtle hover:bg-gray-100 rounded-lg font-medium text-text-secondary transition-colors duration-200 border border-border"
+                  className="bg-bg-subtle text-text-secondary border-border flex items-center space-x-1.5 rounded-lg border px-3 py-2 font-medium transition-colors duration-200 hover:bg-gray-100"
                 >
                   <Icon name="arrow-up-down" size={16} />
                   <span className="text-sm">Sort</span>
                 </button>
 
                 {isSortByOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-72 bg-white border border-border rounded-2xl shadow-lg z-50">
-                    <div className="p-4 border-b border-gray-100">
-                      <h3 className="font-bold text-text-main">Sort By</h3>
+                  <div className="border-border absolute top-full right-0 z-50 mt-2 w-72 rounded-2xl border bg-white shadow-lg">
+                    <div className="border-b border-gray-100 p-4">
+                      <h3 className="text-text-main font-bold">Sort By</h3>
                     </div>
-                    <div className="p-2 max-h-64 overflow-y-auto">
+                    <div className="max-h-64 overflow-y-auto p-2">
                       {sortOptions.map(option => (
                         <button
                           key={option.id}
                           onClick={() => handleSortChange(option.id)}
-                          className="w-full flex items-center justify-between p-3 hover:bg-bg-subtle rounded-xl transition-colors"
+                          className="hover:bg-bg-subtle flex w-full items-center justify-between rounded-xl p-3 transition-colors"
                         >
                           <div className="text-left">
-                            <p className="font-medium text-text-main text-sm">
+                            <p className="text-text-main text-sm font-medium">
                               {option.label}
                             </p>
-                            <p className="text-xs text-text-secondary">
+                            <p className="text-text-secondary text-xs">
                               {option.description}
                             </p>
                           </div>
@@ -473,40 +478,42 @@ const FiltersAndSerachBar = ({
               <div className="relative" ref={filterRef}>
                 <button
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="flex items-center space-x-1.5 px-3 py-2 bg-bg-subtle hover:bg-gray-100 rounded-lg font-medium text-text-secondary transition-colors duration-200 border border-border"
+                  className="bg-bg-subtle text-text-secondary border-border flex items-center space-x-1.5 rounded-lg border px-3 py-2 font-medium transition-colors duration-200 hover:bg-gray-100"
                 >
                   <Icon name="filter" size={16} />
                   <span className="text-sm">Filter</span>
                   {getActiveFiltersCount() > 0 && (
-                    <span className="bg-primary text-text-main text-xs font-bold px-1.5 py-0.5 rounded-full">
+                    <span className="bg-primary text-text-main rounded-full px-1.5 py-0.5 text-xs font-bold">
                       {getActiveFiltersCount()}
                     </span>
                   )}
                 </button>
 
                 {isFilterOpen && (
-                  <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center sm:justify-center">
-                    <div className="bg-white w-full sm:w-96 sm:rounded-2xl rounded-t-2xl max-h-[85vh] flex flex-col">
-                      <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                        <h3 className="font-bold text-text-main">All Filters</h3>
+                  <div className="bg-opacity-50 fixed inset-0 z-50 flex items-end bg-black sm:items-center sm:justify-center">
+                    <div className="flex max-h-[85vh] w-full flex-col rounded-t-2xl bg-white sm:w-96 sm:rounded-2xl">
+                      <div className="flex items-center justify-between border-b border-gray-100 p-4">
+                        <h3 className="text-text-main font-bold">
+                          All Filters
+                        </h3>
                         <button
                           onClick={() => setIsFilterOpen(false)}
-                          className="text-gray-400 hover:text-text-secondary"
+                          className="hover:text-text-secondary text-gray-400"
                         >
                           <Icon name="x" size={24} />
                         </button>
                       </div>
 
-                      <div className="p-4 flex-1 overflow-y-auto">
+                      <div className="flex-1 overflow-y-auto p-4">
                         <div className="space-y-4">
                           <div>
-                            <div className="flex items-center justify-between mb-3">
-                              <h4 className="font-semibold text-text-main">
+                            <div className="mb-3 flex items-center justify-between">
+                              <h4 className="text-text-main font-semibold">
                                 Quick Filters
                               </h4>
                               <button
                                 onClick={clearAllFilters}
-                                className="text-yellow-400 hover:text-yellow-500 font-medium text-sm"
+                                className="text-sm font-medium text-yellow-400 hover:text-yellow-500"
                               >
                                 Clear All
                               </button>
@@ -521,10 +528,10 @@ const FiltersAndSerachBar = ({
                                     onClick={() =>
                                       handleQuickFilterToggle(filter.id)
                                     }
-                                    className={`flex items-center space-x-2 p-3 rounded-xl transition-all duration-200 border text-sm ${
+                                    className={`flex items-center space-x-2 rounded-xl border p-3 text-sm transition-all duration-200 ${
                                       isActive
                                         ? filter.activeColor
-                                        : 'bg-bg-subtle text-text-secondary hover:bg-gray-100 border-border'
+                                        : 'bg-bg-subtle text-text-secondary border-border hover:bg-gray-100'
                                     }`}
                                   >
                                     {filter.icon && (
@@ -539,10 +546,10 @@ const FiltersAndSerachBar = ({
                         </div>
                       </div>
 
-                      <div className="p-4 border-t border-gray-100">
+                      <div className="border-t border-gray-100 p-4">
                         <button
                           onClick={() => setIsFilterOpen(false)}
-                          className="w-full bg-primary hover:bg-primary-hover text-text-main font-semibold py-3 rounded-xl transition-colors duration-200"
+                          className="bg-primary hover:bg-primary-hover text-text-main w-full rounded-xl py-3 font-semibold transition-colors duration-200"
                         >
                           Apply Filters
                         </button>
@@ -556,8 +563,8 @@ const FiltersAndSerachBar = ({
             {/* Active Filters Display - Mobile */}
             {getActiveFiltersCount() > 0 && (
               <div className="pt-3">
-                <div className="flex items-center space-x-2 overflow-x-auto scrollbar-hide">
-                  <span className="text-xs text-text-secondary whitespace-nowrap">
+                <div className="scrollbar-hide flex items-center space-x-2 overflow-x-auto">
+                  <span className="text-text-secondary text-xs whitespace-nowrap">
                     Active:
                   </span>
                   {Object.entries(activeFilters).map(([key, isActive]) => {
@@ -566,12 +573,12 @@ const FiltersAndSerachBar = ({
                     return (
                       <span
                         key={key}
-                        className="inline-flex items-center space-x-1 bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs whitespace-nowrap"
+                        className="inline-flex items-center space-x-1 rounded-full bg-yellow-100 px-2 py-1 text-xs whitespace-nowrap text-yellow-800"
                       >
                         <span>{filter?.label}</span>
                         <button
                           onClick={() => handleQuickFilterToggle(key)}
-                          className="hover:bg-yellow-200 rounded-full p-0.5"
+                          className="rounded-full p-0.5 hover:bg-yellow-200"
                         >
                           <Icon name="x" size={10} />
                         </button>
@@ -580,7 +587,7 @@ const FiltersAndSerachBar = ({
                   })}
                   <button
                     onClick={clearAllFilters}
-                    className="text-xs text-text-muted hover:text-text-secondary underline whitespace-nowrap"
+                    className="text-text-muted hover:text-text-secondary text-xs whitespace-nowrap underline"
                   >
                     Clear all
                   </button>

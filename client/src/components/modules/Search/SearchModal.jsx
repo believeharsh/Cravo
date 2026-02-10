@@ -1,6 +1,7 @@
 import React from 'react';
-import Icon from '../../ui/Icon';
+
 import Button from '../../ui/Button';
+import Icon from '../../ui/Icon';
 
 const SearchModal = ({
   isOpen,
@@ -12,21 +13,21 @@ const SearchModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 transition-transform duration-300 transform scale-100 opacity-100">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-start justify-center bg-black p-4 backdrop-blur-sm transition-opacity duration-300">
+      <div className="relative w-full max-w-2xl scale-100 transform rounded-2xl bg-white p-6 opacity-100 shadow-xl transition-transform duration-300">
         <Button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-text-secondary transition-colors"
+          className="hover:text-text-secondary absolute top-4 right-4 text-gray-400 transition-colors"
           variant="ghost"
         >
           <Icon name="x" size={24} />
         </Button>
-        <h2 className="text-2xl font-bold text-text-main mb-6">Search</h2>
-        <form onSubmit={onSearchSubmit} className="w-full relative">
+        <h2 className="text-text-main mb-6 text-2xl font-bold">Search</h2>
+        <form onSubmit={onSearchSubmit} className="relative w-full">
           <div className="relative">
             <Icon
               name="search"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-muted cursor-pointer"
+              className="text-text-muted absolute top-1/2 left-4 -translate-y-1/2 transform cursor-pointer"
               size={20}
             />
             <input
@@ -34,13 +35,13 @@ const SearchModal = ({
               placeholder="Search for restaurants, cuisines, or dishes..."
               value={searchQuery}
               onChange={onSearchChange}
-              className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-text-main font-medium transition-colors duration-200"
+              className="text-text-main w-full rounded-xl bg-gray-100 py-3 pr-4 pl-12 font-medium transition-colors duration-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
               autoFocus
             />
           </div>
         </form>
         <div className="mt-6">
-          <p className="text-sm text-text-muted">
+          <p className="text-text-muted text-sm">
             Start typing to explore options...
           </p>
         </div>

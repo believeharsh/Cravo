@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import {
   selectCartTotalQuantity,
   selectCartTotalValue,
 } from '../../../features/cart/cartSelectors';
-import { useNavigate } from 'react-router-dom';
 
 const CartStatusSection = () => {
   const cartCount = useSelector(selectCartTotalQuantity);
@@ -16,8 +17,8 @@ const CartStatusSection = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 text-white p-2 shadow-lg rounded-t-2xl">
-      <div className="max-w-md mx-auto flex items-center justify-between">
+    <div className="fixed right-0 bottom-0 left-0 z-50 rounded-t-2xl bg-gray-900 p-2 text-white shadow-lg">
+      <div className="mx-auto flex max-w-md items-center justify-between">
         <div className="flex items-center space-x-4">
           <span className="text-sm font-semibold">
             {cartCount} {cartCount === 1 ? 'item' : 'items'} added
@@ -28,7 +29,7 @@ const CartStatusSection = () => {
           onClick={() => {
             Navigate('/cart');
           }}
-          className="px-6 py-2 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors cursor-pointer"
+          className="bg-primary text-text-main hover:bg-primary-hover cursor-pointer rounded-full px-6 py-2 font-semibold transition-colors"
         >
           View Cart
         </button>

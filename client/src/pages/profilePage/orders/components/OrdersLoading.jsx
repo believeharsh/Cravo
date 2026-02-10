@@ -2,9 +2,9 @@ import React from 'react';
 
 const OrdersLoading = () => {
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-center h-64">
-        <div className="w-12 h-12 border-4 border-border-focus border-t-transparent rounded-full animate-spin"></div>
+    <div className="mx-auto max-w-5xl space-y-6">
+      <div className="flex h-64 items-center justify-center">
+        <div className="border-border-focus h-12 w-12 animate-spin rounded-full border-4 border-t-transparent"></div>
       </div>
     </div>
   );

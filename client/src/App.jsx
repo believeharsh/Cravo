@@ -1,45 +1,40 @@
-import './App.css';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-
-import CategoryResultPage from './pages/categoryResultPage/CategoryResultpage';
-import OffersPage from './pages/offersPage/OffersPage';
-import AdminPage from './pages/adminPage/AdminPage';
-import LandingPage from './pages/landingPage/LandingPage';
-
-import RestaurantsOverviewPage from './pages/restaurant-Overview-Page/RestaurantsOverviewPage';
-import CartPage from './pages/cartPage/CartPage';
-import Settings from './pages/profilePage/Settings';
-import HelpSupport from './pages/profilePage/Help-Support';
-import Orders from './pages/profilePage/orders/Orders';
-import Payments from './pages/profilePage/Payment';
-import AddressPage from './pages/profilePage/Address/Address';
-import AccountPage from './pages/profilePage/Account/AccountPage';
-
-import ProfileLayout from './components/ProfileLayout';
-import NotFound from './components/NotFound';
-import CorporatePage from './pages/corporatePage/CorporatePage';
-import PrivateRoute from './components/PrivateRoute';
-
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UnauthorizedPage from './components/UnAuthorizedPage';
-import { initializeApplication } from './features/landing/landingSlice';
-import DeliveryLoader from './components/DeliveryLoader';
-import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
+import './App.css';
+import DeliveryLoader from './components/DeliveryLoader';
+import NotFound from './components/NotFound';
+import PrivateRoute from './components/PrivateRoute';
+import ProfileLayout from './components/ProfileLayout';
+import UnauthorizedPage from './components/UnAuthorizedPage';
 // modules import
 import AuthSidebar from './components/modules/auth/AuthSidebar';
 import WishlistModal from './components/modules/wishList/WishListSelectionModal';
-
-import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
-import { fetchAllWishlists } from './features/wishList/wishListSlice';
-import { fetchUserCart } from './features/cart/cartSlice';
-import { closeAuthSidebar } from './features/ui/uiSlice';
 import { fetchAllAddresses } from './features/address/addressSlice';
-import CravoGetTheAPP from './pages/getTheApp/GetTheAppPage';
-import DineoutRestaurantPage from './pages/dineoutRestaurantsPage/DineOutRestaurantPage';
-import { AllUserOrdersThunk } from './features/orders/ordersSlice';
 import { getUserProfileData } from './features/auth/authSlice';
+import { fetchUserCart } from './features/cart/cartSlice';
+import { initializeApplication } from './features/landing/landingSlice';
+import { AllUserOrdersThunk } from './features/orders/ordersSlice';
+import { closeAuthSidebar } from './features/ui/uiSlice';
+import { fetchAllWishlists } from './features/wishList/wishListSlice';
+import RestaurantMenuPage from './pages/Restaurant-Details/RestaurantMenu';
+import AdminPage from './pages/adminPage/AdminPage';
+import CartPage from './pages/cartPage/CartPage';
+import CategoryResultPage from './pages/categoryResultPage/CategoryResultpage';
+import CorporatePage from './pages/corporatePage/CorporatePage';
+import DineoutRestaurantPage from './pages/dineoutRestaurantsPage/DineOutRestaurantPage';
+import CravoGetTheAPP from './pages/getTheApp/GetTheAppPage';
+import LandingPage from './pages/landingPage/LandingPage';
+import OffersPage from './pages/offersPage/OffersPage';
+import AccountPage from './pages/profilePage/Account/AccountPage';
+import AddressPage from './pages/profilePage/Address/Address';
+import HelpSupport from './pages/profilePage/Help-Support';
+import Payments from './pages/profilePage/Payment';
+import Settings from './pages/profilePage/Settings';
+import FavoritesPage from './pages/profilePage/favorites/FavoritesPage';
+import Orders from './pages/profilePage/orders/Orders';
+import RestaurantsOverviewPage from './pages/restaurant-Overview-Page/RestaurantsOverviewPage';
 
 function AppContent() {
   return (

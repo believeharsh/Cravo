@@ -11,7 +11,7 @@ on:
 jobs:
   deploy-client:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,6 +39,6 @@ jobs:
       - name: Deploy to Render (Client Staging)
         run: |
           curl -X POST ${{ secrets.RENDER_CLIENT_STAGING_DEPLOY_HOOK }}
-          
+
       - name: Deployment status
         run: echo "Client deployed to Staging successfully!"

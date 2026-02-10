@@ -1,10 +1,10 @@
 import Category from '../models/category.model.js';
+import City from '../models/city.model.js';
 import Product from '../models/product.model.js';
 import Restaurant from '../models/restaurant.model.js';
-import { asyncHandler } from '../services/asyncHandler.js';
-import { apiResponse } from '../services/apiResponse.js';
 import { apiError } from '../services/apiError.js';
-import City from '../models/city.model.js';
+import { apiResponse } from '../services/apiResponse.js';
+import { asyncHandler } from '../services/asyncHandler.js';
 
 /**
  * @description Get products based on optional query filters (category, city, etc.)

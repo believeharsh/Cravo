@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 import {
-  Search,
-  Tag,
-  Gift,
-  Percent,
-  Truck,
-  Star,
+  Check,
+  ChevronRight,
   Clock,
   Copy,
-  Check,
+  Gift,
+  Percent,
+  Search,
   Sparkles,
+  Star,
+  Tag,
   TrendingUp,
-  ChevronRight,
+  Truck,
 } from 'lucide-react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const OffersPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -211,13 +212,13 @@ const OffersPage = () => {
   const getOfferIcon = type => {
     switch (type) {
       case 'percentage':
-        return <Percent className="w-4 h-4" />;
+        return <Percent className="h-4 w-4" />;
       case 'bogo':
-        return <Gift className="w-4 h-4" />;
+        return <Gift className="h-4 w-4" />;
       case 'free_delivery':
-        return <Truck className="w-4 h-4" />;
+        return <Truck className="h-4 w-4" />;
       default:
-        return <Tag className="w-4 h-4" />;
+        return <Tag className="h-4 w-4" />;
     }
   };
 
@@ -240,72 +241,72 @@ const OffersPage = () => {
         <img
           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80"
           alt="Delicious Food"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         />
 
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/50"></div>
 
         {/* Animated Accent */}
-        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="bg-primary/20 absolute top-20 right-20 h-72 w-72 animate-pulse rounded-full blur-3xl"></div>
 
         {/* Content */}
-        <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
+        <div className="relative mx-auto flex h-full max-w-7xl items-center px-4">
           <div className="max-w-3xl">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-xl border border-border-focus/30 text-yellow-400 px-5 py-2.5 rounded-full text-sm font-bold mb-6 shadow-lg">
-              <Sparkles className="w-4 h-4" />
+            <div className="bg-primary/20 border-border-focus/30 mb-6 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-bold text-yellow-400 shadow-lg backdrop-blur-xl">
+              <Sparkles className="h-4 w-4" />
               Limited Time Offers
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="mb-6 text-5xl leading-tight font-bold md:text-6xl lg:text-7xl">
               <span className="text-white">Grab Amazing</span>
               <br />
               <span className="text-yellow-400">Deals & Save Big! 🍛</span>
             </h1>
 
             {/* Description */}
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+            <p className="mb-8 text-xl leading-relaxed text-gray-200 md:text-2xl">
               Discover exclusive offers from your favorite restaurants. More
               savings, more happiness!
             </p>
 
             {/* Stats */}
             <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-3 py-2">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                  <Tag className="w-6 h-6 text-text-main" />
+              <div className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-xl">
+                <div className="bg-primary flex h-10 w-10 items-center justify-center rounded-xl">
+                  <Tag className="text-text-main h-6 w-6" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">
                     {allOffers.length}+
                   </p>
-                  <p className="text-xs text-gray-300 font-medium">
+                  <p className="text-xs font-medium text-gray-300">
                     Active Offers
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-3 py-2">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-text-main" />
+              <div className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-xl">
+                <div className="bg-primary flex h-10 w-10 items-center justify-center rounded-xl">
+                  <TrendingUp className="text-text-main h-6 w-6" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">50%</p>
-                  <p className="text-xs text-gray-300 font-medium">
+                  <p className="text-xs font-medium text-gray-300">
                     Max Discount
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-3 py-2">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                  <Gift className="w-6 h-6 text-text-main" />
+              <div className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-xl">
+                <div className="bg-primary flex h-10 w-10 items-center justify-center rounded-xl">
+                  <Gift className="text-text-main h-6 w-6" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">BOGO</p>
-                  <p className="text-xs text-gray-300 font-medium">
+                  <p className="text-xs font-medium text-gray-300">
                     Free Deals
                   </p>
                 </div>
@@ -316,18 +317,18 @@ const OffersPage = () => {
       </div>
 
       {/* Search & Filter Section */}
-      <div className="max-w-7xl mx-auto px-4 -mt-8 relative z-10">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-          <div className="flex flex-col lg:flex-row gap-4">
+      <div className="relative z-10 mx-auto -mt-8 max-w-7xl px-4">
+        <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xl">
+          <div className="flex flex-col gap-4 lg:flex-row">
             {/* Search Bar */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="relative flex-1">
+              <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search for offers, restaurants, or cuisines..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                className="border-border w-full rounded-xl border py-3 pr-4 pl-12 focus:border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none"
               />
             </div>
 
@@ -337,7 +338,7 @@ const OffersPage = () => {
                 <button
                   key={cat.key}
                   onClick={() => setSelectedCategory(cat.key)}
-                  className={`px-4 py-2.5 rounded-xl font-semibold transition-all ${
+                  className={`rounded-xl px-4 py-2.5 font-semibold transition-all ${
                     selectedCategory === cat.key
                       ? 'bg-primary text-text-main shadow-lg shadow-yellow-200'
                       : 'bg-bg-subtle text-text-secondary hover:bg-gray-100'
@@ -352,56 +353,56 @@ const OffersPage = () => {
       </div>
 
       {/* Featured Offers Section */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-6">
+      <div className="mx-auto max-w-7xl px-4 py-12">
+        <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-primary-hover rounded-xl flex items-center justify-center shadow-lg">
-              <Sparkles className="w-5 h-5 text-text-main" />
+            <div className="to-primary-hover flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-400 shadow-lg">
+              <Sparkles className="text-text-main h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-text-main">
+              <h2 className="text-text-main text-2xl font-bold">
                 Featured Offers
               </h2>
-              <p className="text-sm text-text-secondary">
+              <p className="text-text-secondary text-sm">
                 Hot deals you don't want to miss
               </p>
             </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filterOffers(featuredOffers).map(offer => (
             <div
               key={offer.id}
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300"
+              className="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all duration-300 hover:shadow-2xl"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
                 <img
                   src={offer.image}
                   alt={offer.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
                 {/* Badges */}
                 <div className="absolute top-3 left-3 flex gap-2">
                   {offer.isNew && (
-                    <span className="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
+                    <span className="rounded-full bg-green-500 px-3 py-1 text-xs font-bold text-white">
                       NEW
                     </span>
                   )}
                   {offer.isTrending && (
-                    <span className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3" />
+                    <span className="flex items-center gap-1 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white">
+                      <TrendingUp className="h-3 w-3" />
                       HOT
                     </span>
                   )}
                 </div>
 
                 {/* Discount Badge */}
-                <div className="absolute top-3 right-3 w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-xl">
-                  <span className="text-text-main font-bold text-lg">
+                <div className="bg-primary absolute top-3 right-3 flex h-16 w-16 items-center justify-center rounded-full shadow-xl">
+                  <span className="text-text-main text-lg font-bold">
                     {offer.discount}
                   </span>
                 </div>
@@ -410,8 +411,8 @@ const OffersPage = () => {
               {/* Content */}
               <div className="p-5">
                 {/* Type Badge */}
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-600">
+                <div className="mb-3 flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-yellow-100 text-yellow-600">
                     {getOfferIcon(offer.type)}
                   </div>
                   <span className="text-sm font-semibold text-yellow-600 capitalize">
@@ -419,26 +420,26 @@ const OffersPage = () => {
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-text-main mb-2 line-clamp-2">
+                <h3 className="text-text-main mb-2 line-clamp-2 text-lg font-bold">
                   {offer.title}
                 </h3>
-                <p className="text-sm text-text-secondary mb-4 line-clamp-2">
+                <p className="text-text-secondary mb-4 line-clamp-2 text-sm">
                   {offer.description}
                 </p>
 
                 {/* Restaurant Info */}
-                <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
+                <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-4">
                   <div>
-                    <p className="text-sm font-semibold text-text-main">
+                    <p className="text-text-main text-sm font-semibold">
                       {offer.restaurant.name}
                     </p>
-                    <div className="flex items-center gap-3 text-xs text-text-secondary mt-1">
+                    <div className="text-text-secondary mt-1 flex items-center gap-3 text-xs">
                       <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                         {offer.restaurant.rating}
                       </div>
                       <div className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
+                        <Clock className="h-3 w-3" />
                         {offer.restaurant.deliveryTime} min
                       </div>
                     </div>
@@ -447,7 +448,7 @@ const OffersPage = () => {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between">
-                  <div className="text-xs text-text-secondary">
+                  <div className="text-text-secondary text-xs">
                     <p>Min: ${offer.minOrder}</p>
                     <p>
                       Valid till{' '}
@@ -459,16 +460,16 @@ const OffersPage = () => {
                   </div>
                   <button
                     onClick={() => handleCopyCode(offer)}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-text-main rounded-xl font-semibold transition-colors"
+                    className="bg-primary hover:bg-primary-hover text-text-main flex items-center gap-2 rounded-xl px-4 py-2 font-semibold transition-colors"
                   >
                     {copiedId === offer.id ? (
                       <>
-                        <Check className="w-4 h-4" />
+                        <Check className="h-4 w-4" />
                         Copied
                       </>
                     ) : (
                       <>
-                        <Copy className="w-4 h-4" />
+                        <Copy className="h-4 w-4" />
                         {offer.code}
                       </>
                     )}
@@ -481,35 +482,35 @@ const OffersPage = () => {
       </div>
 
       {/* More Offers Section */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center">
-            <Tag className="w-5 h-5 text-yellow-400" />
+      <div className="mx-auto max-w-7xl px-4 pb-16">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900">
+            <Tag className="h-5 w-5 text-yellow-400" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-text-main">
+            <h2 className="text-text-main text-2xl font-bold">
               More Great Deals
             </h2>
-            <p className="text-sm text-text-secondary">
+            <p className="text-text-secondary text-sm">
               Additional offers just for you
             </p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filterOffers(regularOffers).map(offer => (
             <div
               key={offer.id}
-              className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all"
+              className="overflow-hidden rounded-2xl border border-gray-100 bg-white transition-all hover:shadow-xl"
             >
               <div className="relative h-40">
                 <img
                   src={offer.image}
                   alt={offer.title}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute top-3 right-3 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                <div className="bg-primary absolute top-3 right-3 flex h-14 w-14 items-center justify-center rounded-full shadow-lg">
                   <span className="text-text-main font-bold">
                     {offer.discount}
                   </span>
@@ -517,18 +518,18 @@ const OffersPage = () => {
               </div>
 
               <div className="p-4">
-                <h3 className="font-bold text-text-main mb-2">{offer.title}</h3>
-                <p className="text-sm text-text-secondary mb-4">
+                <h3 className="text-text-main mb-2 font-bold">{offer.title}</h3>
+                <p className="text-text-secondary mb-4 text-sm">
                   {offer.description}
                 </p>
 
-                <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
-                  <div className="text-xs text-text-secondary">
-                    <p className="font-semibold text-text-main">
+                <div className="mb-3 flex items-center justify-between border-b border-gray-100 pb-3">
+                  <div className="text-text-secondary text-xs">
+                    <p className="text-text-main font-semibold">
                       {offer.restaurant.name}
                     </p>
-                    <p className="flex items-center gap-1 mt-1">
-                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                    <p className="mt-1 flex items-center gap-1">
+                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                       {offer.restaurant.rating}
                     </p>
                   </div>
@@ -536,16 +537,16 @@ const OffersPage = () => {
 
                 <button
                   onClick={() => handleCopyCode(offer)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-semibold transition-colors"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 font-semibold text-white transition-colors hover:bg-gray-800"
                 >
                   {copiedId === offer.id ? (
                     <>
-                      <Check className="w-4 h-4" />
+                      <Check className="h-4 w-4" />
                       Copied!
                     </>
                   ) : (
                     <>
-                      <Copy className="w-4 h-4" />
+                      <Copy className="h-4 w-4" />
                       {offer.code}
                     </>
                   )}
@@ -557,24 +558,24 @@ const OffersPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="bg-gradient-to-r from-yellow-400 to-primary-hover rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+      <div className="mx-auto max-w-7xl px-4 pb-16">
+        <div className="to-primary-hover relative overflow-hidden rounded-3xl bg-gradient-to-r from-yellow-400 p-8 text-center md:p-12">
+          <div className="absolute top-0 right-0 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
 
           <div className="relative">
-            <h2 className="text-3xl md:text-4xl font-bold text-text-main mb-4">
+            <h2 className="text-text-main mb-4 text-3xl font-bold md:text-4xl">
               Don't Miss Out on These Deals!
             </h2>
-            <p className="text-lg text-text-main mb-6">
+            <p className="text-text-main mb-6 text-lg">
               Start ordering now and enjoy incredible savings on your favorite
               meals
             </p>
 
             <Link to={'/restaurants'}>
-              <button className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-xl">
+              <button className="inline-flex items-center gap-2 rounded-2xl bg-gray-900 px-8 py-4 font-bold text-white shadow-xl transition-all hover:bg-gray-800">
                 Browse All Restaurants
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="h-5 w-5" />
               </button>
             </Link>
           </div>

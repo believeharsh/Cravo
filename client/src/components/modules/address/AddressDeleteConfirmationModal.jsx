@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { useAddressActions } from '../../../hooks/useAddressActions';
 
 const AddressDeleteConfirmationModal = () => {
@@ -9,9 +10,9 @@ const AddressDeleteConfirmationModal = () => {
     useAddressActions();
 
   return (
-    <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm text-center">
-        <h2 className="text-2xl font-bold text-text-main mb-4">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-2xl">
+        <h2 className="text-text-main mb-4 text-2xl font-bold">
           Confirm Deletion
         </h2>
         <p className="text-text-secondary mb-6">
@@ -21,13 +22,13 @@ const AddressDeleteConfirmationModal = () => {
         <div className="flex justify-center gap-4">
           <button
             onClick={handleCloseDeleteAddressModal}
-            className="px-6 py-3 text-text-main bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+            className="text-text-main rounded-lg bg-gray-200 px-6 py-3 transition-colors hover:bg-gray-300"
           >
             Cancel
           </button>
           <button
             onClick={() => handleDeleteAddress(deleteAddressID)}
-            className="cursor-pointer px-6 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"
+            className="cursor-pointer rounded-lg bg-red-500 px-6 py-3 text-white transition-colors hover:bg-red-600"
           >
             Delete
           </button>

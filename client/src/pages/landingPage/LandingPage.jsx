@@ -1,18 +1,19 @@
 import React from 'react';
-import CitiesSection from './sections/CitiesSection';
-import LandingNavigation from './sections/NavigationSection';
-import Hero from './sections/HeroSection';
-import CategoriesSlider from './sections/CategoriesSection';
-import RestaurantsSection from './sections/RestaurantsSection';
-import AuthSidebar from '../../components/modules/auth/AuthSidebar';
+
 import Footer from '../../components/Footer';
-import GetTheAppSection from './sections/GetTheAppSection';
+import AuthSidebar from '../../components/modules/auth/AuthSidebar';
+import CategoriesSlider from './sections/CategoriesSection';
+import CitiesSection from './sections/CitiesSection';
 import BestDineOutSection from './sections/DineOutRestaurantSection';
+import GetTheAppSection from './sections/GetTheAppSection';
+import Hero from './sections/HeroSection';
+import LandingNavigation from './sections/NavigationSection';
+import RestaurantsSection from './sections/RestaurantsSection';
 
 const LandingPage = () => {
   return (
     <div className="">
-      <div className=" bg-white font-helvetica">
+      <div className="font-helvetica bg-white">
         {/* Hero Section */}
         <section className="bg-primary">
           <LandingNavigation />

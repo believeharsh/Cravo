@@ -25,11 +25,11 @@ const restaurants = [
 /*  Single card                                                       */
 /* ------------------------------------------------------------------ */
 const CuisineCard = ({ r }) => (
-  <div className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden">
+  <div className="overflow-hidden rounded-2xl bg-white shadow transition hover:shadow-lg">
     {/* text */}
     <div className="p-4">
-      <h3 className="font-bold text-text-main">{r.name}</h3>
-      <p className="text-xs text-text-muted mt-1">{r.cuisine} cuisine</p>
+      <h3 className="text-text-main font-bold">{r.name}</h3>
+      <p className="text-text-muted mt-1 text-xs">{r.cuisine} cuisine</p>
     </div>
   </div>
 );
@@ -38,14 +38,14 @@ const CuisineCard = ({ r }) => (
 /*  Main grid component                                               */
 /* ------------------------------------------------------------------ */
 const NearbyCuisineGrid = () => (
-  <section className="py-12 bg-bg-subtle">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6">
-      <h2 className="text-3xl lg:text-4xl font-bold text-text-main mb-8">
+  <section className="bg-bg-subtle py-12">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <h2 className="text-text-main mb-8 text-3xl font-bold lg:text-4xl">
         Best Cuisines Near You
       </h2>
 
       {/* responsive grid — 1 / 2 / 4 cols */}
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {restaurants.map(r => (
           <CuisineCard key={r.id} r={r} />
         ))}

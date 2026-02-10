@@ -1,19 +1,19 @@
-import User from '../models/user.model.js';
-import { asyncHandler } from '../services/asyncHandler.js';
-import { apiResponse } from '../services/apiResponse.js';
-import { apiError } from '../services/apiError.js';
-import { generateUsername } from '../services/generateUserName.js';
 import JWT from 'jsonwebtoken';
+
+import { config } from '../config/app.config.js';
+import { EnvConfig } from '../config/env.config.js';
+import User from '../models/user.model.js';
+import { apiError } from '../services/apiError.js';
+import { apiResponse } from '../services/apiResponse.js';
+import { asyncHandler } from '../services/asyncHandler.js';
 import { sendVerificationOTP } from '../services/emailService.js';
+import { generateUsername } from '../services/generateUserName.js';
+import { createDefaultLists } from '../services/user.service.js';
 import {
   createAccessToken,
   createRefreshToken,
 } from '../services/userTokens.js';
-import { config } from '../config/app.config.js';
-
-import { createDefaultLists } from '../services/user.service.js';
 import { formatJoinDate } from '../utils/UserInfomationUtils.js';
-import { EnvConfig } from '../config/env.config.js';
 
 const initiateGoogleAuth = asyncHandler(async (req, res, next) => {
   // Get client origin from query or header

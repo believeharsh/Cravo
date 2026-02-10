@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
+
 import {
-  Search,
+  AlertCircle,
   ChevronDown,
   ChevronUp,
-  ThumbsUp,
-  ThumbsDown,
-  MessageCircle,
-  Phone,
-  Mail,
-  Package,
-  AlertCircle,
-  User,
   CreditCard,
-  Send,
-  X,
-  HelpCircle,
-  FileText,
-  Video,
-  Shield,
-  Settings,
   ExternalLink,
+  FileText,
+  HelpCircle,
+  Mail,
+  MessageCircle,
+  Package,
   Paperclip,
+  Phone,
+  Search,
+  Send,
+  Settings,
+  Shield,
+  ThumbsDown,
+  ThumbsUp,
+  User,
+  Video,
+  X,
 } from 'lucide-react';
 
 const HelpSupport = () => {
@@ -227,7 +228,7 @@ const HelpSupport = () => {
   const FAQTab = () => (
     <div className="space-y-6">
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {quickActions.map(action => {
           const Icon = action.icon;
           return (
@@ -236,29 +237,31 @@ const HelpSupport = () => {
               onClick={() => {
                 if (action.title === 'Report Issue') setShowContactForm(true);
               }}
-              className="p-4 bg-white rounded-2xl border border-border hover:border-border-focus hover:shadow-lg transition-all text-left group"
+              className="border-border hover:border-border-focus group rounded-2xl border bg-white p-4 text-left transition-all hover:shadow-lg"
             >
-              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-yellow-200 transition-colors">
-                <Icon className="w-6 h-6 text-yellow-600" />
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-100 transition-colors group-hover:bg-yellow-200">
+                <Icon className="h-6 w-6 text-yellow-600" />
               </div>
-              <h3 className="font-bold text-text-main text-sm mb-1">
+              <h3 className="text-text-main mb-1 text-sm font-bold">
                 {action.title}
               </h3>
-              <p className="text-xs text-text-secondary">{action.description}</p>
+              <p className="text-text-secondary text-xs">
+                {action.description}
+              </p>
             </button>
           );
         })}
       </div>
 
       {/* Search & Filters */}
-      <div className="bg-white rounded-2xl border border-border p-6 space-y-4">
+      <div className="border-border space-y-4 rounded-2xl border bg-white p-6">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400" />
           <input
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             placeholder="Search frequently asked questions..."
-            className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+            className="w-full rounded-xl border border-gray-300 py-3 pr-4 pl-12 focus:border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none"
           />
         </div>
 
@@ -269,13 +272,13 @@ const HelpSupport = () => {
               <button
                 key={cat.key}
                 onClick={() => setSelectedCategory(cat.key)}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${
+                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 font-semibold transition-all ${
                   selectedCategory === cat.key
                     ? 'bg-primary text-text-main shadow-lg'
-                    : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                    : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="h-4 w-4" />
                 {cat.label}
               </button>
             );
@@ -286,9 +289,9 @@ const HelpSupport = () => {
       {/* FAQ List */}
       <div className="space-y-3">
         {filteredFaqs.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-border p-12 text-center">
-            <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-text-main mb-2">
+          <div className="border-border rounded-2xl border bg-white p-12 text-center">
+            <HelpCircle className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+            <h3 className="text-text-main mb-2 text-xl font-bold">
               No FAQs found
             </h3>
             <p className="text-text-secondary">
@@ -299,39 +302,39 @@ const HelpSupport = () => {
           filteredFaqs.map(faq => (
             <div
               key={faq.id}
-              className="bg-white rounded-2xl border border-border overflow-hidden"
+              className="border-border overflow-hidden rounded-2xl border bg-white"
             >
               <button
                 onClick={() =>
                   setExpandedFaq(expandedFaq === faq.id ? null : faq.id)
                 }
-                className="w-full p-5 flex items-center justify-between text-left hover:bg-bg-subtle transition-colors"
+                className="hover:bg-bg-subtle flex w-full items-center justify-between p-5 text-left transition-colors"
               >
-                <h3 className="font-semibold text-text-main pr-4">
+                <h3 className="text-text-main pr-4 font-semibold">
                   {faq.question}
                 </h3>
                 {expandedFaq === faq.id ? (
-                  <ChevronUp className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  <ChevronUp className="h-5 w-5 flex-shrink-0 text-gray-400" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  <ChevronDown className="h-5 w-5 flex-shrink-0 text-gray-400" />
                 )}
               </button>
 
               {expandedFaq === faq.id && (
-                <div className="px-5 pb-5 border-t border-gray-100">
+                <div className="border-t border-gray-100 px-5 pb-5">
                   <p className="text-text-secondary mt-4 leading-relaxed">
                     {faq.answer}
                   </p>
-                  <div className="flex items-center gap-3 mt-4">
-                    <span className="text-sm text-text-secondary">
+                  <div className="mt-4 flex items-center gap-3">
+                    <span className="text-text-secondary text-sm">
                       Was this helpful?
                     </span>
-                    <button className="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium">
-                      <ThumbsUp className="w-4 h-4" />
+                    <button className="inline-flex items-center gap-1 rounded-lg bg-green-50 px-3 py-1 text-sm font-medium text-green-700 transition-colors hover:bg-green-100">
+                      <ThumbsUp className="h-4 w-4" />
                       {faq.helpful}
                     </button>
-                    <button className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium">
-                      <ThumbsDown className="w-4 h-4" />
+                    <button className="inline-flex items-center gap-1 rounded-lg bg-red-50 px-3 py-1 text-sm font-medium text-red-700 transition-colors hover:bg-red-100">
+                      <ThumbsDown className="h-4 w-4" />
                       {faq.notHelpful}
                     </button>
                   </div>
@@ -347,7 +350,7 @@ const HelpSupport = () => {
   const ContactTab = () => (
     <div className="space-y-6">
       {/* Contact Methods */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid gap-4 md:grid-cols-3">
         {contactMethods.map(method => {
           const Icon = method.icon;
           return (
@@ -356,17 +359,19 @@ const HelpSupport = () => {
               onClick={() =>
                 method.type === 'Email Support' && setShowContactForm(true)
               }
-              className="p-6 bg-white rounded-2xl border border-border hover:border-border-focus hover:shadow-lg transition-all text-left"
+              className="border-border hover:border-border-focus rounded-2xl border bg-white p-6 text-left transition-all hover:shadow-lg"
             >
               <div
-                className={`w-14 h-14 ${method.bgColor} rounded-xl flex items-center justify-center mb-4`}
+                className={`h-14 w-14 ${method.bgColor} mb-4 flex items-center justify-center rounded-xl`}
               >
-                <Icon className={`w-7 h-7 ${method.iconColor}`} />
+                <Icon className={`h-7 w-7 ${method.iconColor}`} />
               </div>
-              <h3 className="font-bold text-text-main mb-2">{method.type}</h3>
-              <p className="text-sm text-text-secondary mb-3">{method.description}</p>
-              <p className="text-xs text-text-muted">{method.availability}</p>
-              <p className="text-xs font-semibold text-text-main mt-1">
+              <h3 className="text-text-main mb-2 font-bold">{method.type}</h3>
+              <p className="text-text-secondary mb-3 text-sm">
+                {method.description}
+              </p>
+              <p className="text-text-muted text-xs">{method.availability}</p>
+              <p className="text-text-main mt-1 text-xs font-semibold">
                 {method.time}
               </p>
             </button>
@@ -376,22 +381,22 @@ const HelpSupport = () => {
 
       {/* Contact Form */}
       {showContactForm && (
-        <div className="bg-white rounded-2xl border border-border p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-text-main">
+        <div className="border-border rounded-2xl border bg-white p-6">
+          <div className="mb-6 flex items-center justify-between">
+            <h3 className="text-text-main text-xl font-bold">
               Send us a message
             </h3>
             <button
               onClick={() => setShowContactForm(false)}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 transition-colors hover:bg-gray-200"
             >
-              <X className="w-5 h-5 text-text-secondary" />
+              <X className="text-text-secondary h-5 w-5" />
             </button>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-text-main mb-2">
+              <label className="text-text-main mb-2 block text-sm font-semibold">
                 Subject
               </label>
               <input
@@ -399,14 +404,14 @@ const HelpSupport = () => {
                 onChange={e =>
                   setContactForm({ ...contactForm, subject: e.target.value })
                 }
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                 placeholder="Brief description of your issue"
               />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-semibold text-text-main mb-2">
+                <label className="text-text-main mb-2 block text-sm font-semibold">
                   Category
                 </label>
                 <select
@@ -414,7 +419,7 @@ const HelpSupport = () => {
                   onChange={e =>
                     setContactForm({ ...contactForm, category: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                 >
                   <option value="general">General</option>
                   <option value="orders">Orders</option>
@@ -424,7 +429,7 @@ const HelpSupport = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-text-main mb-2">
+                <label className="text-text-main mb-2 block text-sm font-semibold">
                   Priority
                 </label>
                 <select
@@ -432,7 +437,7 @@ const HelpSupport = () => {
                   onChange={e =>
                     setContactForm({ ...contactForm, priority: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -442,7 +447,7 @@ const HelpSupport = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-text-main mb-2">
+              <label className="text-text-main mb-2 block text-sm font-semibold">
                 Message
               </label>
               <textarea
@@ -451,13 +456,13 @@ const HelpSupport = () => {
                   setContactForm({ ...contactForm, message: e.target.value })
                 }
                 rows={5}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent resize-none"
+                className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                 placeholder="Describe your issue in detail..."
               />
             </div>
 
-            <button className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-text-main font-bold rounded-xl transition-colors">
-              <Send className="w-4 h-4" />
+            <button className="bg-primary hover:bg-primary-hover text-text-main inline-flex items-center gap-2 rounded-xl px-6 py-3 font-bold transition-colors">
+              <Send className="h-4 w-4" />
               Submit Request
             </button>
           </div>
@@ -471,25 +476,25 @@ const HelpSupport = () => {
       {supportTickets.map(ticket => (
         <div
           key={ticket.id}
-          className="bg-white rounded-2xl border border-border p-6 hover:shadow-lg transition-shadow"
+          className="border-border rounded-2xl border bg-white p-6 transition-shadow hover:shadow-lg"
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <h3 className="font-bold text-text-main">{ticket.subject}</h3>
+              <div className="mb-2 flex items-center gap-2">
+                <h3 className="text-text-main font-bold">{ticket.subject}</h3>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusStyle(ticket.status)}`}
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${getStatusStyle(ticket.status)}`}
                 >
                   {ticket.status.replace('_', ' ')}
                 </span>
               </div>
-              <p className="text-sm text-text-secondary">
+              <p className="text-text-secondary text-sm">
                 Created: {new Date(ticket.createdAt).toLocaleDateString()} •{' '}
                 {ticket.messages} messages
               </p>
             </div>
             <span
-              className={`px-3 py-1 rounded-full text-xs font-semibold ${getPriorityStyle(ticket.priority)}`}
+              className={`rounded-full px-3 py-1 text-xs font-semibold ${getPriorityStyle(ticket.priority)}`}
             >
               {ticket.priority}
             </span>
@@ -498,9 +503,9 @@ const HelpSupport = () => {
       ))}
 
       {supportTickets.length === 0 && (
-        <div className="bg-white rounded-2xl border border-border p-12 text-center">
-          <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-text-main mb-2">
+        <div className="border-border rounded-2xl border bg-white p-12 text-center">
+          <Package className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+          <h3 className="text-text-main mb-2 text-xl font-bold">
             No support tickets
           </h3>
           <p className="text-text-secondary">
@@ -512,21 +517,21 @@ const HelpSupport = () => {
   );
 
   const GuidesTab = () => (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {guides.map(guide => {
         const Icon = guide.icon;
         return (
           <a
             key={guide.title}
             href="#"
-            className="group p-6 bg-white rounded-2xl border border-border hover:border-border-focus hover:shadow-lg transition-all"
+            className="group border-border hover:border-border-focus rounded-2xl border bg-white p-6 transition-all hover:shadow-lg"
           >
-            <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-yellow-200 transition-colors">
-              <Icon className="w-6 h-6 text-yellow-600" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-100 transition-colors group-hover:bg-yellow-200">
+              <Icon className="h-6 w-6 text-yellow-600" />
             </div>
-            <h3 className="font-bold text-text-main mb-2">{guide.title}</h3>
-            <p className="text-sm text-text-secondary mb-3">{guide.desc}</p>
-            <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-yellow-600 transition-colors" />
+            <h3 className="text-text-main mb-2 font-bold">{guide.title}</h3>
+            <p className="text-text-secondary mb-3 text-sm">{guide.desc}</p>
+            <ExternalLink className="h-4 w-4 text-gray-400 transition-colors group-hover:text-yellow-600" />
           </a>
         );
       })}
@@ -534,10 +539,10 @@ const HelpSupport = () => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-text-main">Help & Support</h1>
+        <h1 className="text-text-main text-3xl font-bold">Help & Support</h1>
         <p className="text-text-secondary mt-1">We're here to help you 24/7</p>
       </div>
 
@@ -552,10 +557,10 @@ const HelpSupport = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
+            className={`rounded-xl px-6 py-2.5 font-semibold whitespace-nowrap transition-all ${
               activeTab === tab.id
                 ? 'bg-primary text-text-main shadow-lg'
-                : 'bg-white text-text-secondary border border-border hover:bg-bg-subtle'
+                : 'text-text-secondary border-border hover:bg-bg-subtle border bg-white'
             }`}
           >
             {tab.label}

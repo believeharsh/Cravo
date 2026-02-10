@@ -2,77 +2,77 @@ import React from 'react';
 
 const DeliveryLoader = () => {
   return (
-    <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
       <div className="text-center">
         {/* Main Animation Container */}
-        <div className="relative w-80 h-40 mx-auto mb-8">
+        <div className="relative mx-auto mb-8 h-40 w-80">
           {/* Road */}
-          <div className="absolute bottom-0 w-full h-2 bg-gray-300 rounded">
-            <div className="road-lines absolute top-1/2 transform -translate-y-1/2 w-full h-0.5 bg-white"></div>
+          <div className="absolute bottom-0 h-2 w-full rounded bg-gray-300">
+            <div className="road-lines absolute top-1/2 h-0.5 w-full -translate-y-1/2 transform bg-white"></div>
           </div>
 
           {/* Delivery Scooter with Rider */}
-          <div className="delivery-scooter absolute bottom-2 left-0 w-24 h-16">
+          <div className="delivery-scooter absolute bottom-2 left-0 h-16 w-24">
             {/* Rider */}
             <div className="rider absolute -top-8 left-4">
               {/* Head */}
-              <div className="w-4 h-4 bg-orange-400 rounded-full mb-1 relative">
-                <div className="absolute top-1 left-1 w-2 h-2 bg-orange-500 rounded-full"></div>
+              <div className="relative mb-1 h-4 w-4 rounded-full bg-orange-400">
+                <div className="absolute top-1 left-1 h-2 w-2 rounded-full bg-orange-500"></div>
               </div>
               {/* Body */}
-              <div className="w-3 h-6 bg-blue-500 rounded mx-auto relative">
+              <div className="relative mx-auto h-6 w-3 rounded bg-blue-500">
                 {/* Arms */}
-                <div className="absolute -left-2 top-1 w-4 h-1 bg-orange-400 rounded transform rotate-12"></div>
-                <div className="absolute -right-1 top-1 w-3 h-1 bg-orange-400 rounded transform -rotate-12"></div>
+                <div className="absolute top-1 -left-2 h-1 w-4 rotate-12 transform rounded bg-orange-400"></div>
+                <div className="absolute top-1 -right-1 h-1 w-3 -rotate-12 transform rounded bg-orange-400"></div>
               </div>
               {/* Legs */}
-              <div className="flex justify-center space-x-1 mt-1">
-                <div className="w-1 h-4 bg-blue-600 rounded"></div>
-                <div className="w-1 h-4 bg-blue-600 rounded"></div>
+              <div className="mt-1 flex justify-center space-x-1">
+                <div className="h-4 w-1 rounded bg-blue-600"></div>
+                <div className="h-4 w-1 rounded bg-blue-600"></div>
               </div>
             </div>
 
             {/* Scooter Body */}
-            <div className="absolute bottom-0 left-2 w-16 h-6 bg-red-500 rounded-lg">
-              <div className="absolute top-1 left-1 w-3 h-2 bg-red-600 rounded"></div>
-              <div className="absolute top-1 right-1 w-8 h-2 bg-red-600 rounded"></div>
+            <div className="absolute bottom-0 left-2 h-6 w-16 rounded-lg bg-red-500">
+              <div className="absolute top-1 left-1 h-2 w-3 rounded bg-red-600"></div>
+              <div className="absolute top-1 right-1 h-2 w-8 rounded bg-red-600"></div>
             </div>
 
             {/* Delivery Box */}
-            <div className="absolute -top-2 right-0 w-6 h-6 bg-primary rounded border-2 border-yellow-500">
-              <div className="absolute top-1 left-1 w-4 h-1 bg-primary-hover"></div>
-              <div className="absolute top-3 left-1 w-4 h-1 bg-primary-hover"></div>
+            <div className="bg-primary absolute -top-2 right-0 h-6 w-6 rounded border-2 border-yellow-500">
+              <div className="bg-primary-hover absolute top-1 left-1 h-1 w-4"></div>
+              <div className="bg-primary-hover absolute top-3 left-1 h-1 w-4"></div>
             </div>
 
             {/* Wheels */}
-            <div className="wheel-front absolute bottom-0 left-1 w-4 h-4 bg-black rounded-full">
-              <div className="absolute top-1 left-1 w-2 h-2 bg-gray-600 rounded-full"></div>
+            <div className="wheel-front absolute bottom-0 left-1 h-4 w-4 rounded-full bg-black">
+              <div className="absolute top-1 left-1 h-2 w-2 rounded-full bg-gray-600"></div>
             </div>
-            <div className="wheel-back absolute bottom-0 right-2 w-4 h-4 bg-black rounded-full">
-              <div className="absolute top-1 left-1 w-2 h-2 bg-gray-600 rounded-full"></div>
+            <div className="wheel-back absolute right-2 bottom-0 h-4 w-4 rounded-full bg-black">
+              <div className="absolute top-1 left-1 h-2 w-2 rounded-full bg-gray-600"></div>
             </div>
           </div>
 
           {/* Speed Lines */}
           <div className="speed-lines absolute top-8 left-0">
-            <div className="w-8 h-0.5 bg-gray-400 mb-2 opacity-60"></div>
-            <div className="w-6 h-0.5 bg-gray-400 mb-2 opacity-40"></div>
-            <div className="w-10 h-0.5 bg-gray-400 opacity-80"></div>
+            <div className="mb-2 h-0.5 w-8 bg-gray-400 opacity-60"></div>
+            <div className="mb-2 h-0.5 w-6 bg-gray-400 opacity-40"></div>
+            <div className="h-0.5 w-10 bg-gray-400 opacity-80"></div>
           </div>
         </div>
 
         {/* Loading Text */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-text-main mb-2">Cravo</h2>
+          <h2 className="text-text-main mb-2 text-2xl font-bold">Cravo</h2>
           <p className="text-text-secondary mb-4">
             Preparing your delicious experience...
           </p>
 
           {/* Loading Dots */}
           <div className="flex justify-center space-x-1">
-            <div className="loading-dot w-2 h-2 bg-primary rounded-full"></div>
-            <div className="loading-dot w-2 h-2 bg-primary rounded-full"></div>
-            <div className="loading-dot w-2 h-2 bg-primary rounded-full"></div>
+            <div className="loading-dot bg-primary h-2 w-2 rounded-full"></div>
+            <div className="loading-dot bg-primary h-2 w-2 rounded-full"></div>
+            <div className="loading-dot bg-primary h-2 w-2 rounded-full"></div>
           </div>
         </div>
       </div>

@@ -1,27 +1,28 @@
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
 import passport from 'passport';
-import errorHandler from './middlewares/error.middleware.js';
-import authRoute from './routes/auth.route.js';
-import categoryRoute from './routes/category.route.js';
 import path from 'path';
-import cookieParser from 'cookie-parser';
+
+import { EnvConfig } from './config/env.config.js';
+import configurePassport from './config/passport.config.js';
+import errorHandler from './middlewares/error.middleware.js';
+import addressRoute from './routes/address.route.js';
+import authRoute from './routes/auth.route.js';
+import cartRoute from './routes/cart.route.js';
+import categoryRoute from './routes/category.route.js';
+import cityRoute from './routes/city.route.js';
+import landingRoute from './routes/landing.route.js';
+import listRoute from './routes/list.route.js';
+import locationRoute from './routes/location.route.js';
+import orderRoute from './routes/order.route.js';
+import paymentRoute from './routes/payment.route.js';
 import productRoute from './routes/product.route.js';
 import restaurantRoute from './routes/restaurant.route.js';
-import landingRoute from './routes/landing.route.js';
-import cityRoute from './routes/city.route.js';
-import configurePassport from './config/passport.config.js';
-import listRoute from './routes/list.route.js';
 import restaurantListRoute from './routes/restaurantList.route.js';
-import cartRoute from './routes/cart.route.js';
-import orderRoute from './routes/order.route.js';
-import addressRoute from './routes/address.route.js';
-import paymentRoute from './routes/payment.route.js';
 import restaurantSuperAdminRoute from './routes/superAdmin/restaurantSuperAdmin.route.js';
-import locationRoute from './routes/location.route.js';
 import { keepAlive } from './services/keepAlive.js';
-import { EnvConfig } from './config/env.config.js';
 
 dotenv.config();
 

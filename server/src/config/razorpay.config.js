@@ -1,5 +1,6 @@
-import Razorpay from 'razorpay';
 import dotenv from 'dotenv';
+import Razorpay from 'razorpay';
+
 import { EnvConfig } from './env.config.js';
 
 dotenv.config();

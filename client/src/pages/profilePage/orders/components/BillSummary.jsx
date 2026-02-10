@@ -9,18 +9,18 @@ const BillSummary = ({
   paymentMethod,
 }) => {
   return (
-    <div className="bg-white rounded-lg p-4">
-      <h4 className="font-semibold text-text-main mb-3">Bill Summary</h4>
+    <div className="rounded-lg bg-white p-4">
+      <h4 className="text-text-main mb-3 font-semibold">Bill Summary</h4>
       <div className="space-y-2 text-sm">
-        <div className="flex justify-between text-text-secondary">
+        <div className="text-text-secondary flex justify-between">
           <span>Subtotal</span>
           <span>₹{subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-text-secondary">
+        <div className="text-text-secondary flex justify-between">
           <span>Delivery Fee</span>
           <span>₹{deliveryFee.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-text-secondary">
+        <div className="text-text-secondary flex justify-between">
           <span>Tax & Charges</span>
           <span>₹{tax.toFixed(2)}</span>
         </div>
@@ -30,11 +30,11 @@ const BillSummary = ({
             <span>-₹{discount.toFixed(2)}</span>
           </div>
         )}
-        <div className="flex justify-between font-bold text-text-main text-base pt-2 border-t border-border">
+        <div className="text-text-main border-border flex justify-between border-t pt-2 text-base font-bold">
           <span>Total Paid</span>
           <span>₹{total.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-sm text-text-muted mt-1">
+        <div className="text-text-muted mt-1 flex justify-between text-sm">
           <span>Payment Method</span>
           <span>{paymentMethod}</span>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Icon from '../../../components/ui/Icon';
+
 import Button from '../../../components/ui/Button';
+import Icon from '../../../components/ui/Icon';
 import Input from '../../../components/ui/Input';
 
 const OrderSummarySection = ({
@@ -22,14 +23,14 @@ const OrderSummarySection = ({
   const [isNoContactSelected, setIsNoContactSelected] = useState(false);
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg p-4 space-y-4">
+    <div className="space-y-4 rounded-3xl bg-white p-4 shadow-lg">
       {/* Promo Code Input */}
       <div>
-        <h2 className="text-xl font-bold text-text-main mb-3">Promo Code</h2>
+        <h2 className="text-text-main mb-3 text-xl font-bold">Promo Code</h2>
         <div className="flex space-x-2">
           <input
             type="text"
-            className="flex-grow p-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+            className="border-border flex-grow rounded-xl border p-3 transition-all focus:ring-2 focus:ring-yellow-400 focus:outline-none"
             placeholder="Enter promo code"
             value={promoCode}
             onChange={e => setPromoCode(e.target.value)}
@@ -37,14 +38,14 @@ const OrderSummarySection = ({
           {appliedPromo ? (
             <button
               onClick={removePromoCode}
-              className="px-4 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl transition-colors"
+              className="rounded-xl bg-red-500 px-4 py-3 font-semibold text-white transition-colors hover:bg-red-600"
             >
               Remove
             </button>
           ) : (
             <button
               onClick={applyPromoCode}
-              className="px-4 py-3 bg-primary hover:bg-primary-hover text-text-main font-semibold rounded-xl transition-colors"
+              className="bg-primary hover:bg-primary-hover text-text-main rounded-xl px-4 py-3 font-semibold transition-colors"
             >
               Apply
             </button>
@@ -61,12 +62,12 @@ const OrderSummarySection = ({
 
       {/* Order Summary */}
       <div className="space-y-3">
-        <h2 className="text-xl font-bold text-text-main">Order Summary</h2>
-        <div className="space-y-2 text-text-secondary font-medium">
+        <h2 className="text-text-main text-xl font-bold">Order Summary</h2>
+        <div className="text-text-secondary space-y-2 font-medium">
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span className="flex items-center">
-              <Icon name="indian-rupee" className="w-3 h-3" />
+              <Icon name="indian-rupee" className="h-3 w-3" />
               {subtotal.toFixed(2)}
             </span>
           </div>
@@ -74,7 +75,7 @@ const OrderSummarySection = ({
             <div className="flex justify-between text-green-600">
               <span>Item Discount</span>
               <span className="flex items-center">
-                -<Icon name="indian-rupee" className="w-3 h-3" />
+                -<Icon name="indian-rupee" className="h-3 w-3" />
                 {itemDiscount.toFixed(2)}
               </span>
             </div>
@@ -83,7 +84,7 @@ const OrderSummarySection = ({
             <div className="flex justify-between text-green-600">
               <span>Promo Discount</span>
               <span className="flex items-center">
-                -<Icon name="indian-rupee" className="w-4 h-4 mr-1" />
+                -<Icon name="indian-rupee" className="mr-1 h-4 w-4" />
                 {promoDiscount.toFixed(2)}
               </span>
             </div>
@@ -95,7 +96,7 @@ const OrderSummarySection = ({
                 'Free'
               ) : (
                 <>
-                  <Icon name="indian-rupee" className="w-3 h-3" />
+                  <Icon name="indian-rupee" className="h-3 w-3" />
                   {deliveryFee.toFixed(2)}
                 </>
               )}
@@ -104,14 +105,14 @@ const OrderSummarySection = ({
           <div className="flex justify-between">
             <span>Service Fee</span>
             <span className="flex items-center">
-              <Icon name="indian-rupee" className="w-3 h-3" />
+              <Icon name="indian-rupee" className="h-3 w-3" />
               {serviceFee.toFixed(2)}
             </span>
           </div>
           <div className="flex justify-between">
             <span>Taxes & GST</span>
             <span className="flex items-center">
-              <Icon name="indian-rupee" className="w-3 h-3" />
+              <Icon name="indian-rupee" className="h-3 w-3" />
               {gst.toFixed(2)}
             </span>
           </div>
@@ -125,11 +126,11 @@ const OrderSummarySection = ({
             id="no-contact-checkbox"
             checked={isNoContactSelected}
             onChange={e => setIsNoContactSelected(e.target.checked)}
-            className="mt-1 w-7 h-7 accent-yellow-400 focus:ring-yellow-400"
+            className="mt-1 h-7 w-7 accent-yellow-400 focus:ring-yellow-400"
           />
           <label
             htmlFor="no-contact-checkbox"
-            className="text-sm font-medium text-text-secondary"
+            className="text-text-secondary text-sm font-medium"
           >
             {isNoContactSelected
               ? 'Our delivery partner will call to confirm. Please ensure that your address has all the required details.'
@@ -139,10 +140,10 @@ const OrderSummarySection = ({
 
         <div className="h-px bg-gray-200" />
 
-        <div className="flex justify-between text-lg font-bold text-text-main">
+        <div className="text-text-main flex justify-between text-lg font-bold">
           <span>Final Total</span>
           <p className="flex items-center">
-            <Icon name="indian-rupee" className="w-4 h-4" />
+            <Icon name="indian-rupee" className="h-4 w-4" />
             {finalTotal.toFixed(2)}
           </p>
         </div>
@@ -152,9 +153,9 @@ const OrderSummarySection = ({
       <div>
         <button
           onClick={handleCheckout}
-          className="w-full flex items-center justify-center px-6 py-4 bg-green-500 hover:bg-green-600 text-white font-bold text-lg rounded-xl shadow-lg transition-colors cursor-pointer"
+          className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-green-500 px-6 py-4 text-lg font-bold text-white shadow-lg transition-colors hover:bg-green-600"
         >
-          <Icon name="indian-rupee" className="w-5 h-5 mr-2" />
+          <Icon name="indian-rupee" className="mr-2 h-5 w-5" />
           Proceed to Checkout
         </button>
       </div>

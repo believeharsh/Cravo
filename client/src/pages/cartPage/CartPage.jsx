@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCartTotalValue } from '../../features/cart/cartSelectors';
-import Icon from '../../components/ui/Icon';
+import { Link } from 'react-router-dom';
 
-import CartNavigation from './sections/CartNavigation';
+import ItemDeleteConfirmation from '../../components/modules/cart/ItemDeleteConfirmModal';
+import Icon from '../../components/ui/Icon';
+import { selectCartTotalValue } from '../../features/cart/cartSelectors';
+import { useOrderActions } from '../../hooks/userOrdersActions';
+import PaymentStatusModal from './components/PaymentStatusModal';
 import CartItemsSection from './sections/CartItemsSection';
+import CartNavigation from './sections/CartNavigation';
 import DeliveryAddressSection from './sections/DeliveryAddressSection';
-import PaymentMethodSection from './sections/PaymentMethodSection';
 import DeliveryInstructionsSection from './sections/DeliveryInstructionsSection';
 import OrderSummarySection from './sections/OrderSummarySection';
-import ItemDeleteConfirmation from '../../components/modules/cart/ItemDeleteConfirmModal';
-import PaymentStatusModal from './components/PaymentStatusModal';
-
-import { Link } from 'react-router-dom';
-import { useOrderActions } from '../../hooks/userOrdersActions';
+import PaymentMethodSection from './sections/PaymentMethodSection';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart);
@@ -334,19 +333,19 @@ const CartPage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-bg-subtle flex items-center justify-center font-sans">
-        <div className="max-w-md mx-auto text-center p-8 bg-white rounded-3xl shadow-lg">
-          <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Icon name="user" className="w-12 h-12 text-yellow-500" />
+      <div className="bg-bg-subtle flex min-h-screen items-center justify-center font-sans">
+        <div className="mx-auto max-w-md rounded-3xl bg-white p-8 text-center shadow-lg">
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-yellow-100">
+            <Icon name="user" className="h-12 w-12 text-yellow-500" />
           </div>
-          <h2 className="text-2xl font-bold text-text-main mb-4">
+          <h2 className="text-text-main mb-4 text-2xl font-bold">
             Login Required
           </h2>
           <p className="text-text-secondary mb-8">
             We are working on guest checkout. Please login to order food!
           </p>
           <Link to={'/login'}>
-            <button className="cursor-pointer bg-primary hover:bg-primary-hover text-text-main font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+            <button className="bg-primary hover:bg-primary-hover text-text-main cursor-pointer rounded-full px-8 py-3 font-semibold shadow-lg transition-all">
               Login to Continue
             </button>
           </Link>
@@ -357,19 +356,19 @@ const CartPage = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-bg-subtle flex items-center justify-center font-sans">
-        <div className="max-w-md mx-auto text-center p-8 bg-white rounded-3xl shadow-lg">
-          <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Icon name="shopping-cart" className="w-12 h-12 text-yellow-500" />
+      <div className="bg-bg-subtle flex min-h-screen items-center justify-center font-sans">
+        <div className="mx-auto max-w-md rounded-3xl bg-white p-8 text-center shadow-lg">
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-yellow-100">
+            <Icon name="shopping-cart" className="h-12 w-12 text-yellow-500" />
           </div>
-          <h2 className="text-2xl font-bold text-text-main mb-4">
+          <h2 className="text-text-main mb-4 text-2xl font-bold">
             Your cart is empty
           </h2>
           <p className="text-text-secondary mb-8">
             Start adding delicious items to your order!
           </p>
           <Link to={'/restaurants'}>
-            <button className="cursor-pointer bg-primary hover:bg-primary-hover text-text-main font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+            <button className="bg-primary hover:bg-primary-hover text-text-main cursor-pointer rounded-full px-8 py-3 font-semibold shadow-lg transition-all">
               Browse Restaurants
             </button>
           </Link>
@@ -380,12 +379,12 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-bg-subtle font-sans">
+      <div className="bg-bg-subtle min-h-screen font-sans">
         <CartNavigation />
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="grid lg:grid-cols-3 gap-6">
+        <div className="mx-auto max-w-7xl px-4 py-6">
+          <div className="grid gap-6 lg:grid-cols-3">
             {/* Left Column (Items, Delivery & Payment) */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="space-y-4 lg:col-span-2">
               <CartItemsSection cartItems={cartItems} />
               <DeliveryAddressSection
                 addresses={addresses}
@@ -439,10 +438,10 @@ const CartPage = () => {
 
       {/* Loading Overlay */}
       {isCheckoutLoading && (
-        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 shadow-2xl text-center">
-            <div className="w-16 h-16 border-4 border-border-focus border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-xl font-semibold text-text-main mb-2">
+        <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center">
+          <div className="rounded-2xl bg-white p-8 text-center shadow-2xl">
+            <div className="border-border-focus mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-t-transparent"></div>
+            <h3 className="text-text-main mb-2 text-xl font-semibold">
               Processing Payment
             </h3>
             <p className="text-text-secondary">

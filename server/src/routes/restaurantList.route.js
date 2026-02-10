@@ -1,13 +1,14 @@
 import { Router } from 'express';
-import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
+
 import {
+  addRestaurantToTheList,
   createNewRestaurantList,
+  deleteTheRestaurantList,
   getAllRestaurantListsOfUser,
   getRestaurantListById,
-  addRestaurantToTheList,
   removeRestaurantFromList,
-  deleteTheRestaurantList,
 } from '../controllers/restaurantList.controller.js';
+import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
 
 const restaurantListRoute = Router();
 

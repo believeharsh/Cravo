@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { useAddressActions } from '../../../hooks/useAddressActions';
 
 const AddressModal = ({ initialData }) => {
@@ -43,14 +44,14 @@ const AddressModal = ({ initialData }) => {
   //   if (!isAddressModalOpen) return null;
 
   return (
-    <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg">
-        <h2 className="text-2xl font-bold text-text-main mb-4">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl">
+        <h2 className="text-text-main mb-4 text-2xl font-bold">
           {initialData ? 'Edit Address' : 'Add New Address'}
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <input
               type="text"
               name="addressLine1"
@@ -58,7 +59,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.addressLine1}
               onChange={handleChange}
               required
-              className="col-span-2 p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+              className="bg-bg-subtle text-text-main col-span-2 rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
             />
 
             <input
@@ -67,7 +68,7 @@ const AddressModal = ({ initialData }) => {
               placeholder="Address Line 2 (Apt, Suite, etc.)"
               value={formData.addressLine2}
               onChange={handleChange}
-              className="col-span-2 p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+              className="bg-bg-subtle text-text-main col-span-2 rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
             />
 
             <input
@@ -77,7 +78,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.city}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+              className="bg-bg-subtle text-text-main rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
             />
 
             <input
@@ -87,7 +88,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.state}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+              className="bg-bg-subtle text-text-main rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
             />
 
             <input
@@ -97,7 +98,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.zipCode}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+              className="bg-bg-subtle text-text-main rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
             />
 
             <input
@@ -107,7 +108,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.country}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+              className="bg-bg-subtle text-text-main rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
             />
 
             <div className="col-span-2 flex items-center gap-4">
@@ -120,7 +121,7 @@ const AddressModal = ({ initialData }) => {
                 id="addressType"
                 value={formData.addressType}
                 onChange={handleChange}
-                className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
+                className="bg-bg-subtle text-text-main rounded-lg border border-gray-300 p-3 focus:border-yellow-500 focus:ring-yellow-500"
               >
                 <option value="Home">Home</option>
                 <option value="Work">Work</option>
@@ -135,10 +136,13 @@ const AddressModal = ({ initialData }) => {
                 id="isDefault"
                 checked={formData.isDefault}
                 onChange={handleChange}
-                className="w-4 h-4 text-yellow-500 bg-gray-100 border-gray-300 rounded focus:ring-yellow-500"
+                className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-yellow-500 focus:ring-yellow-500"
               />
 
-              <label htmlFor="isDefault" className="text-text-secondary select-none">
+              <label
+                htmlFor="isDefault"
+                className="text-text-secondary select-none"
+              >
                 Set as default address
               </label>
             </div>
@@ -148,14 +152,14 @@ const AddressModal = ({ initialData }) => {
             <button
               type="button"
               onClick={handleCloseAddressModal}
-              className="cursor-pointer px-6 py-3 text-text-main bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+              className="text-text-main cursor-pointer rounded-lg bg-gray-200 px-6 py-3 transition-colors hover:bg-gray-300"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="cursor-pointer px-6 py-3 text-white bg-primary-hover rounded-lg hover:bg-yellow-600 transition-colors"
+              className="bg-primary-hover cursor-pointer rounded-lg px-6 py-3 text-white transition-colors hover:bg-yellow-600"
             >
               Save Address
             </button>

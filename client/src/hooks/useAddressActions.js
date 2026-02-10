@@ -1,18 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
+
+import CustomToast from '../components/CustomToast';
 import {
-  fetchAllAddresses,
   createNewAddress,
-  updateAddress,
   deleteAddress,
+  fetchAllAddresses,
+  updateAddress,
 } from '../features/address/addressSlice';
 import {
-  openDeleteAddressModal,
+  closeAddressModal,
   closeDeleteAddressModal,
   openAddressModal,
-  closeAddressModal,
+  openDeleteAddressModal,
 } from '../features/ui/uiSlice';
 import { useToastStack } from './useStackToasts';
-import CustomToast from '../components/CustomToast';
 
 export const useAddressActions = () => {
   const dispatch = useDispatch();

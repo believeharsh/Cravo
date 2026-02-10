@@ -9,8 +9,8 @@ const PrivateRoute = ({ allowedRoles = [] }) => {
 
   if (isAuthChecking || !isInitialized) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="text-xl font-semibold text-text-secondary">
+      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div className="text-text-secondary text-xl font-semibold">
           Checking authentication...
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 // Thunk to fetch comprehensive location data based on IP or coordinates
 export const fetchIpLocationDetails = createAsyncThunk(

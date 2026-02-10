@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Icon = ({ name, size = 16, className = '' }) => {
   const icons = {
@@ -131,16 +131,16 @@ const FilterAndSortBar = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl p-3 md:p-4 shadow-sm border border-border mb-6">
+    <div className="border-border mb-6 rounded-2xl border bg-white p-3 shadow-sm md:p-4">
       {/* Mobile Layout */}
       <div className="block md:hidden">
         {/* Top Row - Sort and Filter buttons */}
-        <div className="flex items-center justify-between mb-3">
+        <div className="mb-3 flex items-center justify-between">
           {/* Sort By Dropdown */}
-          <div className="relative flex-1 mr-2" ref={sortByRef}>
+          <div className="relative mr-2 flex-1" ref={sortByRef}>
             <button
               onClick={() => setIsSortByOpen(!isSortByOpen)}
-              className="cursor-pointer w-full flex items-center justify-between px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium text-text-secondary transition-colors duration-200 text-sm"
+              className="text-text-secondary flex w-full cursor-pointer items-center justify-between rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-200"
             >
               <span>Sort By</span>
               <Icon
@@ -153,9 +153,9 @@ const FilterAndSortBar = ({
             </button>
 
             {isSortByOpen && (
-              <div className="absolute left-0 top-full  w-full bg-white border border-border rounded-xl z-20 ">
-                <div className="p-1 border-b border-gray-100">
-                  <h3 className="font-bold text-text-main text-sm">Sort By</h3>
+              <div className="border-border absolute top-full left-0 z-20 w-full rounded-xl border bg-white">
+                <div className="border-b border-gray-100 p-1">
+                  <h3 className="text-text-main text-sm font-bold">Sort By</h3>
                 </div>
                 <div className="">
                   {sortOptions.map(option => (
@@ -165,13 +165,13 @@ const FilterAndSortBar = ({
                         setSelectedSortBy(option.id);
                         setIsSortByOpen(false);
                       }}
-                      className="w-full flex items-center justify-between hover:bg-bg-subtle rounded-lg transition-colors text-left cursor-pointer"
+                      className="hover:bg-bg-subtle flex w-full cursor-pointer items-center justify-between rounded-lg text-left transition-colors"
                     >
                       <div>
-                        <p className="font-medium text-text-main text-xs">
+                        <p className="text-text-main text-xs font-medium">
                           {option.label}
                         </p>
-                        <p className="text-xs text-text-secondary">
+                        <p className="text-text-secondary text-xs">
                           {option.description}
                         </p>
                       </div>
@@ -190,15 +190,15 @@ const FilterAndSortBar = ({
           </div>
 
           {/* Filter Dropdown */}
-          <div className="relative flex-1 ml-2" ref={filterRef}>
+          <div className="relative ml-2 flex-1" ref={filterRef}>
             <button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium text-text-secondary transition-colors duration-200 text-sm"
+              className="text-text-secondary flex w-full items-center justify-center space-x-2 rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-200"
             >
               <Icon name="filter" size={14} />
               <span>Filter</span>
               {getActiveFiltersCount() > 0 && (
-                <span className="bg-primary text-text-main text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                <span className="bg-primary text-text-main min-w-[18px] rounded-full px-1.5 py-0.5 text-center text-xs font-bold">
                   {getActiveFiltersCount()}
                 </span>
               )}
@@ -206,14 +206,14 @@ const FilterAndSortBar = ({
 
             {isFilterOpen && (
               <div
-                className="absolute right-0 top-full mt-2 w-80 bg-white border border-border rounded-xl shadow-lg z-20"
+                className="border-border absolute top-full right-0 z-20 mt-2 w-80 rounded-xl border bg-white shadow-lg"
                 style={{ maxWidth: '90vw' }}
               >
-                <div className="flex items-center justify-between p-3 border-b border-gray-100">
-                  <h3 className="font-bold text-text-main text-sm">Filters</h3>
+                <div className="flex items-center justify-between border-b border-gray-100 p-3">
+                  <h3 className="text-text-main text-sm font-bold">Filters</h3>
                   <button
                     onClick={clearAllFilters}
-                    className="text-yellow-400 hover:text-yellow-500 font-medium text-xs"
+                    className="text-xs font-medium text-yellow-400 hover:text-yellow-500"
                   >
                     Clear All
                   </button>
@@ -223,9 +223,9 @@ const FilterAndSortBar = ({
                   {Object.entries(filterOptions).map(([category, options]) => (
                     <div
                       key={category}
-                      className="p-3 border-b border-gray-100 last:border-b-0"
+                      className="border-b border-gray-100 p-3 last:border-b-0"
                     >
-                      <h4 className="font-semibold text-text-main mb-1 capitalize text-sm">
+                      <h4 className="text-text-main mb-1 text-sm font-semibold capitalize">
                         {category === 'deliveryTime'
                           ? 'Delivery Time'
                           : category}
@@ -234,7 +234,7 @@ const FilterAndSortBar = ({
                         {options.map(option => (
                           <label
                             key={option.id}
-                            className="flex items-center justify-between cursor-pointer hover:bg-bg-subtle p-1 rounded-lg"
+                            className="hover:bg-bg-subtle flex cursor-pointer items-center justify-between rounded-lg p-1"
                           >
                             <div className="flex items-center space-x-2">
                               <input
@@ -245,13 +245,13 @@ const FilterAndSortBar = ({
                                 onChange={() =>
                                   handleFilterChange(category, option.id)
                                 }
-                                className="w-3 h-3 text-yellow-400 border-gray-300 rounded focus:ring-yellow-400"
+                                className="h-3 w-3 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
                               />
                               <span className="text-text-secondary text-sm">
                                 {option.label}
                               </span>
                             </div>
-                            <span className="text-xs text-text-muted">
+                            <span className="text-text-muted text-xs">
                               ({option.count})
                             </span>
                           </label>
@@ -261,10 +261,10 @@ const FilterAndSortBar = ({
                   ))}
                 </div>
 
-                <div className="p-3 border-t border-gray-100">
+                <div className="border-t border-gray-100 p-3">
                   <button
                     onClick={() => setIsFilterOpen(false)}
-                    className="w-full bg-primary hover:bg-primary-hover text-text-main font-semibold py-2 rounded-lg transition-colors duration-200 text-sm"
+                    className="bg-primary hover:bg-primary-hover text-text-main w-full rounded-lg py-2 text-sm font-semibold transition-colors duration-200"
                   >
                     Apply Filters
                   </button>
@@ -282,10 +282,10 @@ const FilterAndSortBar = ({
           >
             <button
               onClick={() => handleQuickFilter('tenMinDelivery')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-200 text-sm whitespace-nowrap ${
+              className={`flex items-center space-x-1.5 rounded-lg px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 quickFilters.tenMinDelivery
                   ? 'bg-primary text-text-main'
-                  : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                  : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
               }`}
             >
               <Icon name="zap" size={14} />
@@ -294,10 +294,10 @@ const FilterAndSortBar = ({
 
             <button
               onClick={() => handleQuickFilter('topRated')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-200 text-sm whitespace-nowrap ${
+              className={`flex items-center space-x-1.5 rounded-lg px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 quickFilters.topRated
                   ? 'bg-primary text-text-main'
-                  : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                  : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
               }`}
             >
               <Icon name="award" size={14} />
@@ -306,10 +306,10 @@ const FilterAndSortBar = ({
 
             <button
               onClick={() => handleQuickFilter('offers')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-200 text-sm whitespace-nowrap ${
+              className={`flex items-center space-x-1.5 rounded-lg px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 quickFilters.offers
                   ? 'bg-primary text-text-main'
-                  : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                  : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
               }`}
             >
               <Icon name="trending-up" size={14} />
@@ -320,14 +320,14 @@ const FilterAndSortBar = ({
       </div>
 
       {/* Desktop Layout (md and above) */}
-      <div className="hidden md:flex flex-wrap items-center gap-3">
+      <div className="hidden flex-wrap items-center gap-3 md:flex">
         {/* Quick Filter Buttons */}
         <button
           onClick={() => handleQuickFilter('tenMinDelivery')}
-          className={`cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+          className={`flex cursor-pointer items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 ${
             quickFilters.tenMinDelivery
               ? 'bg-primary text-text-main'
-              : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+              : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
           }`}
         >
           <Icon name="zap" size={16} />
@@ -336,10 +336,10 @@ const FilterAndSortBar = ({
 
         <button
           onClick={() => handleQuickFilter('topRated')}
-          className={`cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+          className={`flex cursor-pointer items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 ${
             quickFilters.topRated
               ? 'bg-primary text-text-main'
-              : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+              : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
           }`}
         >
           <Icon name="award" size={16} />
@@ -348,10 +348,10 @@ const FilterAndSortBar = ({
 
         <button
           onClick={() => handleQuickFilter('offers')}
-          className={`cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+          className={`flex cursor-pointer items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 ${
             quickFilters.offers
               ? 'bg-primary text-text-main'
-              : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+              : 'text-text-secondary bg-gray-100 hover:bg-gray-200'
           }`}
         >
           <Icon name="trending-up" size={16} />
@@ -364,7 +364,7 @@ const FilterAndSortBar = ({
         <div className="relative" ref={sortByRef}>
           <button
             onClick={() => setIsSortByOpen(!isSortByOpen)}
-            className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-text-secondary transition-colors duration-200"
+            className="text-text-secondary flex cursor-pointer items-center space-x-2 rounded-xl bg-gray-100 px-4 py-2 font-medium transition-colors duration-200 hover:bg-gray-200"
           >
             <span>Sort By</span>
             <Icon
@@ -377,9 +377,9 @@ const FilterAndSortBar = ({
           </button>
 
           {isSortByOpen && (
-            <div className="absolute right-0 top-full mt-2 w-80 bg-white border border-border rounded-2xl shadow-lg z-20">
-              <div className="p-4 border-b border-gray-100">
-                <h3 className="font-bold text-text-main">Sort By</h3>
+            <div className="border-border absolute top-full right-0 z-20 mt-2 w-80 rounded-2xl border bg-white shadow-lg">
+              <div className="border-b border-gray-100 p-4">
+                <h3 className="text-text-main font-bold">Sort By</h3>
               </div>
               <div className="p-2">
                 {sortOptions.map(option => (
@@ -389,13 +389,13 @@ const FilterAndSortBar = ({
                       setSelectedSortBy(option.id);
                       setIsSortByOpen(false);
                     }}
-                    className="w-full flex items-center justify-between p-3 hover:bg-bg-subtle rounded-xl transition-colors cursor-pointer"
+                    className="hover:bg-bg-subtle flex w-full cursor-pointer items-center justify-between rounded-xl p-3 transition-colors"
                   >
                     <div className="text-left">
-                      <p className="font-medium text-text-main">
+                      <p className="text-text-main font-medium">
                         {option.label}
                       </p>
-                      <p className="text-sm text-text-secondary">
+                      <p className="text-text-secondary text-sm">
                         {option.description}
                       </p>
                     </div>
@@ -417,24 +417,24 @@ const FilterAndSortBar = ({
         <div className="relative" ref={filterRef}>
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="cursor-pointer flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-text-secondary transition-colors duration-200"
+            className="text-text-secondary flex cursor-pointer items-center space-x-2 rounded-xl bg-gray-100 px-4 py-2 font-medium transition-colors duration-200 hover:bg-gray-200"
           >
             <Icon name="filter" size={16} />
             <span>Filter</span>
             {getActiveFiltersCount() > 0 && (
-              <span className="bg-primary text-text-main text-xs font-bold px-2 py-1 rounded-full">
+              <span className="bg-primary text-text-main rounded-full px-2 py-1 text-xs font-bold">
                 {getActiveFiltersCount()}
               </span>
             )}
           </button>
 
           {isFilterOpen && (
-            <div className="absolute right-0 top-full mt-2 w-96 bg-white border border-border rounded-2xl shadow-lg z-20">
-              <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                <h3 className="font-bold text-text-main">Filters</h3>
+            <div className="border-border absolute top-full right-0 z-20 mt-2 w-96 rounded-2xl border bg-white shadow-lg">
+              <div className="flex items-center justify-between border-b border-gray-100 p-4">
+                <h3 className="text-text-main font-bold">Filters</h3>
                 <button
                   onClick={clearAllFilters}
-                  className="text-yellow-400 hover:text-yellow-500 font-medium text-sm"
+                  className="text-sm font-medium text-yellow-400 hover:text-yellow-500"
                 >
                   Clear All
                 </button>
@@ -444,16 +444,16 @@ const FilterAndSortBar = ({
                 {Object.entries(filterOptions).map(([category, options]) => (
                   <div
                     key={category}
-                    className="p-4 border-b border-gray-100 last:border-b-0"
+                    className="border-b border-gray-100 p-4 last:border-b-0"
                   >
-                    <h4 className="font-semibold text-text-main mb-3 capitalize">
+                    <h4 className="text-text-main mb-3 font-semibold capitalize">
                       {category === 'deliveryTime' ? 'Delivery Time' : category}
                     </h4>
                     <div className="space-y-2">
                       {options.map(option => (
                         <label
                           key={option.id}
-                          className="flex items-center justify-between cursor-pointer hover:bg-bg-subtle p-2 rounded-lg"
+                          className="hover:bg-bg-subtle flex cursor-pointer items-center justify-between rounded-lg p-2"
                         >
                           <div className="flex items-center space-x-3">
                             <input
@@ -464,13 +464,13 @@ const FilterAndSortBar = ({
                               onChange={() =>
                                 handleFilterChange(category, option.id)
                               }
-                              className="w-4 h-4 text-yellow-400 border-gray-300 rounded focus:ring-yellow-400"
+                              className="h-4 w-4 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
                             />
                             <span className="text-text-secondary">
                               {option.label}
                             </span>
                           </div>
-                          <span className="text-sm text-text-muted">
+                          <span className="text-text-muted text-sm">
                             ({option.count})
                           </span>
                         </label>
@@ -480,10 +480,10 @@ const FilterAndSortBar = ({
                 ))}
               </div>
 
-              <div className="p-4 border-t border-gray-100">
+              <div className="border-t border-gray-100 p-4">
                 <button
                   onClick={() => setIsFilterOpen(false)}
-                  className="w-full bg-primary hover:bg-primary-hover text-text-main font-semibold py-3 rounded-xl transition-colors duration-200"
+                  className="bg-primary hover:bg-primary-hover text-text-main w-full rounded-xl py-3 font-semibold transition-colors duration-200"
                 >
                   Apply Filters
                 </button>

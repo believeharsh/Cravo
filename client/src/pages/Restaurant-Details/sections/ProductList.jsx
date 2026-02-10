@@ -1,6 +1,7 @@
 import React from 'react';
-import Icon from '../../../components/ui/Icon';
+
 import ProductCard from '../../../components/shared/ProductCard';
+import Icon from '../../../components/ui/Icon';
 
 const ProductList = ({ menuItems, activeFilter }) => {
   const filteredMenuItems = menuItems.filter(item => {
@@ -17,10 +18,10 @@ const ProductList = ({ menuItems, activeFilter }) => {
       <div className="mt-8">
         {filteredMenuItems.length > 0 ? (
           <div id="bestsellers-section" className="mb-10">
-            <h2 className="text-2xl font-bold text-text-main mb-4 flex items-center">
+            <h2 className="text-text-main mb-4 flex items-center text-2xl font-bold">
               <Icon
                 name="star"
-                className="w-6 h-6 mr-2 fill-current text-amber-500"
+                className="mr-2 h-6 w-6 fill-current text-amber-500"
               />{' '}
               Bestsellers
             </h2>
@@ -31,7 +32,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
             </div>
           </div>
         ) : (
-          <p className="text-center text-text-secondary text-lg col-span-full mt-8">
+          <p className="text-text-secondary col-span-full mt-8 text-center text-lg">
             No bestseller items available at the moment.
           </p>
         )}
@@ -58,7 +59,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
             id={category.toLowerCase().replace(/\s/g, '-')}
             className="mb-10"
           >
-            <h2 className="text-2xl font-bold text-text-main mb-4">
+            <h2 className="text-text-main mb-4 text-2xl font-bold">
               {category}
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -69,7 +70,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
           </div>
         ))
       ) : (
-        <p className="text-center text-text-secondary text-lg col-span-full mt-8">
+        <p className="text-text-secondary col-span-full mt-8 text-center text-lg">
           No menu items available for this selection.
         </p>
       )}

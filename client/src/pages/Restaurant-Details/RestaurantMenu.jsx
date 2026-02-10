@@ -1,19 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import Footer from '../../components/Footer';
-
-import { useRestaurantMenu } from '../../hooks/useRestaurantMenu';
-
-// Importing the sections of this page
-import RestaurantHeader from './sections/RestaurantHeader';
-import MenuFilters from './sections/MenuFilters';
-import ProductList from './sections/ProductList';
-import DealsSection from './sections/DealsSections';
-import CartStatusSection from './sections/CartStatusSection';
 import Navbar from '../../components/Navbar/Navbar';
 import AuthRequiredModal from '../../components/modules/auth/AuthRequiredModal';
-import { useSelector } from 'react-redux';
 import { useAuthForm } from '../../hooks/useAuthForm';
+import { useRestaurantMenu } from '../../hooks/useRestaurantMenu';
+import CartStatusSection from './sections/CartStatusSection';
+import DealsSection from './sections/DealsSections';
+import MenuFilters from './sections/MenuFilters';
+import ProductList from './sections/ProductList';
+// Importing the sections of this page
+import RestaurantHeader from './sections/RestaurantHeader';
 
 const RestaurantMenuPage = () => {
   const { restaurantID } = useParams();
@@ -83,8 +82,8 @@ const RestaurantMenuPage = () => {
   // 2. Modify Loading State Check
   if (isInitialLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bg-subtle">
-        <p className="text-xl font-semibold text-text-secondary">
+      <div className="bg-bg-subtle flex min-h-screen items-center justify-center">
+        <p className="text-text-secondary text-xl font-semibold">
           Loading restaurant menu...
         </p>
       </div>
@@ -94,13 +93,13 @@ const RestaurantMenuPage = () => {
   // 3. Modify Error State Check
   if (isError || !restaurant) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-bg-subtle px-4">
-        <p className="text-xl font-semibold text-red-500 text-center">
+      <div className="bg-bg-subtle flex min-h-screen flex-col items-center justify-center px-4">
+        <p className="text-center text-xl font-semibold text-red-500">
           {error || 'Restaurant not found.'}
         </p>
         <button
           onClick={refetchMenu}
-          className="mt-4 px-4 py-2 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors"
+          className="bg-primary text-text-main hover:bg-primary-hover mt-4 rounded-full px-4 py-2 font-semibold transition-colors"
         >
           Try Again
         </button>
@@ -110,9 +109,9 @@ const RestaurantMenuPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-bg-subtle font-helvetica">
+      <div className="bg-bg-subtle font-helvetica min-h-screen">
         <Navbar showSearch={true} currentPage="restaurant" cartCount={2} />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
           <RestaurantHeader restaurant={restaurant} />
           <DealsSection />
           <MenuFilters

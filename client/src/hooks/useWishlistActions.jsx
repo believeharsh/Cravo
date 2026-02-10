@@ -1,13 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+
+import CustomToast from '../components/CustomToast';
+import { closeWishlistModal, openWishlistModal } from '../features/ui/uiSlice';
 import {
-  removeItemFromWishlist,
+  TransferProductFromList,
   addItemToWishlist,
   createNewWishList,
-  TransferProductFromList,
+  removeItemFromWishlist,
 } from '../features/wishList/wishListSlice';
-import CustomToast from '../components/CustomToast';
-import toast from 'react-hot-toast';
-import { closeWishlistModal, openWishlistModal } from '../features/ui/uiSlice';
 import { useToastStack } from './useStackToasts';
 
 export const useFavoriteActions = () => {

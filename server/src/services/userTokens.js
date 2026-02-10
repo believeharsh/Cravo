@@ -1,4 +1,5 @@
 import JWT from 'jsonwebtoken';
+
 import { EnvConfig } from '../config/env.config.js';
 
 function createAccessToken(user) {

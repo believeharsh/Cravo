@@ -1,8 +1,9 @@
-import Restaurant from '../../models/restaurant.model.js';
 import mongoose from 'mongoose';
-import { asyncHandler } from '../../services/asyncHandler.js';
-import { apiResponse } from '../../services/apiResponse.js';
+
+import Restaurant from '../../models/restaurant.model.js';
 import { apiError } from '../../services/apiError.js';
+import { apiResponse } from '../../services/apiResponse.js';
+import { asyncHandler } from '../../services/asyncHandler.js';
 
 export const getTotalRestaurantCount = asyncHandler(async (req, res) => {
   const totalCount = await Restaurant.countDocuments({});

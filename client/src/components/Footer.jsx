@@ -1,17 +1,18 @@
 import React from 'react';
+
 import {
   GithubIcon,
-  Twitter,
   Instagram,
   Linkedin,
   Mail,
   Phone,
+  Twitter,
 } from 'lucide-react';
 
 const InternalLinkItem = ({ to, children }) => (
   <a
     href={to}
-    className="text-gray-400 hover:text-yellow-500 transition-colors duration-200 text-sm font-medium"
+    className="text-sm font-medium text-gray-400 transition-colors duration-200 hover:text-yellow-500"
   >
     {children}
   </a>
@@ -22,7 +23,7 @@ const ExternalLinkItem = ({ href, children }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-gray-400 hover:text-yellow-500 transition-colors duration-200 text-sm font-medium"
+    className="text-sm font-medium text-gray-400 transition-colors duration-200 hover:text-yellow-500"
   >
     {children}
   </a>
@@ -33,7 +34,7 @@ const SocialIcon = ({ Icon, href, label }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 border border-border rounded-full flex items-center justify-center text-gray-300 hover:text-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-200"
+    className="border-border flex h-10 w-10 items-center justify-center rounded-full border text-gray-300 transition-all duration-200 hover:border-yellow-500 hover:text-yellow-500 hover:shadow-md"
     aria-label={label}
   >
     <Icon size={18} />
@@ -41,14 +42,14 @@ const SocialIcon = ({ Icon, href, label }) => (
 );
 
 const Footer = () => (
-  <footer className="bg-gray-800 border-t border-border">
+  <footer className="border-border border-t bg-gray-800">
     {/* Main Footer Content */}
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
         {/* Brand Section */}
         <div className="col-span-2 lg:col-span-2">
-          <div className="flex items-center space-x-1 mb-4">
-            <div className="w-18 h-18 rounded-xl  cursor-pointer">
+          <div className="mb-4 flex items-center space-x-1">
+            <div className="h-18 w-18 cursor-pointer rounded-xl">
               <img src="/assets/Cravo_logo.png" alt="Cravo Logo" />
             </div>
             <div className="w-32">
@@ -59,7 +60,7 @@ const Footer = () => (
               />
             </div>
           </div>
-          <p className="text-gray-300 text-sm leading-relaxed mb-4 max-w-sm">
+          <p className="mb-4 max-w-sm text-sm leading-relaxed text-gray-300">
             Bringing your favourite dishes from the best restaurants straight to
             your doorstep.
           </p>
@@ -83,10 +84,10 @@ const Footer = () => (
 
         {/* Company Links */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+          <h4 className="text-md font-semibold tracking-wide text-gray-200">
             Company
           </h4>
-          <div className="space-y-2 flex flex-col text-300">
+          <div className="text-300 flex flex-col space-y-2">
             <InternalLinkItem to="/about-us">About Us</InternalLinkItem>
             <InternalLinkItem to="/careers">Careers</InternalLinkItem>
             <InternalLinkItem to="/team">Team</InternalLinkItem>
@@ -96,10 +97,10 @@ const Footer = () => (
 
         {/* Services Links */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+          <h4 className="text-md font-semibold tracking-wide text-gray-200">
             Services
           </h4>
-          <div className="space-y-2 flex flex-col">
+          <div className="flex flex-col space-y-2">
             <InternalLinkItem to="/cravo-one">Cravo One</InternalLinkItem>
             <InternalLinkItem to="/cravo-instamart">Instamart</InternalLinkItem>
             <InternalLinkItem to="/cravo-dineout">Dineout</InternalLinkItem>
@@ -109,10 +110,10 @@ const Footer = () => (
 
         {/* Partners Links */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+          <h4 className="text-md font-semibold tracking-wide text-gray-200">
             Partners
           </h4>
-          <div className="space-y-2 flex flex-col">
+          <div className="flex flex-col space-y-2">
             <InternalLinkItem to="/partner-with-us">
               Restaurants
             </InternalLinkItem>
@@ -126,10 +127,10 @@ const Footer = () => (
 
         {/* Support & Apps */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-gray-200 text-md tracking-wide">
+          <h4 className="text-md font-semibold tracking-wide text-gray-200">
             Support
           </h4>
-          <div className="space-y-2 flex flex-col">
+          <div className="flex flex-col space-y-2">
             <InternalLinkItem to="/contact-us">Help Center</InternalLinkItem>
             <InternalLinkItem to="/privacy-policy">Privacy</InternalLinkItem>
             <InternalLinkItem to="/terms-of-service">Terms</InternalLinkItem>
@@ -145,12 +146,12 @@ const Footer = () => (
     </div>
 
     {/* Bottom Bar */}
-    <div className="border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+    <div className="border-border border-t">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
           {/* Social Icons */}
           <div className="flex items-center space-x-3">
-            <span className="text-sm text-gray-300 mr-2">Follow us:</span>
+            <span className="mr-2 text-sm text-gray-300">Follow us:</span>
             <SocialIcon
               Icon={GithubIcon}
               href="https://github.com/believeharsh"
