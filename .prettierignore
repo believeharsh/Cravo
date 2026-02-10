@@ -20,3 +20,6 @@ npm-debug.log*
 .DS_Store
 .vscode
 .idea
+
+# CI Outputs
+*.sarif
