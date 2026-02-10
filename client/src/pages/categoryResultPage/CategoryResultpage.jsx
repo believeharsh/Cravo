@@ -186,8 +186,8 @@ const CategoryResultPage = () => {
   // Initial loading state (show full screen loader only if no restaurants are loaded yet)
   if (loading && restaurants.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-xl font-semibold text-gray-700">
+      <div className="min-h-screen flex items-center justify-center bg-bg-subtle">
+        <p className="text-xl font-semibold text-text-secondary">
           Loading restaurants...
         </p>
       </div>
@@ -197,7 +197,7 @@ const CategoryResultPage = () => {
   // Initial error state (show full screen error only if no restaurants are loaded yet)
   if (error && restaurants.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-bg-subtle">
         <p className="text-xl font-semibold text-red-500">{error}</p>
       </div>
     );
@@ -264,7 +264,7 @@ const CategoryResultPage = () => {
             {restaurants.length > 0 ? (
               <RestaurantList restaurants={restaurants} isLoading={loading} />
             ) : (
-              <p className="text-center text-gray-600 text-lg mt-8">
+              <p className="text-center text-text-secondary text-lg mt-8">
                 No restaurants found for "{categorySlug}" in this area.
               </p>
             )}
@@ -274,7 +274,7 @@ const CategoryResultPage = () => {
                 <button
                   onClick={handleLoadMore}
                   disabled={loading}
-                  className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-3 bg-primary hover:bg-primary-hover text-text-main font-semibold rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Loading More...' : 'Load More'}
                 </button>

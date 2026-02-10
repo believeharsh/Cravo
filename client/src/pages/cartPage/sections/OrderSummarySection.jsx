@@ -25,11 +25,11 @@ const OrderSummarySection = ({
     <div className="bg-white rounded-3xl shadow-lg p-4 space-y-4">
       {/* Promo Code Input */}
       <div>
-        <h2 className="text-xl font-bold text-gray-800 mb-3">Promo Code</h2>
+        <h2 className="text-xl font-bold text-text-main mb-3">Promo Code</h2>
         <div className="flex space-x-2">
           <input
             type="text"
-            className="flex-grow p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+            className="flex-grow p-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
             placeholder="Enter promo code"
             value={promoCode}
             onChange={e => setPromoCode(e.target.value)}
@@ -44,7 +44,7 @@ const OrderSummarySection = ({
           ) : (
             <button
               onClick={applyPromoCode}
-              className="px-4 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-xl transition-colors"
+              className="px-4 py-3 bg-primary hover:bg-primary-hover text-text-main font-semibold rounded-xl transition-colors"
             >
               Apply
             </button>
@@ -61,8 +61,8 @@ const OrderSummarySection = ({
 
       {/* Order Summary */}
       <div className="space-y-3">
-        <h2 className="text-xl font-bold text-gray-800">Order Summary</h2>
-        <div className="space-y-2 text-gray-600 font-medium">
+        <h2 className="text-xl font-bold text-text-main">Order Summary</h2>
+        <div className="space-y-2 text-text-secondary font-medium">
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span className="flex items-center">
@@ -129,7 +129,7 @@ const OrderSummarySection = ({
           />
           <label
             htmlFor="no-contact-checkbox"
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-text-secondary"
           >
             {isNoContactSelected
               ? 'Our delivery partner will call to confirm. Please ensure that your address has all the required details.'
@@ -139,7 +139,7 @@ const OrderSummarySection = ({
 
         <div className="h-px bg-gray-200" />
 
-        <div className="flex justify-between text-lg font-bold text-gray-800">
+        <div className="flex justify-between text-lg font-bold text-text-main">
           <span>Final Total</span>
           <p className="flex items-center">
             <Icon name="indian-rupee" className="w-4 h-4" />

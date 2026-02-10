@@ -163,7 +163,7 @@ const LoginPage = () => {
               embark on your culinary journey.
             </p>
             <div className="mt-8 flex items-center space-x-4">
-              <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-2xl">🍳</span>
               </div>
               <div className="w-12 h-12 bg-mint-green rounded-full flex items-center justify-center">
@@ -182,7 +182,7 @@ const LoginPage = () => {
         <div className="max-w-md w-full space-y-8">
           {/* Heading */}
           <div className="text-center">
-            <div className="mx-auto h-16 w-16 bg-yellow-400 rounded-full flex items-center justify-center mb-6 shadow-lg">
+            <div className="mx-auto h-16 w-16 bg-primary rounded-full flex items-center justify-center mb-6 shadow-lg">
               <span className="text-2xl">🍽️</span>
             </div>
             <h2 className="text-3xl font-bold text-charcoal">Welcome Back</h2>
@@ -284,7 +284,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 {isLoading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
@@ -333,7 +333,7 @@ const LoginPage = () => {
               </div>
               <a
                 href="#"
-                className="inline-flex justify-center py-3 px-4 border border-yellow-400 text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none focus:ring-offset-2 transition-all duration-200"
+                className="inline-flex justify-center py-3 px-4 border border-border-focus text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none focus:ring-offset-2 transition-all duration-200"
               >
                 Create New Account
               </a>

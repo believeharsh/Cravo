@@ -8,7 +8,7 @@ const AddressCard = ({ address, onEdit, onDelete }) => {
       {/* Default Badge */}
       {address.isDefault && (
         <div className="absolute top-0 right-0">
-          <div className="bg-gradient-to-br from-yellow-400 to-yellow-500 text-white text-xs font-semibold px-2.5 py-1 rounded-bl-lg shadow-sm">
+          <div className="bg-gradient-to-br from-yellow-400 to-primary-hover text-white text-xs font-semibold px-2.5 py-1 rounded-bl-lg shadow-sm">
             Default
           </div>
         </div>
@@ -18,15 +18,15 @@ const AddressCard = ({ address, onEdit, onDelete }) => {
       <div className="flex flex-col h-full p-5 pt-7">
         {/* Address Type Header */}
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-1.5 h-5 bg-gradient-to-b from-yellow-400 to-yellow-500 rounded-full"></div>
-          <h3 className="text-base font-semibold text-gray-900 truncate">
+          <div className="w-1.5 h-5 bg-gradient-to-b from-yellow-400 to-primary-hover rounded-full"></div>
+          <h3 className="text-base font-semibold text-text-main truncate">
             {address.addressType || 'Address'}
           </h3>
         </div>
 
         {/* Address Details - Fixed height container */}
-        <div className="flex-1 mb-4 text-sm text-gray-600 leading-snug space-y-0.5 min-h-0">
-          <p className="font-medium text-gray-800 truncate">
+        <div className="flex-1 mb-4 text-sm text-text-secondary leading-snug space-y-0.5 min-h-0">
+          <p className="font-medium text-text-main truncate">
             {address.addressLine1}
           </p>
           {address.addressLine2 && (
@@ -35,14 +35,14 @@ const AddressCard = ({ address, onEdit, onDelete }) => {
           <p className="truncate">
             {address.city}, {address.state} {address.zipCode}
           </p>
-          <p className="text-xs text-gray-500 truncate">{address.country}</p>
+          <p className="text-xs text-text-muted truncate">{address.country}</p>
         </div>
 
         {/* Action Buttons - Fixed at bottom */}
         <div className="flex gap-4 mt-auto">
           <button
             onClick={() => onEdit(address)}
-            className="cursor-pointer px-5 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-1 transition-all duration-200"
+            className="cursor-pointer px-5 py-2 text-sm font-medium text-text-secondary bg-bg-subtle border border-border rounded-lg hover:bg-gray-100 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-1 transition-all duration-200"
           >
             Edit
           </button>
@@ -56,7 +56,7 @@ const AddressCard = ({ address, onEdit, onDelete }) => {
       </div>
 
       {/* Subtle hover accent */}
-      <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+      <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-yellow-400 to-primary-hover transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
     </div>
   );
 };

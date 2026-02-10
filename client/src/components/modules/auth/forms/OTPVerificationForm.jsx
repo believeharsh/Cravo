@@ -23,10 +23,10 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
       <div>
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-3xl font-bold text-gray-800">
+          <h2 className="text-3xl font-bold text-text-main">
             Verify Your Email
           </h2>
-          <p className="mt-2 text-gray-500 text-sm">
+          <p className="mt-2 text-text-muted text-sm">
             A 6-digit code has been sent to{' '}
             <span className="font-semibold">{email}</span>
           </p>
@@ -54,7 +54,7 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
           <button
             type="submit"
             disabled={isLoading || otp.length !== 6}
-            className="w-full bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full bg-primary-hover text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isLoading ? <LoadingSpinner /> : 'Verify OTP'}
           </button>
@@ -63,7 +63,7 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
 
       {/* Footer */}
       <div className="text-center mt-auto">
-        <p className="text-gray-500 text-sm">
+        <p className="text-text-muted text-sm">
           Didn't receive the code?
           <button
             onClick={resendOTP}
@@ -85,14 +85,14 @@ const SocialLoginButton = ({ onClick }) => (
   <button
     onClick={onClick}
     type="button"
-    className="w-full flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-gray-50 transition-colors duration-200"
+    className="w-full flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-bg-subtle transition-colors duration-200"
   >
     <img
       src="https://img.icons8.com/color/48/google-logo.png"
       alt="Google"
       className="w-6 h-6"
     />
-    <span className="text-gray-700 font-medium">Continue with Google</span>
+    <span className="text-text-secondary font-medium">Continue with Google</span>
   </button>
 );
 

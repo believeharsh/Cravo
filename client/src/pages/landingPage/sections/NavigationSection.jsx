@@ -115,7 +115,7 @@ const LandingNavigation = () => {
                 `flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 font-medium ${
                   isActive
                     ? 'text-yellow-600 bg-yellow-50'
-                    : 'text-gray-800 hover:text-gray-600 hover:bg-gray-50'
+                    : 'text-text-main hover:text-text-secondary hover:bg-bg-subtle'
                 }`
               }
             >
@@ -126,13 +126,13 @@ const LandingNavigation = () => {
             <NavLink
               to="/partner"
               className={({ isActive }) =>
-                `flex items-center px-3 py-2 rounded-lg transition-all duration-200 font-medium ${isActive ? 'text-yellow-600 bg-yellow-50' : 'text-gray-800 hover:text-gray-600 hover:bg-gray-50'}`
+                `flex items-center px-3 py-2 rounded-lg transition-all duration-200 font-medium ${isActive ? 'text-yellow-600 bg-yellow-50' : 'text-text-main hover:text-text-secondary hover:bg-bg-subtle'}`
               }
             >
               <span className="text-md">Partner with us</span>
             </NavLink>
             <NavLink to="/get-the-app">
-              <button className="flex items-center justify-center px-4 py-2 rounded-xl font-medium text-gray-800 transition-all duration-200 border border-gray-300 bg-gray-50 cursor-pointer hover:border-gray-400 hover:bg-gray-50 text-md">
+              <button className="flex items-center justify-center px-4 py-2 rounded-xl font-medium text-text-main transition-all duration-200 border border-gray-300 bg-bg-subtle cursor-pointer hover:border-gray-400 hover:bg-bg-subtle text-md">
                 <Icon name="smartphone" size={16} className="mr-2" />
                 Get The App
               </button>
@@ -141,7 +141,7 @@ const LandingNavigation = () => {
 
           {/* Mobile menu button and dropdown (omitted for brevity) */}
           <button
-            className="lg:hidden flex items-center justify-center p-2 rounded-lg text-gray-800 hover:bg-gray-50 transition-colors"
+            className="lg:hidden flex items-center justify-center p-2 rounded-lg text-text-main hover:bg-bg-subtle transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             ref={menuButtonRef}
           >
@@ -150,7 +150,7 @@ const LandingNavigation = () => {
           {isMobileMenuOpen && (
             <div
               ref={mobileMenuRef}
-              className="absolute top-full right-4 sm:right-6 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 lg:hidden z-50"
+              className="absolute top-full right-4 sm:right-6 mt-2 w-56 bg-white rounded-xl shadow-lg border border-border py-2 lg:hidden z-50"
             >
               {mobileMenuItems.map((item, index) => (
                 <NavLink
@@ -161,7 +161,7 @@ const LandingNavigation = () => {
                     `flex items-center space-x-3 px-4 py-3 text-sm font-medium transition-colors duration-150 ${
                       isActive
                         ? 'text-yellow-600 bg-yellow-50'
-                        : 'text-gray-700 hover:bg-gray-50'
+                        : 'text-text-secondary hover:bg-bg-subtle'
                     }`
                   }
                 >
@@ -169,7 +169,7 @@ const LandingNavigation = () => {
                     <Icon
                       name={item.icon}
                       size={16}
-                      className="text-gray-500"
+                      className="text-text-muted"
                     />
                   )}
                   <span>{item.label}</span>
@@ -185,7 +185,7 @@ const LandingNavigation = () => {
               onMouseEnter={() => setIsProfileDropdownOpen(true)}
               onMouseLeave={() => setIsProfileDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-2 px-3 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900 border border-transparent hover:border-gray-200">
+              <button className="flex items-center space-x-2 px-3 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 text-text-secondary hover:text-text-main border border-transparent hover:border-border">
                 <Icon name="user" size={18} />
                 <span className="hidden sm:block text-md">Profile</span>
                 <Icon
@@ -201,7 +201,7 @@ const LandingNavigation = () => {
               {isProfileDropdownOpen && (
                 <div className="absolute right-0 top-full pt-2 z-50">
                   <div className="w-56 h-2 bg-transparent"></div>
-                  <div className="w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2">
+                  <div className="w-56 bg-white rounded-xl shadow-lg border border-border py-2">
                     {profileMenuItems.map((item, index) => {
                       // ⚡️ CONDITIONAL RENDERING LOGIC ⚡️
                       if (item.type === 'link') {
@@ -209,13 +209,13 @@ const LandingNavigation = () => {
                           <Link
                             key={index}
                             to={item.path}
-                            className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150"
+                            className="flex items-center space-x-3 px-4 py-3 text-sm text-text-secondary hover:bg-bg-subtle hover:text-text-main transition-colors duration-150"
                             onClick={() => setIsProfileDropdownOpen(false)}
                           >
                             <Icon
                               name={item.icon}
                               size={16}
-                              className="text-gray-500"
+                              className="text-text-muted"
                             />
                             <span>{item.label}</span>
                           </Link>
@@ -227,7 +227,7 @@ const LandingNavigation = () => {
                         <button
                           key={index}
                           onClick={item.onClick}
-                          className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors duration-150"
+                          className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-text-secondary hover:bg-bg-subtle hover:text-red-600 transition-colors duration-150"
                         >
                           <Icon
                             name={item.icon}
@@ -245,16 +245,16 @@ const LandingNavigation = () => {
           ) : (
             <div className="">
               {/* {isAuthChecking ? (
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-xl font-medium text-gray-700 transition-all duration-200 hover:scale-105">
+                <button className="flex items-center space-x-2 px-4 py-2 rounded-xl font-medium text-text-secondary transition-all duration-200 hover:scale-105">
                   <LoadingSpinner />
                 </button>
               ) : ( */}
               <button
-                className="flex items-center space-x-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl font-medium text-gray-700 transition-all duration-200 border border-gray-200 hover:border-gray-300 hover:scale-105"
+                className="flex items-center space-x-2 px-4 py-2 bg-bg-subtle hover:bg-gray-100 rounded-xl font-medium text-text-secondary transition-all duration-200 border border-border hover:border-gray-300 hover:scale-105"
                 onClick={() => dispatch(openAuthSidebar({ mode: 'login' }))}
               >
                 <Icon name="log-in" size={16} className="text-blue-600" />
-                <span className="font-medium text-gray-800 text-sm">
+                <span className="font-medium text-text-main text-sm">
                   {/* {!isAuthenticated ? 'Sign in' : ''} */}
                   Sign in
                 </span>

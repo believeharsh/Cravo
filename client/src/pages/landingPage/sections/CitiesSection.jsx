@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 const CityCard = ({ city }) => (
   <div className="px-2 sm:px-3 mb-4">
     <div
-      className="bg-white rounded-xl border border-gray-200 flex flex-col items-center
+      className="bg-white rounded-xl border border-border flex flex-col items-center
                  justify-center py-5 hover:-translate-y-1 hover:shadow-md
                  transition-transform duration-200 ease-out"
     >
-      <span className="font-medium text-gray-700 text-sm text-center">
+      <span className="font-medium text-text-secondary text-sm text-center">
         {city.name}
       </span>
     </div>
@@ -51,8 +51,8 @@ const CitiesSection = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6 mt-15">
           <div>
-            <h2 className="text-xl font-bold text-gray-800">Cities We Serve</h2>
-            <p className="text-gray-600 text-sm mt-1">
+            <h2 className="text-xl font-bold text-text-main">Cities We Serve</h2>
+            <p className="text-text-secondary text-sm mt-1">
               Bringing delicious food to your doorstep across India
             </p>
           </div>
@@ -71,7 +71,7 @@ const CitiesSection = () => {
             {!showAll ? (
               <button
                 onClick={handleShowMore}
-                className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 
+                className="px-6 py-2 bg-primary-hover text-white rounded-lg hover:bg-yellow-600 
                          transition-colors duration-200 font-medium text-sm"
               >
                 Show More Cities ({cities.length - INITIAL_CITIES_COUNT})
@@ -91,7 +91,7 @@ const CitiesSection = () => {
         {/* Loading and Error States */}
         {isLoading && (
           <div className="flex justify-center items-center py-8">
-            <div className="text-gray-500">Loading cities...</div>
+            <div className="text-text-muted">Loading cities...</div>
           </div>
         )}
 
@@ -103,7 +103,7 @@ const CitiesSection = () => {
 
         {!isLoading && !error && cities.length === 0 && (
           <div className="flex justify-center items-center py-8">
-            <div className="text-gray-500">No cities available</div>
+            <div className="text-text-muted">No cities available</div>
           </div>
         )}
       </div>

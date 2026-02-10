@@ -60,11 +60,11 @@ const SignupPage = () => {
       <div className="max-w-md w-full space-y-8">
         {/* header */}
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 bg-green-400 rounded-full flex items-center justify-center mb-6">
+          <div className="mx-auto h-16 w-16 bg-secondary rounded-full flex items-center justify-center mb-6">
             <User className="h-8 w-8 text-white" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
-          <p className="mt-2 text-gray-600">Join us and get started today</p>
+          <h2 className="text-3xl font-bold text-text-main">Create Account</h2>
+          <p className="mt-2 text-text-secondary">Join us and get started today</p>
         </div>
 
         {/* form */}
@@ -91,7 +91,7 @@ const SignupPage = () => {
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                // className="block w-full px-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
+                // className="block w-full px-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-text-main placeholder-gray-500"
                 placeholder="John Doe"
               />
             </div>
@@ -105,7 +105,7 @@ const SignupPage = () => {
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-500 pointer-events-none" />
+                <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-text-muted pointer-events-none" />
                 <Input
                   id="email"
                   name="email"
@@ -113,7 +113,7 @@ const SignupPage = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  // className="block w-full pl-10 pr-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
+                  // className="block w-full pl-10 pr-3 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-text-main placeholder-gray-500"
                   placeholder="john@example.com"
                 />
               </div>
@@ -128,7 +128,7 @@ const SignupPage = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-500 pointer-events-none" />
+                <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-text-muted pointer-events-none" />
                 <Input
                   id="password"
                   name="password"
@@ -136,7 +136,7 @@ const SignupPage = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  // className="block w-full pl-10 pr-10 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-gray-800 placeholder-gray-500"
+                  // className="block w-full pl-10 pr-10 py-3 border border-yellow-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent text-text-main placeholder-gray-500"
                   // placeholder="Create a strong password"
                 />
                 <Button
@@ -145,9 +145,9 @@ const SignupPage = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-500 hover:text-gray-800" />
+                    <EyeOff className="h-5 w-5 text-text-muted hover:text-text-main" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-500 hover:text-gray-800" />
+                    <Eye className="h-5 w-5 text-text-muted hover:text-text-main" />
                   )}
                 </Button>
               </div>
@@ -157,7 +157,7 @@ const SignupPage = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
               {isLoading ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -172,7 +172,7 @@ const SignupPage = () => {
 
           {/* sign in */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-text-secondary">
               Already have an account?{' '}
               <Link
                 to="/login"

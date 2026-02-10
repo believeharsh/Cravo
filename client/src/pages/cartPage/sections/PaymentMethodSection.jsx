@@ -7,7 +7,7 @@ const PaymentMethodSection = ({
 }) => {
   return (
     <div className="bg-white rounded-2xl shadow-md p-3">
-      <h2 className="text-lg font-bold text-gray-800 mb-2">Payment Method</h2>
+      <h2 className="text-lg font-bold text-text-main mb-2">Payment Method</h2>
       <div className="flex flex-wrap gap-2">
         {paymentMethods.map(payment => (
           <PaymentMethodCard

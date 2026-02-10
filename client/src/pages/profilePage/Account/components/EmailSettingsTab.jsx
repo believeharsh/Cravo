@@ -7,7 +7,7 @@ const EmailSettingsTab = ({ email, isVerified = true }) => {
       <h2 className="text-lg font-semibold text-charcoal mb-4">
         Email Settings
       </h2>
-      <div className="flex items-center gap-3 bg-gray-50 px-3 py-2 rounded-lg">
+      <div className="flex items-center gap-3 bg-bg-subtle px-3 py-2 rounded-lg">
         <Icon name="mail" size={16} className="text-gray-400" />
         <span>{email}</span>
         {isVerified && (

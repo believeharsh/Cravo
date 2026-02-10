@@ -35,10 +35,10 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
     <div className="relative" ref={profileDropdownRef}>
       <button
         onClick={onToggle}
-        className={`relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
+        className={`relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 ${
           isOpen
             ? 'bg-yellow-50 text-yellow-600'
-            : 'text-gray-700 hover:text-gray-900'
+            : 'text-text-secondary hover:text-text-main'
         }`}
       >
         <Icon name="user" size={18} />
@@ -57,7 +57,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Account */}
             <Link
               to="/profile/account"
-              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="user" size={16} className="mr-2" />
@@ -67,7 +67,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Settings */}
             <Link
               to="/profile/settings"
-              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="settings" size={16} className="mr-2" />
@@ -77,7 +77,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Favorites */}
             <Link
               to="/profile/favorites"
-              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="heart" size={16} className="mr-2" />
@@ -87,7 +87,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Orders */}
             <Link
               to="/profile/orders"
-              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="shopping-bag" size={16} className="mr-2" />
@@ -97,7 +97,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Help & Support */}
             <Link
               to="/help"
-              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="help-circle" size={16} className="mr-2" />

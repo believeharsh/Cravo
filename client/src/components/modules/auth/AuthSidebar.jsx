@@ -180,7 +180,7 @@ const AuthModal = () => {
             {/* Close Button */}
             <button
               onClick={handleClose}
-              className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors duration-200"
+              className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-text-main transition-colors duration-200"
               aria-label="Close authentication modal"
             >
               <Icon name="x-circle" className="w-6 h-6" />

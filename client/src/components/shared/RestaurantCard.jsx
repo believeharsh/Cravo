@@ -125,13 +125,13 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
 
         {/* Min order badge (Grid placement) */}
         <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm rounded-lg px-2 py-1 shadow-md">
-          <span className="text-gray-800 font-bold text-sm">
+          <span className="text-text-main font-bold text-sm">
             Min ₹{data.min_order_value}
           </span>
         </div>
 
         {/* Delivery time badge (Grid placement) */}
-        <div className="absolute top-3 right-3 bg-white/90 text-gray-800 rounded-full px-2 py-1 text-xs font-semibold shadow-md">
+        <div className="absolute top-3 right-3 bg-white/90 text-text-main rounded-full px-2 py-1 text-xs font-semibold shadow-md">
           {data.delivery_time_mins}m
         </div>
 
@@ -153,12 +153,12 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
       {/* CONTENT SECTION */}
       <div className={contentContainerClasses}>
         {/* Restaurant name */}
-        <h3 className="text-lg font-bold text-gray-800 group-hover:text-yellow-500 transition-colors line-clamp-1 leading-tight">
+        <h3 className="text-lg font-bold text-text-main group-hover:text-yellow-500 transition-colors line-clamp-1 leading-tight">
           {data.name}
         </h3>
 
         {/* Cuisine tags */}
-        <div className="flex items-center gap-1 text-xs text-gray-600 font-medium overflow-hidden whitespace-nowrap">
+        <div className="flex items-center gap-1 text-xs text-text-secondary font-medium overflow-hidden whitespace-nowrap">
           {data.cuisine_type?.slice(0, 4).map((cuisine, idx) => (
             <span key={cuisine}>
               {cuisine}
@@ -182,7 +182,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
             </span>
           </div>
           {data.numberOfReviews && (
-            <span className="text-gray-500 text-sm">
+            <span className="text-text-muted text-sm">
               ({data.numberOfReviews}+ reviews)
             </span>
           )}
@@ -190,7 +190,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
 
         {/* Footer Info (Delivery Time & Veg Status) */}
         <div className="mt-auto pt-2 border-t border-gray-100 flex items-center justify-between text-sm">
-          <span className="text-gray-600 font-medium">
+          <span className="text-text-secondary font-medium">
             {data.delivery_time_mins} mins
           </span>
           <span className="text-emerald-600 font-semibold">
@@ -201,7 +201,7 @@ const RestaurantCard = ({ data, listId, className = '' }) => {
         {/* Address (Street) */}
         <div className="">
           {data.address?.street && (
-            <p className="text-gray-500 text-shadow-xs text-sm truncate">
+            <p className="text-text-muted text-shadow-xs text-sm truncate">
               {data.address.street}
             </p>
           )}

@@ -151,7 +151,7 @@ const Hero = () => {
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4 sm:space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-text-main leading-tight">
                 Satisfy Your <br />
                 <span className="text-whitess">Cravings</span> <br />
                 <span className="block sm:inline">Instantly</span>
@@ -166,13 +166,13 @@ const Hero = () => {
                   <div className="relative" ref={locationRef}>
                     <Icon
                       name={'map-pin'}
-                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-text-muted"
                       size={18}
                     />
                     <input
                       type="text"
                       placeholder={location_placehoder}
-                      className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium text-sm sm:text-base"
+                      className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-border rounded-xl focus:outline-none focus:border-border-focus text-text-main font-medium text-sm sm:text-base"
                       value={searchTerm}
                       onChange={handleLocationChange}
                       onFocus={() => {
@@ -183,7 +183,7 @@ const Hero = () => {
                     />
                     <Icon
                       name={isLocationLoading ? 'spinner' : 'chevron-down'}
-                      className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition-transform duration-200 ${
+                      className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-text-muted transition-transform duration-200 ${
                         locationFocused && !isLocationLoading
                           ? 'rotate-180'
                           : ''
@@ -196,21 +196,21 @@ const Hero = () => {
                       (searchTerm.length >= 3 ||
                         suggestions.length > 0 ||
                         isLocationLoading) && (
-                        <div className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden max-h-64 overflow-y-auto">
+                        <div className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-2xl border border-border overflow-hidden max-h-64 overflow-y-auto">
                           {/* Use My Current Location Button */}
                           <div
-                            className="flex items-center gap-3 p-4 text-sm font-medium text-blue-600 hover:bg-gray-50 cursor-pointer"
+                            className="flex items-center gap-3 p-4 text-sm font-medium text-blue-600 hover:bg-bg-subtle cursor-pointer"
                             onClick={handleUseCurrentLocation}
                           >
                             <Icon name="locate-fixed" size={18} />
                             <span>Use My Current Location</span>
                           </div>
 
-                          <hr className="border-gray-200" />
+                          <hr className="border-border" />
 
                           {/* Loading State */}
                           {isLocationLoading && (
-                            <div className="p-4 text-center text-sm text-gray-500">
+                            <div className="p-4 text-center text-sm text-text-muted">
                               Loading...
                             </div>
                           )}
@@ -219,7 +219,7 @@ const Hero = () => {
                           {!isLocationLoading &&
                             suggestions.length === 0 &&
                             searchTerm.length >= 3 && (
-                              <div className="p-4 text-center text-sm text-gray-500">
+                              <div className="p-4 text-center text-sm text-text-muted">
                                 No locations found.
                               </div>
                             )}
@@ -230,7 +230,7 @@ const Hero = () => {
                               {suggestions.map((location, index) => (
                                 <li
                                   key={index}
-                                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm font-medium text-gray-700"
+                                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm font-medium text-text-secondary"
                                   onMouseDown={e => e.preventDefault()} // Prevents blur event on click
                                   onClick={() => handleSelectLocation(location)}
                                 >
@@ -247,19 +247,19 @@ const Hero = () => {
                   <div className="relative">
                     <Icon
                       name={'search'}
-                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-text-muted"
                       size={18}
                     />
                     <input
                       type="text"
                       placeholder="Pizza, Burger, Chinese..."
-                      className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 text-gray-800 font-medium text-sm sm:text-base"
+                      className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-border rounded-xl focus:outline-none focus:border-border-focus text-text-main font-medium text-sm sm:text-base"
                       onFocus={() => setFoodFocused(true)}
                       onBlur={() => setFoodFocused(false)}
                     />
                     <Icon
                       name={'chevron-down'}
-                      className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition-transform duration-200 ${
+                      className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-text-muted transition-transform duration-200 ${
                         foodFocused ? 'rotate-180' : ''
                       }`}
                       size={18}
@@ -268,7 +268,7 @@ const Hero = () => {
                 </div>
 
                 <NavLink to={'/restaurants'}>
-                  <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer">
+                  <button className="w-full bg-primary hover:bg-primary-hover text-text-main font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer">
                     Find Delicious Food
                   </button>
                 </NavLink>
@@ -281,27 +281,27 @@ const Hero = () => {
             <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-6 sm:p-8 shadow-xl">
               <div className="text-center space-y-4 sm:space-y-6">
                 <div className="relative">
-                  <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 mx-auto bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 mx-auto bg-gradient-to-br from-primary to-primary-hover rounded-full flex items-center justify-center shadow-lg">
                     <div className="text-center">
                       <div className="text-4xl sm:text-5xl lg:text-6xl mb-2 sm:mb-4">
                         🍽️
                       </div>
-                      <p className="text-gray-800 text-base sm:text-lg font-bold">
+                      <p className="text-text-main text-base sm:text-lg font-bold">
                         Premium Quality
                       </p>
-                      <p className="text-gray-600 text-xs sm:text-sm">
+                      <p className="text-text-secondary text-xs sm:text-sm">
                         Fresh & Fast
                       </p>
                     </div>
                   </div>
 
-                  <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 bg-green-400 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+                  <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 bg-secondary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
                     🌿 Fresh
                   </div>
-                  <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-yellow-500 text-gray-800 px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+                  <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-primary-hover text-text-main px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
                     ⚡ 30 min
                   </div>
-                  <div className="absolute top-1/2 -right-4 sm:-right-8 bg-white text-gray-800 px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-lg text-xs sm:text-sm border-2 border-yellow-400">
+                  <div className="absolute top-1/2 -right-4 sm:-right-8 bg-white text-text-main px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-lg text-xs sm:text-sm border-2 border-border-focus">
                     1000+ 🏪
                   </div>
                 </div>

@@ -51,7 +51,7 @@ const ProfileLayout = () => {
       path: 'settings',
       title: 'Settings',
       icon: 'settings',
-      color: 'text-gray-600',
+      color: 'text-text-secondary',
     },
   ];
 
@@ -87,7 +87,7 @@ const ProfileLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex bg-gray-50">
+      <div className="min-h-screen flex bg-bg-subtle">
         {/* Mobile Overlay */}
         {isSidebarOpen && (
           <div
@@ -98,7 +98,7 @@ const ProfileLayout = () => {
 
         {/* Sidebar */}
         <aside
-          className={`fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out ${
+          className={`fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-border transform transition-transform duration-300 ease-in-out ${
             isSidebarOpen
               ? 'translate-x-0'
               : '-translate-x-full lg:translate-x-0'
@@ -108,7 +108,7 @@ const ProfileLayout = () => {
           <div className="lg:hidden absolute top-4 right-4 z-40">
             <Button
               onClick={() => setIsSidebarOpen(false)}
-              className="text-gray-600 hover:text-gray-900"
+              className="text-text-secondary hover:text-text-main"
             >
               <Icon name={'x'} size={24} />
             </Button>
@@ -125,7 +125,7 @@ const ProfileLayout = () => {
                       `flex items-center justify-between w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 ${
                         isActive
                           ? 'bg-yellow-100 text-yellow-700 font-semibold'
-                          : 'text-gray-800'
+                          : 'text-text-main'
                       }`
                     }
                     onClick={() => setIsSidebarOpen(false)}
@@ -141,7 +141,7 @@ const ProfileLayout = () => {
                       )}
                     </div>
                     {count && (
-                      <span className="text-sm text-gray-500">{count}</span>
+                      <span className="text-sm text-text-muted">{count}</span>
                     )}
                   </NavLink>
                 ) : (
@@ -152,7 +152,7 @@ const ProfileLayout = () => {
                       action && action();
                       setIsSidebarOpen(false);
                     }}
-                    className={`flex items-center justify-between w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-800`}
+                    className={`flex items-center justify-between w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-text-main`}
                   >
                     <div className="flex items-center gap-3">
                       <Icon name={icon} className={`${color}`} size={20} />
@@ -166,14 +166,14 @@ const ProfileLayout = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col">
-          <header className="lg:hidden sticky top-0 p-4 flex items-center justify-between border-b border-gray-200 z-20">
+          <header className="lg:hidden sticky top-0 p-4 flex items-center justify-between border-b border-border z-20">
             <Button onClick={() => setIsSidebarOpen(true)}>
               <Icon name={'menu'} size={24} />
             </Button>
-            <h1 className="text-lg font-semibold text-gray-800">
+            <h1 className="text-lg font-semibold text-text-main">
               {getMobileSectionTitle()}
             </h1>
-            <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-white">
+            <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white">
               <Icon name="shopping-cart" size={16} color="white" />
             </div>
           </header>

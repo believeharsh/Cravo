@@ -334,19 +334,19 @@ const CartPage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-bg-subtle flex items-center justify-center font-sans">
         <div className="max-w-md mx-auto text-center p-8 bg-white rounded-3xl shadow-lg">
           <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Icon name="user" className="w-12 h-12 text-yellow-500" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl font-bold text-text-main mb-4">
             Login Required
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-text-secondary mb-8">
             We are working on guest checkout. Please login to order food!
           </p>
           <Link to={'/login'}>
-            <button className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+            <button className="cursor-pointer bg-primary hover:bg-primary-hover text-text-main font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
               Login to Continue
             </button>
           </Link>
@@ -357,19 +357,19 @@ const CartPage = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-bg-subtle flex items-center justify-center font-sans">
         <div className="max-w-md mx-auto text-center p-8 bg-white rounded-3xl shadow-lg">
           <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Icon name="shopping-cart" className="w-12 h-12 text-yellow-500" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl font-bold text-text-main mb-4">
             Your cart is empty
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-text-secondary mb-8">
             Start adding delicious items to your order!
           </p>
           <Link to={'/restaurants'}>
-            <button className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
+            <button className="cursor-pointer bg-primary hover:bg-primary-hover text-text-main font-semibold px-8 py-3 rounded-full shadow-lg transition-all">
               Browse Restaurants
             </button>
           </Link>
@@ -380,7 +380,7 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 font-sans">
+      <div className="min-h-screen bg-bg-subtle font-sans">
         <CartNavigation />
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="grid lg:grid-cols-3 gap-6">
@@ -441,11 +441,11 @@ const CartPage = () => {
       {isCheckoutLoading && (
         <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-8 shadow-2xl text-center">
-            <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            <div className="w-16 h-16 border-4 border-border-focus border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <h3 className="text-xl font-semibold text-text-main mb-2">
               Processing Payment
             </h3>
-            <p className="text-gray-600">
+            <p className="text-text-secondary">
               Please wait while we prepare your order...
             </p>
           </div>

@@ -132,10 +132,10 @@ const ProductCard = ({ item, listId }) => {
               Bestseller
             </span>
           )}
-          <h3 className="text-base font-bold text-gray-900 line-clamp-1">
+          <h3 className="text-base font-bold text-text-main line-clamp-1">
             {item.name}
           </h3>
-          <p className="text-xs text-gray-500 line-clamp-2">
+          <p className="text-xs text-text-muted line-clamp-2">
             {item.description}
           </p>
         </div>
@@ -144,8 +144,8 @@ const ProductCard = ({ item, listId }) => {
         <div className="mt-auto flex justify-between items-center pt-2 border-t border-gray-100">
           {/* Price */}
           <div className="flex items-center">
-            <Icon name="indian-rupee" className="text-gray-800 w-4 h-4 mr-1" />
-            <span className="text-base font-extrabold text-gray-800">
+            <Icon name="indian-rupee" className="text-text-main w-4 h-4 mr-1" />
+            <span className="text-base font-extrabold text-text-main">
               {item.price}
             </span>
           </div>
@@ -155,16 +155,16 @@ const ProductCard = ({ item, listId }) => {
             <div className="flex items-center space-x-1.5 bg-white border border-yellow-200 rounded-full py-0.5 px-2">
               <button
                 onClick={handleDecrement}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 cursor-pointer"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200 cursor-pointer"
               >
                 -
               </button>
-              <span className="text-sm font-bold text-gray-800">
+              <span className="text-sm font-bold text-text-main">
                 {existingCartItem.quantity}
               </span>
               <button
                 onClick={handleIncrement}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200 cursor-pointer"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200 cursor-pointer"
               >
                 +
               </button>
@@ -172,7 +172,7 @@ const ProductCard = ({ item, listId }) => {
           ) : (
             <button
               onClick={() => handleAddToCart(item._id)}
-              className="flex items-center px-3 py-1.5 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md text-sm cursor-pointer"
+              className="flex items-center px-3 py-1.5 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors duration-200 shadow-md text-sm cursor-pointer"
             >
               <Icon name="shopping-cart" className="w-4 h-4 mr-1" /> Add
             </button>

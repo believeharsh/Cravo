@@ -212,7 +212,7 @@ const HelpSupport = () => {
       in_progress: 'bg-blue-100 text-blue-800',
       resolved: 'bg-green-100 text-green-800',
     };
-    return styles[status] || 'bg-gray-100 text-gray-800';
+    return styles[status] || 'bg-gray-100 text-text-main';
   };
 
   const getPriorityStyle = priority => {
@@ -221,7 +221,7 @@ const HelpSupport = () => {
       medium: 'bg-yellow-100 text-yellow-800',
       low: 'bg-green-100 text-green-800',
     };
-    return styles[priority] || 'bg-gray-100 text-gray-800';
+    return styles[priority] || 'bg-gray-100 text-text-main';
   };
 
   const FAQTab = () => (
@@ -236,22 +236,22 @@ const HelpSupport = () => {
               onClick={() => {
                 if (action.title === 'Report Issue') setShowContactForm(true);
               }}
-              className="p-4 bg-white rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all text-left group"
+              className="p-4 bg-white rounded-2xl border border-border hover:border-border-focus hover:shadow-lg transition-all text-left group"
             >
               <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-yellow-200 transition-colors">
                 <Icon className="w-6 h-6 text-yellow-600" />
               </div>
-              <h3 className="font-bold text-gray-900 text-sm mb-1">
+              <h3 className="font-bold text-text-main text-sm mb-1">
                 {action.title}
               </h3>
-              <p className="text-xs text-gray-600">{action.description}</p>
+              <p className="text-xs text-text-secondary">{action.description}</p>
             </button>
           );
         })}
       </div>
 
       {/* Search & Filters */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+      <div className="bg-white rounded-2xl border border-border p-6 space-y-4">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <input
@@ -271,8 +271,8 @@ const HelpSupport = () => {
                 onClick={() => setSelectedCategory(cat.key)}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${
                   selectedCategory === cat.key
-                    ? 'bg-yellow-400 text-gray-900 shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary text-text-main shadow-lg'
+                    : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -286,12 +286,12 @@ const HelpSupport = () => {
       {/* FAQ List */}
       <div className="space-y-3">
         {filteredFaqs.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+          <div className="bg-white rounded-2xl border border-border p-12 text-center">
             <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl font-bold text-text-main mb-2">
               No FAQs found
             </h3>
-            <p className="text-gray-600">
+            <p className="text-text-secondary">
               Try different keywords or another category
             </p>
           </div>
@@ -299,15 +299,15 @@ const HelpSupport = () => {
           filteredFaqs.map(faq => (
             <div
               key={faq.id}
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
+              className="bg-white rounded-2xl border border-border overflow-hidden"
             >
               <button
                 onClick={() =>
                   setExpandedFaq(expandedFaq === faq.id ? null : faq.id)
                 }
-                className="w-full p-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                className="w-full p-5 flex items-center justify-between text-left hover:bg-bg-subtle transition-colors"
               >
-                <h3 className="font-semibold text-gray-900 pr-4">
+                <h3 className="font-semibold text-text-main pr-4">
                   {faq.question}
                 </h3>
                 {expandedFaq === faq.id ? (
@@ -319,11 +319,11 @@ const HelpSupport = () => {
 
               {expandedFaq === faq.id && (
                 <div className="px-5 pb-5 border-t border-gray-100">
-                  <p className="text-gray-700 mt-4 leading-relaxed">
+                  <p className="text-text-secondary mt-4 leading-relaxed">
                     {faq.answer}
                   </p>
                   <div className="flex items-center gap-3 mt-4">
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-text-secondary">
                       Was this helpful?
                     </span>
                     <button className="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium">
@@ -356,17 +356,17 @@ const HelpSupport = () => {
               onClick={() =>
                 method.type === 'Email Support' && setShowContactForm(true)
               }
-              className="p-6 bg-white rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all text-left"
+              className="p-6 bg-white rounded-2xl border border-border hover:border-border-focus hover:shadow-lg transition-all text-left"
             >
               <div
                 className={`w-14 h-14 ${method.bgColor} rounded-xl flex items-center justify-center mb-4`}
               >
                 <Icon className={`w-7 h-7 ${method.iconColor}`} />
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">{method.type}</h3>
-              <p className="text-sm text-gray-600 mb-3">{method.description}</p>
-              <p className="text-xs text-gray-500">{method.availability}</p>
-              <p className="text-xs font-semibold text-gray-900 mt-1">
+              <h3 className="font-bold text-text-main mb-2">{method.type}</h3>
+              <p className="text-sm text-text-secondary mb-3">{method.description}</p>
+              <p className="text-xs text-text-muted">{method.availability}</p>
+              <p className="text-xs font-semibold text-text-main mt-1">
                 {method.time}
               </p>
             </button>
@@ -376,22 +376,22 @@ const HelpSupport = () => {
 
       {/* Contact Form */}
       {showContactForm && (
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <div className="bg-white rounded-2xl border border-border p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-gray-900">
+            <h3 className="text-xl font-bold text-text-main">
               Send us a message
             </h3>
             <button
               onClick={() => setShowContactForm(false)}
               className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
             >
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="w-5 h-5 text-text-secondary" />
             </button>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-text-main mb-2">
                 Subject
               </label>
               <input
@@ -406,7 +406,7 @@ const HelpSupport = () => {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-text-main mb-2">
                   Category
                 </label>
                 <select
@@ -424,7 +424,7 @@ const HelpSupport = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-text-main mb-2">
                   Priority
                 </label>
                 <select
@@ -442,7 +442,7 @@ const HelpSupport = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-text-main mb-2">
                 Message
               </label>
               <textarea
@@ -456,7 +456,7 @@ const HelpSupport = () => {
               />
             </div>
 
-            <button className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl transition-colors">
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-text-main font-bold rounded-xl transition-colors">
               <Send className="w-4 h-4" />
               Submit Request
             </button>
@@ -471,19 +471,19 @@ const HelpSupport = () => {
       {supportTickets.map(ticket => (
         <div
           key={ticket.id}
-          className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+          className="bg-white rounded-2xl border border-border p-6 hover:shadow-lg transition-shadow"
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <h3 className="font-bold text-gray-900">{ticket.subject}</h3>
+                <h3 className="font-bold text-text-main">{ticket.subject}</h3>
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusStyle(ticket.status)}`}
                 >
                   {ticket.status.replace('_', ' ')}
                 </span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-text-secondary">
                 Created: {new Date(ticket.createdAt).toLocaleDateString()} •{' '}
                 {ticket.messages} messages
               </p>
@@ -498,12 +498,12 @@ const HelpSupport = () => {
       ))}
 
       {supportTickets.length === 0 && (
-        <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+        <div className="bg-white rounded-2xl border border-border p-12 text-center">
           <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
+          <h3 className="text-xl font-bold text-text-main mb-2">
             No support tickets
           </h3>
-          <p className="text-gray-600">
+          <p className="text-text-secondary">
             You haven't created any support tickets yet
           </p>
         </div>
@@ -519,13 +519,13 @@ const HelpSupport = () => {
           <a
             key={guide.title}
             href="#"
-            className="group p-6 bg-white rounded-2xl border border-gray-200 hover:border-yellow-400 hover:shadow-lg transition-all"
+            className="group p-6 bg-white rounded-2xl border border-border hover:border-border-focus hover:shadow-lg transition-all"
           >
             <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-yellow-200 transition-colors">
               <Icon className="w-6 h-6 text-yellow-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{guide.title}</h3>
-            <p className="text-sm text-gray-600 mb-3">{guide.desc}</p>
+            <h3 className="font-bold text-text-main mb-2">{guide.title}</h3>
+            <p className="text-sm text-text-secondary mb-3">{guide.desc}</p>
             <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-yellow-600 transition-colors" />
           </a>
         );
@@ -537,8 +537,8 @@ const HelpSupport = () => {
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Help & Support</h1>
-        <p className="text-gray-600 mt-1">We're here to help you 24/7</p>
+        <h1 className="text-3xl font-bold text-text-main">Help & Support</h1>
+        <p className="text-text-secondary mt-1">We're here to help you 24/7</p>
       </div>
 
       {/* Tabs */}
@@ -554,8 +554,8 @@ const HelpSupport = () => {
             onClick={() => setActiveTab(tab.id)}
             className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
               activeTab === tab.id
-                ? 'bg-yellow-400 text-gray-900 shadow-lg'
-                : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-primary text-text-main shadow-lg'
+                : 'bg-white text-text-secondary border border-border hover:bg-bg-subtle'
             }`}
           >
             {tab.label}

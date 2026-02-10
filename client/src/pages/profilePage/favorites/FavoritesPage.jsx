@@ -23,7 +23,7 @@ const FavoritesPage = () => {
               <Icon name="heart" className="w-8 h-8 text-mint-green" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+              <h1 className="text-4xl font-bold text-text-main mb-2">
                 {selectedList && `Items in "${selectedList.name}"`}
               </h1>
             </div>

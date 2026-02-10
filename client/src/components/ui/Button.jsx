@@ -31,7 +31,7 @@ const Button = ({
   let variantClasses = '';
   switch (variant) {
     case 'primary':
-      variantClasses = 'bg-primary text-charcoal hover:bg-yellow-500';
+      variantClasses = 'bg-primary text-charcoal hover:bg-primary-hover';
       break;
     case 'secondary':
       variantClasses =

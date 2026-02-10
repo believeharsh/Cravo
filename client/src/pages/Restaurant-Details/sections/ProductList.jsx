@@ -17,7 +17,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
       <div className="mt-8">
         {filteredMenuItems.length > 0 ? (
           <div id="bestsellers-section" className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+            <h2 className="text-2xl font-bold text-text-main mb-4 flex items-center">
               <Icon
                 name="star"
                 className="w-6 h-6 mr-2 fill-current text-amber-500"
@@ -31,7 +31,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
             </div>
           </div>
         ) : (
-          <p className="text-center text-gray-600 text-lg col-span-full mt-8">
+          <p className="text-center text-text-secondary text-lg col-span-full mt-8">
             No bestseller items available at the moment.
           </p>
         )}
@@ -58,7 +58,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
             id={category.toLowerCase().replace(/\s/g, '-')}
             className="mb-10"
           >
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            <h2 className="text-2xl font-bold text-text-main mb-4">
               {category}
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -69,7 +69,7 @@ const ProductList = ({ menuItems, activeFilter }) => {
           </div>
         ))
       ) : (
-        <p className="text-center text-gray-600 text-lg col-span-full mt-8">
+        <p className="text-center text-text-secondary text-lg col-span-full mt-8">
           No menu items available for this selection.
         </p>
       )}

@@ -16,14 +16,14 @@ const AddressCard = ({ address, isSelected, onClick }) => {
       onClick={onClick}
       className={`p-4 rounded-xl border cursor-pointer transition-all ${
         isSelected
-          ? 'border-yellow-400 bg-yellow-50'
+          ? 'border-border-focus bg-yellow-50'
           : 'border-cream hover:border-gray-300'
       }`}
     >
       <div className="flex items-start gap-3">
         <div
           className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-            isSelected ? 'bg-yellow-400' : 'bg-gray-100'
+            isSelected ? 'bg-primary' : 'bg-gray-100'
           }`}
         >
           <Icon

@@ -20,7 +20,7 @@ const RestaurantHeader = ({ restaurant }) => {
             <Icon name="star" className="w-4 h-4 mr-1 fill-current" />{' '}
             {restaurant.rating}
           </span>
-          <span className="flex items-center text-sm bg-yellow-400 px-2 py-1 rounded-full mr-2 text-gray-800">
+          <span className="flex items-center text-sm bg-primary px-2 py-1 rounded-full mr-2 text-text-main">
             <Icon name="timer" className="w-4 h-4 mr-1" />{' '}
             {restaurant.delivery_time_mins} mins
           </span>

@@ -25,35 +25,35 @@ const ChangePasswordTab = ({ onSubmit }) => {
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-sm text-gray-600">Current Password</label>
+          <label className="text-sm text-text-secondary">Current Password</label>
           <input
             type="password"
             value={passwords.current}
             onChange={e => handleChange('current', e.target.value)}
-            className="w-full mt-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400"
+            className="w-full mt-1 px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
         <div>
-          <label className="text-sm text-gray-600">New Password</label>
+          <label className="text-sm text-text-secondary">New Password</label>
           <input
             type="password"
             value={passwords.new}
             onChange={e => handleChange('new', e.target.value)}
-            className="w-full mt-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400"
+            className="w-full mt-1 px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
         <div>
-          <label className="text-sm text-gray-600">Confirm Password</label>
+          <label className="text-sm text-text-secondary">Confirm Password</label>
           <input
             type="password"
             value={passwords.confirm}
             onChange={e => handleChange('confirm', e.target.value)}
-            className="w-full mt-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400"
+            className="w-full mt-1 px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
         <button
           type="submit"
-          className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
+          className="bg-primary-hover hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
         >
           Update Password
         </button>

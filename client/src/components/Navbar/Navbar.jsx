@@ -60,7 +60,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   return (
     <>
       <nav
-        className={`bg-white border-b border-gray-200 top-0 z-50 shadow-sm ${visibilty}`}
+        className={`bg-white border-b border-border top-0 z-50 shadow-sm ${visibilty}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
@@ -85,7 +85,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
 
             {/* Location & Search - Desktop */}
             <div className="hidden sm:flex flex-1 items-center space-x-4 ml-6 mr-auto">
-              <div className="flex items-center space-x-2 text-gray-700 hover:text-yellow-600 transition-colors cursor-pointer group">
+              <div className="flex items-center space-x-2 text-text-secondary hover:text-yellow-600 transition-colors cursor-pointer group">
                 <Icon
                   name="map-pin"
                   size={20}
@@ -106,8 +106,8 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   className="hidden lg:flex items-center space-x-2 px-4 py-2 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors max-w-xs"
                   onClick={openSearchModal}
                 >
-                  <Icon name="search" size={18} className="text-gray-500" />
-                  <span className="text-gray-500 text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                  <Icon name="search" size={18} className="text-text-muted" />
+                  <span className="text-text-muted text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis">
                     Search for food, restaurants...
                   </span>
                 </div>
@@ -135,7 +135,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     <button
                       key={item.id}
                       onClick={item.action}
-                      className="relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 text-gray-700 hover:text-gray-900"
+                      className="relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 text-text-secondary hover:text-text-main"
                     >
                       <Icon name={item.Iconname} size={18} />
                       <span className="hidden xl:block">{item.label}</span>
@@ -149,17 +149,17 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     key={item.id}
                     to={item.path}
                     className={({ isActive }) =>
-                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-gray-50 hover:scale-105 ${
+                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 ${
                         isActive
                           ? 'bg-yellow-50 text-yellow-600'
-                          : 'text-gray-700 hover:text-gray-900'
+                          : 'text-text-secondary hover:text-text-main'
                       }`
                     }
                   >
                     <Icon name={item.Iconname} size={18} />
                     <span className="hidden xl:block">{item.label}</span>
                     {item.badge && (
-                      <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-800 text-xs font-bold px-2 py-0.5 rounded-full">
+                      <span className="absolute -top-1 -right-1 bg-primary text-text-main text-xs font-bold px-2 py-0.5 rounded-full">
                         {item.badge}
                       </span>
                     )}
@@ -182,7 +182,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   variant="ghost"
                   aria-label="Open search"
                 >
-                  <Icon name={'search'} size={24} className="text-gray-600" />
+                  <Icon name={'search'} size={24} className="text-text-secondary" />
                 </Button>
               )}
               <Button
@@ -194,9 +194,9 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                 }
               >
                 {isMobileMenuOpen ? (
-                  <Icon name={'x'} size={24} className="text-gray-600" />
+                  <Icon name={'x'} size={24} className="text-text-secondary" />
                 ) : (
-                  <Icon name={'menu'} size={24} className="text-gray-600" />
+                  <Icon name={'menu'} size={24} className="text-text-secondary" />
                 )}
               </Button>
               <div className="flex items-center">
@@ -207,7 +207,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   <Icon
                     name={'shopping-cart'}
                     size={24}
-                    className="text-gray-600"
+                    className="text-text-secondary"
                   />
                   {cartCount > 0 && (
                     <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">

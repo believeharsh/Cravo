@@ -5,7 +5,7 @@ import DeliveryInfo from '../components/DeliveryInfo';
 
 const OrderDetails = ({ order }) => {
   return (
-    <div className="border-t border-gray-200 bg-gray-50 p-6 space-y-6">
+    <div className="border-t border-border bg-bg-subtle p-6 space-y-6">
       <OrderItemsList items={order.items} />
 
       <BillSummary

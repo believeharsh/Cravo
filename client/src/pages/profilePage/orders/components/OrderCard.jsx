@@ -14,7 +14,7 @@ const OrderCard = ({
   formatETA,
 }) => {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow">
       <OrderSummary
         order={order}
         status={status}

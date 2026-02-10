@@ -247,13 +247,13 @@ const OffersPage = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/50"></div>
 
         {/* Animated Accent */}
-        <div className="absolute top-20 right-20 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
 
         {/* Content */}
         <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
           <div className="max-w-3xl">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-yellow-400/20 backdrop-blur-xl border border-yellow-400/30 text-yellow-400 px-5 py-2.5 rounded-full text-sm font-bold mb-6 shadow-lg">
+            <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-xl border border-border-focus/30 text-yellow-400 px-5 py-2.5 rounded-full text-sm font-bold mb-6 shadow-lg">
               <Sparkles className="w-4 h-4" />
               Limited Time Offers
             </div>
@@ -274,8 +274,8 @@ const OffersPage = () => {
             {/* Stats */}
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-3 py-2">
-                <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center">
-                  <Tag className="w-6 h-6 text-gray-900" />
+                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                  <Tag className="w-6 h-6 text-text-main" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">
@@ -288,8 +288,8 @@ const OffersPage = () => {
               </div>
 
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-3 py-2">
-                <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-gray-900" />
+                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-text-main" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">50%</p>
@@ -300,8 +300,8 @@ const OffersPage = () => {
               </div>
 
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-3 py-2">
-                <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center">
-                  <Gift className="w-6 h-6 text-gray-900" />
+                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                  <Gift className="w-6 h-6 text-text-main" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">BOGO</p>
@@ -327,7 +327,7 @@ const OffersPage = () => {
                 placeholder="Search for offers, restaurants, or cuisines..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
               />
             </div>
 
@@ -339,8 +339,8 @@ const OffersPage = () => {
                   onClick={() => setSelectedCategory(cat.key)}
                   className={`px-4 py-2.5 rounded-xl font-semibold transition-all ${
                     selectedCategory === cat.key
-                      ? 'bg-yellow-400 text-gray-900 shadow-lg shadow-yellow-200'
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                      ? 'bg-primary text-text-main shadow-lg shadow-yellow-200'
+                      : 'bg-bg-subtle text-text-secondary hover:bg-gray-100'
                   }`}
                 >
                   {cat.label}
@@ -355,14 +355,14 @@ const OffersPage = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
-              <Sparkles className="w-5 h-5 text-gray-900" />
+            <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-primary-hover rounded-xl flex items-center justify-center shadow-lg">
+              <Sparkles className="w-5 h-5 text-text-main" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-text-main">
                 Featured Offers
               </h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-text-secondary">
                 Hot deals you don't want to miss
               </p>
             </div>
@@ -400,8 +400,8 @@ const OffersPage = () => {
                 </div>
 
                 {/* Discount Badge */}
-                <div className="absolute top-3 right-3 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center shadow-xl">
-                  <span className="text-gray-900 font-bold text-lg">
+                <div className="absolute top-3 right-3 w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-xl">
+                  <span className="text-text-main font-bold text-lg">
                     {offer.discount}
                   </span>
                 </div>
@@ -419,20 +419,20 @@ const OffersPage = () => {
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                <h3 className="text-lg font-bold text-text-main mb-2 line-clamp-2">
                   {offer.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                <p className="text-sm text-text-secondary mb-4 line-clamp-2">
                   {offer.description}
                 </p>
 
                 {/* Restaurant Info */}
                 <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">
+                    <p className="text-sm font-semibold text-text-main">
                       {offer.restaurant.name}
                     </p>
-                    <div className="flex items-center gap-3 text-xs text-gray-600 mt-1">
+                    <div className="flex items-center gap-3 text-xs text-text-secondary mt-1">
                       <div className="flex items-center gap-1">
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                         {offer.restaurant.rating}
@@ -447,7 +447,7 @@ const OffersPage = () => {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between">
-                  <div className="text-xs text-gray-600">
+                  <div className="text-xs text-text-secondary">
                     <p>Min: ${offer.minOrder}</p>
                     <p>
                       Valid till{' '}
@@ -459,7 +459,7 @@ const OffersPage = () => {
                   </div>
                   <button
                     onClick={() => handleCopyCode(offer)}
-                    className="flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 rounded-xl font-semibold transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-text-main rounded-xl font-semibold transition-colors"
                   >
                     {copiedId === offer.id ? (
                       <>
@@ -487,10 +487,10 @@ const OffersPage = () => {
             <Tag className="w-5 h-5 text-yellow-400" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-text-main">
               More Great Deals
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-text-secondary">
               Additional offers just for you
             </p>
           </div>
@@ -509,22 +509,22 @@ const OffersPage = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute top-3 right-3 w-14 h-14 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-gray-900 font-bold">
+                <div className="absolute top-3 right-3 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-text-main font-bold">
                     {offer.discount}
                   </span>
                 </div>
               </div>
 
               <div className="p-4">
-                <h3 className="font-bold text-gray-900 mb-2">{offer.title}</h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <h3 className="font-bold text-text-main mb-2">{offer.title}</h3>
+                <p className="text-sm text-text-secondary mb-4">
                   {offer.description}
                 </p>
 
                 <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
-                  <div className="text-xs text-gray-600">
-                    <p className="font-semibold text-gray-900">
+                  <div className="text-xs text-text-secondary">
+                    <p className="font-semibold text-text-main">
                       {offer.restaurant.name}
                     </p>
                     <p className="flex items-center gap-1 mt-1">
@@ -558,15 +558,15 @@ const OffersPage = () => {
 
       {/* CTA Section */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+        <div className="bg-gradient-to-r from-yellow-400 to-primary-hover rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
 
           <div className="relative">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-main mb-4">
               Don't Miss Out on These Deals!
             </h2>
-            <p className="text-lg text-gray-800 mb-6">
+            <p className="text-lg text-text-main mb-6">
               Start ordering now and enjoy incredible savings on your favorite
               meals
             </p>

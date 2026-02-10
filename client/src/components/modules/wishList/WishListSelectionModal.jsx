@@ -68,10 +68,10 @@ const WishlistModal = ({ productId }) => {
       <>
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-800">Your Wishlists</h2>
+          <h2 className="text-xl font-bold text-text-main">Your Wishlists</h2>
           <button
             onClick={() => dispatch(closeWishlistModal())}
-            className="text-gray-400 hover:text-gray-800 transition-colors duration-200 cursor-pointer"
+            className="text-gray-400 hover:text-text-main transition-colors duration-200 cursor-pointer"
             aria-label="Close"
           >
             <Icon name="x-circle" className="w-5 h-5" />
@@ -80,7 +80,7 @@ const WishlistModal = ({ productId }) => {
 
         {/* Existing Lists */}
         <div className="flex-grow overflow-y-auto mb-4 custom-scrollbar">
-          <h3 className="text-sm font-semibold text-gray-800 mb-2">
+          <h3 className="text-sm font-semibold text-text-main mb-2">
             Select a list to move the product to
           </h3>
           <div className="space-y-2">
@@ -93,8 +93,8 @@ const WishlistModal = ({ productId }) => {
                     className={`w-full text-left flex items-center justify-between py-2 px-3 rounded-lg shadow-sm transition-all duration-200 cursor-pointer
                   ${
                     selectedListId === list._id
-                      ? 'bg-yellow-400 text-gray-800 shadow-md'
-                      : 'bg-white hover:bg-gray-50'
+                      ? 'bg-primary text-text-main shadow-md'
+                      : 'bg-white hover:bg-bg-subtle'
                   }`}
                   >
                     <div className="flex items-center space-x-2">
@@ -118,11 +118,11 @@ const WishlistModal = ({ productId }) => {
         </div>
 
         {/* Create New List Section */}
-        <div className="border-t border-gray-200 pt-4">
+        <div className="border-t border-border pt-4">
           {!isCreatingNewList ? (
             <button
               onClick={() => setIsCreatingNewList(true)}
-              className="w-full cursor-pointer flex items-center justify-center space-x-2 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors text-sm"
+              className="w-full cursor-pointer flex items-center justify-center space-x-2 py-2 bg-gray-200 text-text-main font-semibold rounded-lg hover:bg-gray-300 transition-colors text-sm"
             >
               <Icon name="plus" className="w-4 h-4" />
               <span>Create New List</span>
@@ -142,7 +142,7 @@ const WishlistModal = ({ productId }) => {
               <button
                 disabled={newListName == ''}
                 onClick={handleCreateListClick}
-                className="bg-yellow-400 text-gray-800 rounded-full p-2 hover:bg-yellow-500 transition-colors"
+                className="bg-primary text-text-main rounded-full p-2 hover:bg-primary-hover transition-colors"
               >
                 <Icon name="check" className="w-4 h-4" />
               </button>
@@ -155,8 +155,8 @@ const WishlistModal = ({ productId }) => {
           className={`w-full py-2 mt-4 text-center rounded-lg font-semibold transition-colors text-sm cursor-pointer
     ${
       selectedListId === defaultListId
-        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-        : 'bg-yellow-400 text-gray-800 hover:bg-yellow-500'
+        ? 'bg-gray-400 text-text-secondary cursor-not-allowed'
+        : 'bg-primary text-text-main hover:bg-primary-hover'
     }`}
           disabled={selectedListId === defaultListId || isTranfering}
         >

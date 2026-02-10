@@ -72,18 +72,18 @@ const ProductCard = ({ item }) => {
               Bestseller
             </div>
           )}
-          <h3 className="text-xl font-bold text-gray-900 mb-1 line-clamp-1">
+          <h3 className="text-xl font-bold text-text-main mb-1 line-clamp-1">
             {item.name}
           </h3>
-          <p className="text-sm text-gray-500 mb-2 line-clamp-2">
+          <p className="text-sm text-text-muted mb-2 line-clamp-2">
             {item.description}
           </p>
         </div>
 
         <div className="mt-auto flex justify-between items-center">
           <div className="flex items-center">
-            <Icon name="indian-rupee" className="text-gray-800 w-4 h-4 mr-1" />
-            <span className="text-xl font-extrabold text-gray-800">
+            <Icon name="indian-rupee" className="text-text-main w-4 h-4 mr-1" />
+            <span className="text-xl font-extrabold text-text-main">
               {item.price}
             </span>
           </div>
@@ -93,18 +93,18 @@ const ProductCard = ({ item }) => {
             <div className="flex items-center space-x-2 bg-white border border-yellow-200 rounded-full py-1 px-2">
               <button
                 onClick={() => handleDecreaseQuantity(item, existingItem)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200"
               >
                 <span className="w-4 h-4 flex items-center justify-center">
                   -
                 </span>
               </button>
-              <span className="text-sm font-bold text-gray-800">
+              <span className="text-sm font-bold text-text-main">
                 {existingItem.quantity}
               </span>
               <button
                 onClick={() => handleIncreaseQuantity(item)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 transition-colors duration-200"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200"
               >
                 <span className="w-4 h-4 flex items-center justify-center">
                   +
@@ -114,7 +114,7 @@ const ProductCard = ({ item }) => {
           ) : (
             <button
               onClick={() => handleAddToCart(item)}
-              className="flex items-center px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors duration-200 shadow-md text-sm"
+              className="flex items-center px-4 py-2 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors duration-200 shadow-md text-sm"
             >
               <Icon name="shopping-cart" className="w-4 h-4 mr-2" /> Add
             </button>

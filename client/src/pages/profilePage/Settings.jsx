@@ -87,7 +87,7 @@ const Settings = () => {
       onClick={onToggle}
       disabled={disabled}
       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 ${
-        enabled ? 'bg-yellow-400' : 'bg-gray-300'
+        enabled ? 'bg-primary' : 'bg-gray-300'
       } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
     >
       <span
@@ -109,7 +109,7 @@ const Settings = () => {
       className={`flex items-center justify-between p-4 rounded-xl border transition-colors ${
         warning
           ? 'border-red-200 bg-red-50'
-          : 'border-cream bg-white hover:bg-gray-50'
+          : 'border-cream bg-white hover:bg-bg-subtle'
       }`}
     >
       <div className="flex items-start gap-4">
@@ -165,7 +165,7 @@ const Settings = () => {
           </button>
           <button
             onClick={handleSaveSettings}
-            className="flex items-center gap-2 px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
+            className="flex items-center gap-2 px-6 py-2 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
           >
             <Icon name={'save'} className="w-4 h-4" />
             Save Changes

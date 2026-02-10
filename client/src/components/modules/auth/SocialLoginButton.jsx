@@ -9,7 +9,7 @@ const SocialLoginButton = ({ onClick }) => (
       alt="Google"
       className="w-6 h-6"
     />
-    <span className="text-gray-700 hover:text-gray-800 font-medium cursor-pointer">
+    <span className="text-text-secondary hover:text-text-main font-medium cursor-pointer">
       Continue with Google
     </span>
   </button>

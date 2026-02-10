@@ -19,8 +19,8 @@ const SignupForm = ({
       <div>
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
-          <p className="mt-2 text-gray-500 text-sm">
+          <h2 className="text-3xl font-bold text-text-main">Create Account</h2>
+          <p className="mt-2 text-text-muted text-sm">
             Join us and discover more.
           </p>
         </div>
@@ -67,7 +67,7 @@ const SignupForm = ({
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-secondary transition-colors"
             >
               <Icon
                 name={showPassword ? 'eye-off' : 'eye'}
@@ -78,7 +78,7 @@ const SignupForm = ({
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 bg-primary-hover text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
             {isLoading ? <LoadingSpinner /> : 'Sign Up'}
@@ -89,14 +89,14 @@ const SignupForm = ({
       {/* Footer */}
       <div className="text-center mt-auto pt-6">
         <div className="flex items-center my-6">
-          <hr className="flex-grow border-gray-200" />
+          <hr className="flex-grow border-border" />
           <span className="mx-4 text-gray-400 text-sm">or</span>
-          <hr className="flex-grow border-gray-200" />
+          <hr className="flex-grow border-border" />
         </div>
 
         <SocialLoginButton onClick={onGoogleLogin} />
 
-        <p className="mt-4 text-sm text-gray-500">
+        <p className="mt-4 text-sm text-text-muted">
           Already have an account?
           <button
             onClick={onSwitchMode}

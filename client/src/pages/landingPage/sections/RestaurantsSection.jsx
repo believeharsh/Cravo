@@ -18,7 +18,7 @@ const RestaurantCardSkeleton = ({ width }) => (
       {/* Cuisine */}
       <div className="h-4 bg-gray-200 rounded-md w-2/3"></div>
 
-      <div className="pt-3 mt-4 border-t border-gray-200">
+      <div className="pt-3 mt-4 border-t border-border">
         <div className="flex items-center justify-between text-xs mb-1">
           <div className="h-3 bg-gray-200 rounded-md w-1/3"></div>
           <div className="h-3 bg-gray-200 rounded-md w-1/4"></div>
@@ -67,20 +67,20 @@ const RestaurantCard = ({ restaurant }) => {
         {/* Restaurant Details with Fixed Height */}
         <div className="px-3 py-1 flex flex-col" style={{ minHeight: '160px' }}>
           <div>
-            <h3 className="font-bold text-gray-900 text-lg mb-1 truncate">
+            <h3 className="font-bold text-text-main text-lg mb-1 truncate">
               {restaurant.name}
             </h3>
 
             {/* Fixed-height container for cuisine type */}
-            <div className="text-xs text-gray-600 overflow-hidden h-9 mb-2">
+            <div className="text-xs text-text-secondary overflow-hidden h-9 mb-2">
               <p className="line-clamp-2">
                 {restaurant.cuisine_type.join(', ')}
               </p>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-gray-200">
-            <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+          <div className="pt-3 border-t border-border">
+            <div className="flex items-center justify-between text-xs text-text-muted mb-1">
               <div className="flex items-center gap-1">
                 <Icon name={'map-pin'} size={12} />
                 <span className="truncate">
@@ -94,10 +94,10 @@ const RestaurantCard = ({ restaurant }) => {
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-600 font-medium">
+              <span className="text-text-secondary font-medium">
                 Min Order: ₹{restaurant.min_order_value}
               </span>
-              <span className="text-gray-500">
+              <span className="text-text-muted">
                 ({restaurant.numberOfReviews} reviews)
               </span>
             </div>
@@ -169,7 +169,7 @@ const RestaurantsSection = () => {
 
     if (restaurantsData.length === 0) {
       return (
-        <p className="text-gray-500 text-center w-full">
+        <p className="text-text-muted text-center w-full">
           No popular restaurants found.
         </p>
       );
@@ -198,10 +198,10 @@ const RestaurantsSection = () => {
         {/* header + arrows */}
         <div className="flex items-center justify-between mb-6 mt-15">
           <div>
-            <h2 className="text-xl font-bold text-gray-800">
+            <h2 className="text-xl font-bold text-text-main">
               Popular Restaurants
             </h2>
-            <p className="text-gray-600 text-sm mt-1">
+            <p className="text-text-secondary text-sm mt-1">
               Discover top-rated restaurants near you
             </p>
           </div>
@@ -212,8 +212,8 @@ const RestaurantsSection = () => {
                 disabled={index === 0}
                 className={`p-2 rounded-full border transition ${
                   index === 0
-                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                    ? 'border-border text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
                 }`}
               >
                 <Icon name={'chevron-left'} size={18} />
@@ -223,8 +223,8 @@ const RestaurantsSection = () => {
                 disabled={index === maxIndex}
                 className={`p-2 rounded-full border transition ${
                   index === maxIndex
-                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                    ? 'border-border text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
                 }`}
               >
                 <Icon name={'chevron-right'} size={18} />

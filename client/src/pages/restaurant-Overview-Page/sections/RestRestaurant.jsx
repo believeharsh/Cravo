@@ -78,7 +78,7 @@
 //     return (
 //       <section className="py-6 text-center">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-//           <p className="text-gray-500">Loading restaurants...</p>
+//           <p className="text-text-muted">Loading restaurants...</p>
 //         </div>
 //       </section>
 //     );
@@ -98,7 +98,7 @@
 //     return (
 //       <section className="py-6 text-center">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-//           <p className="text-gray-500">
+//           <p className="text-text-muted">
 //             No restaurants found in {city || 'your area'}.
 //           </p>
 //         </div>
@@ -109,7 +109,7 @@
 //   return (
 //     <section className="py-6">
 //       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-//         <h2 className="text-xl font-bold text-gray-800 mb-8">
+//         <h2 className="text-xl font-bold text-text-main mb-8">
 //           Restaurants with online delivery in {city}
 //         </h2>
 //         <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -259,7 +259,7 @@ const RestaurantGrid = () => {
     return (
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-8">
+          <h2 className="text-xl font-bold text-text-main mb-8">
             Loading Restaurants...
           </h2>
           <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -285,7 +285,7 @@ const RestaurantGrid = () => {
   return (
     <section className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-8">
+        <h2 className="text-xl font-bold text-text-main mb-8">
           Restaurants with online delivery in {city}
         </h2>
         <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -322,7 +322,7 @@ const RestaurantGrid = () => {
         {/* End of List Message */}
         {!hasMore && restaurants.length > 0 && (
           <div className="text-center py-8">
-            <p className="text-gray-500">
+            <p className="text-text-muted">
               You've reached the end of the list. ✨
             </p>
           </div>

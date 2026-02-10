@@ -30,10 +30,10 @@ const OrderSummary = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-gray-900">
+              <h3 className="text-lg font-bold text-text-main">
                 {order.restaurant.name}
               </h3>
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-sm text-text-muted mt-0.5">
                 {formatDate(order.orderDate)}
               </p>
               <p className="text-xs text-gray-400 mt-1">
@@ -65,10 +65,10 @@ const OrderSummary = ({
             </div>
 
             <div className="text-right">
-              <p className="text-xl font-bold text-gray-900">
+              <p className="text-xl font-bold text-text-main">
                 ₹{order.total.toFixed(2)}
               </p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-text-muted mt-1">
                 {order.items.length} items
               </p>
               <p className="text-xs text-green-600 font-medium mt-1">
@@ -82,7 +82,7 @@ const OrderSummary = ({
             {order.canReorder && (
               <button
                 onClick={() => onReorder(order)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 rounded-lg font-semibold transition-colors text-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-text-main rounded-lg font-semibold transition-colors text-sm"
               >
                 <ShoppingCart className="w-4 h-4" />
                 Reorder
@@ -103,7 +103,7 @@ const OrderSummary = ({
             {['preparing', 'on_the_way'].includes(order.status) && (
               <button
                 onClick={() => onTrack(order)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-lg font-semibold transition-colors text-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-text-main rounded-lg font-semibold transition-colors text-sm"
               >
                 <Navigation className="w-4 h-4" />
                 Track
@@ -112,7 +112,7 @@ const OrderSummary = ({
 
             <button
               onClick={onToggleExpand}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-lg font-semibold transition-colors text-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-text-main rounded-lg font-semibold transition-colors text-sm"
             >
               {isExpanded ? 'Hide' : 'View'} Details
               {isExpanded ? (

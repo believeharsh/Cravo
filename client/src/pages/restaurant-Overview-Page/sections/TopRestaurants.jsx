@@ -212,13 +212,13 @@ const TopRestaurants = () => {
         {/* Enhanced Header */}       {' '}
         <div className="flex items-center justify-between mb-8">
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-gray-800 mb-">
+            <h2 className="text-xl font-bold text-text-main mb-">
               Top Restaurants Chain In
               <span className="px-1">
                 {searchParams.get(' cityName') || defaultCity || 'Your Area'}
               </span>
             </h2>
-            <p className="text-gray-600 text-sm lg:text-base">
+            <p className="text-text-secondary text-sm lg:text-base">
               Discover {restaurants.length} popular restaurants loved by our
               customers      
             </p>
@@ -231,8 +231,8 @@ const TopRestaurants = () => {
               disabled={currentIndex === 0}
               className={`p-2 rounded-full border transition-all cursor-pointer  ${
                 currentIndex === 0
-                  ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                  : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                  ? 'border-border text-gray-300 cursor-not-allowed'
+                  : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
               }`}
               aria-label="Previous restaurants"
             >
@@ -243,8 +243,8 @@ const TopRestaurants = () => {
               disabled={currentIndex >= maxIndex}
               className={`p-2 rounded-full  border transition-all  cursor-pointer ${
                 currentIndex >= maxIndex
-                  ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                  : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                  ? 'border-border text-gray-300 cursor-not-allowed'
+                  : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
               }`}
               aria-label="Next restaurants"
             >
@@ -285,7 +285,7 @@ const TopRestaurants = () => {
                 onClick={() => setCurrentIndex(i)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   i === currentIndex
-                    ? 'bg-yellow-500 w-6'
+                    ? 'bg-primary-hover w-6'
                     : 'bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}

@@ -59,16 +59,16 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
         <div className="w-24 h-24 bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full flex items-center justify-center mb-8 shadow-lg">
           <Heart className="w-12 h-12 text-amber-500" strokeWidth={1.5} />
         </div>
-        <h3 className="text-2xl font-bold text-gray-800 mb-3">
+        <h3 className="text-2xl font-bold text-text-main mb-3">
           No Wishlists Yet
         </h3>
-        <p className="text-gray-600 mb-8 max-w-md leading-relaxed">
+        <p className="text-text-secondary mb-8 max-w-md leading-relaxed">
           Create your first wishlist to start organizing your favorite items and
           discover new possibilities.
         </p>
         <button
           onClick={() => setShowNewListInput(true)}
-          className="group inline-flex items-center gap-3 px-8 py-4 bg-yellow-400 text-gray-800 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-yellow-300"
+          className="group inline-flex items-center gap-3 px-8 py-4 bg-primary text-text-main rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-yellow-300"
         >
           <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
           Create Your First List
@@ -82,17 +82,17 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl font-bold text-text-main mb-2">
             My Wishlists
           </h1>
-          <p className="text-gray-600">
+          <p className="text-text-secondary">
             Organize and manage your favorite collections
           </p>
         </div>
         {!showNewListInput && (
           <button
             onClick={() => setShowNewListInput(true)}
-            className=" cursor-pointer group inline-flex items-center gap-3 px-6 py-3 bg-yellow-400 text-gray-800 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 self-start hover:bg-yellow-300"
+            className=" cursor-pointer group inline-flex items-center gap-3 px-6 py-3 bg-primary text-text-main rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 self-start hover:bg-yellow-300"
           >
             <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
             Create New List
@@ -104,13 +104,13 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
       {showNewListInput && (
         <div className="bg-white rounded-2xl shadow-xl border border-yellow-100 p-6 transform animate-in slide-in-from-top-4 duration-300">
           {/* 3. New List Type Selector Buttons */}
-          <div className="mb-6 flex items-center space-x-4 p-2 bg-gray-50 rounded-xl shadow-inner">
+          <div className="mb-6 flex items-center space-x-4 p-2 bg-bg-subtle rounded-xl shadow-inner">
             <button
               onClick={() => setNewListType('productList')}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-200 ${
                 newListType === 'productList'
-                  ? 'bg-yellow-400 text-gray-800 shadow-md' // Active style
-                  : 'text-gray-600 hover:bg-gray-100' // Inactive style
+                  ? 'bg-primary text-text-main shadow-md' // Active style
+                  : 'text-text-secondary hover:bg-gray-100' // Inactive style
               }`}
             >
               <ShoppingBag className="w-5 h-5" />
@@ -120,8 +120,8 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
               onClick={() => setNewListType('restaurantList')}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-200 ${
                 newListType === 'restaurantList'
-                  ? 'bg-yellow-400 text-gray-800 shadow-md' // Active style
-                  : 'text-gray-600 hover:bg-gray-100' // Inactive style
+                  ? 'bg-primary text-text-main shadow-md' // Active style
+                  : 'text-text-secondary hover:bg-gray-100' // Inactive style
               }`}
             >
               <Coffee className="w-5 h-5" />
@@ -137,7 +137,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                 value={newListName}
                 onChange={e => setNewListName(e.target.value)}
                 placeholder={`Enter name for your new ${newListType.replace('List', '').toLowerCase()} list...`}
-                className="w-full px-6 py-4 bg-yellow-50 border border-yellow-200 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all duration-200"
+                className="w-full px-6 py-4 bg-yellow-50 border border-yellow-200 rounded-xl text-text-main placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-border-focus transition-all duration-200"
                 autoFocus
               />
             </div>
@@ -154,7 +154,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                   setShowNewListInput(false);
                   setNewListName('');
                 }}
-                className="px-6 py-4 bg-yellow-100 text-gray-800 font-semibold rounded-xl hover:bg-yellow-200 transform hover:-translate-y-0.5 transition-all duration-200"
+                className="px-6 py-4 bg-yellow-100 text-text-main font-semibold rounded-xl hover:bg-yellow-200 transform hover:-translate-y-0.5 transition-all duration-200"
               >
                 Cancel
               </button>
@@ -179,7 +179,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
               className={`group relative bg-gradient-to-br ${getGradientClass(index)} rounded-2xl p-5 cursor-pointer transform hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-2xl border border-yellow-200/50`}
             >
               {/* Background Pattern */}
-              <div className="absolute inset-0 bg-yellow-400/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-primary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               {/* Content */}
               <div className="relative z-10">
@@ -191,12 +191,12 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                       strokeWidth={1.5}
                     />
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-brown group-hover:translate-x-1 transition-all duration-300" />
+                  <ChevronRight className="w-5 h-5 text-text-muted group-hover:text-brown group-hover:translate-x-1 transition-all duration-300" />
                 </div>
 
                 {/* List Info */}
                 <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-gray-900 transition-colors duration-200 line-clamp-2">
+                  <h3 className="text-xl font-bold text-text-main group-hover:text-text-main transition-colors duration-200 line-clamp-2">
                     {list.name}
                   </h3>
 
@@ -209,9 +209,9 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                       {list.list_type?.replace('List', '') || 'Custom'} List
                     </span>
 
-                    <span className="text-lg font-bold text-gray-800 group-hover:text-gray-900 transition-colors duration-200">
+                    <span className="text-lg font-bold text-text-main group-hover:text-text-main transition-colors duration-200">
                       {itemCount}
-                      <span className="text-sm font-medium text-gray-600 ml-1">
+                      <span className="text-sm font-medium text-text-secondary ml-1">
                         {itemCount === 1 ? 'item' : 'items'}
                       </span>
                     </span>
@@ -245,11 +245,11 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
         <div className="mt-12 p-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl border border-yellow-200">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
-              <p className="text-2xl font-bold text-gray-800">
+              <p className="text-2xl font-bold text-text-main">
                 {wishlists.length}{' '}
                 {wishlists.length === 1 ? 'Wishlist' : 'Wishlists'}
               </p>
-              <p className="text-gray-600">
+              <p className="text-text-secondary">
                 {wishlists.reduce(
                   (total, list) =>
                     total +

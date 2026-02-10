@@ -18,7 +18,7 @@ const RestaurantList = ({ restaurants, isLoading }) => {
 
   if (restaurants.length === 0) {
     return (
-      <p className="text-center text-gray-600 text-lg mt-8">
+      <p className="text-center text-text-secondary text-lg mt-8">
         No restaurants found.
       </p>
     );

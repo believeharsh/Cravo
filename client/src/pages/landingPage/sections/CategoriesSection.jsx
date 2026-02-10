@@ -35,7 +35,7 @@ const CategoryCard = ({ c, width, onClick, isLoading }) => {
             e.target.src = '/placeholder-category.png';
           }}
         />
-        <span className="mt-2 font-semibold text-gray-700 text-md text-center">
+        <span className="mt-2 font-semibold text-text-secondary text-md text-center">
           {c.name}
         </span>
       </div>
@@ -152,7 +152,7 @@ const CategoriesSlider = () => {
     <section className="py-5 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between mb-6">
-          <p className="text-xl font-semibold text-gray-800">
+          <p className="text-xl font-semibold text-text-main">
             What's on your mind <span>{UserFirstName}</span> ?
           </p>
           {categoriesPerRow > itemsToShow && !isLoading && (
@@ -162,8 +162,8 @@ const CategoriesSlider = () => {
                 disabled={index === 0}
                 className={`p-2 rounded-full border transition ${
                   index === 0
-                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                    ? 'border-border text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
                 }`}
               >
                 <Icon name={'chevron-left'} size={18} />
@@ -173,8 +173,8 @@ const CategoriesSlider = () => {
                 disabled={index === maxIndex}
                 className={`p-2 rounded-full border transition ${
                   index === maxIndex
-                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                    ? 'border-border text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
                 }`}
               >
                 <Icon name={'chevron-right'} size={18} />

@@ -19,7 +19,7 @@ const ItemsView = ({ selectedList, viewMode, setViewMode }) => {
   // Now, check only the active list
   if (!activeItems || activeItems.length === 0) {
     return (
-      <div className="text-center text-gray-500 font-medium p-8">
+      <div className="text-center text-text-muted font-medium p-8">
         This list is currently empty.
       </div>
     );

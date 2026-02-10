@@ -28,8 +28,8 @@ const CuisineCard = ({ r }) => (
   <div className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden">
     {/* text */}
     <div className="p-4">
-      <h3 className="font-bold text-gray-800">{r.name}</h3>
-      <p className="text-xs text-gray-500 mt-1">{r.cuisine} cuisine</p>
+      <h3 className="font-bold text-text-main">{r.name}</h3>
+      <p className="text-xs text-text-muted mt-1">{r.cuisine} cuisine</p>
     </div>
   </div>
 );
@@ -38,9 +38,9 @@ const CuisineCard = ({ r }) => (
 /*  Main grid component                                               */
 /* ------------------------------------------------------------------ */
 const NearbyCuisineGrid = () => (
-  <section className="py-12 bg-gray-50">
+  <section className="py-12 bg-bg-subtle">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-8">
+      <h2 className="text-3xl lg:text-4xl font-bold text-text-main mb-8">
         Best Cuisines Near You
       </h2>
 

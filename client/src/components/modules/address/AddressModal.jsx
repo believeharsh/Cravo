@@ -45,7 +45,7 @@ const AddressModal = ({ initialData }) => {
   return (
     <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 className="text-2xl font-bold text-text-main mb-4">
           {initialData ? 'Edit Address' : 'Add New Address'}
         </h2>
 
@@ -58,7 +58,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.addressLine1}
               onChange={handleChange}
               required
-              className="col-span-2 p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+              className="col-span-2 p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
             />
 
             <input
@@ -67,7 +67,7 @@ const AddressModal = ({ initialData }) => {
               placeholder="Address Line 2 (Apt, Suite, etc.)"
               value={formData.addressLine2}
               onChange={handleChange}
-              className="col-span-2 p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+              className="col-span-2 p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
             />
 
             <input
@@ -77,7 +77,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.city}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
             />
 
             <input
@@ -87,7 +87,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.state}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
             />
 
             <input
@@ -97,7 +97,7 @@ const AddressModal = ({ initialData }) => {
               value={formData.zipCode}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
             />
 
             <input
@@ -107,11 +107,11 @@ const AddressModal = ({ initialData }) => {
               value={formData.country}
               onChange={handleChange}
               required
-              className="p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+              className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
             />
 
             <div className="col-span-2 flex items-center gap-4">
-              <label htmlFor="addressType" className="text-gray-700">
+              <label htmlFor="addressType" className="text-text-secondary">
                 Type:
               </label>
 
@@ -120,7 +120,7 @@ const AddressModal = ({ initialData }) => {
                 id="addressType"
                 value={formData.addressType}
                 onChange={handleChange}
-                className="p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 focus:ring-yellow-500 focus:border-yellow-500"
+                className="p-3 border border-gray-300 rounded-lg bg-bg-subtle text-text-main focus:ring-yellow-500 focus:border-yellow-500"
               >
                 <option value="Home">Home</option>
                 <option value="Work">Work</option>
@@ -138,7 +138,7 @@ const AddressModal = ({ initialData }) => {
                 className="w-4 h-4 text-yellow-500 bg-gray-100 border-gray-300 rounded focus:ring-yellow-500"
               />
 
-              <label htmlFor="isDefault" className="text-gray-700 select-none">
+              <label htmlFor="isDefault" className="text-text-secondary select-none">
                 Set as default address
               </label>
             </div>
@@ -148,14 +148,14 @@ const AddressModal = ({ initialData }) => {
             <button
               type="button"
               onClick={handleCloseAddressModal}
-              className="cursor-pointer px-6 py-3 text-gray-800 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+              className="cursor-pointer px-6 py-3 text-text-main bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="cursor-pointer px-6 py-3 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors"
+              className="cursor-pointer px-6 py-3 text-white bg-primary-hover rounded-lg hover:bg-yellow-600 transition-colors"
             >
               Save Address
             </button>

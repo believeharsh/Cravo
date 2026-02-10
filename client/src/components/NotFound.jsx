@@ -22,7 +22,7 @@ const NotFoundPage = () => {
 
         {/* Main Icon */}
         <div className="mb-8">
-          <div className="mx-auto w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl border-4 border-yellow-400">
+          <div className="mx-auto w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-xl border-4 border-border-focus">
             <span className="text-3xl">🍽️</span>
           </div>
         </div>
@@ -42,7 +42,7 @@ const NotFoundPage = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
             to="/"
-            className="inline-flex items-center px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            className="inline-flex items-center px-8 py-4 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
           >
             <Icon name={'home'} className="w-5 h-5 mr-2" />
             Back to Cravo

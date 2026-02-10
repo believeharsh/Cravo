@@ -203,8 +203,8 @@ const CorporatePage = () => {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary-hover/10 rounded-full blur-3xl"></div>
         </div>
 
         <div className="absolute inset-0 opacity-5">
@@ -220,7 +220,7 @@ const CorporatePage = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 md:py-28">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-yellow-400/20 backdrop-blur-xl border border-yellow-400/30 text-yellow-400 px-5 py-2.5 rounded-full text-sm font-bold mb-8 shadow-lg">
+            <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-xl border border-border-focus/30 text-yellow-400 px-5 py-2.5 rounded-full text-sm font-bold mb-8 shadow-lg">
               <Building2 className="w-4 h-4" />
               Corporate Solutions
             </div>
@@ -228,7 +228,7 @@ const CorporatePage = () => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
               <span className="text-white">Feed Your Team,</span>
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-primary-hover">
                 Fuel Success
               </span>
             </h1>
@@ -242,12 +242,12 @@ const CorporatePage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <button
                 onClick={() => setShowContactForm(true)}
-                className="group bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+                className="group bg-primary hover:bg-primary-hover text-text-main font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
               >
                 Get Started
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="group border-2 border-white/30 backdrop-blur-xl text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-2xl transition-all flex items-center justify-center gap-2">
+              <button className="group border-2 border-white/30 backdrop-blur-xl text-white hover:bg-white hover:text-text-main font-bold px-8 py-4 rounded-2xl transition-all flex items-center justify-center gap-2">
                 <Play className="w-5 h-5" />
                 Watch Demo
               </button>
@@ -261,8 +261,8 @@ const CorporatePage = () => {
                     key={i}
                     className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6"
                   >
-                    <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center mx-auto mb-3">
-                      <Icon className="w-6 h-6 text-gray-900" />
+                    <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <Icon className="w-6 h-6 text-text-main" />
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
                       {stat.value}
@@ -285,10 +285,10 @@ const CorporatePage = () => {
             <Sparkles className="w-4 h-4" />
             Powerful Features
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-4">
             Everything You Need for Corporate Food Management
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             Our platform is designed specifically for businesses to manage
             employee meals efficiently and cost-effectively.
           </p>
@@ -300,15 +300,15 @@ const CorporatePage = () => {
             return (
               <div
                 key={i}
-                className="group bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-2xl hover:border-yellow-400 transition-all duration-300"
+                className="group bg-white rounded-2xl border border-border p-8 hover:shadow-2xl hover:border-border-focus transition-all duration-300"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <Icon className="w-8 h-8 text-gray-900" />
+                <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-primary-hover rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Icon className="w-8 h-8 text-text-main" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-text-main mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-text-secondary leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -318,13 +318,13 @@ const CorporatePage = () => {
       </div>
 
       {/* Use Cases */}
-      <div className="bg-gray-50 py-20">
+      <div className="bg-bg-subtle py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-4">
               Perfect for Every Occasion
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
               From daily meals to special events, we've got your corporate food
               needs covered.
             </p>
@@ -336,15 +336,15 @@ const CorporatePage = () => {
               return (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl border border-gray-200 p-6 text-center hover:shadow-xl transition-all"
+                  className="bg-white rounded-2xl border border-border p-6 text-center hover:shadow-xl transition-all"
                 >
                   <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon className="w-8 h-8 text-yellow-600" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg font-bold text-text-main mb-2">
                     {useCase.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-text-secondary text-sm leading-relaxed">
                     {useCase.description}
                   </p>
                 </div>
@@ -357,10 +357,10 @@ const CorporatePage = () => {
       {/* Pricing */}
       <div className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-4">
             Choose Your Plan
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
             Flexible pricing options to fit your company size and needs.
           </p>
         </div>
@@ -371,32 +371,32 @@ const CorporatePage = () => {
               key={plan.id}
               className={`bg-white rounded-3xl border-2 p-8 relative hover:shadow-2xl transition-all ${
                 plan.popular
-                  ? 'border-yellow-400 shadow-xl scale-105'
-                  : 'border-gray-200'
+                  ? 'border-border-focus shadow-xl scale-105'
+                  : 'border-border'
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 px-5 py-2 rounded-full text-sm font-bold shadow-lg">
+                  <span className="bg-gradient-to-r from-yellow-400 to-primary-hover text-text-main px-5 py-2 rounded-full text-sm font-bold shadow-lg">
                     Most Popular
                   </span>
                 </div>
               )}
 
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-2xl font-bold text-text-main mb-2">
                   {plan.name}
                 </h3>
-                <p className="text-gray-600 mb-6">{plan.description}</p>
+                <p className="text-text-secondary mb-6">{plan.description}</p>
                 <div className="mb-4">
-                  <span className="text-5xl font-bold text-gray-900">
+                  <span className="text-5xl font-bold text-text-main">
                     {plan.price}
                   </span>
                   {plan.price !== 'Free' && plan.price !== 'Custom' && (
-                    <span className="text-gray-600">/month</span>
+                    <span className="text-text-secondary">/month</span>
                   )}
                 </div>
-                <p className="text-sm font-semibold text-gray-600">
+                <p className="text-sm font-semibold text-text-secondary">
                   {plan.employees}
                 </p>
               </div>
@@ -405,7 +405,7 @@ const CorporatePage = () => {
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">{feature}</span>
+                    <span className="text-text-secondary">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -414,8 +414,8 @@ const CorporatePage = () => {
                 onClick={() => setShowContactForm(true)}
                 className={`w-full py-4 rounded-2xl font-bold transition-all ${
                   plan.popular
-                    ? 'bg-yellow-400 hover:bg-yellow-500 text-gray-900 shadow-lg hover:shadow-xl'
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                    ? 'bg-primary hover:bg-primary-hover text-text-main shadow-lg hover:shadow-xl'
+                    : 'bg-gray-100 hover:bg-gray-200 text-text-main'
                 }`}
               >
                 {plan.price === 'Custom' ? 'Contact Sales' : 'Get Started'}
@@ -426,13 +426,13 @@ const CorporatePage = () => {
       </div>
 
       {/* Testimonials */}
-      <div className="bg-gray-50 py-20">
+      <div className="bg-bg-subtle py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-4">
               Trusted by Leading Companies
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
               Join hundreds of satisfied HR and operations teams who rely on us
               every day.
             </p>
@@ -442,34 +442,34 @@ const CorporatePage = () => {
             {testimonials.map((testimonial, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-xl transition-all"
+                className="bg-white rounded-2xl border border-border p-8 hover:shadow-xl transition-all"
               >
                 <div className="mb-6">
                   <div className="flex gap-1 mb-4">
                     {[...Array(5)].map((_, idx) => (
                       <div
                         key={idx}
-                        className="w-5 h-5 bg-yellow-400 rounded-full"
+                        className="w-5 h-5 bg-primary rounded-full"
                       ></div>
                     ))}
                   </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
+                  <p className="text-text-secondary leading-relaxed mb-6">
                     "{testimonial.testimonial}"
                   </p>
                 </div>
 
-                <div className="border-t border-gray-200 pt-6">
-                  <p className="font-bold text-gray-900 mb-1">
+                <div className="border-t border-border pt-6">
+                  <p className="font-bold text-text-main mb-1">
                     {testimonial.author}
                   </p>
-                  <p className="text-sm text-gray-600 mb-1">
+                  <p className="text-sm text-text-secondary mb-1">
                     {testimonial.position}
                   </p>
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-text-main">
                     {testimonial.company}
                   </p>
                   <div className="flex items-center justify-between mt-4 text-sm">
-                    <span className="text-gray-600">
+                    <span className="text-text-secondary">
                       {testimonial.employees}
                     </span>
                     <span className="text-green-600 font-semibold">
@@ -485,15 +485,15 @@ const CorporatePage = () => {
 
       {/* CTA */}
       <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-3xl p-12 md:p-16 text-center relative overflow-hidden">
+        <div className="bg-gradient-to-r from-yellow-400 to-primary-hover rounded-3xl p-12 md:p-16 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
 
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-text-main mb-6">
               Ready to Supercharge Your Team Meals?
             </h2>
-            <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-text-main mb-8 max-w-2xl mx-auto">
               Get a personalized demo or start for free in minutes.
             </p>
             <button
@@ -513,15 +513,15 @@ const CorporatePage = () => {
           <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowContactForm(false)}
-              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors"
+              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-text-secondary hover:text-text-main transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-3xl font-bold text-gray-900 mb-2">
+            <h3 className="text-3xl font-bold text-text-main mb-2">
               Let's Talk
             </h3>
-            <p className="text-gray-600 mb-8">
+            <p className="text-text-secondary mb-8">
               Fill out the form and our team will get back to you within 24
               hours.
             </p>
@@ -597,7 +597,7 @@ const CorporatePage = () => {
 
               <button
                 onClick={handleContactSubmit}
-                className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 bg-primary hover:bg-primary-hover text-text-main font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
               >
                 Submit Request
                 <ArrowRight className="w-5 h-5" />

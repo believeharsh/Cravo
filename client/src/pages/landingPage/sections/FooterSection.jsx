@@ -4,7 +4,7 @@ import Icon from '../../../components/ui/Icon';
 const LinkItem = ({ href, children }) => (
   <a
     href={href}
-    className="block text-sm text-gray-500 hover:text-gray-800 transition"
+    className="block text-sm text-text-muted hover:text-text-main transition"
   >
     {children}
   </a>
@@ -99,7 +99,7 @@ const Footer = () => (
         </div>
 
         {/* copyright */}
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-text-muted">
           © {new Date().getFullYear()} FoodZone Inc. All rights reserved.
         </p>
       </div>

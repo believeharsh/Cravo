@@ -18,11 +18,11 @@ const DeliveryAddressSection = ({
   return (
     <div className="bg-white rounded-3xl shadow-lg p-4">
       <div className="flex justify-between items-center pb-1">
-        <h2 className="text-xl font-bold text-gray-800 mb-3">
+        <h2 className="text-xl font-bold text-text-main mb-3">
           Delivery Details
         </h2>
         <button
-          className="text-xs font-bold bg-yellow-400 hover:bg-yellow-500 cursor-pointer p-2 rounded-full"
+          className="text-xs font-bold bg-primary hover:bg-primary-hover cursor-pointer p-2 rounded-full"
           onClick={() => {
             handleOpenAddressModal();
           }}
@@ -36,21 +36,21 @@ const DeliveryAddressSection = ({
           <div
             key={addr.id}
             onClick={() => setSelectedAddress(addr._id)}
-            className={`p-3 rounded-xl cursor-pointer transition-all duration-200 ${selectedAddress === addr._id ? 'bg-yellow-50 border-2 border-yellow-400' : 'bg-gray-50 border border-transparent hover:bg-gray-100'}`}
+            className={`p-3 rounded-xl cursor-pointer transition-all duration-200 ${selectedAddress === addr._id ? 'bg-yellow-50 border-2 border-border-focus' : 'bg-bg-subtle border border-transparent hover:bg-gray-100'}`}
           >
             <div className="flex items-center space-x-3">
               <div className="flex-shrink-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow">
                 {addr.addressType === 'home' ? (
-                  <Icon name="home" className="w-4 h-4 text-gray-600" />
+                  <Icon name="home" className="w-4 h-4 text-text-secondary" />
                 ) : (
-                  <Icon name="building" className="w-4 h-4 text-gray-600" />
+                  <Icon name="building" className="w-4 h-4 text-text-secondary" />
                 )}
               </div>
               <div className="flex-grow">
-                <p className="font-semibold text-gray-800">
+                <p className="font-semibold text-text-main">
                   {addr.addressType}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-text-muted">
                   {addr.addressLine1}, {addr.addressLine2},
                 </p>
               </div>

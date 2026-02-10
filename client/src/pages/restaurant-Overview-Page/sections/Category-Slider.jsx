@@ -23,7 +23,7 @@ const Categorycard = ({
           }}
           onClick={() => handleNavigateToCategoryResultPage(c.name || c.slug)}
         />
-        <span className="mt-1 font-semibold text-gray-600 text-sm text-center px-1">
+        <span className="mt-1 font-semibold text-text-secondary text-sm text-center px-1">
           {c.name}
         </span>
       </div>
@@ -107,7 +107,7 @@ const RestaurantCategoriesSlider = () => {
       <section className="py-5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-6">
-            <p className="text-xl font-bold text-gray-800">
+            <p className="text-xl font-bold text-text-main">
               {UserFirstName} What's on your mind?
             </p>
           </div>
@@ -152,10 +152,10 @@ const RestaurantCategoriesSlider = () => {
 
   return (
     <section className="py-2 mb-2 bg-white ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 border-b border-gray-200 box-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 border-b border-border box-border">
         {/* Header and navigation arrows */}
         <div className="flex items-center justify-between mb-6">
-          <p className="text-xl font-bold text-gray-800">
+          <p className="text-xl font-bold text-text-main">
             {UserFirstName} What's on your mind?
           </p>
           {/* Show arrows only if there are more categories than can fit in view */}
@@ -166,8 +166,8 @@ const RestaurantCategoriesSlider = () => {
                 disabled={currentIndex === 0}
                 className={`p-2 rounded-full border transition cursor-pointer ${
                   currentIndex === 0
-                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                    ? 'border-border text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
                 }`}
                 aria-label="Previous categories"
               >
@@ -178,8 +178,8 @@ const RestaurantCategoriesSlider = () => {
                 disabled={currentIndex === maxIndex}
                 className={`p-2 rounded-full border transition cursor-pointer ${
                   currentIndex === maxIndex
-                    ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-600 hover:border-yellow-400 hover:text-yellow-600'
+                    ? 'border-border text-gray-300 cursor-not-allowed'
+                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
                 }`}
                 aria-label="Next categories"
               >

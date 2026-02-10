@@ -39,9 +39,9 @@ const DeliveryLoader = () => {
             </div>
 
             {/* Delivery Box */}
-            <div className="absolute -top-2 right-0 w-6 h-6 bg-yellow-400 rounded border-2 border-yellow-500">
-              <div className="absolute top-1 left-1 w-4 h-1 bg-yellow-500"></div>
-              <div className="absolute top-3 left-1 w-4 h-1 bg-yellow-500"></div>
+            <div className="absolute -top-2 right-0 w-6 h-6 bg-primary rounded border-2 border-yellow-500">
+              <div className="absolute top-1 left-1 w-4 h-1 bg-primary-hover"></div>
+              <div className="absolute top-3 left-1 w-4 h-1 bg-primary-hover"></div>
             </div>
 
             {/* Wheels */}
@@ -63,16 +63,16 @@ const DeliveryLoader = () => {
 
         {/* Loading Text */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Cravo</h2>
-          <p className="text-gray-600 mb-4">
+          <h2 className="text-2xl font-bold text-text-main mb-2">Cravo</h2>
+          <p className="text-text-secondary mb-4">
             Preparing your delicious experience...
           </p>
 
           {/* Loading Dots */}
           <div className="flex justify-center space-x-1">
-            <div className="loading-dot w-2 h-2 bg-yellow-400 rounded-full"></div>
-            <div className="loading-dot w-2 h-2 bg-yellow-400 rounded-full"></div>
-            <div className="loading-dot w-2 h-2 bg-yellow-400 rounded-full"></div>
+            <div className="loading-dot w-2 h-2 bg-primary rounded-full"></div>
+            <div className="loading-dot w-2 h-2 bg-primary rounded-full"></div>
+            <div className="loading-dot w-2 h-2 bg-primary rounded-full"></div>
           </div>
         </div>
       </div>

@@ -12,14 +12,14 @@ const ExploreMore = () => {
 
   return (
     <div className="mt-12">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <h2 className="text-2xl font-bold text-text-main mb-4">
         Explore More Categories
       </h2>
       <div className="flex flex-wrap gap-4">
         {categories.map(item => (
           <button
             key={item}
-            className="px-5 py-2 bg-gray-100 hover:bg-yellow-100 rounded-xl text-gray-700 font-medium transition-all"
+            className="px-5 py-2 bg-gray-100 hover:bg-yellow-100 rounded-xl text-text-secondary font-medium transition-all"
           >
             {item}
           </button>

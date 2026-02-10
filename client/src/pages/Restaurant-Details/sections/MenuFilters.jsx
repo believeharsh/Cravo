@@ -4,7 +4,7 @@ import Icon from '../../../components/ui/Icon';
 const MenuFilters = ({ activeFilter, setActiveFilter }) => {
   const allCategories = ['All', 'Bestseller', 'Veg', 'Non-Veg'];
   return (
-    <div className="sticky top-0 z-20 bg-gray-50 pt-1 -mt-2">
+    <div className="sticky top-0 z-20 bg-bg-subtle pt-1 -mt-2">
       <div className="flex gap-4 p-4 -mx-4 overflow-x-auto scrollbar-hide bg-white rounded-3xl shadow-sm">
         {allCategories.map(filter => (
           <button
@@ -13,8 +13,8 @@ const MenuFilters = ({ activeFilter, setActiveFilter }) => {
             className={`flex items-center justify-center min-w-[100px] py-2 px-4 rounded-full text-sm font-semibold transition-all duration-200 ease-in-out whitespace-nowrap
               ${
                 activeFilter === filter
-                  ? 'bg-yellow-400 text-gray-800 shadow-md'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-primary text-text-main shadow-md'
+                  : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
               }`}
           >
             {filter === 'All' && 'All Items'}

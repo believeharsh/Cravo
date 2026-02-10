@@ -90,7 +90,7 @@ const Payments = () => {
       case 'failed':
         return 'text-red-600 bg-red-50';
       default:
-        return 'text-medium-gray bg-gray-50';
+        return 'text-medium-gray bg-bg-subtle';
     }
   };
 
@@ -187,7 +187,7 @@ const Payments = () => {
         <h2 className="text-2xl font-bold text-charcoal">Payment Methods</h2>
         <button
           onClick={handleAddCard}
-          className="flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+          className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
         >
           <Icon name={'plus'} className="w-5 h-5" />
           Add New Card
@@ -234,7 +234,7 @@ const Payments = () => {
           <div
             key={m.id}
             className={`bg-white rounded-2xl shadow-lg border p-6 transition-all hover:shadow-xl ${
-              m.isDefault ? 'border-yellow-400 bg-yellow-50' : 'border-cream'
+              m.isDefault ? 'border-border-focus bg-yellow-50' : 'border-cream'
             }`}
           >
             <div className="flex items-center justify-between">
@@ -259,7 +259,7 @@ const Payments = () => {
                   <h4 className="font-semibold text-charcoal flex items-center gap-2">
                     {m.nickname}
                     {m.isDefault && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-yellow-400 text-white text-xs rounded-full">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-white text-xs rounded-full">
                         <Icon name={'star'} className="w-3 h-3" /> Default
                       </span>
                     )}
@@ -450,7 +450,7 @@ const Payments = () => {
             <Icon name={'dollar-sign'} className="w-5 h-5" />
             <span>$24.99</span>
           </div>
-          <button className="flex items-center gap-1 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition-colors">
+          <button className="flex items-center gap-1 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg transition-colors">
             <Icon name={'download'} className="w-4 h-4" />
             Invoice
           </button>
@@ -475,7 +475,7 @@ const Payments = () => {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-md transition-colors ${
               activeTab === tab.id
-                ? 'bg-yellow-400 text-white'
+                ? 'bg-primary text-white'
                 : 'text-medium-gray hover:bg-gray-100'
             }`}
           >

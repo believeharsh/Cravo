@@ -7,7 +7,7 @@ const UnauthorizedPage = () => {
       <h1 className="text-4xl font-bold text-red-600 mb-4">
         403 - Unauthorized Access
       </h1>
-      <p className="text-lg text-gray-700 mb-8 text-center">
+      <p className="text-lg text-text-secondary mb-8 text-center">
         You do not have permission to view this page.
         <br />
         Please log in with an authorized account or contact support.

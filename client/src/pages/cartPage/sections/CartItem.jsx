@@ -44,11 +44,11 @@ const CartItem = ({ item }) => {
       {/* Info & Quantity Controls */}
       <div className="flex-grow min-w-0 flex justify-between items-center">
         <div className="flex flex-col flex-grow">
-          <h3 className="text-base font-semibold text-gray-900 truncate">
+          <h3 className="text-base font-semibold text-text-main truncate">
             {product.name}
           </h3>
           {product.restaurant?.name && (
-            <p className="text-sm text-gray-500 truncate mt-0.5">
+            <p className="text-sm text-text-muted truncate mt-0.5">
               Restaurant: {product.restaurant.name}
             </p>
           )}
@@ -63,7 +63,7 @@ const CartItem = ({ item }) => {
           {/* Price and Total */}
           <div className="flex items-center mt-1 space-x-4">
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-semibold text-text-secondary">
                 ₹{product.price.toFixed(2)}
               </span>
               {/* Check if a promotional discount exists */}
@@ -75,8 +75,8 @@ const CartItem = ({ item }) => {
             </div>
 
             <div className="flex items-center">
-              <span className="text-sm font-normal text-gray-600">Total:</span>
-              <span className="flex items-center ml-1 text-sm font-semibold text-gray-800">
+              <span className="text-sm font-normal text-text-secondary">Total:</span>
+              <span className="flex items-center ml-1 text-sm font-semibold text-text-main">
                 <Icon name="indian-rupee" className="w-3 h-3" />
                 <p>
                   {(item.quantity * product.price).toFixed(2)}{' '}
@@ -94,14 +94,14 @@ const CartItem = ({ item }) => {
             className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors cursor-pointer"
             disabled={item.quantity <= 1}
           >
-            <Icon name="minus" size={14} className="text-gray-600" />
+            <Icon name="minus" size={14} className="text-text-secondary" />
           </button>
-          <span className="text-sm font-semibold text-gray-800 w-5 text-center">
+          <span className="text-sm font-semibold text-text-main w-5 text-center">
             {item.quantity}
           </span>
           <button
             onClick={handleIncrement}
-            className="w-7 h-7 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors cursor-pointer"
+            className="w-7 h-7 flex items-center justify-center rounded-full bg-primary hover:bg-primary-hover transition-colors cursor-pointer"
           >
             <Icon name="plus" size={14} className="text-white" />
           </button>

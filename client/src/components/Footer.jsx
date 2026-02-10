@@ -33,7 +33,7 @@ const SocialIcon = ({ Icon, href, label }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center text-gray-300 hover:text-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-200"
+    className="w-10 h-10 border border-border rounded-full flex items-center justify-center text-gray-300 hover:text-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-200"
     aria-label={label}
   >
     <Icon size={18} />
@@ -41,7 +41,7 @@ const SocialIcon = ({ Icon, href, label }) => (
 );
 
 const Footer = () => (
-  <footer className="bg-gray-800 border-t border-gray-200">
+  <footer className="bg-gray-800 border-t border-border">
     {/* Main Footer Content */}
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
@@ -145,7 +145,7 @@ const Footer = () => (
     </div>
 
     {/* Bottom Bar */}
-    <div className="border-t border-gray-200">
+    <div className="border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
           {/* Social Icons */}

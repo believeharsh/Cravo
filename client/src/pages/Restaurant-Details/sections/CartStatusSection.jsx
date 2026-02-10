@@ -28,7 +28,7 @@ const CartStatusSection = () => {
           onClick={() => {
             Navigate('/cart');
           }}
-          className="px-6 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors cursor-pointer"
+          className="px-6 py-2 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors cursor-pointer"
         >
           View Cart
         </button>

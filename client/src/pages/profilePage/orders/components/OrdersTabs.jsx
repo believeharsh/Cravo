@@ -16,8 +16,8 @@ const OrdersTabs = ({ activeTab, setActiveTab, counts }) => {
           onClick={() => setActiveTab(key)}
           className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
             activeTab === key
-              ? 'bg-yellow-400 text-gray-900 shadow-lg'
-              : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+              ? 'bg-primary text-text-main shadow-lg'
+              : 'bg-white text-text-secondary hover:bg-bg-subtle border border-border'
           }`}
         >
           {label} {count > 0 && `(${count})`}

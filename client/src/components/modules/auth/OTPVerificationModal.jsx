@@ -89,14 +89,14 @@ const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
           >
             <button
               onClick={() => dispatch(closeAuthSidebar())}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors text-3xl"
+              className="absolute top-4 right-4 text-gray-400 hover:text-text-main transition-colors text-3xl"
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
+            <h2 className="text-2xl font-bold text-center text-text-main mb-2">
               Verify Your Email
             </h2>
-            <p className="text-center text-gray-500 mb-6">
+            <p className="text-center text-text-muted mb-6">
               A 6-digit code has been sent to **{email}**.
             </p>
 
@@ -118,14 +118,14 @@ const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="w-full bg-primary-hover text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 {loading ? 'Verifying...' : 'Verify OTP'}
               </button>
             </form>
 
             <div className="text-center mt-4 text-sm">
-              <p className="text-gray-500">
+              <p className="text-text-muted">
                 Didn't receive the code?
                 <button
                   onClick={handleResendOTP}

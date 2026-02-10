@@ -28,7 +28,7 @@ const Orders = () => {
       preparing: {
         label: 'Preparing',
         color: 'bg-yellow-100 text-yellow-800',
-        dotColor: 'bg-yellow-500',
+        dotColor: 'bg-primary-hover',
       },
       on_the_way: {
         label: 'On the way',

@@ -26,7 +26,7 @@ const AuthRequiredModal = ({ isOpen, onClose, title, message, action }) => {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full"
+          className="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-text-secondary transition-colors p-1 hover:bg-gray-100 rounded-full"
           aria-label="Close modal"
         >
           <Icon name="x" size={20} />
@@ -42,12 +42,12 @@ const AuthRequiredModal = ({ isOpen, onClose, title, message, action }) => {
           </div>
 
           {/* Title */}
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-3">
+          <h2 className="text-2xl font-bold text-text-main text-center mb-3">
             {title || 'Login Required'}
           </h2>
 
           {/* Message */}
-          <p className="text-gray-600 text-center mb-6 leading-relaxed">
+          <p className="text-text-secondary text-center mb-6 leading-relaxed">
             {message ||
               'Please log in to continue. You need to be logged in to add items to your wishlist.'}
           </p>
@@ -61,7 +61,7 @@ const AuthRequiredModal = ({ isOpen, onClose, title, message, action }) => {
                   size={20}
                   className="text-yellow-600 flex-shrink-0 mt-0.5"
                 />
-                <p className="text-sm text-gray-700">{action}</p>
+                <p className="text-sm text-text-secondary">{action}</p>
               </div>
             </div>
           )}
@@ -70,14 +70,14 @@ const AuthRequiredModal = ({ isOpen, onClose, title, message, action }) => {
           <div className="flex flex-col  gap-3">
             <button
               onClick={handleLogin}
-              className="cursor-pointer flex-1 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2"
+              className="cursor-pointer flex-1 bg-primary hover:bg-primary-hover text-text-main font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2"
             >
               <Icon name="log-in" size={18} />
               <span>Login / Sign Up</span>
             </button>
             <button
               onClick={onClose}
-              className="cursor-pointer  flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-all duration-200"
+              className="cursor-pointer  flex-1 bg-gray-100 hover:bg-gray-200 text-text-secondary font-semibold py-3 px-6 rounded-xl transition-all duration-200"
             >
               Maybe Later
             </button>

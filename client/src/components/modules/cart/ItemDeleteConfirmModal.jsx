@@ -35,12 +35,12 @@ const ItemDeleteConfirmation = () => {
           >
             {/* Modal content */}
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-800">
+              <h3 className="text-2xl font-bold text-text-main">
                 Confirm Deletion
               </h3>
-              <p className="mt-4 text-sm text-gray-600">
+              <p className="mt-4 text-sm text-text-secondary">
                 Are you sure you want to delete{' '}
-                <span className="font-semibold text-gray-900">{itemName}</span>{' '}
+                <span className="font-semibold text-text-main">{itemName}</span>{' '}
                 from your cart?
               </p>
             </div>
@@ -49,13 +49,13 @@ const ItemDeleteConfirmation = () => {
             <div className="mt-8 flex justify-end space-x-3">
               <button
                 onClick={handleCloseDeleteModal}
-                className="px-5 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
+                className="px-5 py-2 text-sm font-medium text-text-secondary bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDeleteItemFromCart({ itemId, itemName })}
-                className="px-5 py-2 text-sm font-medium text-black bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors cursor-pointer"
+                className="px-5 py-2 text-sm font-medium text-black bg-primary-hover rounded-lg hover:bg-yellow-600 transition-colors cursor-pointer"
               >
                 Delete
               </button>

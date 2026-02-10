@@ -83,8 +83,8 @@ const RestaurantMenuPage = () => {
   // 2. Modify Loading State Check
   if (isInitialLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-xl font-semibold text-gray-700">
+      <div className="min-h-screen flex items-center justify-center bg-bg-subtle">
+        <p className="text-xl font-semibold text-text-secondary">
           Loading restaurant menu...
         </p>
       </div>
@@ -94,13 +94,13 @@ const RestaurantMenuPage = () => {
   // 3. Modify Error State Check
   if (isError || !restaurant) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-bg-subtle px-4">
         <p className="text-xl font-semibold text-red-500 text-center">
           {error || 'Restaurant not found.'}
         </p>
         <button
           onClick={refetchMenu}
-          className="mt-4 px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-full hover:bg-yellow-500 transition-colors"
+          className="mt-4 px-4 py-2 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors"
         >
           Try Again
         </button>
@@ -110,7 +110,7 @@ const RestaurantMenuPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 font-helvetica">
+      <div className="min-h-screen bg-bg-subtle font-helvetica">
         <Navbar showSearch={true} currentPage="restaurant" cartCount={2} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
           <RestaurantHeader restaurant={restaurant} />

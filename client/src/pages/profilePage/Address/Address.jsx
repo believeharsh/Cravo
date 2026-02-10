@@ -30,8 +30,8 @@ const AddressPage = () => {
   // Conditionally render based on loading and error states
   if (loading === 'pending') {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <p className="text-xl font-medium text-gray-700 animate-pulse">
+      <div className="flex items-center justify-center min-h-screen bg-bg-subtle">
+        <p className="text-xl font-medium text-text-secondary animate-pulse">
           Loading addresses...
         </p>
       </div>
@@ -40,19 +40,19 @@ const AddressPage = () => {
 
   if (loading === 'failed' && error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-bg-subtle">
         <p className="text-xl text-red-500 font-medium">Error: {error}</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen  text-gray-800 py-2 rounded-xl">
+    <div className="min-h-screen  text-text-main py-2 rounded-xl">
       <div className="md:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center space-x-3">
-            <Icon name="home" className="h-9 w-9 text-gray-700" />
-            <h1 className="text-4xl font-extrabold text-gray-800">
+            <Icon name="home" className="h-9 w-9 text-text-secondary" />
+            <h1 className="text-4xl font-extrabold text-text-main">
               Your Addresses
             </h1>
           </div>
@@ -61,15 +61,15 @@ const AddressPage = () => {
               setCurrentAddress(null);
               handleOpenAddressModal();
             }}
-            className="cursor-pointer px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:bg-yellow-600 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75"
+            className="cursor-pointer px-6 py-3 bg-primary-hover text-white font-semibold rounded-lg shadow-lg hover:bg-yellow-600 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75"
           >
             New
           </button>
         </div>
 
         {userAddresses.length === 0 ? (
-          <div className="text-center p-12 bg-white rounded-xl shadow-md border border-gray-200">
-            <p className="text-xl text-gray-500 font-light">
+          <div className="text-center p-12 bg-white rounded-xl shadow-md border border-border">
+            <p className="text-xl text-text-muted font-light">
               You haven't saved any addresses yet. Add one to get started!
             </p>
           </div>

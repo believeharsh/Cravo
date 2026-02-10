@@ -11,17 +11,17 @@ const AddressDeleteConfirmationModal = () => {
   return (
     <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 className="text-2xl font-bold text-text-main mb-4">
           Confirm Deletion
         </h2>
-        <p className="text-gray-700 mb-6">
+        <p className="text-text-secondary mb-6">
           Are you sure you want to delete this address This action cannot be
           undone.
         </p>
         <div className="flex justify-center gap-4">
           <button
             onClick={handleCloseDeleteAddressModal}
-            className="px-6 py-3 text-gray-800 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+            className="px-6 py-3 text-text-main bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
           >
             Cancel
           </button>
