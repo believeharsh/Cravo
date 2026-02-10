@@ -1,6 +1,7 @@
 import React from 'react';
-import Icon from './ui/Icon';
 import toast from 'react-hot-toast';
+
+import Icon from './ui/Icon';
 
 const CustomToast = ({
   message,
@@ -15,7 +16,7 @@ const CustomToast = ({
     <div
       className={`${
         t.visible ? 'animate-enter' : 'animate-leave'
-      } max-w-sm w-full bg-white text-charcoal rounded-2xl border border-border shadow-xl flex items-center justify-between p-4 space-x-4`}
+      } text-charcoal border-border flex w-full max-w-sm items-center justify-between space-x-4 rounded-2xl border bg-white p-4 shadow-xl`}
       style={{
         transform: `translateX(${-offset}px)`,
         transition: 'transform 0.3s ease-in-out',
@@ -23,30 +24,30 @@ const CustomToast = ({
     >
       {/* Icon for visual feedback */}
       <div className="flex-shrink-0">
-        <Icon name="heart" className="w-6 h-6 text-red-500" />
+        <Icon name="heart" className="h-6 w-6 text-red-500" />
       </div>
 
-      <div className="flex-grow text-sm font-medium pr-2">
+      <div className="flex-grow pr-2 text-sm font-medium">
         <p className="line-clamp-2">{message}</p>
       </div>
 
-      <div className="flex-shrink-0 flex items-center space-x-4">
+      <div className="flex flex-shrink-0 items-center space-x-4">
         {actionText && (
           <button
             onClick={() => {
               onActionClick();
               toast.dismiss(t.id);
             }}
-            className="text-yellow-500 hover:text-yellow-600 transition-colors font-semibold text-sm whitespace-nowrap cursor-pointer"
+            className="cursor-pointer text-sm font-semibold whitespace-nowrap text-yellow-500 transition-colors hover:text-yellow-600"
           >
             {actionText}
           </button>
         )}
         <button
           onClick={() => toast.dismiss(t.id)}
-          className="text-gray-400 hover:text-charcoal transition-colors flex-shrink-0 cursor-pointer"
+          className="hover:text-charcoal flex-shrink-0 cursor-pointer text-gray-400 transition-colors"
         >
-          <Icon name="x-circle" className="w-5 h-5" />
+          <Icon name="x-circle" className="h-5 w-5" />
         </button>
       </div>
     </div>

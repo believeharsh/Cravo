@@ -1,9 +1,10 @@
 import React from 'react';
-import Icon from '../../../components/ui/Icon';
-import Button from '../../../components/ui/Button';
-import { useAddressActions } from '../../../hooks/useAddressActions';
 import { useSelector } from 'react-redux';
+
 import AddressModal from '../../../components/modules/address/AddressModal';
+import Button from '../../../components/ui/Button';
+import Icon from '../../../components/ui/Icon';
+import { useAddressActions } from '../../../hooks/useAddressActions';
 
 const DeliveryAddressSection = ({
   addresses,
@@ -16,13 +17,13 @@ const DeliveryAddressSection = ({
   const { handleOpenAddressModal } = useAddressActions();
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg p-4">
-      <div className="flex justify-between items-center pb-1">
-        <h2 className="text-xl font-bold text-text-main mb-3">
+    <div className="rounded-3xl bg-white p-4 shadow-lg">
+      <div className="flex items-center justify-between pb-1">
+        <h2 className="text-text-main mb-3 text-xl font-bold">
           Delivery Details
         </h2>
         <button
-          className="text-xs font-bold bg-primary hover:bg-primary-hover cursor-pointer p-2 rounded-full"
+          className="bg-primary hover:bg-primary-hover cursor-pointer rounded-full p-2 text-xs font-bold"
           onClick={() => {
             handleOpenAddressModal();
           }}
@@ -36,21 +37,24 @@ const DeliveryAddressSection = ({
           <div
             key={addr.id}
             onClick={() => setSelectedAddress(addr._id)}
-            className={`p-3 rounded-xl cursor-pointer transition-all duration-200 ${selectedAddress === addr._id ? 'bg-yellow-50 border-2 border-border-focus' : 'bg-bg-subtle border border-transparent hover:bg-gray-100'}`}
+            className={`cursor-pointer rounded-xl p-3 transition-all duration-200 ${selectedAddress === addr._id ? 'border-border-focus border-2 bg-yellow-50' : 'bg-bg-subtle border border-transparent hover:bg-gray-100'}`}
           >
             <div className="flex items-center space-x-3">
-              <div className="flex-shrink-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white shadow">
                 {addr.addressType === 'home' ? (
-                  <Icon name="home" className="w-4 h-4 text-text-secondary" />
+                  <Icon name="home" className="text-text-secondary h-4 w-4" />
                 ) : (
-                  <Icon name="building" className="w-4 h-4 text-text-secondary" />
+                  <Icon
+                    name="building"
+                    className="text-text-secondary h-4 w-4"
+                  />
                 )}
               </div>
               <div className="flex-grow">
-                <p className="font-semibold text-text-main">
+                <p className="text-text-main font-semibold">
                   {addr.addressType}
                 </p>
-                <p className="text-sm text-text-muted">
+                <p className="text-text-muted text-sm">
                   {addr.addressLine1}, {addr.addressLine2},
                 </p>
               </div>

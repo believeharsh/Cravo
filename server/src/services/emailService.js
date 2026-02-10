@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
-import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
+import { Resend } from 'resend';
 import { fileURLToPath } from 'url';
+
 import { EnvConfig } from '../config/env.config.js';
 
 const __filename = fileURLToPath(import.meta.url);

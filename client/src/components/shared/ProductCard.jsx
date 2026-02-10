@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import Icon from '../ui/Icon';
-import { useCartActions } from '../../hooks/useCartActions';
-import { useFavoriteActions } from '../../hooks/useWishlistActions';
 import {
   selectDefaultProductListId,
   selectIsProductInAnyProductList,
 } from '../../features/wishList/wishListSelectors';
 import { useAuthForm } from '../../hooks/useAuthForm';
+import { useCartActions } from '../../hooks/useCartActions';
+import { useFavoriteActions } from '../../hooks/useWishlistActions';
+import Icon from '../ui/Icon';
 
 const ProductCard = ({ item, listId }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -93,7 +93,7 @@ const ProductCard = ({ item, listId }) => {
 
   return (
     <div
-      className="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col"
+      className="relative flex flex-col rounded-2xl bg-white shadow-md transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -103,7 +103,7 @@ const ProductCard = ({ item, listId }) => {
           <img
             src={item.images[0]}
             alt={item.name}
-            className="w-full h-28 object-cover rounded-t-2xl"
+            className="h-28 w-full rounded-t-2xl object-cover"
           />
         )}
 
@@ -112,59 +112,59 @@ const ProductCard = ({ item, listId }) => {
           onClick={
             isAuthenticated ? handleWishlistClick : handleOpenAuthRequireModal
           }
-          className={`absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-md transition-colors duration-200 cursor-pointer ${
+          className={`absolute top-2 right-2 cursor-pointer rounded-full bg-white p-1.5 shadow-md transition-colors duration-200 ${
             isProductInWishlist
               ? 'text-red-500'
               : 'text-gray-400 hover:text-red-500'
           }`}
         >
-          <Icon name="heart" className="w-4 h-4 fill-current" />
+          <Icon name="heart" className="h-4 w-4 fill-current" />
         </button>
       </div>
 
       {/* Content */}
-      <div className="p-3 flex flex-col flex-grow">
+      <div className="flex flex-grow flex-col p-3">
         {/* Top Section */}
         <div className="mb-2">
           {item.isBestseller && (
-            <span className="inline-flex items-center text-xs font-semibold text-amber-500 mb-1">
-              <Icon name="star" className="w-3.5 h-3.5 mr-1 fill-current" />{' '}
+            <span className="mb-1 inline-flex items-center text-xs font-semibold text-amber-500">
+              <Icon name="star" className="mr-1 h-3.5 w-3.5 fill-current" />{' '}
               Bestseller
             </span>
           )}
-          <h3 className="text-base font-bold text-text-main line-clamp-1">
+          <h3 className="text-text-main line-clamp-1 text-base font-bold">
             {item.name}
           </h3>
-          <p className="text-xs text-text-muted line-clamp-2">
+          <p className="text-text-muted line-clamp-2 text-xs">
             {item.description}
           </p>
         </div>
 
         {/* Bottom Section (Price + Actions) */}
-        <div className="mt-auto flex justify-between items-center pt-2 border-t border-gray-100">
+        <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-2">
           {/* Price */}
           <div className="flex items-center">
-            <Icon name="indian-rupee" className="text-text-main w-4 h-4 mr-1" />
-            <span className="text-base font-extrabold text-text-main">
+            <Icon name="indian-rupee" className="text-text-main mr-1 h-4 w-4" />
+            <span className="text-text-main text-base font-extrabold">
               {item.price}
             </span>
           </div>
 
           {/* Add to Cart / Quantity */}
           {existingCartItem ? (
-            <div className="flex items-center space-x-1.5 bg-white border border-yellow-200 rounded-full py-0.5 px-2">
+            <div className="flex items-center space-x-1.5 rounded-full border border-yellow-200 bg-white px-2 py-0.5">
               <button
                 onClick={handleDecrement}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200 cursor-pointer"
+                className="bg-primary text-text-main hover:bg-primary-hover flex h-6 w-6 cursor-pointer items-center justify-center rounded-full font-semibold transition-colors duration-200"
               >
                 -
               </button>
-              <span className="text-sm font-bold text-text-main">
+              <span className="text-text-main text-sm font-bold">
                 {existingCartItem.quantity}
               </span>
               <button
                 onClick={handleIncrement}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200 cursor-pointer"
+                className="bg-primary text-text-main hover:bg-primary-hover flex h-6 w-6 cursor-pointer items-center justify-center rounded-full font-semibold transition-colors duration-200"
               >
                 +
               </button>
@@ -172,9 +172,9 @@ const ProductCard = ({ item, listId }) => {
           ) : (
             <button
               onClick={() => handleAddToCart(item._id)}
-              className="flex items-center px-3 py-1.5 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors duration-200 shadow-md text-sm cursor-pointer"
+              className="bg-primary text-text-main hover:bg-primary-hover flex cursor-pointer items-center rounded-full px-3 py-1.5 text-sm font-semibold shadow-md transition-colors duration-200"
             >
-              <Icon name="shopping-cart" className="w-4 h-4 mr-1" /> Add
+              <Icon name="shopping-cart" className="mr-1 h-4 w-4" /> Add
             </button>
           )}
         </div>

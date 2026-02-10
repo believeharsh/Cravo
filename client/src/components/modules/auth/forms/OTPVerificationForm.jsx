@@ -19,14 +19,14 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
   };
 
   return (
-    <div className="flex flex-col flex-1 justify-between">
+    <div className="flex flex-1 flex-col justify-between">
       <div>
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-3xl font-bold text-text-main">
+          <h2 className="text-text-main text-3xl font-bold">
             Verify Your Email
           </h2>
-          <p className="mt-2 text-text-muted text-sm">
+          <p className="text-text-muted mt-2 text-sm">
             A 6-digit code has been sent to{' '}
             <span className="font-semibold">{email}</span>
           </p>
@@ -34,7 +34,7 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
 
         {/* Error Message */}
         {error && (
-          <div className="text-red-500 text-center mb-4 p-3 rounded-lg bg-red-50 border border-red-200">
+          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-center text-red-500">
             <p className="text-sm font-medium">{error}</p>
           </div>
         )}
@@ -48,13 +48,13 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
             placeholder="Enter OTP"
             required
             maxLength="6"
-            className="w-full text-center text-2xl tracking-widest border border-gray-300 rounded-xl px-4 py-4 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
+            className="w-full rounded-xl border border-gray-300 px-4 py-4 text-center text-2xl tracking-widest placeholder-gray-400 transition-all focus:ring-2 focus:ring-yellow-500 focus:outline-none"
           />
 
           <button
             type="submit"
             disabled={isLoading || otp.length !== 6}
-            className="w-full bg-primary-hover text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-primary-hover w-full rounded-xl py-3 font-semibold text-white shadow-lg transition-colors hover:bg-yellow-600 disabled:cursor-not-allowed disabled:bg-gray-400"
           >
             {isLoading ? <LoadingSpinner /> : 'Verify OTP'}
           </button>
@@ -62,13 +62,13 @@ const OTPVerificationForm = ({ email, otpVerification, onSuccess }) => {
       </div>
 
       {/* Footer */}
-      <div className="text-center mt-auto">
+      <div className="mt-auto text-center">
         <p className="text-text-muted text-sm">
           Didn't receive the code?
           <button
             onClick={resendOTP}
             disabled={resendCooldown > 0 || isResending}
-            className="text-yellow-600 font-semibold ml-1 hover:underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed"
+            className="ml-1 font-semibold text-yellow-600 hover:underline disabled:cursor-not-allowed disabled:text-gray-400 disabled:no-underline"
           >
             {isResending
               ? 'Sending...'
@@ -85,21 +85,23 @@ const SocialLoginButton = ({ onClick }) => (
   <button
     onClick={onClick}
     type="button"
-    className="w-full flex items-center justify-center gap-3 border border-gray-300 py-3 rounded-xl hover:bg-bg-subtle transition-colors duration-200"
+    className="hover:bg-bg-subtle flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-3 transition-colors duration-200"
   >
     <img
       src="https://img.icons8.com/color/48/google-logo.png"
       alt="Google"
-      className="w-6 h-6"
+      className="h-6 w-6"
     />
-    <span className="text-text-secondary font-medium">Continue with Google</span>
+    <span className="text-text-secondary font-medium">
+      Continue with Google
+    </span>
   </button>
 );
 
 // components/ui/LoadingSpinner.jsx
 const LoadingSpinner = () => (
   <svg
-    className="animate-spin h-5 w-5 text-white"
+    className="h-5 w-5 animate-spin text-white"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"

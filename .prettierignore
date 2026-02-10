@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Build outputs
+dist
+build
+out
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Other
+.git
+.DS_Store
+.vscode
+.idea
+
+# CI Outputs
+*.sarif

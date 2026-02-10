@@ -1,10 +1,9 @@
-import { asyncHandler } from '../services/asyncHandler.js';
-import { apiResponse } from '../services/apiResponse.js';
-import { apiError } from '../services/apiError.js';
-
 import List from '../models/list.model.js';
-import User from '../models/user.model.js';
 import Product from '../models/product.model.js';
+import User from '../models/user.model.js';
+import { apiError } from '../services/apiError.js';
+import { apiResponse } from '../services/apiResponse.js';
+import { asyncHandler } from '../services/asyncHandler.js';
 
 const createNewList = asyncHandler(async (req, res) => {
   const { name } = req.body;

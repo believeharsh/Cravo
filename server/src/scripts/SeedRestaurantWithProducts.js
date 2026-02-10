@@ -1,21 +1,20 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
-import mongoose from 'mongoose';
 import cloudinary from 'cloudinary';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
+import { EnvConfig } from '../config/env.config.js';
 // Models
 import Category from '../models/category.model.js';
-import Restaurant from '../models/restaurant.model.js';
-import Product from '../models/product.model.js';
 import City from '../models/city.model.js';
-
+import Product from '../models/product.model.js';
+import Restaurant from '../models/restaurant.model.js';
 // Sample Data
 import { productPools } from '../sample-Data/ProductPool/ProductPool.js';
 import { RestaurantImagePool } from '../sample-Data/Restaurant-Image-Pool/RestaurantImagePool.js';
 import jaipurRestaurants from '../sample-Data/Restaurants-Data/JaipurRestaurants.js';
-import { EnvConfig } from '../config/env.config.js';
+
+dotenv.config();
 
 const MONGODB_URI = EnvConfig.MONGODB_URI;
 

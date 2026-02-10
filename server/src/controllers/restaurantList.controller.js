@@ -1,10 +1,9 @@
-import { asyncHandler } from '../services/asyncHandler.js';
-import { apiResponse } from '../services/apiResponse.js';
-import { apiError } from '../services/apiError.js';
-
+import Restaurant from '../models/restaurant.model.js';
 import RestaurantList from '../models/restaurantList.model.js';
 import User from '../models/user.model.js';
-import Restaurant from '../models/restaurant.model.js';
+import { apiError } from '../services/apiError.js';
+import { apiResponse } from '../services/apiResponse.js';
+import { asyncHandler } from '../services/asyncHandler.js';
 
 const createNewRestaurantList = asyncHandler(async (req, res) => {
   const { name } = req.body;

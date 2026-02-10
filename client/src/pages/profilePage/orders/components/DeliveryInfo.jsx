@@ -1,23 +1,26 @@
 import React from 'react';
-import { MapPin, Clock, Phone } from 'lucide-react';
+
+import { Clock, MapPin, Phone } from 'lucide-react';
 
 const DeliveryInfo = ({ address, instructions, driver }) => {
   return (
-    <div className="bg-white rounded-lg p-4 space-y-3">
-      <h4 className="font-semibold text-text-main mb-3">Delivery Information</h4>
-      <div className="flex items-start gap-3 text-sm text-text-secondary">
-        <MapPin className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+    <div className="space-y-3 rounded-lg bg-white p-4">
+      <h4 className="text-text-main mb-3 font-semibold">
+        Delivery Information
+      </h4>
+      <div className="text-text-secondary flex items-start gap-3 text-sm">
+        <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-gray-400" />
         <span>{address}</span>
       </div>
       {instructions && (
-        <div className="flex items-start gap-3 text-sm text-text-secondary">
-          <Clock className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+        <div className="text-text-secondary flex items-start gap-3 text-sm">
+          <Clock className="mt-0.5 h-5 w-5 flex-shrink-0 text-gray-400" />
           <span>{instructions}</span>
         </div>
       )}
       {driver && (
-        <div className="flex items-start gap-3 text-sm text-text-secondary">
-          <Phone className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+        <div className="text-text-secondary flex items-start gap-3 text-sm">
+          <Phone className="mt-0.5 h-5 w-5 flex-shrink-0 text-gray-400" />
           <span>
             {driver.name} • {driver.phone}
           </span>

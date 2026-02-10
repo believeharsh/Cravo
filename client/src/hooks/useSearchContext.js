@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
-  fetchLocationSuggestions,
-  fetchCurrentLocation,
-  setConfirmedLocation,
-  setCategoryName,
-  setRestaurantName,
   clearSuggestions,
+  fetchCurrentLocation,
+  fetchLocationSuggestions,
+  setCategoryName,
+  setConfirmedLocation,
+  setRestaurantName,
 } from '../features/SearchContext/searchContaxtSlice';
 import { setUserLocation } from '../features/location/locationSlice';
 

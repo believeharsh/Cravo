@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
+
+import CustomToast from '../components/CustomToast';
 import {
-  fetchUserCart,
   addItemToCart,
+  clearCart,
+  fetchUserCart,
   removeItemFromCart,
   updateQuantity,
-  clearCart,
 } from '../features/cart/cartSlice';
-
-import { openDeleteModal, closeDeleteModal } from '../features/ui/uiSlice';
+import { closeDeleteModal, openDeleteModal } from '../features/ui/uiSlice';
 import { useToastStack } from './useStackToasts';
-import CustomToast from '../components/CustomToast';
 
 export const useCartActions = () => {
   const dispatch = useDispatch();

@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   fetchLocationSuggestions,
-  setSelectedLocation as setSelectedSearchLocation,
   fetchCurrentLocation as fetchReverseGeocode,
+  setSelectedLocation as setSelectedSearchLocation,
 } from '../features/location/locationSlice';
 
 const debounce = (func, delay) => {

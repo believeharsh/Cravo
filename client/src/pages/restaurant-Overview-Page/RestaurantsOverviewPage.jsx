@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-// Restaurant-Overview-Page sections import
-import FiltersAndSerachBar from './sections/FiltersAndSerachBar';
-import RestaurantGrid from './sections/RestRestaurant';
-import NearbyCuisineGrid from './sections/Near-restaurants-card';
 import Footer from '../../components/Footer';
-import TopRestaurants from './sections/TopRestaurants';
-import RestaurantCategoriesSlider from './sections/Category-Slider';
 import Navbar from '../../components/Navbar/Navbar';
 import AuthRequiredModal from '../../components/modules/auth/AuthRequiredModal';
-import { useSelector } from 'react-redux';
 import { useAuthForm } from '../../hooks/useAuthForm';
+import RestaurantCategoriesSlider from './sections/Category-Slider';
+// Restaurant-Overview-Page sections import
+import FiltersAndSerachBar from './sections/FiltersAndSerachBar';
+import NearbyCuisineGrid from './sections/Near-restaurants-card';
+import RestaurantGrid from './sections/RestRestaurant';
+import TopRestaurants from './sections/TopRestaurants';
 
 const RestaurantsOverviewPage = () => {
   const [showRestaurantNavbar, setShowRestaurantNavbar] = useState(false);
@@ -64,12 +64,12 @@ const RestaurantsOverviewPage = () => {
   return (
     <>
       {/* Fixed navbar container with smooth transition */}
-      <div className="fixed top-0 left-0 right-0 z-50">
+      <div className="fixed top-0 right-0 left-0 z-50">
         {/* Main Navbar with fade transition */}
         <div
           className={`transition-opacity duration-300 ${
             showRestaurantNavbar
-              ? 'opacity-0 pointer-events-none absolute'
+              ? 'pointer-events-none absolute opacity-0'
               : 'opacity-100'
           }`}
         >
@@ -81,7 +81,7 @@ const RestaurantsOverviewPage = () => {
           className={`transition-opacity duration-200 ${
             showRestaurantNavbar
               ? 'opacity-100'
-              : 'opacity-0 pointer-events-none absolute'
+              : 'pointer-events-none absolute opacity-0'
           }`}
         >
           <FiltersAndSerachBar />

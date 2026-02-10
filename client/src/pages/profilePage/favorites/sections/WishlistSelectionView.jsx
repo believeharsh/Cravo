@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+
 import {
-  Plus,
-  ShoppingBag,
+  ChevronRight,
   Coffee,
   Heart,
+  Plus,
+  ShoppingBag,
   Star,
-  ChevronRight,
 } from 'lucide-react';
+
 import { useFavoriteActions } from '../../../../hooks/useWishlistActions';
 
 const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
@@ -55,11 +57,11 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
 
   if (!wishlists || wishlists.length === 0) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
-        <div className="w-24 h-24 bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full flex items-center justify-center mb-8 shadow-lg">
-          <Heart className="w-12 h-12 text-amber-500" strokeWidth={1.5} />
+      <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
+        <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-yellow-50 to-amber-100 shadow-lg">
+          <Heart className="h-12 w-12 text-amber-500" strokeWidth={1.5} />
         </div>
-        <h3 className="text-2xl font-bold text-text-main mb-3">
+        <h3 className="text-text-main mb-3 text-2xl font-bold">
           No Wishlists Yet
         </h3>
         <p className="text-text-secondary mb-8 max-w-md leading-relaxed">
@@ -68,9 +70,9 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
         </p>
         <button
           onClick={() => setShowNewListInput(true)}
-          className="group inline-flex items-center gap-3 px-8 py-4 bg-primary text-text-main rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-yellow-300"
+          className="group bg-primary text-text-main inline-flex transform items-center gap-3 rounded-2xl px-8 py-4 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300 hover:shadow-xl"
         >
-          <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+          <Plus className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
           Create Your First List
         </button>
       </div>
@@ -80,9 +82,9 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-4xl font-bold text-text-main mb-2">
+          <h1 className="text-text-main mb-2 text-4xl font-bold">
             My Wishlists
           </h1>
           <p className="text-text-secondary">
@@ -92,9 +94,9 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
         {!showNewListInput && (
           <button
             onClick={() => setShowNewListInput(true)}
-            className=" cursor-pointer group inline-flex items-center gap-3 px-6 py-3 bg-primary text-text-main rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 self-start hover:bg-yellow-300"
+            className="group bg-primary text-text-main inline-flex transform cursor-pointer items-center gap-3 self-start rounded-xl px-6 py-3 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300 hover:shadow-xl"
           >
-            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+            <Plus className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
             Create New List
           </button>
         )}
@@ -102,42 +104,42 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
 
       {/* New List Input */}
       {showNewListInput && (
-        <div className="bg-white rounded-2xl shadow-xl border border-yellow-100 p-6 transform animate-in slide-in-from-top-4 duration-300">
+        <div className="animate-in slide-in-from-top-4 transform rounded-2xl border border-yellow-100 bg-white p-6 shadow-xl duration-300">
           {/* 3. New List Type Selector Buttons */}
-          <div className="mb-6 flex items-center space-x-4 p-2 bg-bg-subtle rounded-xl shadow-inner">
+          <div className="bg-bg-subtle mb-6 flex items-center space-x-4 rounded-xl p-2 shadow-inner">
             <button
               onClick={() => setNewListType('productList')}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-200 ${
+              className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3 font-semibold transition-all duration-200 ${
                 newListType === 'productList'
                   ? 'bg-primary text-text-main shadow-md' // Active style
                   : 'text-text-secondary hover:bg-gray-100' // Inactive style
               }`}
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="h-5 w-5" />
               Product List
             </button>
             <button
               onClick={() => setNewListType('restaurantList')}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-200 ${
+              className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3 font-semibold transition-all duration-200 ${
                 newListType === 'restaurantList'
                   ? 'bg-primary text-text-main shadow-md' // Active style
                   : 'text-text-secondary hover:bg-gray-100' // Inactive style
               }`}
             >
-              <Coffee className="w-5 h-5" />
+              <Coffee className="h-5 w-5" />
               Restaurant List
             </button>
           </div>
           {/* End of New List Type Selector Buttons */}
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <div className="flex-grow">
               <input
                 type="text"
                 value={newListName}
                 onChange={e => setNewListName(e.target.value)}
                 placeholder={`Enter name for your new ${newListType.replace('List', '').toLowerCase()} list...`}
-                className="w-full px-6 py-4 bg-yellow-50 border border-yellow-200 rounded-xl text-text-main placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-border-focus transition-all duration-200"
+                className="text-text-main focus:border-border-focus w-full rounded-xl border border-yellow-200 bg-yellow-50 px-6 py-4 placeholder-gray-500 transition-all duration-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                 autoFocus
               />
             </div>
@@ -145,7 +147,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
               <button
                 onClick={handleSave}
                 disabled={!newListName.trim()}
-                className="px-8 py-4 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="transform rounded-xl bg-green-500 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-green-600 hover:shadow-xl disabled:cursor-not-allowed disabled:bg-gray-300"
               >
                 Save
               </button>
@@ -154,7 +156,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                   setShowNewListInput(false);
                   setNewListName('');
                 }}
-                className="px-6 py-4 bg-yellow-100 text-text-main font-semibold rounded-xl hover:bg-yellow-200 transform hover:-translate-y-0.5 transition-all duration-200"
+                className="text-text-main transform rounded-xl bg-yellow-100 px-6 py-4 font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-yellow-200"
               >
                 Cancel
               </button>
@@ -164,7 +166,7 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
       )}
 
       {/* Wishlists Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {wishlists.map((list, index) => {
           const IconComponent = getListIcon(list.list_type);
           // 4. Calculate itemCount based on the actual list type data structure
@@ -176,42 +178,42 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
             <div
               key={list._id}
               onClick={() => setSelectedListId(list._id)}
-              className={`group relative bg-gradient-to-br ${getGradientClass(index)} rounded-2xl p-5 cursor-pointer transform hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-2xl border border-yellow-200/50`}
+              className={`group relative bg-gradient-to-br ${getGradientClass(index)} transform cursor-pointer rounded-2xl border border-yellow-200/50 p-5 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl`}
             >
               {/* Background Pattern */}
-              <div className="absolute inset-0 bg-primary/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="bg-primary/10 absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               {/* Content */}
               <div className="relative z-10">
                 {/* Icon and Arrow */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 border border-yellow-200/30">
+                <div className="mb-6 flex items-start justify-between">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-yellow-200/30 bg-white/90 shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
                     <IconComponent
-                      className="w-7 h-7 text-brown"
+                      className="text-brown h-7 w-7"
                       strokeWidth={1.5}
                     />
                   </div>
-                  <ChevronRight className="w-5 h-5 text-text-muted group-hover:text-brown group-hover:translate-x-1 transition-all duration-300" />
+                  <ChevronRight className="text-text-muted group-hover:text-brown h-5 w-5 transition-all duration-300 group-hover:translate-x-1" />
                 </div>
 
                 {/* List Info */}
                 <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-text-main group-hover:text-text-main transition-colors duration-200 line-clamp-2">
+                  <h3 className="text-text-main group-hover:text-text-main line-clamp-2 text-xl font-bold transition-colors duration-200">
                     {list.name}
                   </h3>
 
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/70 backdrop-blur-sm rounded-full text-sm font-medium text-brown capitalize border border-yellow-200/50">
+                    <span className="text-brown inline-flex items-center gap-2 rounded-full border border-yellow-200/50 bg-white/70 px-3 py-1.5 text-sm font-medium capitalize backdrop-blur-sm">
                       <Star
-                        className="w-3.5 h-3.5 text-yellow-500"
+                        className="h-3.5 w-3.5 text-yellow-500"
                         fill="currentColor"
                       />
                       {list.list_type?.replace('List', '') || 'Custom'} List
                     </span>
 
-                    <span className="text-lg font-bold text-text-main group-hover:text-text-main transition-colors duration-200">
+                    <span className="text-text-main group-hover:text-text-main text-lg font-bold transition-colors duration-200">
                       {itemCount}
-                      <span className="text-sm font-medium text-text-secondary ml-1">
+                      <span className="text-text-secondary ml-1 text-sm font-medium">
                         {itemCount === 1 ? 'item' : 'items'}
                       </span>
                     </span>
@@ -219,17 +221,17 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                 </div>
 
                 {/* Progress Bar */}
-                <div className="mt-4 pt-4 border-t border-yellow-300/40">
+                <div className="mt-4 border-t border-yellow-300/40 pt-4">
                   <div className="flex items-center gap-2">
-                    <div className="flex-grow bg-yellow-200/40 rounded-full h-2 overflow-hidden">
+                    <div className="h-2 flex-grow overflow-hidden rounded-full bg-yellow-200/40">
                       <div
-                        className="h-full bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full transition-all duration-500"
+                        className="h-full rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 transition-all duration-500"
                         style={{
                           width: `${Math.min((itemCount / 10) * 100, 100)}%`,
                         }}
                       />
                     </div>
-                    <span className="text-xs font-medium text-brown">
+                    <span className="text-brown text-xs font-medium">
                       {Math.min(itemCount, 10)}/10
                     </span>
                   </div>
@@ -242,10 +244,10 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
 
       {/* Stats Footer */}
       {wishlists.length > 0 && (
-        <div className="mt-12 p-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl border border-yellow-200">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 rounded-2xl border border-yellow-200 bg-gradient-to-r from-yellow-50 to-amber-50 p-6">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="text-center sm:text-left">
-              <p className="text-2xl font-bold text-text-main">
+              <p className="text-text-main text-2xl font-bold">
                 {wishlists.length}{' '}
                 {wishlists.length === 1 ? 'Wishlist' : 'Wishlists'}
               </p>
@@ -259,8 +261,8 @@ const WishlistSelectionView = ({ wishlists, setSelectedListId }) => {
                 total items saved
               </p>
             </div>
-            <div className="flex items-center gap-2 text-brown">
-              <Heart className="w-5 h-5 text-red-400" fill="currentColor" />
+            <div className="text-brown flex items-center gap-2">
+              <Heart className="h-5 w-5 text-red-400" fill="currentColor" />
               <span className="text-sm font-medium">
                 Keep exploring and saving!
               </span>

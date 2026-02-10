@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { loginUser, setAuthState } from '../../../features/auth/authSlice';
 import { closeAuthSidebar, setAuthMode } from '../../../features/ui/uiSlice';
 import { useAuthForm } from '../../../hooks/useAuthForm';
 import { useOTPVerification } from '../../../hooks/useOTPVerification';
 import Icon from '../../ui/Icon';
-
 import LoginForm from './forms/LoginForm';
-import SignupForm from './forms/SignupForm';
 import OTPVerificationForm from './forms/OTPVerificationForm';
+import SignupForm from './forms/SignupForm';
 
 const AuthModal = () => {
   const dispatch = useDispatch();
@@ -175,15 +176,15 @@ const AuthModal = () => {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="relative h-full w-full max-w-sm bg-white rounded-3xl shadow-2xl flex flex-col p-8 md:p-10"
+            className="relative flex h-full w-full max-w-sm flex-col rounded-3xl bg-white p-8 shadow-2xl md:p-10"
           >
             {/* Close Button */}
             <button
               onClick={handleClose}
-              className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-text-main transition-colors duration-200"
+              className="hover:text-text-main absolute top-4 right-4 cursor-pointer text-gray-400 transition-colors duration-200"
               aria-label="Close authentication modal"
             >
-              <Icon name="x-circle" className="w-6 h-6" />
+              <Icon name="x-circle" className="h-6 w-6" />
             </button>
 
             {/* Form Content */}

@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
+
 import { verifyPayment } from '../controllers/payment.controller.js';
+import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
 
 const paymentRoute = Router();
 

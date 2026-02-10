@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  loginUser,
   clearAuthError,
+  loginUser,
   setAuthState,
 } from '../../features/auth/authSlice';
 
@@ -17,7 +18,7 @@ const MailIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="h-5 w-5 text-medium-gray"
+    className="text-medium-gray h-5 w-5"
   >
     <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.62 5.29a3 3 0 01-3.46 0L1.5 8.67z" />
     <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.743 5.975a1.5 1.5 0 001.514 0L22.5 6.908z" />
@@ -29,7 +30,7 @@ const LockClosedIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="h-5 w-5 text-medium-gray"
+    className="text-medium-gray h-5 w-5"
   >
     <path
       fillRule="evenodd"
@@ -44,7 +45,7 @@ const EyeIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="h-5 w-5 text-medium-gray"
+    className="text-medium-gray h-5 w-5"
   >
     <path d="M12 9a3 3 0 100 6 3 3 0 000-6z" />
     <path
@@ -60,7 +61,7 @@ const EyeOffIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="h-5 w-5 text-medium-gray"
+    className="text-medium-gray h-5 w-5"
   >
     <path d="M3.528 2.653a.75.75 0 10-.943 1.144l4.316 3.551A.75.75 0 008 7.394V6.75a.75.75 0 011.5 0v.644l.872.639.873-.639v-.644a.75.75 0 011.5 0v.644l2.458 1.796c-.53.53-.997 1.054-1.4 1.547l3.636 2.996a.75.75 0 00.943-1.144L18.42 10.87a12.502 12.502 0 003.543 2.053.75.75 0 00.264-1.458A11.002 11.002 0 0112 3.75c-2.455 0-4.78 1.002-6.528 2.653zM12 18.75a7.5 7.5 0 007.037-5.071c-.26.543-.537 1.077-.828 1.6l1.325 1.09a.75.75 0 01-.943 1.144L18.23 16.4a11.497 11.497 0 01-12.872 0l-1.325 1.09a.75.75 0 11-.943-1.144L5.77 14.805c-.29-.523-.568-1.057-.828-1.6A7.501 7.501 0 0012 18.75z" />
     <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -142,9 +143,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="flex min-h-screen">
       {/* Left side — hero image & copy */}
-      <div className="hidden lg:flex lg:w-1/2 relative">
+      <div className="relative hidden lg:flex lg:w-1/2">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -152,24 +153,24 @@ const LoginPage = () => {
               "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=2070&q=80')",
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-40" />
-          <div className="relative z-10 flex flex-col justify-center items-start p-12 text-white">
-            <h1 className="text-4xl font-bold mb-4">Welcome Back to</h1>
-            <h2 className="text-5xl font-bold text-yellow-400 mb-6">
+          <div className="bg-opacity-40 absolute inset-0 bg-black" />
+          <div className="relative z-10 flex flex-col items-start justify-center p-12 text-white">
+            <h1 className="mb-4 text-4xl font-bold">Welcome Back to</h1>
+            <h2 className="mb-6 text-5xl font-bold text-yellow-400">
               FoodieHub
             </h2>
-            <p className="text-xl text-gray-200 max-w-md leading-relaxed">
+            <p className="max-w-md text-xl leading-relaxed text-gray-200">
               Discover amazing recipes, connect with fellow food lovers, and
               embark on your culinary journey.
             </p>
             <div className="mt-8 flex items-center space-x-4">
-              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+              <div className="bg-primary flex h-12 w-12 items-center justify-center rounded-full">
                 <span className="text-2xl">🍳</span>
               </div>
-              <div className="w-12 h-12 bg-mint-green rounded-full flex items-center justify-center">
+              <div className="bg-mint-green flex h-12 w-12 items-center justify-center rounded-full">
                 <span className="text-2xl">🥗</span>
               </div>
-              <div className="w-12 h-12 bg-coffee rounded-full flex items-center justify-center">
+              <div className="bg-coffee flex h-12 w-12 items-center justify-center rounded-full">
                 <span className="text-2xl">☕</span>
               </div>
             </div>
@@ -178,23 +179,23 @@ const LoginPage = () => {
       </div>
 
       {/* Right side — form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 to-cream">
-        <div className="max-w-md w-full space-y-8">
+      <div className="to-cream flex w-full items-center justify-center bg-gradient-to-br from-yellow-50 px-4 sm:px-6 lg:w-1/2 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
           {/* Heading */}
           <div className="text-center">
-            <div className="mx-auto h-16 w-16 bg-primary rounded-full flex items-center justify-center mb-6 shadow-lg">
+            <div className="bg-primary mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full shadow-lg">
               <span className="text-2xl">🍽️</span>
             </div>
-            <h2 className="text-3xl font-bold text-charcoal">Welcome Back</h2>
-            <p className="mt-2 text-medium-gray">
+            <h2 className="text-charcoal text-3xl font-bold">Welcome Back</h2>
+            <p className="text-medium-gray mt-2">
               Sign in to continue your culinary adventure
             </p>
           </div>
 
           {/* Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-cream backdrop-blur-sm">
+          <div className="border-cream rounded-2xl border bg-white p-8 shadow-xl backdrop-blur-sm">
             {error && (
-              <p className="mb-4 text-sm text-red-500 text-center font-medium">
+              <p className="mb-4 text-center text-sm font-medium text-red-500">
                 {error}
               </p>
             )}
@@ -204,12 +205,12 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-coffee mb-2"
+                  className="text-coffee mb-2 block text-sm font-medium"
                 >
                   Email Address
                 </label>
                 <div className="relative">
-                  <MailIcon className="absolute inset-y-0 left-0 pl-3 top-1/2 -translate-y-1/2 h-5 w-5 text-medium-gray pointer-events-none" />
+                  <MailIcon className="text-medium-gray pointer-events-none absolute inset-y-0 top-1/2 left-0 h-5 w-5 -translate-y-1/2 pl-3" />
                   <input
                     id="email"
                     name="email"
@@ -217,7 +218,7 @@ const LoginPage = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-cream rounded-lg focus:outline-none focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
+                    className="border-cream text-charcoal placeholder-medium-gray block w-full rounded-lg border py-3 pr-3 pl-10 transition-all duration-200 focus:ring-yellow-400 focus:outline-none"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -227,12 +228,12 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-coffee mb-2"
+                  className="text-coffee mb-2 block text-sm font-medium"
                 >
                   Password
                 </label>
                 <div className="relative">
-                  <LockClosedIcon className="absolute inset-y-0 left-0 pl-3 top-1/2 -translate-y-1/2 h-5 w-5 text-medium-gray pointer-events-none" />
+                  <LockClosedIcon className="text-medium-gray pointer-events-none absolute inset-y-0 top-1/2 left-0 h-5 w-5 -translate-y-1/2 pl-3" />
                   <input
                     id="password"
                     name="password"
@@ -240,18 +241,18 @@ const LoginPage = () => {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="block w-full pl-10 pr-10 py-3 border border-cream rounded-lg focus:outline-none focus:ring-yellow-400 text-charcoal placeholder-medium-gray transition-all duration-200"
+                    className="border-cream text-charcoal placeholder-medium-gray block w-full rounded-lg border py-3 pr-10 pl-10 transition-all duration-200 focus:ring-yellow-400 focus:outline-none"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOffIcon className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" />
+                      <EyeOffIcon className="text-medium-gray hover:text-charcoal h-5 w-5 transition-colors duration-200" />
                     ) : (
-                      <EyeIcon className="h-5 w-5 text-medium-gray hover:text-charcoal transition-colors duration-200" />
+                      <EyeIcon className="text-medium-gray hover:text-charcoal h-5 w-5 transition-colors duration-200" />
                     )}
                   </button>
                 </div>
@@ -266,15 +267,15 @@ const LoginPage = () => {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={e => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 text-yellow-400 border-cream rounded-2xl"
+                    className="border-cream h-4 w-4 rounded-2xl text-yellow-400"
                   />
-                  <span className="ml-2 text-sm text-medium-gray">
+                  <span className="text-medium-gray ml-2 text-sm">
                     Remember me
                   </span>
                 </label>
                 <a
                   href="#"
-                  className="text-sm text-yellow-600 hover:text-yellow-700 font-medium transition-colors duration-200"
+                  className="text-sm font-medium text-yellow-600 transition-colors duration-200 hover:text-yellow-700"
                 >
                   Forgot password?
                 </a>
@@ -284,26 +285,26 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                className="group bg-primary hover:bg-primary-hover relative flex w-full transform cursor-pointer justify-center rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl focus:ring-yellow-400 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
               >
                 {isLoading ? (
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
+                  <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white" />
                 ) : (
                   <>
                     Sign In
-                    <ArrowRightIcon className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                    <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </>
                 )}
               </button>
             </form>
 
             {/* Divider */}
-            <div className="mt-6 relative">
+            <div className="relative mt-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-cream" />
+                <div className="border-cream w-full border-t" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-medium-gray font-semibold">
+                <span className="text-medium-gray bg-white px-2 font-semibold">
                   Or continue with
                 </span>
               </div>
@@ -314,12 +315,12 @@ const LoginPage = () => {
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="inline-flex items-center justify-center py-3 px-4 border border-coffee text-sm font-medium rounded-lg text-coffee bg-white hover:bg-cream focus:outline-none focus:ring-offset-2 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="border-coffee text-coffee hover:bg-cream inline-flex transform items-center justify-center rounded-lg border bg-white px-4 py-3 text-sm font-medium shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg focus:ring-offset-2 focus:outline-none"
               >
                 <img
                   src="https://img.icons8.com/color/48/000000/google-logo.png"
                   alt="Google"
-                  className="w-5 h-5 mr-3"
+                  className="mr-3 h-5 w-5"
                 />
                 Sign in with Google
               </button>
@@ -327,13 +328,13 @@ const LoginPage = () => {
 
             <div className="mt-6 text-center">
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-medium-gray">
+                <span className="text-medium-gray bg-white px-2">
                   New to our community?
                 </span>
               </div>
               <a
                 href="#"
-                className="inline-flex justify-center py-3 px-4 border border-border-focus text-sm font-medium rounded-lg text-yellow-600 bg-yellow-50 hover:bg-yellow-100 focus:outline-none focus:ring-offset-2 transition-all duration-200"
+                className="border-border-focus inline-flex justify-center rounded-lg border bg-yellow-50 px-4 py-3 text-sm font-medium text-yellow-600 transition-all duration-200 hover:bg-yellow-100 focus:ring-offset-2 focus:outline-none"
               >
                 Create New Account
               </a>
@@ -342,10 +343,10 @@ const LoginPage = () => {
 
           {/* Branding on small screens */}
           <div className="text-center lg:hidden">
-            <h3 className="text-xl font-bold text-charcoal mb-2">
+            <h3 className="text-charcoal mb-2 text-xl font-bold">
               🍽️ FoodieHub
             </h3>
-            <p className="text-sm text-medium-gray">
+            <p className="text-medium-gray text-sm">
               Your culinary journey starts here
             </p>
           </div>

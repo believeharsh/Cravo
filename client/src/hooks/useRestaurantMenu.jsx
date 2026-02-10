@@ -1,7 +1,7 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRestaurantMenu } from '../features/restaurantMenu/restaurantMenuSlice';
 
+import { fetchRestaurantMenu } from '../features/restaurantMenu/restaurantMenuSlice';
 import { useToastStack } from './useStackToasts';
 
 /**

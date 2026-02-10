@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { ArrowRight, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
+
 import axiosInstance from '../../api/axiosInstance';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
@@ -56,21 +58,23 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-yellow-50 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
-      <div className="max-w-md w-full space-y-8">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-50 to-yellow-50 px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
         {/* header */}
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 bg-secondary rounded-full flex items-center justify-center mb-6">
+          <div className="bg-secondary mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full">
             <User className="h-8 w-8 text-white" />
           </div>
-          <h2 className="text-3xl font-bold text-text-main">Create Account</h2>
-          <p className="mt-2 text-text-secondary">Join us and get started today</p>
+          <h2 className="text-text-main text-3xl font-bold">Create Account</h2>
+          <p className="text-text-secondary mt-2">
+            Join us and get started today
+          </p>
         </div>
 
         {/* form */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-yellow-100">
+        <div className="rounded-2xl border border-yellow-100 bg-white p-8 shadow-xl">
           {error && (
-            <p className="mb-4 text-sm text-red-500 text-center font-medium">
+            <p className="mb-4 text-center text-sm font-medium text-red-500">
               {error}
             </p>
           )}
@@ -80,7 +84,7 @@ const SignupPage = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-yellow-800 mb-2"
+                className="mb-2 block text-sm font-medium text-yellow-800"
               >
                 Full Name
               </label>
@@ -100,12 +104,12 @@ const SignupPage = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-yellow-800 mb-2"
+                className="mb-2 block text-sm font-medium text-yellow-800"
               >
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-text-muted pointer-events-none" />
+                <Mail className="text-text-muted pointer-events-none absolute inset-y-0 left-0 h-5 w-5 pl-3" />
                 <Input
                   id="email"
                   name="email"
@@ -123,12 +127,12 @@ const SignupPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-yellow-800 mb-2"
+                className="mb-2 block text-sm font-medium text-yellow-800"
               >
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-text-muted pointer-events-none" />
+                <Lock className="text-text-muted pointer-events-none absolute inset-y-0 left-0 h-5 w-5 pl-3" />
                 <Input
                   id="password"
                   name="password"
@@ -141,13 +145,13 @@ const SignupPage = () => {
                 />
                 <Button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-text-muted hover:text-text-main" />
+                    <EyeOff className="text-text-muted hover:text-text-main h-5 w-5" />
                   ) : (
-                    <Eye className="h-5 w-5 text-text-muted hover:text-text-main" />
+                    <Eye className="text-text-muted hover:text-text-main h-5 w-5" />
                   )}
                 </Button>
               </div>
@@ -157,14 +161,14 @@ const SignupPage = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              className="group bg-primary hover:bg-primary-hover relative flex w-full transform cursor-pointer justify-center rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
             >
               {isLoading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
               ) : (
                 <>
                   Create Account
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </>
               )}
             </Button>

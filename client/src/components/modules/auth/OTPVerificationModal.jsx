@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setAuthState } from '../../../features/auth/authSlice';
-import { API } from '../../../config/api';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
 import axiosInstance from '../../../api/axiosInstance';
+import { API } from '../../../config/api';
+import { setAuthState } from '../../../features/auth/authSlice';
 import { closeAuthSidebar } from '../../../features/ui/uiSlice';
 
 const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
@@ -78,25 +80,25 @@ const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[100]"
+          className="bg-opacity-50 fixed inset-0 z-[100] flex items-center justify-center bg-black"
         >
           <motion.div
             initial={{ scale: 0.8, y: 50 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.8, y: -50 }}
             transition={{ duration: 0.3 }}
-            className="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full mx-4"
+            className="mx-4 w-full max-w-sm rounded-xl bg-white p-8 shadow-2xl"
           >
             <button
               onClick={() => dispatch(closeAuthSidebar())}
-              className="absolute top-4 right-4 text-gray-400 hover:text-text-main transition-colors text-3xl"
+              className="hover:text-text-main absolute top-4 right-4 text-3xl text-gray-400 transition-colors"
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold text-center text-text-main mb-2">
+            <h2 className="text-text-main mb-2 text-center text-2xl font-bold">
               Verify Your Email
             </h2>
-            <p className="text-center text-text-muted mb-6">
+            <p className="text-text-muted mb-6 text-center">
               A 6-digit code has been sent to **{email}**.
             </p>
 
@@ -108,29 +110,29 @@ const OTPVerificationModal = ({ isOpen, email, onVerificationSuccess }) => {
                 placeholder="Enter OTP"
                 required
                 maxLength="6"
-                className="w-full text-center text-xl tracking-widest border border-gray-300 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-center text-xl tracking-widest placeholder-gray-400 transition-all focus:ring-2 focus:ring-yellow-500 focus:outline-none"
               />
 
               {error && (
-                <p className="text-red-500 text-sm text-center">{error}</p>
+                <p className="text-center text-sm text-red-500">{error}</p>
               )}
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary-hover text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="bg-primary-hover w-full rounded-xl py-3 font-semibold text-white shadow-lg transition-colors hover:bg-yellow-600 disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {loading ? 'Verifying...' : 'Verify OTP'}
               </button>
             </form>
 
-            <div className="text-center mt-4 text-sm">
+            <div className="mt-4 text-center text-sm">
               <p className="text-text-muted">
                 Didn't receive the code?
                 <button
                   onClick={handleResendOTP}
                   disabled={resendCooldown > 0 || isResending}
-                  className="text-yellow-600 font-semibold ml-1 hover:underline disabled:text-gray-400 disabled:no-underline"
+                  className="ml-1 font-semibold text-yellow-600 hover:underline disabled:text-gray-400 disabled:no-underline"
                 >
                   {isResending
                     ? 'Sending...'

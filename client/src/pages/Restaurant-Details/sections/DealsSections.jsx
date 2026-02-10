@@ -11,17 +11,17 @@ const deals = [
 const DealsSection = () => {
   return (
     <div className="mb-8">
-      <h2 className="text-2xl font-bold text-text-main mb-4">Deals for You</h2>
-      <div className="flex gap-4 p-1 overflow-x-auto scrollbar-hide">
+      <h2 className="text-text-main mb-4 text-2xl font-bold">Deals for You</h2>
+      <div className="scrollbar-hide flex gap-4 overflow-x-auto p-1">
         {deals.map(deal => (
           <div
             key={deal.id}
-            className="flex-shrink-0 w-64 bg-yellow-50 rounded-2xl p-1.5 shadow-sm border border-yellow-200"
+            className="w-64 flex-shrink-0 rounded-2xl border border-yellow-200 bg-yellow-50 p-1.5 shadow-sm"
           >
-            <p className="text-lg font-semibold text-text-main mb-1">
+            <p className="text-text-main mb-1 text-lg font-semibold">
               {deal.title}
             </p>
-            <p className="text-sm text-text-secondary">{deal.description}</p>
+            <p className="text-text-secondary text-sm">{deal.description}</p>
           </div>
         ))}
       </div>

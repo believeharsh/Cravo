@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
-import Icon from '../../../components/ui/Icon';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
+import Icon from '../../../components/ui/Icon';
 
 const debounce = (func, delay) => {
   let timeoutId;
@@ -146,12 +147,12 @@ const Hero = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12 sm:pb-20">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center">
+      <div className="mx-auto max-w-7xl px-4 pt-4 pb-12 sm:px-6 sm:pt-8 sm:pb-20">
+        <div className="grid items-start gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4 sm:space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-text-main leading-tight">
+              <h2 className="text-text-main text-3xl leading-tight font-bold sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 Satisfy Your <br />
                 <span className="text-whitess">Cravings</span> <br />
                 <span className="block sm:inline">Instantly</span>
@@ -159,20 +160,20 @@ const Hero = () => {
             </div>
 
             {/* Search Section */}
-            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100">
+            <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-lg sm:p-6">
               <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
                   {/* Location Search Input & Suggestions */}
                   <div className="relative" ref={locationRef}>
                     <Icon
                       name={'map-pin'}
-                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-text-muted"
+                      className="text-text-muted absolute top-1/2 left-3 -translate-y-1/2 transform sm:left-4"
                       size={18}
                     />
                     <input
                       type="text"
                       placeholder={location_placehoder}
-                      className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-border rounded-xl focus:outline-none focus:border-border-focus text-text-main font-medium text-sm sm:text-base"
+                      className="border-border focus:border-border-focus text-text-main w-full rounded-xl border-2 py-3 pr-10 pl-10 text-sm font-medium focus:outline-none sm:py-4 sm:pl-12 sm:text-base"
                       value={searchTerm}
                       onChange={handleLocationChange}
                       onFocus={() => {
@@ -183,7 +184,7 @@ const Hero = () => {
                     />
                     <Icon
                       name={isLocationLoading ? 'spinner' : 'chevron-down'}
-                      className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-text-muted transition-transform duration-200 ${
+                      className={`text-text-muted absolute top-1/2 right-3 -translate-y-1/2 transform transition-transform duration-200 sm:right-4 ${
                         locationFocused && !isLocationLoading
                           ? 'rotate-180'
                           : ''
@@ -196,10 +197,10 @@ const Hero = () => {
                       (searchTerm.length >= 3 ||
                         suggestions.length > 0 ||
                         isLocationLoading) && (
-                        <div className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-2xl border border-border overflow-hidden max-h-64 overflow-y-auto">
+                        <div className="border-border absolute z-10 mt-2 max-h-64 w-full overflow-hidden overflow-y-auto rounded-xl border bg-white shadow-2xl">
                           {/* Use My Current Location Button */}
                           <div
-                            className="flex items-center gap-3 p-4 text-sm font-medium text-blue-600 hover:bg-bg-subtle cursor-pointer"
+                            className="hover:bg-bg-subtle flex cursor-pointer items-center gap-3 p-4 text-sm font-medium text-blue-600"
                             onClick={handleUseCurrentLocation}
                           >
                             <Icon name="locate-fixed" size={18} />
@@ -210,7 +211,7 @@ const Hero = () => {
 
                           {/* Loading State */}
                           {isLocationLoading && (
-                            <div className="p-4 text-center text-sm text-text-muted">
+                            <div className="text-text-muted p-4 text-center text-sm">
                               Loading...
                             </div>
                           )}
@@ -219,7 +220,7 @@ const Hero = () => {
                           {!isLocationLoading &&
                             suggestions.length === 0 &&
                             searchTerm.length >= 3 && (
-                              <div className="p-4 text-center text-sm text-text-muted">
+                              <div className="text-text-muted p-4 text-center text-sm">
                                 No locations found.
                               </div>
                             )}
@@ -230,7 +231,7 @@ const Hero = () => {
                               {suggestions.map((location, index) => (
                                 <li
                                   key={index}
-                                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm font-medium text-text-secondary"
+                                  className="text-text-secondary cursor-pointer px-4 py-3 text-sm font-medium hover:bg-gray-100"
                                   onMouseDown={e => e.preventDefault()} // Prevents blur event on click
                                   onClick={() => handleSelectLocation(location)}
                                 >
@@ -247,19 +248,19 @@ const Hero = () => {
                   <div className="relative">
                     <Icon
                       name={'search'}
-                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-text-muted"
+                      className="text-text-muted absolute top-1/2 left-3 -translate-y-1/2 transform sm:left-4"
                       size={18}
                     />
                     <input
                       type="text"
                       placeholder="Pizza, Burger, Chinese..."
-                      className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-border rounded-xl focus:outline-none focus:border-border-focus text-text-main font-medium text-sm sm:text-base"
+                      className="border-border focus:border-border-focus text-text-main w-full rounded-xl border-2 py-3 pr-10 pl-10 text-sm font-medium focus:outline-none sm:py-4 sm:pl-12 sm:text-base"
                       onFocus={() => setFoodFocused(true)}
                       onBlur={() => setFoodFocused(false)}
                     />
                     <Icon
                       name={'chevron-down'}
-                      className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-text-muted transition-transform duration-200 ${
+                      className={`text-text-muted absolute top-1/2 right-3 -translate-y-1/2 transform transition-transform duration-200 sm:right-4 ${
                         foodFocused ? 'rotate-180' : ''
                       }`}
                       size={18}
@@ -268,7 +269,7 @@ const Hero = () => {
                 </div>
 
                 <NavLink to={'/restaurants'}>
-                  <button className="w-full bg-primary hover:bg-primary-hover text-text-main font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer">
+                  <button className="bg-primary hover:bg-primary-hover text-text-main w-full cursor-pointer rounded-xl py-3 text-sm font-bold shadow-md transition-colors sm:py-4 sm:text-base">
                     Find Delicious Food
                   </button>
                 </NavLink>
@@ -278,15 +279,15 @@ const Hero = () => {
 
           {/* Right Image/Branding */}
           <div className="relative mt-8 lg:mt-0">
-            <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-6 sm:p-8 shadow-xl">
-              <div className="text-center space-y-4 sm:space-y-6">
+            <div className="rounded-3xl bg-gradient-to-br from-white to-gray-50 p-6 shadow-xl sm:p-8">
+              <div className="space-y-4 text-center sm:space-y-6">
                 <div className="relative">
-                  <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 mx-auto bg-gradient-to-br from-primary to-primary-hover rounded-full flex items-center justify-center shadow-lg">
+                  <div className="from-primary to-primary-hover mx-auto flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br shadow-lg sm:h-56 sm:w-56 lg:h-64 lg:w-64">
                     <div className="text-center">
-                      <div className="text-4xl sm:text-5xl lg:text-6xl mb-2 sm:mb-4">
+                      <div className="mb-2 text-4xl sm:mb-4 sm:text-5xl lg:text-6xl">
                         🍽️
                       </div>
-                      <p className="text-text-main text-base sm:text-lg font-bold">
+                      <p className="text-text-main text-base font-bold sm:text-lg">
                         Premium Quality
                       </p>
                       <p className="text-text-secondary text-xs sm:text-sm">
@@ -295,13 +296,13 @@ const Hero = () => {
                     </div>
                   </div>
 
-                  <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 bg-secondary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+                  <div className="bg-secondary absolute -top-2 -left-2 rounded-full px-2 py-1 text-xs font-bold text-white shadow-lg sm:-top-4 sm:-left-4 sm:px-4 sm:py-2 sm:text-sm">
                     🌿 Fresh
                   </div>
-                  <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-primary-hover text-text-main px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+                  <div className="bg-primary-hover text-text-main absolute -right-2 -bottom-2 rounded-full px-2 py-1 text-xs font-bold shadow-lg sm:-right-4 sm:-bottom-4 sm:px-4 sm:py-2 sm:text-sm">
                     ⚡ 30 min
                   </div>
-                  <div className="absolute top-1/2 -right-4 sm:-right-8 bg-white text-text-main px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-lg text-xs sm:text-sm border-2 border-border-focus">
+                  <div className="text-text-main border-border-focus absolute top-1/2 -right-4 rounded-full border-2 bg-white px-2 py-1 text-xs font-semibold shadow-lg sm:-right-8 sm:px-3 sm:py-2 sm:text-sm">
                     1000+ 🏪
                   </div>
                 </div>

@@ -1,6 +1,8 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { useCartActions } from '../../../hooks/useCartActions';
 
 const ItemDeleteConfirmation = () => {
@@ -31,16 +33,16 @@ const ItemDeleteConfirmation = () => {
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 20, scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="relative w-full max-w-sm p-8 bg-white rounded-xl shadow-2xl"
+            className="relative w-full max-w-sm rounded-xl bg-white p-8 shadow-2xl"
           >
             {/* Modal content */}
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-text-main">
+              <h3 className="text-text-main text-2xl font-bold">
                 Confirm Deletion
               </h3>
-              <p className="mt-4 text-sm text-text-secondary">
+              <p className="text-text-secondary mt-4 text-sm">
                 Are you sure you want to delete{' '}
-                <span className="font-semibold text-text-main">{itemName}</span>{' '}
+                <span className="text-text-main font-semibold">{itemName}</span>{' '}
                 from your cart?
               </p>
             </div>
@@ -49,13 +51,13 @@ const ItemDeleteConfirmation = () => {
             <div className="mt-8 flex justify-end space-x-3">
               <button
                 onClick={handleCloseDeleteModal}
-                className="px-5 py-2 text-sm font-medium text-text-secondary bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
+                className="text-text-secondary cursor-pointer rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium transition-colors hover:bg-gray-200"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDeleteItemFromCart({ itemId, itemName })}
-                className="px-5 py-2 text-sm font-medium text-black bg-primary-hover rounded-lg hover:bg-yellow-600 transition-colors cursor-pointer"
+                className="bg-primary-hover cursor-pointer rounded-lg px-5 py-2 text-sm font-medium text-black transition-colors hover:bg-yellow-600"
               >
                 Delete
               </button>

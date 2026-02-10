@@ -1,11 +1,12 @@
+import mongoose from 'mongoose';
+
 import Category from '../models/category.model.js';
+import City from '../models/city.model.js';
 import Product from '../models/product.model.js';
 import Restaurant from '../models/restaurant.model.js';
-import { asyncHandler } from '../services/asyncHandler.js';
-import { apiResponse } from '../services/apiResponse.js';
 import { apiError } from '../services/apiError.js';
-import mongoose from 'mongoose';
-import City from '../models/city.model.js';
+import { apiResponse } from '../services/apiResponse.js';
+import { asyncHandler } from '../services/asyncHandler.js';
 
 const AllProductsOfTheRestaurant = asyncHandler(async (req, res) => {
   const { restaurantId } = req.params;

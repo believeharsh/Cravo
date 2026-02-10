@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+import City from '../models/city.model.js';
+// --- Model Imports (Adjust paths as necessary) ---
+import Restaurant from '../models/restaurant.model.js';
+
 const DRY_RUN = true;
 
 // --- Geographic Boundaries for Correction ---
@@ -20,10 +24,6 @@ const CITY_BOUNDARIES = [
   },
   // We don't need Bhopal here, as the goal is to move restaurants OUT of Bhopal's ID
 ];
-
-// --- Model Imports (Adjust paths as necessary) ---
-import Restaurant from '../models/restaurant.model.js';
-import City from '../models/city.model.js';
 
 // HELPER: Determines the correct City ID based on coordinates
 

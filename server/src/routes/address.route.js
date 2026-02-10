@@ -1,16 +1,17 @@
 import { Router } from 'express';
+
+import {
+  createAddress,
+  deleteAddress,
+  getAddressById,
+  getAllAddresses,
+  updateAddress,
+} from '../controllers/address.controller.js';
 import {
   authorizeRoles,
   checkAuth,
   isLoggedIn,
 } from '../middlewares/auth.middleware.js';
-import {
-  createAddress,
-  getAllAddresses,
-  getAddressById,
-  updateAddress,
-  deleteAddress,
-} from '../controllers/address.controller.js';
 
 const addressRoute = Router();
 

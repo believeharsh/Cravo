@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
+
 import {
   addItemToTheCart,
-  getAllCartItems,
-  updateItemQuantityInCart,
-  removeItemFromCart,
   clearTheEntireCart,
+  getAllCartItems,
+  removeItemFromCart,
+  updateItemQuantityInCart,
 } from '../controllers/cart.controller.js';
+import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
 
 const cartRoute = Router();
 

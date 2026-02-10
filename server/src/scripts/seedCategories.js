@@ -2,10 +2,10 @@ import { v2 as cloudinary } from 'cloudinary';
 // import path from "path";
 // import { fileURLToPath } from "url";
 import mongoose from 'mongoose';
-import Category from '../models/category.model.js';
 
-import { categoriesToUpload } from '../sample-Data/Categories-Data/Categories.js';
 import { EnvConfig } from '../config/env.config.js';
+import Category from '../models/category.model.js';
+import { categoriesToUpload } from '../sample-Data/Categories-Data/Categories.js';
 
 const MONGODB_URI = EnvConfig.MONGODB_URI;
 

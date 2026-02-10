@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Icon from '../../../components/ui/Icon';
 import { useCartActions } from '../../../hooks/useCartActions';
 
@@ -27,9 +28,9 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <div className="flex items-center space-x-4 border-b border-gray-100 py-2 px-1 last:border-b-0 last:pb-0">
+    <div className="flex items-center space-x-4 border-b border-gray-100 px-1 py-2 last:border-b-0 last:pb-0">
       {/* Thumbnail */}
-      <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden shadow-sm">
+      <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl shadow-sm">
         <img
           src={
             product.images && product.images.length > 0
@@ -37,33 +38,33 @@ const CartItem = ({ item }) => {
               : 'https://placehold.co/80x80/e5f0ff/5280cc?text=No+Image'
           }
           alt={product.name}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
 
       {/* Info & Quantity Controls */}
-      <div className="flex-grow min-w-0 flex justify-between items-center">
-        <div className="flex flex-col flex-grow">
-          <h3 className="text-base font-semibold text-text-main truncate">
+      <div className="flex min-w-0 flex-grow items-center justify-between">
+        <div className="flex flex-grow flex-col">
+          <h3 className="text-text-main truncate text-base font-semibold">
             {product.name}
           </h3>
           {product.restaurant?.name && (
-            <p className="text-sm text-text-muted truncate mt-0.5">
+            <p className="text-text-muted mt-0.5 truncate text-sm">
               Restaurant: {product.restaurant.name}
             </p>
           )}
 
           {Array.isArray(item.customizations) &&
             item.customizations.length > 0 && (
-              <p className="text-xs text-gray-400 truncate">
+              <p className="truncate text-xs text-gray-400">
                 {item.customizations.join(', ')}
               </p>
             )}
 
           {/* Price and Total */}
-          <div className="flex items-center mt-1 space-x-4">
+          <div className="mt-1 flex items-center space-x-4">
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-text-secondary">
+              <span className="text-text-secondary text-sm font-semibold">
                 ₹{product.price.toFixed(2)}
               </span>
               {/* Check if a promotional discount exists */}
@@ -75,9 +76,11 @@ const CartItem = ({ item }) => {
             </div>
 
             <div className="flex items-center">
-              <span className="text-sm font-normal text-text-secondary">Total:</span>
-              <span className="flex items-center ml-1 text-sm font-semibold text-text-main">
-                <Icon name="indian-rupee" className="w-3 h-3" />
+              <span className="text-text-secondary text-sm font-normal">
+                Total:
+              </span>
+              <span className="text-text-main ml-1 flex items-center text-sm font-semibold">
+                <Icon name="indian-rupee" className="h-3 w-3" />
                 <p>
                   {(item.quantity * product.price).toFixed(2)}{' '}
                   <span> | Quantity {item.quantity}</span>
@@ -88,20 +91,20 @@ const CartItem = ({ item }) => {
         </div>
 
         {/* Quantity Controls */}
-        <div className="flex items-center space-x-1 flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center space-x-1">
           <button
             onClick={handleDecrement}
-            className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition-colors cursor-pointer"
+            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-gray-200 transition-colors hover:bg-gray-300"
             disabled={item.quantity <= 1}
           >
             <Icon name="minus" size={14} className="text-text-secondary" />
           </button>
-          <span className="text-sm font-semibold text-text-main w-5 text-center">
+          <span className="text-text-main w-5 text-center text-sm font-semibold">
             {item.quantity}
           </span>
           <button
             onClick={handleIncrement}
-            className="w-7 h-7 flex items-center justify-center rounded-full bg-primary hover:bg-primary-hover transition-colors cursor-pointer"
+            className="bg-primary hover:bg-primary-hover flex h-7 w-7 cursor-pointer items-center justify-center rounded-full transition-colors"
           >
             <Icon name="plus" size={14} className="text-white" />
           </button>
@@ -111,7 +114,7 @@ const CartItem = ({ item }) => {
       {/* Remove */}
       <button
         onClick={() => handleOpenDeleteModal(product.name, item._id)}
-        className="ml-1 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0 cursor-pointer"
+        className="ml-1 flex-shrink-0 cursor-pointer text-gray-400 transition-colors hover:text-red-500"
       >
         <Icon name="trash" size={18} />
       </button>

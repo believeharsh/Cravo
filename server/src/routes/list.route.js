@@ -1,14 +1,15 @@
 import { Router } from 'express';
-import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
+
 import {
+  addProductToTheList,
   createNewList,
+  deleteTheList,
   getAllListOfUser,
   getListById,
-  addProductToTheList,
   removeProductFromList,
-  deleteTheList,
   transferProductToList,
 } from '../controllers/list.controller.js';
+import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
 
 const listRoute = Router();
 

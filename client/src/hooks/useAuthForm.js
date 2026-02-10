@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../features/auth/authSlice';
 
-import { fetchAllWishlists } from '../features/wishList/wishListSlice';
-import { fetchUserCart } from '../features/cart/cartSlice';
-import { fetchAllAddresses } from '../features/address/addressSlice';
-import { AllUserOrdersThunk } from '../features/orders/ordersSlice';
-import { getUserProfileData } from '../features/auth/authSlice';
-
-import {
-  closeAuthSidebar,
-  openAuthRequireModal,
-  closeAuthRequireModal,
-  setAuthMode,
-} from '../features/ui/uiSlice';
 import axiosInstance, { setAuthHeader } from '../api/axiosInstance';
 import { API } from '../config/api';
+import { fetchAllAddresses } from '../features/address/addressSlice';
+import { loginUser } from '../features/auth/authSlice';
+import { getUserProfileData } from '../features/auth/authSlice';
+import { fetchUserCart } from '../features/cart/cartSlice';
+import { AllUserOrdersThunk } from '../features/orders/ordersSlice';
+import {
+  closeAuthRequireModal,
+  closeAuthSidebar,
+  openAuthRequireModal,
+  setAuthMode,
+} from '../features/ui/uiSlice';
+import { fetchAllWishlists } from '../features/wishList/wishListSlice';
 
 export const useAuthForm = () => {
   const dispatch = useDispatch();

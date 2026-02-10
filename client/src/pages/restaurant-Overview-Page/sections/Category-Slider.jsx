@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Icon from '../../../components/ui/Icon';
 import { Navigate, useNavigate } from 'react-router-dom';
+
+import Icon from '../../../components/ui/Icon';
 
 const Categorycard = ({
   c,
@@ -13,17 +14,17 @@ const Categorycard = ({
 
   return (
     <div className="flex-shrink-0" style={{ width: calculatedWidth }}>
-      <div className="flex flex-col items-center cursor-pointer">
+      <div className="flex cursor-pointer flex-col items-center">
         <img
           src={c.image}
           alt={c.name}
-          className="w-20 h-20 sm:w-22 sm:h-22 md:w-24 md:h-24 object-cover rounded-full"
+          className="h-20 w-20 rounded-full object-cover sm:h-22 sm:w-22 md:h-24 md:w-24"
           onError={e => {
             e.target.src = '/placeholder-category.png';
           }}
           onClick={() => handleNavigateToCategoryResultPage(c.name || c.slug)}
         />
-        <span className="mt-1 font-semibold text-text-secondary text-sm text-center px-1">
+        <span className="text-text-secondary mt-1 px-1 text-center text-sm font-semibold">
           {c.name}
         </span>
       </div>
@@ -104,10 +105,10 @@ const RestaurantCategoriesSlider = () => {
   // Show loading state (skeleton loaders)
   if (isLoading) {
     return (
-      <section className="py-5 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-xl font-bold text-text-main">
+      <section className="bg-white py-5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="mb-6 flex items-center justify-between">
+            <p className="text-text-main text-xl font-bold">
               {UserFirstName} What's on your mind?
             </p>
           </div>
@@ -121,8 +122,8 @@ const RestaurantCategoriesSlider = () => {
                 }}
               >
                 <div className="flex flex-col items-center">
-                  <div className="bg-gray-200 rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 animate-pulse"></div>
-                  <div className="bg-gray-200 rounded h-4 w-16 mt-2 animate-pulse"></div>
+                  <div className="h-20 w-20 animate-pulse rounded-full bg-gray-200 sm:h-24 sm:w-24 md:h-28 md:w-28"></div>
+                  <div className="mt-2 h-4 w-16 animate-pulse rounded bg-gray-200"></div>
                 </div>
               </div>
             ))}
@@ -135,9 +136,9 @@ const RestaurantCategoriesSlider = () => {
   // Show error state
   if (error) {
     return (
-      <section className="py-5 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center py-8">
+      <section className="bg-white py-5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="py-8 text-center">
             <p className="text-red-500">Failed to load categories</p>
           </div>
         </div>
@@ -151,11 +152,11 @@ const RestaurantCategoriesSlider = () => {
   }
 
   return (
-    <section className="py-2 mb-2 bg-white ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 border-b border-border box-border">
+    <section className="mb-2 bg-white py-2">
+      <div className="border-border mx-auto box-border max-w-7xl border-b px-4 sm:px-6">
         {/* Header and navigation arrows */}
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-xl font-bold text-text-main">
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-text-main text-xl font-bold">
             {UserFirstName} What's on your mind?
           </p>
           {/* Show arrows only if there are more categories than can fit in view */}
@@ -164,10 +165,10 @@ const RestaurantCategoriesSlider = () => {
               <button
                 onClick={slideLeft}
                 disabled={currentIndex === 0}
-                className={`p-2 rounded-full border transition cursor-pointer ${
+                className={`cursor-pointer rounded-full border p-2 transition ${
                   currentIndex === 0
-                    ? 'border-border text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
+                    ? 'border-border cursor-not-allowed text-gray-300'
+                    : 'text-text-secondary hover:border-border-focus border-gray-300 hover:text-yellow-600'
                 }`}
                 aria-label="Previous categories"
               >
@@ -176,10 +177,10 @@ const RestaurantCategoriesSlider = () => {
               <button
                 onClick={slideRight}
                 disabled={currentIndex === maxIndex}
-                className={`p-2 rounded-full border transition cursor-pointer ${
+                className={`cursor-pointer rounded-full border p-2 transition ${
                   currentIndex === maxIndex
-                    ? 'border-border text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
+                    ? 'border-border cursor-not-allowed text-gray-300'
+                    : 'text-text-secondary hover:border-border-focus border-gray-300 hover:text-yellow-600'
                 }`}
                 aria-label="Next categories"
               >

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import OrdersTabs from './components/OrdersTabs';
-import OrdersSearch from './components/OrdersSearch';
-import OrderCard from './components/OrderCard';
-import EmptyOrdersState from './components/EmptyOrdersState';
-import OrdersLoading from './components/OrdersLoading';
-import OrdersHeader from './components/OrdersHeader';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { useOrderActions } from '../../../hooks/userOrdersActions';
+import EmptyOrdersState from './components/EmptyOrdersState';
+import OrderCard from './components/OrderCard';
+import OrdersHeader from './components/OrdersHeader';
+import OrdersLoading from './components/OrdersLoading';
+import OrdersSearch from './components/OrdersSearch';
+import OrdersTabs from './components/OrdersTabs';
 
 const Orders = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -177,7 +178,7 @@ const Orders = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="mx-auto max-w-5xl space-y-6">
       <OrdersHeader ordersCount={filteredOrders.length} />
 
       <OrdersTabs

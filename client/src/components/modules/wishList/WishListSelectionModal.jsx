@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { motion, AnimatePresence } from 'framer-motion';
-import Icon from '../../ui/Icon';
-import { useFavoriteActions } from '../../../hooks/useWishlistActions';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { closeWishlistModal } from '../../../features/ui/uiSlice';
 import { selectDefaultProductListId } from '../../../features/wishList/wishListSelectors';
+import { useFavoriteActions } from '../../../hooks/useWishlistActions';
+import Icon from '../../ui/Icon';
 
 const WishlistModal = ({ productId }) => {
   const dispatch = useDispatch();
@@ -67,20 +69,20 @@ const WishlistModal = ({ productId }) => {
     return (
       <>
         {/* Header */}
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-text-main">Your Wishlists</h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-text-main text-xl font-bold">Your Wishlists</h2>
           <button
             onClick={() => dispatch(closeWishlistModal())}
-            className="text-gray-400 hover:text-text-main transition-colors duration-200 cursor-pointer"
+            className="hover:text-text-main cursor-pointer text-gray-400 transition-colors duration-200"
             aria-label="Close"
           >
-            <Icon name="x-circle" className="w-5 h-5" />
+            <Icon name="x-circle" className="h-5 w-5" />
           </button>
         </div>
 
         {/* Existing Lists */}
-        <div className="flex-grow overflow-y-auto mb-4 custom-scrollbar">
-          <h3 className="text-sm font-semibold text-text-main mb-2">
+        <div className="custom-scrollbar mb-4 flex-grow overflow-y-auto">
+          <h3 className="text-text-main mb-2 text-sm font-semibold">
             Select a list to move the product to
           </h3>
           <div className="space-y-2">
@@ -90,12 +92,11 @@ const WishlistModal = ({ productId }) => {
                   <button
                     key={list._id}
                     onClick={() => setSelectedListId(list._id)}
-                    className={`w-full text-left flex items-center justify-between py-2 px-3 rounded-lg shadow-sm transition-all duration-200 cursor-pointer
-                  ${
-                    selectedListId === list._id
-                      ? 'bg-primary text-text-main shadow-md'
-                      : 'bg-white hover:bg-bg-subtle'
-                  }`}
+                    className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left shadow-sm transition-all duration-200 ${
+                      selectedListId === list._id
+                        ? 'bg-primary text-text-main shadow-md'
+                        : 'hover:bg-bg-subtle bg-white'
+                    }`}
                   >
                     <div className="flex items-center space-x-2">
                       <Icon
@@ -104,9 +105,9 @@ const WishlistModal = ({ productId }) => {
                             ? 'shopping-bag'
                             : 'coffee'
                         }
-                        className="w-4 h-4"
+                        className="h-4 w-4"
                       />
-                      <span className="text-sm font-medium line-clamp-1">
+                      <span className="line-clamp-1 text-sm font-medium">
                         {list.name}
                       </span>
                     </div>
@@ -118,13 +119,13 @@ const WishlistModal = ({ productId }) => {
         </div>
 
         {/* Create New List Section */}
-        <div className="border-t border-border pt-4">
+        <div className="border-border border-t pt-4">
           {!isCreatingNewList ? (
             <button
               onClick={() => setIsCreatingNewList(true)}
-              className="w-full cursor-pointer flex items-center justify-center space-x-2 py-2 bg-gray-200 text-text-main font-semibold rounded-lg hover:bg-gray-300 transition-colors text-sm"
+              className="text-text-main flex w-full cursor-pointer items-center justify-center space-x-2 rounded-lg bg-gray-200 py-2 text-sm font-semibold transition-colors hover:bg-gray-300"
             >
-              <Icon name="plus" className="w-4 h-4" />
+              <Icon name="plus" className="h-4 w-4" />
               <span>Create New List</span>
             </button>
           ) : (
@@ -134,7 +135,7 @@ const WishlistModal = ({ productId }) => {
                 value={newListName}
                 onChange={e => setNewListName(e.target.value)}
                 placeholder="New list name"
-                className="flex-grow py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm"
+                className="flex-grow rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                 onKeyDown={e => {
                   if (e.key === 'Enter') handleCreateListClick();
                 }}
@@ -142,9 +143,9 @@ const WishlistModal = ({ productId }) => {
               <button
                 disabled={newListName == ''}
                 onClick={handleCreateListClick}
-                className="bg-primary text-text-main rounded-full p-2 hover:bg-primary-hover transition-colors"
+                className="bg-primary text-text-main hover:bg-primary-hover rounded-full p-2 transition-colors"
               >
-                <Icon name="check" className="w-4 h-4" />
+                <Icon name="check" className="h-4 w-4" />
               </button>
             </div>
           )}
@@ -152,12 +153,11 @@ const WishlistModal = ({ productId }) => {
 
         <button
           onClick={handleMoveProductClick}
-          className={`w-full py-2 mt-4 text-center rounded-lg font-semibold transition-colors text-sm cursor-pointer
-    ${
-      selectedListId === defaultListId
-        ? 'bg-gray-400 text-text-secondary cursor-not-allowed'
-        : 'bg-primary text-text-main hover:bg-primary-hover'
-    }`}
+          className={`mt-4 w-full cursor-pointer rounded-lg py-2 text-center text-sm font-semibold transition-colors ${
+            selectedListId === defaultListId
+              ? 'text-text-secondary cursor-not-allowed bg-gray-400'
+              : 'bg-primary text-text-main hover:bg-primary-hover'
+          }`}
           disabled={selectedListId === defaultListId || isTranfering}
         >
           {isTranfering
@@ -186,7 +186,7 @@ const WishlistModal = ({ productId }) => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.4 }}
-            className="relative h-full w-full max-w-sm bg-white rounded-2xl shadow-2xl flex flex-col p-6"
+            className="relative flex h-full w-full max-w-sm flex-col rounded-2xl bg-white p-6 shadow-2xl"
           >
             {renderContent()}
           </motion.div>

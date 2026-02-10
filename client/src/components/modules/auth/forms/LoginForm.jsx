@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Icon from '../../../ui/Icon';
 import LoadingSpinner from '../../../ui/LoadingSpinner';
 import SocialLoginButton from '../SocialLoginButton';
@@ -15,19 +16,19 @@ const LoginForm = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flex flex-col flex-1 justify-between">
+    <div className="flex flex-1 flex-col justify-between">
       <div>
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-3xl font-bold text-text-main">Welcome Back</h2>
-          <p className="mt-2 text-text-muted text-sm">
+          <h2 className="text-text-main text-3xl font-bold">Welcome Back</h2>
+          <p className="text-text-muted mt-2 text-sm">
             Sign in to continue your journey.
           </p>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="text-red-500 text-center mb-4 p-3 rounded-lg bg-red-50 border border-red-200">
+          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-center text-red-500">
             <p className="text-sm font-medium">{error}</p>
           </div>
         )}
@@ -41,7 +42,7 @@ const LoginForm = ({
             required
             value={formData.email}
             onChange={onChange}
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all duration-200"
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
           />
 
           <div className="relative">
@@ -52,23 +53,23 @@ const LoginForm = ({
               required
               value={formData.password}
               onChange={onChange}
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all duration-200"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-secondary transition-colors cursor-pointer"
+              className="text-text-muted hover:text-text-secondary absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer transition-colors"
             >
               <Icon
                 name={showPassword ? 'eye-off' : 'eye'}
-                className="w-5 h-5"
+                className="h-5 w-5"
               />
             </button>
           </div>
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-primary-hover text-white font-semibold py-3 rounded-xl shadow-lg hover:bg-yellow-600 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer"
+            className="bg-primary-hover flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-3 font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-yellow-600 disabled:cursor-not-allowed disabled:bg-gray-400"
             disabled={isLoading}
           >
             {isLoading ? <LoadingSpinner /> : 'Sign In'}
@@ -77,20 +78,20 @@ const LoginForm = ({
       </div>
 
       {/* Footer */}
-      <div className="text-center mt-auto pt-6">
-        <div className="flex items-center my-6">
-          <hr className="flex-grow border-border" />
-          <span className="mx-4 text-gray-400 text-sm">or</span>
-          <hr className="flex-grow border-border" />
+      <div className="mt-auto pt-6 text-center">
+        <div className="my-6 flex items-center">
+          <hr className="border-border flex-grow" />
+          <span className="mx-4 text-sm text-gray-400">or</span>
+          <hr className="border-border flex-grow" />
         </div>
 
         <SocialLoginButton onClick={onGoogleLogin} />
 
-        <p className="mt-4 text-sm text-text-muted">
+        <p className="text-text-muted mt-4 text-sm">
           Don't have an account?
           <button
             onClick={onSwitchMode}
-            className="text-yellow-600 font-semibold ml-1 hover:underline"
+            className="ml-1 font-semibold text-yellow-600 hover:underline"
           >
             Sign up
           </button>

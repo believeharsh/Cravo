@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import Icon from '../../../components/ui/Icon';
-import { useCartActions } from '../../../hooks/useCartActions';
-import { useFavoriteActions } from '../../../hooks/useWishlistActions';
 import {
   selectDefaultProductListId,
   selectDefaultProductListType,
 } from '../../../features/wishList/wishListSelectors';
+import { useCartActions } from '../../../hooks/useCartActions';
+import { useFavoriteActions } from '../../../hooks/useWishlistActions';
 
 const ProductCard = ({ item }) => {
   console.log('items in the productcard', item);
@@ -40,7 +41,7 @@ const ProductCard = ({ item }) => {
 
   return (
     <div
-      className="relative bg-white rounded-3xl shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:scale-105"
+      className="relative flex transform flex-col justify-between rounded-3xl bg-white shadow-md transition-shadow duration-300 hover:scale-105 hover:shadow-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -50,63 +51,63 @@ const ProductCard = ({ item }) => {
           <img
             src={item.images[0]}
             alt={item.name}
-            className="w-full h-42 object-cover rounded-t-3xl"
+            className="h-42 w-full rounded-t-3xl object-cover"
           />
         )}
         {isHovered && (
           <button
             onClick={addWishListClick}
-            className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-lg text-gray-400 hover:text-red-500 transition-colors duration-200 cursor-pointer"
+            className="absolute top-4 right-4 cursor-pointer rounded-full bg-white p-2 text-gray-400 shadow-lg transition-colors duration-200 hover:text-red-500"
           >
-            <Icon name="heart" className="w-5 h-5" />
+            <Icon name="heart" className="h-5 w-5" />
           </button>
         )}
       </div>
 
       {/* Product Details and Actions */}
-      <div className="p-4 flex flex-col flex-grow justify-between">
+      <div className="flex flex-grow flex-col justify-between p-4">
         <div>
           {item.isBestseller && (
-            <div className="flex items-center text-sm font-semibold text-amber-500 mb-1">
-              <Icon name="star" className="w-4 h-4 mr-1 fill-current" />{' '}
+            <div className="mb-1 flex items-center text-sm font-semibold text-amber-500">
+              <Icon name="star" className="mr-1 h-4 w-4 fill-current" />{' '}
               Bestseller
             </div>
           )}
-          <h3 className="text-xl font-bold text-text-main mb-1 line-clamp-1">
+          <h3 className="text-text-main mb-1 line-clamp-1 text-xl font-bold">
             {item.name}
           </h3>
-          <p className="text-sm text-text-muted mb-2 line-clamp-2">
+          <p className="text-text-muted mb-2 line-clamp-2 text-sm">
             {item.description}
           </p>
         </div>
 
-        <div className="mt-auto flex justify-between items-center">
+        <div className="mt-auto flex items-center justify-between">
           <div className="flex items-center">
-            <Icon name="indian-rupee" className="text-text-main w-4 h-4 mr-1" />
-            <span className="text-xl font-extrabold text-text-main">
+            <Icon name="indian-rupee" className="text-text-main mr-1 h-4 w-4" />
+            <span className="text-text-main text-xl font-extrabold">
               {item.price}
             </span>
           </div>
 
           {/* Add to Cart / Quantity Control */}
           {existingItem ? (
-            <div className="flex items-center space-x-2 bg-white border border-yellow-200 rounded-full py-1 px-2">
+            <div className="flex items-center space-x-2 rounded-full border border-yellow-200 bg-white px-2 py-1">
               <button
                 onClick={() => handleDecreaseQuantity(item, existingItem)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200"
+                className="bg-primary text-text-main hover:bg-primary-hover flex h-6 w-6 items-center justify-center rounded-full font-semibold transition-colors duration-200"
               >
-                <span className="w-4 h-4 flex items-center justify-center">
+                <span className="flex h-4 w-4 items-center justify-center">
                   -
                 </span>
               </button>
-              <span className="text-sm font-bold text-text-main">
+              <span className="text-text-main text-sm font-bold">
                 {existingItem.quantity}
               </span>
               <button
                 onClick={() => handleIncreaseQuantity(item)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-text-main font-semibold hover:bg-primary-hover transition-colors duration-200"
+                className="bg-primary text-text-main hover:bg-primary-hover flex h-6 w-6 items-center justify-center rounded-full font-semibold transition-colors duration-200"
               >
-                <span className="w-4 h-4 flex items-center justify-center">
+                <span className="flex h-4 w-4 items-center justify-center">
                   +
                 </span>
               </button>
@@ -114,9 +115,9 @@ const ProductCard = ({ item }) => {
           ) : (
             <button
               onClick={() => handleAddToCart(item)}
-              className="flex items-center px-4 py-2 bg-primary text-text-main font-semibold rounded-full hover:bg-primary-hover transition-colors duration-200 shadow-md text-sm"
+              className="bg-primary text-text-main hover:bg-primary-hover flex items-center rounded-full px-4 py-2 text-sm font-semibold shadow-md transition-colors duration-200"
             >
-              <Icon name="shopping-cart" className="w-4 h-4 mr-2" /> Add
+              <Icon name="shopping-cart" className="mr-2 h-4 w-4" /> Add
             </button>
           )}
         </div>

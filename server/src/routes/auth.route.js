@@ -1,21 +1,22 @@
 import { Router } from 'express';
+import passport from 'passport';
+
 import {
-  loginUser,
-  registerUser,
-  logoutUser,
   changePassword,
-  verifyUserOTP,
-  refreshAccessToken,
+  getUserProfileData,
   googleAuthCallback,
   initiateGoogleAuth,
-  getUserProfileData,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  registerUser,
+  verifyUserOTP,
 } from '../controllers/auth.controller.js';
 import {
   authorizeRoles,
   checkAuth,
   isLoggedIn,
 } from '../middlewares/auth.middleware.js';
-import passport from 'passport';
 
 const authRoute = Router();
 

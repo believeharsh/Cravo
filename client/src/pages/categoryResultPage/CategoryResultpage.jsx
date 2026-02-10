@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
-import Navbar from '../../components/Navbar/Navbar';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useSearchParams } from 'react-router-dom';
+
 import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar/Navbar';
+import {
+  clearCategoryResults,
+  fetchCategoryRestaurants,
+} from '../../features/categoryResult/categoryResultSlice';
 import CategoryHeader from './sections/CategoryHeader';
+import ExploreMore from './sections/ExploreMore';
 import FilterAndSortBar from './sections/FilterAndSortBar';
 import RestaurantList from './sections/RestaurantList';
-import ExploreMore from './sections/ExploreMore';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  fetchCategoryRestaurants,
-  clearCategoryResults,
-} from '../../features/categoryResult/categoryResultSlice';
 
 const CategoryResultPage = () => {
   const { categorySlug } = useParams();
@@ -186,8 +187,8 @@ const CategoryResultPage = () => {
   // Initial loading state (show full screen loader only if no restaurants are loaded yet)
   if (loading && restaurants.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bg-subtle">
-        <p className="text-xl font-semibold text-text-secondary">
+      <div className="bg-bg-subtle flex min-h-screen items-center justify-center">
+        <p className="text-text-secondary text-xl font-semibold">
           Loading restaurants...
         </p>
       </div>
@@ -197,20 +198,20 @@ const CategoryResultPage = () => {
   // Initial error state (show full screen error only if no restaurants are loaded yet)
   if (error && restaurants.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bg-subtle">
+      <div className="bg-bg-subtle flex min-h-screen items-center justify-center">
         <p className="text-xl font-semibold text-red-500">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen font-helvetica">
+    <div className="font-helvetica min-h-screen">
       <div
         ref={navbarRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 left-0 z-50 transition-transform duration-300 ease-in-out ${
           isNavbarVisible
-            ? 'transform translate-y-0'
-            : 'transform -translate-y-full'
+            ? 'translate-y-0 transform'
+            : '-translate-y-full transform'
         }`}
         style={{
           backgroundColor: 'rgba(255, 255, 255, 0.95)',
@@ -221,7 +222,7 @@ const CategoryResultPage = () => {
       </div>
 
       <div className="pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
           <CategoryHeader
             categoryName={categorySlug}
             categoryDescription={`Showing restaurants for ${categorySlug}`}
@@ -233,7 +234,7 @@ const CategoryResultPage = () => {
             ref={filterBarRef}
             className={`transition-all duration-100 ease-in ${
               isFilterBarSticky
-                ? 'fixed top-0 left-0 right-0 z-40 bg-white'
+                ? 'fixed top-0 right-0 left-0 z-40 bg-white'
                 : 'relative bg-transparent'
             }`}
             style={
@@ -241,7 +242,7 @@ const CategoryResultPage = () => {
             }
           >
             <div
-              className={`${isFilterBarSticky ? 'max-w-7xl mx-auto px-4 sm:px-6' : ''}`}
+              className={`${isFilterBarSticky ? 'mx-auto max-w-7xl px-4 sm:px-6' : ''}`}
             >
               <FilterAndSortBar
                 selectedSortBy={selectedSortBy}
@@ -264,17 +265,17 @@ const CategoryResultPage = () => {
             {restaurants.length > 0 ? (
               <RestaurantList restaurants={restaurants} isLoading={loading} />
             ) : (
-              <p className="text-center text-text-secondary text-lg mt-8">
+              <p className="text-text-secondary mt-8 text-center text-lg">
                 No restaurants found for "{categorySlug}" in this area.
               </p>
             )}
 
             {currentPage < totalPages && (
-              <div className="flex justify-center mt-8">
+              <div className="mt-8 flex justify-center">
                 <button
                   onClick={handleLoadMore}
                   disabled={loading}
-                  className="px-6 py-3 bg-primary hover:bg-primary-hover text-text-main font-semibold rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-primary hover:bg-primary-hover text-text-main rounded-xl px-6 py-3 font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {loading ? 'Loading More...' : 'Load More'}
                 </button>
@@ -282,7 +283,7 @@ const CategoryResultPage = () => {
             )}
 
             {error && restaurants.length > 0 && (
-              <p className="text-center text-red-500 text-sm mt-4">{error}</p>
+              <p className="mt-4 text-center text-sm text-red-500">{error}</p>
             )}
           </div>
 

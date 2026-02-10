@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import Icon from '../ui/Icon';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { logoutUser } from '../../features/auth/authSlice';
+import Icon from '../ui/Icon';
 
 const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
   const profileDropdownRef = useRef(null);
@@ -35,7 +36,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
     <div className="relative" ref={profileDropdownRef}>
       <button
         onClick={onToggle}
-        className={`relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 ${
+        className={`hover:bg-bg-subtle relative flex cursor-pointer items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 hover:scale-105 ${
           isOpen
             ? 'bg-yellow-50 text-yellow-600'
             : 'text-text-secondary hover:text-text-main'
@@ -52,12 +53,12 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 w-56 bg-white rounded-sm shadow-lg z-50">
+        <div className="absolute top-full right-0 z-50 mt-2 w-56 rounded-sm bg-white shadow-lg">
           <div className="py-1">
             {/* Account */}
             <Link
               to="/profile/account"
-              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="user" size={16} className="mr-2" />
@@ -67,7 +68,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Settings */}
             <Link
               to="/profile/settings"
-              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="settings" size={16} className="mr-2" />
@@ -77,7 +78,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Favorites */}
             <Link
               to="/profile/favorites"
-              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="heart" size={16} className="mr-2" />
@@ -87,7 +88,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Orders */}
             <Link
               to="/profile/orders"
-              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="shopping-bag" size={16} className="mr-2" />
@@ -97,7 +98,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Help & Support */}
             <Link
               to="/help"
-              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
               onClick={onClose}
             >
               <Icon name="help-circle" size={16} className="mr-2" />
@@ -107,7 +108,7 @@ const ProfileDropdown = ({ isOpen, onClose, onToggle }) => {
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+              className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
             >
               <Icon name="log-out" size={16} className="mr-2" />
               Logout

@@ -4,27 +4,20 @@
 // import axiosInstance from '../../../api/axiosInstance';
 // import RestaurantCard from '../../../components/shared/RestaurantCard';
 // import { API } from '../../../config/api';
-
 // const RestaurantGrid = () => {
-
 //   const { city, latitude, longitude } = useSelector(state => state.location);
 //   const navigate = useNavigate();
-
 //   // 3. Local State (Grid Data)
 //   const [restaurants, setRestaurants] = useState([]);
 //   const [isLoading, setIsLoading] = useState(true);
 //   const [error, setError] = useState(null);
-
 //   const limit = 10;
 //   const page = 1;
-
 //   useEffect(() => {
 //     const fetchRestaurants = async () => {
 //       setError(null);
 //       setIsLoading(true); // Always set loading state when starting fetch
-
 //       const queryParams = new URLSearchParams();
-
 //       if (city) {
 //         queryParams.append('cityName', city);
 //       } else if (latitude && longitude) {
@@ -35,10 +28,8 @@
 //         setIsLoading(false);
 //         return;
 //       }
-
 //       queryParams.append('limit', limit);
 //       queryParams.append('page', page);
-
 //       try {
 //         const apiUrl = `${API.RESTAURANTS.RESTAURANTS_LIST}?${queryParams.toString()}`;
 //         console.log(apiUrl);
@@ -53,27 +44,22 @@
 //         setIsLoading(false);
 //       }
 //     };
-
 //     if (city || (latitude && longitude)) {
 //       fetchRestaurants();
 //     } else {
 //       setIsLoading(false);
 //     }
 //   }, [city, latitude, longitude, limit, page]);
-
 //   const handleNavigateToCategoryResultPage = categoryName => {
 //     const queryParams = new URLSearchParams();
-
 //     if (city) {
 //       queryParams.append('cityName', city);
 //     } else if (latitude && longitude) {
 //       queryParams.append('lat', latitude);
 //       queryParams.append('lng', longitude);
 //     }
-
 //     navigate(`/categories/${categoryName}?${queryParams.toString()}`);
 //   };
-
 //   if (isLoading) {
 //     return (
 //       <section className="py-6 text-center">
@@ -83,7 +69,6 @@
 //       </section>
 //     );
 //   }
-
 //   if (error) {
 //     return (
 //       <section className="py-6 text-center">
@@ -93,7 +78,6 @@
 //       </section>
 //     );
 //   }
-
 //   if (restaurants.length === 0) {
 //     return (
 //       <section className="py-6 text-center">
@@ -105,7 +89,6 @@
 //       </section>
 //     );
 //   }
-
 //   return (
 //     <section className="py-6">
 //       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -130,16 +113,15 @@
 //     </section>
 //   );
 // };
-
 // export default RestaurantGrid;
-
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import axiosInstance from '../../../api/axiosInstance';
 import RestaurantCard from '../../../components/shared/RestaurantCard';
-import { API } from '../../../config/api';
 import RestaurantSkeletonCard from '../../../components/shared/RestaurantCardSkeleton';
+import { API } from '../../../config/api';
 
 const RestaurantGrid = () => {
   // --- Redux Location State (Single Source of Truth) ---
@@ -258,11 +240,11 @@ const RestaurantGrid = () => {
   if (isLoading && restaurants.length === 0) {
     return (
       <section className="py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-xl font-bold text-text-main mb-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 className="text-text-main mb-8 text-xl font-bold">
             Loading Restaurants...
           </h2>
-          <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {/* Show 8 skeletons for a good first-load experience */}
             {Array.from({ length: 8 }).map((_, index) => (
               <RestaurantSkeletonCard key={`initial-skel-${index}`} />
@@ -284,11 +266,11 @@ const RestaurantGrid = () => {
   // --- Main Render ---
   return (
     <section className="">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-xl font-bold text-text-main mb-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="text-text-main mb-8 text-xl font-bold">
           Restaurants with online delivery in {city}
         </h2>
-        <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {/* Render all fetched restaurants */}
           {restaurants.map((r, index) => {
             const restaurant_slug = r.name.toLowerCase().replace(/\s+/g, '-');
@@ -321,7 +303,7 @@ const RestaurantGrid = () => {
 
         {/* End of List Message */}
         {!hasMore && restaurants.length > 0 && (
-          <div className="text-center py-8">
+          <div className="py-8 text-center">
             <p className="text-text-muted">
               You've reached the end of the list. ✨
             </p>

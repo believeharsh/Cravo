@@ -1,10 +1,11 @@
 import React from 'react';
+
 import {
-  ShoppingCart,
-  XCircle,
-  Navigation,
   ChevronDown,
   ChevronUp,
+  Navigation,
+  ShoppingCart,
+  XCircle,
 } from 'lucide-react';
 
 const OrderSummary = ({
@@ -24,67 +25,67 @@ const OrderSummary = ({
         <img
           src={order.restaurant.image}
           alt={order.restaurant.name}
-          className="w-20 h-20 rounded-xl object-cover"
+          className="h-20 w-20 rounded-xl object-cover"
         />
 
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-text-main">
+              <h3 className="text-text-main text-lg font-bold">
                 {order.restaurant.name}
               </h3>
-              <p className="text-sm text-text-muted mt-0.5">
+              <p className="text-text-muted mt-0.5 text-sm">
                 {formatDate(order.orderDate)}
               </p>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="mt-1 text-xs text-gray-400">
                 Order ID: {order.orderId}
               </p>
 
-              <div className="flex items-center gap-3 mt-3">
+              <div className="mt-3 flex items-center gap-3">
                 <span
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${status.color}`}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${status.color}`}
                 >
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${status.dotColor}`}
+                    className={`h-1.5 w-1.5 rounded-full ${status.dotColor}`}
                   ></span>
                   {status.label}
                 </span>
 
                 {order.estimatedDelivery && order.status !== 'delivered' && (
-                  <span className="text-xs text-yellow-600 font-medium">
+                  <span className="text-xs font-medium text-yellow-600">
                     ETA: {formatETA(order.estimatedDelivery)}
                   </span>
                 )}
               </div>
 
               {order.status === 'cancelled' && order.cancellationReason && (
-                <p className="text-xs text-red-600 mt-2">
+                <p className="mt-2 text-xs text-red-600">
                   Reason: {order.cancellationReason}
                 </p>
               )}
             </div>
 
             <div className="text-right">
-              <p className="text-xl font-bold text-text-main">
+              <p className="text-text-main text-xl font-bold">
                 ₹{order.total.toFixed(2)}
               </p>
-              <p className="text-sm text-text-muted mt-1">
+              <p className="text-text-muted mt-1 text-sm">
                 {order.items.length} items
               </p>
-              <p className="text-xs text-green-600 font-medium mt-1">
+              <p className="mt-1 text-xs font-medium text-green-600">
                 {order.paymentStatus}
               </p>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div className="mt-4 flex flex-wrap gap-2">
             {order.canReorder && (
               <button
                 onClick={() => onReorder(order)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-text-main rounded-lg font-semibold transition-colors text-sm"
+                className="bg-primary hover:bg-primary-hover text-text-main inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors"
               >
-                <ShoppingCart className="w-4 h-4" />
+                <ShoppingCart className="h-4 w-4" />
                 Reorder
               </button>
             )}
@@ -93,9 +94,9 @@ const OrderSummary = ({
               order.canCancel && (
                 <button
                   onClick={() => onCancel(order.id)}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-semibold transition-colors text-sm"
+                  className="inline-flex items-center gap-2 rounded-lg bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition-colors hover:bg-red-100"
                 >
-                  <XCircle className="w-4 h-4" />
+                  <XCircle className="h-4 w-4" />
                   Cancel
                 </button>
               )}
@@ -103,22 +104,22 @@ const OrderSummary = ({
             {['preparing', 'on_the_way'].includes(order.status) && (
               <button
                 onClick={() => onTrack(order)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-text-main rounded-lg font-semibold transition-colors text-sm"
+                className="text-text-main inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold transition-colors hover:bg-gray-200"
               >
-                <Navigation className="w-4 h-4" />
+                <Navigation className="h-4 w-4" />
                 Track
               </button>
             )}
 
             <button
               onClick={onToggleExpand}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-text-main rounded-lg font-semibold transition-colors text-sm"
+              className="text-text-main inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold transition-colors hover:bg-gray-200"
             >
               {isExpanded ? 'Hide' : 'View'} Details
               {isExpanded ? (
-                <ChevronUp className="w-4 h-4" />
+                <ChevronUp className="h-4 w-4" />
               ) : (
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="h-4 w-4" />
               )}
             </button>
           </div>

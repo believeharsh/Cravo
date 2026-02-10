@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { getLandingPageData } from '../controllers/landing.controller.js';
 
 const landingRoute = Router();

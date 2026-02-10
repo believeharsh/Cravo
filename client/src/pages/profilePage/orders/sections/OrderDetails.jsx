@@ -1,11 +1,12 @@
 import React from 'react';
-import OrderItemsList from '../components/OrderItemsList';
+
 import BillSummary from '../components/BillSummary';
 import DeliveryInfo from '../components/DeliveryInfo';
+import OrderItemsList from '../components/OrderItemsList';
 
 const OrderDetails = ({ order }) => {
   return (
-    <div className="border-t border-border bg-bg-subtle p-6 space-y-6">
+    <div className="border-border bg-bg-subtle space-y-6 border-t p-6">
       <OrderItemsList items={order.items} />
 
       <BillSummary

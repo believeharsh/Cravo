@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": [
+    "client/src/main.jsx",
+    "server/src/index.js",
+    "client/vite.config.js"
+  ],
+  "project": [
+    "client/src/**/*.{js,jsx,ts,tsx}",
+    "server/src/**/*.js",
+    "client/vite.config.js"
+  ]
+}

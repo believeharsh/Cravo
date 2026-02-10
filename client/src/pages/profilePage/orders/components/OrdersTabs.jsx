@@ -14,10 +14,10 @@ const OrdersTabs = ({ activeTab, setActiveTab, counts }) => {
         <button
           key={key}
           onClick={() => setActiveTab(key)}
-          className={`px-6 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${
+          className={`rounded-xl px-6 py-2.5 font-semibold whitespace-nowrap transition-all ${
             activeTab === key
               ? 'bg-primary text-text-main shadow-lg'
-              : 'bg-white text-text-secondary hover:bg-bg-subtle border border-border'
+              : 'text-text-secondary hover:bg-bg-subtle border-border border bg-white'
           }`}
         >
           {label} {count > 0 && `(${count})`}

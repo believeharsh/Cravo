@@ -1,13 +1,15 @@
 import { Router } from 'express';
+
 import {
-  getRestaurantsByQuery,
+  AllProductsOfTheRestaurant,
   getRestaurantById,
   getRestaurantsByLocation,
-  AllProductsOfTheRestaurant,
+  getRestaurantsByQuery,
   getRestaurantsWithNoProducts,
   getTopRatedRestuarantsOfTheCity,
 } from '../controllers/restaurant.controller.js';
 import { checkAuth, isLoggedIn } from '../middlewares/auth.middleware.js';
+
 const restaurantRoute = Router();
 
 restaurantRoute.use(checkAuth);

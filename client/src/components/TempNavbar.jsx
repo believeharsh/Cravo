@@ -1,10 +1,11 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+
+import { logoutUser } from '../features/auth/authSlice';
 import { selectCartTotalQuantity } from '../features/cart/cartSelectors';
 import { openAuthSidebar } from '../features/ui/uiSlice';
 import Icon from './ui/Icon';
-import { logoutUser } from '../features/auth/authSlice';
 
 // The Button component is self-contained and doesn't need changes.
 const Button = ({
@@ -43,21 +44,21 @@ const SearchModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 transition-transform duration-300 transform scale-100 opacity-100">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-start justify-center bg-black p-4 backdrop-blur-sm transition-opacity duration-300">
+      <div className="relative w-full max-w-2xl scale-100 transform rounded-2xl bg-white p-6 opacity-100 shadow-xl transition-transform duration-300">
         <Button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-text-secondary transition-colors"
+          className="hover:text-text-secondary absolute top-4 right-4 text-gray-400 transition-colors"
           variant="ghost"
         >
           <Icon name="x" size={24} />
         </Button>
-        <h2 className="text-2xl font-bold text-text-main mb-6">Search</h2>
-        <form onSubmit={onSearchSubmit} className="w-full relative">
+        <h2 className="text-text-main mb-6 text-2xl font-bold">Search</h2>
+        <form onSubmit={onSearchSubmit} className="relative w-full">
           <div className="relative">
             <Icon
               name="search"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-muted cursor-pointer"
+              className="text-text-muted absolute top-1/2 left-4 -translate-y-1/2 transform cursor-pointer"
               size={20}
             />
             <input
@@ -65,13 +66,13 @@ const SearchModal = ({
               placeholder="Search for restaurants, cuisines, or dishes..."
               value={searchQuery}
               onChange={onSearchChange}
-              className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-text-main font-medium transition-colors duration-200"
+              className="text-text-main w-full rounded-xl bg-gray-100 py-3 pr-4 pl-12 font-medium transition-colors duration-200 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
               autoFocus
             />
           </div>
         </form>
         <div className="mt-6">
-          <p className="text-sm text-text-muted">
+          <p className="text-text-muted text-sm">
             Start typing to explore options...
           </p>
         </div>
@@ -188,15 +189,15 @@ const Navbar = ({ showSearch = true, visibilty }) => {
   return (
     <>
       <nav
-        className={`bg-white border-b border-border top-0 z-50 shadow-sm ${visibilty}`}
+        className={`border-border top-0 z-50 border-b bg-white shadow-sm ${visibilty}`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex h-16 items-center justify-between lg:h-20">
             <Link
               to="/"
-              className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0"
+              className="flex flex-shrink-0 items-center space-x-2 sm:space-x-3"
             >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl border-2 border-white flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-white sm:h-14 sm:w-14 md:h-16 md:w-16">
                 <img
                   src={`/assets/Cravo_logo.png`}
                   alt="Cravo Logo"
@@ -210,37 +211,37 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               </div>
             </Link>
 
-            <div className="hidden sm:flex flex-1 items-center space-x-4 ml-6 mr-auto">
-              <div className="flex items-center space-x-2 text-text-secondary hover:text-yellow-600 transition-colors cursor-pointer group">
+            <div className="mr-auto ml-6 hidden flex-1 items-center space-x-4 sm:flex">
+              <div className="text-text-secondary group flex cursor-pointer items-center space-x-2 transition-colors hover:text-yellow-600">
                 <Icon
                   name="map-pin"
                   size={20}
-                  className="text-gray-400 group-hover:text-yellow-500 transition-colors"
+                  className="text-gray-400 transition-colors group-hover:text-yellow-500"
                 />
-                <span className="font-medium text-sm md:text-base hidden sm:inline">
+                <span className="hidden text-sm font-medium sm:inline md:text-base">
                   {userLocation}
                 </span>
                 <Icon
                   name="chevron-down"
                   size={20}
-                  className="text-gray-400 group-hover:text-yellow-500 transition-colors"
+                  className="text-gray-400 transition-colors group-hover:text-yellow-500"
                 />
               </div>
 
               {showSearch && (
                 <div
-                  className="hidden lg:flex items-center space-x-2 px-4 py-2 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors max-w-xs"
+                  className="hidden max-w-xs cursor-pointer items-center space-x-2 rounded-full bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200 lg:flex"
                   onClick={openSearchModal}
                 >
                   <Icon name="search" size={18} className="text-text-muted" />
-                  <span className="text-text-muted text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                  <span className="text-text-muted overflow-hidden text-sm font-medium text-ellipsis whitespace-nowrap">
                     Search for food, restaurants...
                   </span>
                 </div>
               )}
             </div>
 
-            <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
+            <div className="hidden flex-shrink-0 items-center space-x-2 lg:flex">
               {navItems.map(item => {
                 // Special case for profile with dropdown
                 if (item.id === 'profile') {
@@ -252,7 +253,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     >
                       <button
                         onClick={item.action}
-                        className={`relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 ${
+                        className={`hover:bg-bg-subtle relative flex cursor-pointer items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 hover:scale-105 ${
                           isProfileDropdownOpen
                             ? 'bg-yellow-50 text-yellow-600'
                             : 'text-text-secondary hover:text-text-main'
@@ -269,12 +270,12 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                         />
                       </button>
                       {isProfileDropdownOpen && (
-                        <div className="absolute top-full mt-2 right-0 w-56 bg-white rounded-sm shadow-lg z-50">
+                        <div className="absolute top-full right-0 z-50 mt-2 w-56 rounded-sm bg-white shadow-lg">
                           <div className="py-1">
                             {/* Account */}
                             <Link
                               to="/profile/account"
-                              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+                              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
                               onClick={() => setIsProfileDropdownOpen(false)}
                             >
                               <Icon name="user" size={16} className="mr-2" />
@@ -284,7 +285,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                             {/* Settings */}
                             <Link
                               to="/profile/settings"
-                              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+                              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
                               onClick={() => setIsProfileDropdownOpen(false)}
                             >
                               <Icon
@@ -298,7 +299,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                             {/* Favorites */}
                             <Link
                               to="/profile/favorites"
-                              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+                              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
                               onClick={() => setIsProfileDropdownOpen(false)}
                             >
                               <Icon name="heart" size={16} className="mr-2" />
@@ -308,7 +309,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                             {/* Orders */}
                             <Link
                               to="/profile/orders"
-                              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+                              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
                               onClick={() => setIsProfileDropdownOpen(false)}
                             >
                               <Icon
@@ -322,7 +323,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                             {/* Help & Support */}
                             <Link
                               to="/help"
-                              className="flex items-center px-4 py-2 text-sm text-text-secondary hover:bg-gray-100"
+                              className="text-text-secondary flex items-center px-4 py-2 text-sm hover:bg-gray-100"
                               onClick={() => setIsProfileDropdownOpen(false)}
                             >
                               <Icon
@@ -340,7 +341,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                                 dispatch(logoutUser());
                                 navigate('/');
                               }}
-                              className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                              className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
                             >
                               <Icon name="log-out" size={16} className="mr-2" />
                               Logout
@@ -358,7 +359,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     <button
                       key={item.id}
                       onClick={item.action}
-                      className="relative cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 text-text-secondary hover:text-text-main"
+                      className="hover:bg-bg-subtle text-text-secondary hover:text-text-main relative flex cursor-pointer items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 hover:scale-105"
                     >
                       <Icon name={item.Iconname} size={18} />
                       <span className="hidden xl:block">{item.label}</span>
@@ -372,7 +373,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     key={item.id}
                     to={item.path}
                     className={({ isActive }) =>
-                      `relative flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 hover:bg-bg-subtle hover:scale-105 ${
+                      `hover:bg-bg-subtle relative flex items-center space-x-2 rounded-xl px-4 py-2 font-medium transition-all duration-200 hover:scale-105 ${
                         isActive
                           ? 'bg-yellow-50 text-yellow-600'
                           : 'text-text-secondary hover:text-text-main'
@@ -382,12 +383,12 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     <Icon name={item.Iconname} size={18} />
                     <span className="hidden xl:block">{item.label}</span>
                     {item.badge && (
-                      <span className="absolute -top-1 -right-1 bg-primary text-text-main text-xs font-bold px-2 py-0.5 rounded-full">
+                      <span className="bg-primary text-text-main absolute -top-1 -right-1 rounded-full px-2 py-0.5 text-xs font-bold">
                         {item.badge}
                       </span>
                     )}
                     {item.count && (
-                      <span className="absolute -top-0.5 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      <span className="absolute -top-0.5 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
                         {cartCount > 99 ? '99+' : `${cartCount}`}
                       </span>
                     )}
@@ -396,20 +397,24 @@ const Navbar = ({ showSearch = true, visibilty }) => {
               })}
             </div>
 
-            <div className="sm:hidden flex items-center space-x-2 flex-shrink-0">
+            <div className="flex flex-shrink-0 items-center space-x-2 sm:hidden">
               {showSearch && (
                 <Button
                   onClick={openSearchModal}
-                  className="p-2 rounded-xl"
+                  className="rounded-xl p-2"
                   variant="ghost"
                   aria-label="Open search"
                 >
-                  <Icon name={'search'} size={24} className="text-text-secondary" />
+                  <Icon
+                    name={'search'}
+                    size={24}
+                    className="text-text-secondary"
+                  />
                 </Button>
               )}
               <Button
                 onClick={toggleMobileMenu}
-                className="p-2 rounded-xl"
+                className="rounded-xl p-2"
                 variant="ghost"
                 aria-label={
                   isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'
@@ -418,13 +423,17 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                 {isMobileMenuOpen ? (
                   <Icon name={'x'} size={24} className="text-text-secondary" />
                 ) : (
-                  <Icon name={'menu'} size={24} className="text-text-secondary" />
+                  <Icon
+                    name={'menu'}
+                    size={24}
+                    className="text-text-secondary"
+                  />
                 )}
               </Button>
               <div className="flex items-center">
                 <NavLink
                   to="/cart"
-                  className="relative p-2 rounded-xl transition-colors hover:bg-gray-100"
+                  className="relative rounded-xl p-2 transition-colors hover:bg-gray-100"
                 >
                   <Icon
                     name={'shopping-cart'}
@@ -432,7 +441,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                     className="text-text-secondary"
                   />
                   {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
                       {cartCount > 99 ? '99+' : cartCount}
                     </span>
                   )}
@@ -442,14 +451,14 @@ const Navbar = ({ showSearch = true, visibilty }) => {
           </div>
 
           <div
-            className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            className={`overflow-hidden transition-all duration-300 ease-in-out lg:hidden ${
               isMobileMenuOpen
                 ? 'max-h-screen opacity-100'
                 : 'max-h-0 opacity-0'
             }`}
           >
-            <div className="py-4 border-t border-border space-y-2">
-              <div className="flex items-center space-x-3 p-4 rounded-xl text-text-secondary">
+            <div className="border-border space-y-2 border-t py-4">
+              <div className="text-text-secondary flex items-center space-x-3 rounded-xl p-4">
                 <Icon name="map-pin" size={20} className="text-gray-400" />
                 <span>{userLocation}</span>
               </div>
@@ -463,7 +472,7 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                         item.action();
                         toggleMobileMenu();
                       }}
-                      className="w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 text-text-secondary hover:bg-bg-subtle"
+                      className="text-text-secondary hover:bg-bg-subtle flex w-full items-center justify-between rounded-xl p-4 font-medium transition-all duration-200"
                     >
                       <div className="flex items-center space-x-3">
                         <Icon name={item.Iconname} size={20} />
@@ -481,9 +490,9 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                       to={item.path}
                       onClick={toggleMobileMenu}
                       className={({ isActive }) =>
-                        `w-full flex items-center justify-between p-4 rounded-xl font-medium transition-all duration-200 ${
+                        `flex w-full items-center justify-between rounded-xl p-4 font-medium transition-all duration-200 ${
                           isActive
-                            ? 'bg-yellow-50 text-yellow-600 border border-yellow-200'
+                            ? 'border border-yellow-200 bg-yellow-50 text-yellow-600'
                             : 'text-text-secondary hover:bg-bg-subtle'
                         }`
                       }
@@ -501,8 +510,8 @@ const Navbar = ({ showSearch = true, visibilty }) => {
                   )
                 )}
             </div>
-            <div className="p-4 bg-bg-subtle border-t border-border">
-              <p className="text-sm text-text-secondary text-center">
+            <div className="bg-bg-subtle border-border border-t p-4">
+              <p className="text-text-secondary text-center text-sm">
                 Cravo - Satisfy Your Cravings
               </p>
             </div>

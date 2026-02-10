@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+
 import Icon from '../components/ui/Icon';
-import Button from './ui/Button';
 import Navbar from './Navbar/Navbar';
+import Button from './ui/Button';
 
 const ProfileLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -87,25 +88,25 @@ const ProfileLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex bg-bg-subtle">
+      <div className="bg-bg-subtle flex min-h-screen">
         {/* Mobile Overlay */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black opacity-50 z-20 lg:hidden"
+            className="fixed inset-0 z-20 bg-black opacity-50 lg:hidden"
             onClick={() => setIsSidebarOpen(false)}
           ></div>
         )}
 
         {/* Sidebar */}
         <aside
-          className={`fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-border transform transition-transform duration-300 ease-in-out ${
+          className={`border-border fixed inset-y-0 left-0 z-30 w-72 transform border-r bg-white transition-transform duration-300 ease-in-out lg:static ${
             isSidebarOpen
               ? 'translate-x-0'
               : '-translate-x-full lg:translate-x-0'
           }`}
         >
           {/* Close button for mobile sidebar */}
-          <div className="lg:hidden absolute top-4 right-4 z-40">
+          <div className="absolute top-4 right-4 z-40 lg:hidden">
             <Button
               onClick={() => setIsSidebarOpen(false)}
               className="text-text-secondary hover:text-text-main"
@@ -114,7 +115,7 @@ const ProfileLayout = () => {
             </Button>
           </div>
 
-          <nav className="p-4 space-y-2 overflow-y-auto">
+          <nav className="space-y-2 overflow-y-auto p-4">
             {[...sidebarOptions, ...additionalOptions].map(
               ({ id, title, icon, color, count, badge, path, action }) =>
                 path ? (
@@ -122,9 +123,9 @@ const ProfileLayout = () => {
                     key={id}
                     to={path}
                     className={({ isActive }) =>
-                      `flex items-center justify-between w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 ${
+                      `flex w-full items-center justify-between rounded-lg px-4 py-3 text-left hover:bg-gray-100 ${
                         isActive
-                          ? 'bg-yellow-100 text-yellow-700 font-semibold'
+                          ? 'bg-yellow-100 font-semibold text-yellow-700'
                           : 'text-text-main'
                       }`
                     }
@@ -135,13 +136,13 @@ const ProfileLayout = () => {
                       {/* Corrected here */}
                       <span>{title}</span>
                       {badge && (
-                        <span className="ml-2 text-xs bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full">
+                        <span className="ml-2 rounded-full bg-yellow-200 px-2 py-0.5 text-xs text-yellow-800">
                           {badge}
                         </span>
                       )}
                     </div>
                     {count && (
-                      <span className="text-sm text-text-muted">{count}</span>
+                      <span className="text-text-muted text-sm">{count}</span>
                     )}
                   </NavLink>
                 ) : (
@@ -152,7 +153,7 @@ const ProfileLayout = () => {
                       action && action();
                       setIsSidebarOpen(false);
                     }}
-                    className={`flex items-center justify-between w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-text-main`}
+                    className={`text-text-main flex w-full items-center justify-between rounded-lg px-4 py-3 text-left hover:bg-gray-100`}
                   >
                     <div className="flex items-center gap-3">
                       <Icon name={icon} className={`${color}`} size={20} />
@@ -165,21 +166,21 @@ const ProfileLayout = () => {
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-1 flex flex-col">
-          <header className="lg:hidden sticky top-0 p-4 flex items-center justify-between border-b border-border z-20">
+        <main className="flex flex-1 flex-col">
+          <header className="border-border sticky top-0 z-20 flex items-center justify-between border-b p-4 lg:hidden">
             <Button onClick={() => setIsSidebarOpen(true)}>
               <Icon name={'menu'} size={24} />
             </Button>
-            <h1 className="text-lg font-semibold text-text-main">
+            <h1 className="text-text-main text-lg font-semibold">
               {getMobileSectionTitle()}
             </h1>
-            <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white">
+            <div className="bg-primary flex h-6 w-6 items-center justify-center rounded-full text-white">
               <Icon name="shopping-cart" size={16} color="white" />
             </div>
           </header>
 
           {/* rendering different profile pages using Router's Outlet */}
-          <div className="flex-1 p-6 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto p-6">
             <Outlet />
           </div>
         </main>

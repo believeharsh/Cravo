@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import {
   deleteRestaurant,
   getRestaurantsByCity,

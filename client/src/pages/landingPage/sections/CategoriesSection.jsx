@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Icon from '../../../components/ui/Icon';
 import { useNavigate } from 'react-router-dom';
+
+import Icon from '../../../components/ui/Icon';
 
 // This component can render either a real category card or a skeleton loader
 const CategoryCard = ({ c, width, onClick, isLoading }) => {
@@ -9,8 +10,8 @@ const CategoryCard = ({ c, width, onClick, isLoading }) => {
     return (
       <div className="flex-shrink-0 sm:px-1" style={{ width }}>
         <div className="flex flex-col items-center justify-center">
-          <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-100 rounded-full animate-pulse"></div>
-          <div className="mt-2 w-20 h-4 bg-gray-200 rounded animate-pulse"></div>
+          <div className="h-24 w-24 animate-pulse rounded-full bg-gray-100 sm:h-28 sm:w-28"></div>
+          <div className="mt-2 h-4 w-20 animate-pulse rounded bg-gray-200"></div>
         </div>
       </div>
     );
@@ -22,20 +23,16 @@ const CategoryCard = ({ c, width, onClick, isLoading }) => {
       style={{ width }}
       onClick={() => onClick(c.name || c.slug)}
     >
-      <div
-        className="flex flex-col items-center
-                   justify-center hover:-translate-y-1
-                   transition-transform duration-200 ease-out cursor-pointer"
-      >
+      <div className="flex cursor-pointer flex-col items-center justify-center transition-transform duration-200 ease-out hover:-translate-y-1">
         <img
           src={c.image}
           alt={c.name}
-          className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-full"
+          className="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
           onError={e => {
             e.target.src = '/placeholder-category.png';
           }}
         />
-        <span className="mt-2 font-semibold text-text-secondary text-md text-center">
+        <span className="text-text-secondary text-md mt-2 text-center font-semibold">
           {c.name}
         </span>
       </div>
@@ -138,9 +135,9 @@ const CategoriesSlider = () => {
 
   if (error) {
     return (
-      <section className="py-5 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center py-8">
+      <section className="bg-white py-5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="py-8 text-center">
             <p className="text-red-500">Failed to load categories</p>
           </div>
         </div>
@@ -149,10 +146,10 @@ const CategoriesSlider = () => {
   }
 
   return (
-    <section className="py-5 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-xl font-semibold text-text-main">
+    <section className="bg-white py-5">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-text-main text-xl font-semibold">
             What's on your mind <span>{UserFirstName}</span> ?
           </p>
           {categoriesPerRow > itemsToShow && !isLoading && (
@@ -160,10 +157,10 @@ const CategoriesSlider = () => {
               <button
                 onClick={() => setIndex(i => Math.max(0, i - 1))}
                 disabled={index === 0}
-                className={`p-2 rounded-full border transition ${
+                className={`rounded-full border p-2 transition ${
                   index === 0
-                    ? 'border-border text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
+                    ? 'border-border cursor-not-allowed text-gray-300'
+                    : 'text-text-secondary hover:border-border-focus border-gray-300 hover:text-yellow-600'
                 }`}
               >
                 <Icon name={'chevron-left'} size={18} />
@@ -171,10 +168,10 @@ const CategoriesSlider = () => {
               <button
                 onClick={() => setIndex(i => Math.min(maxIndex, i + 1))}
                 disabled={index === maxIndex}
-                className={`p-2 rounded-full border transition ${
+                className={`rounded-full border p-2 transition ${
                   index === maxIndex
-                    ? 'border-border text-gray-300 cursor-not-allowed'
-                    : 'border-gray-300 text-text-secondary hover:border-border-focus hover:text-yellow-600'
+                    ? 'border-border cursor-not-allowed text-gray-300'
+                    : 'text-text-secondary hover:border-border-focus border-gray-300 hover:text-yellow-600'
                 }`}
               >
                 <Icon name={'chevron-right'} size={18} />

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+
 import Icon from '../../../components/ui/Icon';
 
 const CorporateNavigation = () => {
   return (
     <>
-      <nav className="px-2 lg:px-2 py-2 lg:py-1 bg-white border-b border-border sticky top-0 z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <nav className="border-border sticky top-0 z-50 border-b bg-white px-2 py-2 shadow-lg lg:px-2 lg:py-1">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
           <Link to="/" className="flex items-center space-x-3 lg:space-x-5">
-            <div className="w-7 h-7 lg:w-12 lg:h-12 rounded-2xl flex items-center justify-center">
+            <div className="flex h-7 w-7 items-center justify-center rounded-2xl lg:h-12 lg:w-12">
               <img src={`/assets/Cravo_logo.png`} alt="Cravo Logo" />
             </div>
             <div className="w-8 lg:w-28">
@@ -20,13 +21,13 @@ const CorporateNavigation = () => {
           </Link>
 
           <div className="flex items-center space-x-3 lg:space-x-6">
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden items-center space-x-4 lg:flex">
               <NavLink
                 to="/corporate/about-cravo"
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
                     isActive
-                      ? 'text-yellow-600 font-semibold'
+                      ? 'font-semibold text-yellow-600'
                       : 'text-text-secondary hover:text-text-main'
                   }`
                 }
@@ -39,7 +40,7 @@ const CorporateNavigation = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
                     isActive
-                      ? 'text-yellow-600 font-semibold'
+                      ? 'font-semibold text-yellow-600'
                       : 'text-text-secondary hover:text-text-main'
                   }`
                 }
@@ -52,7 +53,7 @@ const CorporateNavigation = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
                     isActive
-                      ? 'text-yellow-600 font-semibold'
+                      ? 'font-semibold text-yellow-600'
                       : 'text-text-secondary hover:text-text-main'
                   }`
                 }
@@ -65,7 +66,7 @@ const CorporateNavigation = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
                     isActive
-                      ? 'text-yellow-600 font-semibold'
+                      ? 'font-semibold text-yellow-600'
                       : 'text-text-secondary hover:text-text-main'
                   }`
                 }
@@ -78,7 +79,7 @@ const CorporateNavigation = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-1 text-lg ${
                     isActive
-                      ? 'text-yellow-600 font-semibold'
+                      ? 'font-semibold text-yellow-600'
                       : 'text-text-secondary hover:text-text-main'
                   }`
                 }

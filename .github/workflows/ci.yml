@@ -1,0 +1,38 @@
+name: continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - staging
+      - main
+  workflow_dispatch:
+
+jobs:
+  quality-check:
+    name: Code Quality (Prettier & Knip)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret Scan (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Root Dependencies
+        run: npm ci
+
+      - name: Run Prettier Check
+        run: npm run prettier:check
+
+      - name: Run Knip (Unused Code Check)
+        run: npm run knip

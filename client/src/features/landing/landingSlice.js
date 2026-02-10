@@ -1,8 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../api/axiosInstance';
-import { checkAuthStatus } from '../auth/authSlice';
-import { API } from '../../config/api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import axios from 'axios';
+
+import axiosInstance from '../../api/axiosInstance';
+import { API } from '../../config/api';
+import { checkAuthStatus } from '../auth/authSlice';
 import { setUserLocation } from '../location/locationSlice';
 
 export const initializeApplication = createAsyncThunk(

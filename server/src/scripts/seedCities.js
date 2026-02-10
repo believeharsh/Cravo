@@ -1,10 +1,11 @@
 import { v2 as cloudinary } from 'cloudinary';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import City from '../models/city.model.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import { EnvConfig } from '../config/env.config.js';
+import City from '../models/city.model.js';
 
 dotenv.config();
 

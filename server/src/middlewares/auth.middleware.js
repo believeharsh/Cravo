@@ -1,7 +1,7 @@
-import { validateToken } from '../services/userTokens.js';
-import { asyncHandler } from '../services/asyncHandler.js';
 import User from '../models/user.model.js';
 import { apiError } from '../services/apiError.js';
+import { asyncHandler } from '../services/asyncHandler.js';
+import { validateToken } from '../services/userTokens.js';
 
 const checkAuth = asyncHandler(async (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');

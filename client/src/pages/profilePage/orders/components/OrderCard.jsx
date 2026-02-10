@@ -1,6 +1,7 @@
 import React from 'react';
-import OrderSummary from '../sections/OrderSummary';
+
 import OrderDetails from '../sections/OrderDetails';
+import OrderSummary from '../sections/OrderSummary';
 
 const OrderCard = ({
   order,
@@ -14,7 +15,7 @@ const OrderCard = ({
   formatETA,
 }) => {
   return (
-    <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="border-border overflow-hidden rounded-2xl border bg-white transition-shadow hover:shadow-lg">
       <OrderSummary
         order={order}
         status={status}

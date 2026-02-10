@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Icon from '../../../components/ui/Icon';
-import { useSearchContext } from '../../../hooks/useSearchContext';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import Icon from '../../../components/ui/Icon';
 import { setUserLocation } from '../../../features/location/locationSlice';
+import { useSearchContext } from '../../../hooks/useSearchContext';
 
 const SUPPORTED_CITIES = [
   'ahmadabad',
@@ -101,35 +102,35 @@ const Hero = () => {
   const locationPlaceholder = `${initialIpLocation.city}, ${initialIpLocation.region}, ${initialIpLocation.country}`;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12 sm:pb-20">
-      <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center">
+    <div className="mx-auto max-w-7xl px-4 pt-4 pb-12 sm:px-6 sm:pt-8 sm:pb-20">
+      <div className="grid items-start gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
         {/* LEFT SECTION */}
         <div className="space-y-6 sm:space-y-8">
           <div className="space-y-3 sm:space-y-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic font-stretch-semi-condensed text-center sm:text-left">
-                <span className="text-main block">Your Favorite</span>
+            <h1 className="text-center text-3xl font-black italic font-stretch-semi-condensed sm:text-left sm:text-4xl md:text-5xl lg:text-6xl">
+              <span className="text-main block">Your Favorite</span>
               <span className="text-main block">Food, </span>
               <span className="relative inline-block">
                 <span className="text-main relative z-10">Delivered</span>
-                <span className="absolute bottom-2 left-0 w-full rounded-se-4xl rounded-ss-4xl h-3 bg-white -z-0"></span>
+                <span className="absolute bottom-2 left-0 -z-0 h-3 w-full rounded-ss-4xl rounded-se-4xl bg-white"></span>
               </span>
               <span className="text-main"> Fast</span>
             </h1>
-            <p className="text-text-secondary text-base sm:text-lg md:text-xl max-w-xl text-center sm:text-left font-medium">
+            <p className="text-text-secondary max-w-xl text-center text-base font-medium sm:text-left sm:text-lg md:text-xl">
               Order from 1000+ restaurants and get your cravings delivered in
               just 30 minutes ⚡
             </p>
           </div>
 
           {/* Search Section */}
-          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-border">
+          <div className="border-border rounded-2xl border bg-white p-4 shadow-lg sm:p-6">
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
                 {/* Location Search */}
                 <div className="relative" ref={locationRef}>
                   <Icon
                     name="map-pin"
-                    className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-text-muted"
+                    className="text-text-muted absolute top-1/2 left-3 -translate-y-1/2 transform sm:left-4"
                     size={18}
                   />
                   <input
@@ -138,11 +139,11 @@ const Hero = () => {
                     value={locationSearchTerm}
                     onChange={handleLocationChange}
                     onFocus={handleInputFocus}
-                    className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-border rounded-xl focus:outline-none focus:border-border-focus text-text-main font-medium text-sm sm:text-base"
+                    className="border-border focus:border-border-focus text-text-main w-full rounded-xl border-2 py-3 pr-10 pl-10 text-sm font-medium focus:outline-none sm:py-4 sm:pl-12 sm:text-base"
                   />
                   <Icon
                     name={isLocationLoading ? 'spinner' : 'chevron-down'}
-                    className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-text-muted ${
+                    className={`text-text-muted absolute top-1/2 right-3 -translate-y-1/2 transform sm:right-4 ${
                       isLocationLoading ? 'animate-spin' : ''
                     }`}
                     size={18}
@@ -151,9 +152,9 @@ const Hero = () => {
                   {/* Suggestions Dropdown */}
                   {showSuggestions &&
                     (suggestions.length > 0 || isLocationLoading) && (
-                      <div className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-2xl border border-border overflow-hidden max-h-64 overflow-y-auto">
+                      <div className="border-border absolute z-10 mt-2 max-h-64 w-full overflow-hidden overflow-y-auto rounded-xl border bg-white shadow-2xl">
                         <div
-                          className="flex items-center gap-3 p-4 text-sm font-medium text-blue-600 hover:bg-bg-subtle cursor-pointer"
+                          className="hover:bg-bg-subtle flex cursor-pointer items-center gap-3 p-4 text-sm font-medium text-blue-600"
                           onClick={handleUseCurrentLocation}
                         >
                           <Icon name="locate-fixed" size={18} />
@@ -162,7 +163,7 @@ const Hero = () => {
                         <hr className="border-border" />
 
                         {isLocationLoading && (
-                          <div className="p-4 text-center text-sm text-text-muted">
+                          <div className="text-text-muted p-4 text-center text-sm">
                             Loading...
                           </div>
                         )}
@@ -171,7 +172,7 @@ const Hero = () => {
                             {suggestions.map((location, index) => (
                               <li
                                 key={index}
-                                className="px-4 py-3 hover:bg-bg-subtle cursor-pointer text-sm font-medium text-text-secondary"
+                                className="hover:bg-bg-subtle text-text-secondary cursor-pointer px-4 py-3 text-sm font-medium"
                                 onMouseDown={e => e.preventDefault()}
                                 onClick={() => handleSelectLocation(location)}
                               >
@@ -188,7 +189,7 @@ const Hero = () => {
                 <div className="relative">
                   <Icon
                     name="search"
-                    className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-text-muted"
+                    className="text-text-muted absolute top-1/2 left-3 -translate-y-1/2 transform sm:left-4"
                     size={18}
                   />
                   <input
@@ -196,7 +197,7 @@ const Hero = () => {
                     placeholder="Pizza, Burger, Chinese..."
                     value={categoryName}
                     onChange={handleCategoryChange}
-                    className="w-full pl-10 sm:pl-12 pr-10 py-3 sm:py-4 border-2 border-border rounded-xl focus:outline-none focus:border-border-focus text-text-main font-medium text-sm sm:text-base"
+                    className="border-border focus:border-border-focus text-text-main w-full rounded-xl border-2 py-3 pr-10 pl-10 text-sm font-medium focus:outline-none sm:py-4 sm:pl-12 sm:text-base"
                   />
                 </div>
               </div>
@@ -205,7 +206,7 @@ const Hero = () => {
               <button
                 onClick={handleSearchSubmit}
                 disabled={!selectedLocation || isLocationLoading}
-                className="w-full bg-primary hover:bg-primary-hover text-text-main font-bold py-3 sm:py-4 rounded-xl transition-colors shadow-md text-sm sm:text-base cursor-pointer disabled:opacity-50"
+                className="bg-primary hover:bg-primary-hover text-text-main w-full cursor-pointer rounded-xl py-3 text-sm font-bold shadow-md transition-colors disabled:opacity-50 sm:py-4 sm:text-base"
               >
                 Find Delicious Food
               </button>
@@ -215,15 +216,15 @@ const Hero = () => {
 
         {/* RIGHT SECTION (Branding Circle) */}
         <div className="relative mt-8 lg:mt-0">
-          <div className="bg-gradient-to-br from-white to-bg-subtle rounded-3xl p-6 sm:p-8 shadow-xl">
-            <div className="text-center space-y-4 sm:space-y-6">
+          <div className="to-bg-subtle rounded-3xl bg-gradient-to-br from-white p-6 shadow-xl sm:p-8">
+            <div className="space-y-4 text-center sm:space-y-6">
               <div className="relative">
-                <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 mx-auto bg-gradient-to-br from-primary to-primary-hover rounded-full flex items-center justify-center shadow-lg">
+                <div className="from-primary to-primary-hover mx-auto flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br shadow-lg sm:h-56 sm:w-56 lg:h-64 lg:w-64">
                   <div className="text-center">
-                    <div className="text-4xl sm:text-5xl lg:text-6xl mb-2 sm:mb-4">
+                    <div className="mb-2 text-4xl sm:mb-4 sm:text-5xl lg:text-6xl">
                       🍽️
                     </div>
-                    <p className="text-text-main text-base sm:text-lg font-bold">
+                    <p className="text-text-main text-base font-bold sm:text-lg">
                       Premium Quality
                     </p>
                     <p className="text-text-secondary text-xs sm:text-sm">
@@ -232,13 +233,13 @@ const Hero = () => {
                   </div>
                 </div>
 
-                <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 bg-secondary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+                <div className="bg-secondary absolute -top-2 -left-2 rounded-full px-2 py-1 text-xs font-bold text-white shadow-lg sm:-top-4 sm:-left-4 sm:px-4 sm:py-2 sm:text-sm">
                   🌿 Fresh
                 </div>
-                <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-primary-hover text-text-main px-2 sm:px-4 py-1 sm:py-2 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+                <div className="bg-primary-hover text-text-main absolute -right-2 -bottom-2 rounded-full px-2 py-1 text-xs font-bold shadow-lg sm:-right-4 sm:-bottom-4 sm:px-4 sm:py-2 sm:text-sm">
                   ⚡ 30 min
                 </div>
-                <div className="absolute top-1/2 -right-4 sm:-right-8 bg-white text-text-main px-2 sm:px-3 py-1 sm:py-2 rounded-full font-semibold shadow-lg text-xs sm:text-sm border-2 border-border-focus">
+                <div className="text-text-main border-border-focus absolute top-1/2 -right-4 rounded-full border-2 bg-white px-2 py-1 text-xs font-semibold shadow-lg sm:-right-8 sm:px-3 sm:py-2 sm:text-sm">
                   1000+ 🏪
                 </div>
               </div>

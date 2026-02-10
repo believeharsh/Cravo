@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const CityCard = ({ city }) => (
-  <div className="px-2 sm:px-3 mb-4">
-    <div
-      className="bg-white rounded-xl border border-border flex flex-col items-center
-                 justify-center py-5 hover:-translate-y-1 hover:shadow-md
-                 transition-transform duration-200 ease-out"
-    >
-      <span className="font-medium text-text-secondary text-sm text-center">
+  <div className="mb-4 px-2 sm:px-3">
+    <div className="border-border flex flex-col items-center justify-center rounded-xl border bg-white py-5 transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-md">
+      <span className="text-text-secondary text-center text-sm font-medium">
         {city.name}
       </span>
     </div>
@@ -47,19 +43,21 @@ const CitiesSection = () => {
 
   return (
     <section className="mb-2 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 mt-15">
+        <div className="mt-15 mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-text-main">Cities We Serve</h2>
-            <p className="text-text-secondary text-sm mt-1">
+            <h2 className="text-text-main text-xl font-bold">
+              Cities We Serve
+            </h2>
+            <p className="text-text-secondary mt-1 text-sm">
               Bringing delicious food to your doorstep across India
             </p>
           </div>
         </div>
 
         {/* Cities Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {citiesToDisplay.map(city => (
             <CityCard key={city._id} city={city} />
           ))}
@@ -67,20 +65,18 @@ const CitiesSection = () => {
 
         {/* Show More/Less Button */}
         {hasMoreCities && (
-          <div className="flex justify-center mt-6">
+          <div className="mt-6 flex justify-center">
             {!showAll ? (
               <button
                 onClick={handleShowMore}
-                className="px-6 py-2 bg-primary-hover text-white rounded-lg hover:bg-yellow-600 
-                         transition-colors duration-200 font-medium text-sm"
+                className="bg-primary-hover rounded-lg px-6 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-yellow-600"
               >
                 Show More Cities ({cities.length - INITIAL_CITIES_COUNT})
               </button>
             ) : (
               <button
                 onClick={handleShowLess}
-                className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 
-                         transition-colors duration-200 font-medium text-sm"
+                className="rounded-lg bg-gray-500 px-6 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-gray-600"
               >
                 Show Less
               </button>
@@ -90,19 +86,19 @@ const CitiesSection = () => {
 
         {/* Loading and Error States */}
         {isLoading && (
-          <div className="flex justify-center items-center py-8">
+          <div className="flex items-center justify-center py-8">
             <div className="text-text-muted">Loading cities...</div>
           </div>
         )}
 
         {error && (
-          <div className="flex justify-center items-center py-8">
+          <div className="flex items-center justify-center py-8">
             <div className="text-red-500">Error loading cities</div>
           </div>
         )}
 
         {!isLoading && !error && cities.length === 0 && (
-          <div className="flex justify-center items-center py-8">
+          <div className="flex items-center justify-center py-8">
             <div className="text-text-muted">No cities available</div>
           </div>
         )}
